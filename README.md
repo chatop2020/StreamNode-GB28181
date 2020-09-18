@@ -3,7 +3,7 @@
 - 本项目是基于ZLMediaKit的流媒体控制管理接口平台，支持RTSP,GB28181的设备拉流与推流控制，GB28181部分支持PTZ控制。
 - 对ZLMediaKit的源码做了一些小的改造，用于将ZLMediaKit的http回调增加流媒体服务的唯一标识，以及对ffmpeg管理部分的一个小修改
 - /src/Common/config.cpp
-~~~c++
+~~~c++   
 namespace mediakit {
 /*新增开始*/
     string generalGuid() {
