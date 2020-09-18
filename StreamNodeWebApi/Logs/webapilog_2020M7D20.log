@@ -1,0 +1,104 @@
+[07/20/2020 13:58:14]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:00:44]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:01:34]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:02:33]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:06:17]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:07:17]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:07:34]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	StatusCode:200  Body: true
+[07/20/2020 14:08:01]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:08:48]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	StatusCode:200  Body: true
+[07/20/2020 14:10:29]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:10:29]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	StatusCode:200  Body: true
+[07/20/2020 14:12:31]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	{}
+[07/20/2020 14:12:31]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipGateStatus	StatusCode:400  Body: {"Code":0,"Message":"无错误"}
+[07/20/2020 14:31:02]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetIdleCameraList	{}
+[07/20/2020 14:31:02]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetIdleCameraList	StatusCode:200  Body: []
+[07/20/2020 14:31:11]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetIdleCameraList	{}
+[07/20/2020 14:31:11]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetIdleCameraList	StatusCode:200  Body: []
+[07/20/2020 14:31:21]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipDeviceList	{}
+[07/20/2020 14:31:45]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetIdleCameraList	{"deviceid":"34020000002220000001"}
+[07/20/2020 14:31:45]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetIdleCameraList	StatusCode:200  Body: []
+[07/20/2020 14:31:53]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetRealLiveCameraList	{"deviceid":"34020000002220000001"}
+[07/20/2020 14:31:53]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetRealLiveCameraList	StatusCode:200  Body: [{"Camera":{"ID":0,"Ctype":0,"ChannelID":null,"Name":"34020000002000000001","DeviceID":"34020000001370000008","NvrID":null,"Status":"ON","RecordStatus":0,"FrameRate":null,"AudioFomate":null,"VideoFomate":null,"RealStreamType":null,"Cache":null,"Longitude":"0","Latitude":"0","Adddress":"34020000","IsPTZ":0,"EndTime":"0001-01-01T00:00:00","Manufacturer":"huawei","Model":"IPC6625-Z30-S","Owner":"34020000","CivilCode":"340200","Block":null,"Parental":0,"AccessType":0,"ParentID":"34020000002220000001","SafetyWay":0,"RegisterWay":1,"CertNum":null,"Certifiable":0,"ErrCode":0,"Secrecy":0,"IPAddress":"192.168.2.164","Port":5800,"Password":null,"PTZType":null,"PositionType":null,"RoomType":null,"UserType":null,"SupplyLightType":null,"DirectionType":null,"Resolution":null,"BusinessGroupID":null,"DownloadSpeed":null,"SVCSpaceSupportMode":null,"SVCTimeSupportMode":null,"CreateTime":"0001-01-01T00:00:00","UpdateTime":"0001-01-01T00:00:00","RtspMain":null,"RtspSub":null,"SubordinatePlatform":null,"RtmpStreamKey":null,"ExAttribute":null,"VoiceTwoWay":null},"Vhost":"__defaultVhost__","App":"rtp","StreamId":550819264,"StreamServerIp":"192.168.2.43","StreamServerPort":10000,"SipCameraStatus":0}]
+[07/20/2020 14:33:20]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipCameraExInfo	{"cameraid":"34020000001370000008"}
+[07/20/2020 14:33:20]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipCameraExInfo	StatusCode:200  Body: {"Camera":{"ID":0,"Ctype":0,"ChannelID":null,"Name":"34020000002000000001","DeviceID":"34020000001370000008","NvrID":null,"Status":"ON","RecordStatus":0,"FrameRate":null,"AudioFomate":null,"VideoFomate":null,"RealStreamType":null,"Cache":null,"Longitude":"0","Latitude":"0","Adddress":"34020000","IsPTZ":0,"EndTime":"0001-01-01T00:00:00","Manufacturer":"huawei","Model":"IPC6625-Z30-S","Owner":"34020000","CivilCode":"340200","Block":null,"Parental":0,"AccessType":0,"ParentID":"34020000002220000001","SafetyWay":0,"RegisterWay":1,"CertNum":null,"Certifiable":0,"ErrCode":0,"Secrecy":0,"IPAddress":"192.168.2.164","Port":5800,"Password":null,"PTZType":null,"PositionType":null,"RoomType":null,"UserType":null,"SupplyLightType":null,"DirectionType":null,"Resolution":null,"BusinessGroupID":null,"DownloadSpeed":null,"SVCSpaceSupportMode":null,"SVCTimeSupportMode":null,"CreateTime":"0001-01-01T00:00:00","UpdateTime":"0001-01-01T00:00:00","RtspMain":null,"RtspSub":null,"SubordinatePlatform":null,"RtmpStreamKey":null,"ExAttribute":null,"VoiceTwoWay":null},"Vhost":"__defaultVhost__","App":"rtp","StreamId":550819264,"StreamServerIp":"192.168.2.43","StreamServerPort":10000,"SipCameraStatus":0}
+[07/20/2020 14:38:00]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetIdleCameraList	{"deviceid":"34020000002220000001"}
+[07/20/2020 14:38:00]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetIdleCameraList	StatusCode:200  Body: []
+[07/20/2020 14:38:04]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetRealLiveCameraList	{"deviceid":"34020000002220000001"}
+[07/20/2020 14:38:04]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/GetRealLiveCameraList	StatusCode:200  Body: [{"Camera":{"ID":0,"Ctype":0,"ChannelID":null,"Name":"34020000002000000001","DeviceID":"34020000001370000008","NvrID":null,"Status":"ON","RecordStatus":0,"FrameRate":null,"AudioFomate":null,"VideoFomate":null,"RealStreamType":null,"Cache":null,"Longitude":"0","Latitude":"0","Adddress":"34020000","IsPTZ":0,"EndTime":"0001-01-01T00:00:00","Manufacturer":"huawei","Model":"IPC6625-Z30-S","Owner":"34020000","CivilCode":"340200","Block":null,"Parental":0,"AccessType":0,"ParentID":"34020000002220000001","SafetyWay":0,"RegisterWay":1,"CertNum":null,"Certifiable":0,"ErrCode":0,"Secrecy":0,"IPAddress":"192.168.2.164","Port":5800,"Password":null,"PTZType":null,"PositionType":null,"RoomType":null,"UserType":null,"SupplyLightType":null,"DirectionType":null,"Resolution":null,"BusinessGroupID":null,"DownloadSpeed":null,"SVCSpaceSupportMode":null,"SVCTimeSupportMode":null,"CreateTime":"0001-01-01T00:00:00","UpdateTime":"0001-01-01T00:00:00","RtspMain":null,"RtspSub":null,"SubordinatePlatform":null,"RtmpStreamKey":null,"ExAttribute":null,"VoiceTwoWay":null},"Vhost":"__defaultVhost__","App":"rtp","StreamId":550819264,"StreamServerIp":"192.168.2.43","StreamServerPort":10000,"SipCameraStatus":0}]
+[07/20/2020 14:44:05]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipDeviceList	{}
+[07/20/2020 14:44:29]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:44:29]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:44:40]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:44:40]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:46:57]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:46:57]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:47:00]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:47:00]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:47:30]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:47:30]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:47:37]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipDeviceList	{}
+[07/20/2020 14:48:02]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:48:02]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:50:21]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:51:53]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:51:53]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:52:05]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:52:05]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"","MediaServerPort":0,"MediaId":""}
+[07/20/2020 14:52:27]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:52:27]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:53:05]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:53:05]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:53:18]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:53:19]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"","MediaServerPort":0,"MediaId":""}
+[07/20/2020 14:53:24]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:53:24]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:53:30]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:53:30]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:53:37]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:53:37]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:53:41]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:53:41]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"","MediaServerPort":0,"MediaId":""}
+[07/20/2020 14:53:47]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:53:47]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:53:51]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:53:51]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"","MediaServerPort":0,"MediaId":""}
+[07/20/2020 14:55:49]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:55:57]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"","MediaServerPort":0,"MediaId":""}
+[07/20/2020 14:56:19]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:56:41]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"","MediaServerPort":0,"MediaId":""}
+[07/20/2020 14:57:41]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:57:41]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:57:46]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipDeviceList	{}
+[07/20/2020 14:57:57]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:57:57]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 14:58:00]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:58:00]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"192.168.2.43","MediaServerPort":10000,"MediaId":"20D4D5C0"}
+[07/20/2020 14:59:07]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 14:59:07]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"","MediaServerPort":0,"MediaId":""}
+[07/20/2020 15:00:24]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 15:00:24]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:400  Body: {"Code":-4001,"Message":"Sip客户端设备或Sip摄像头不存在"}
+[07/20/2020 15:00:30]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 15:00:30]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"192.168.2.43","MediaServerPort":10000,"MediaId":"20D4D5C0"}
+[07/20/2020 15:00:42]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 15:00:42]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/ByeLiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"","MediaServerPort":0,"MediaId":""}
+[07/20/2020 15:03:20]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 15:03:21]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"192.168.2.43","MediaServerPort":10000,"MediaId":"20D4D5C0"}
+[07/20/2020 15:04:39]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	{"deviceid":"34020000002220000001","dir":"left","speed":20}
+[07/20/2020 15:04:39]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	StatusCode:200  Body: true
+[07/20/2020 15:04:41]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	{"deviceid":"34020000002220000001","dir":"left","speed":20}
+[07/20/2020 15:04:41]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	StatusCode:200  Body: true
+[07/20/2020 15:05:46]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	{"deviceid":"34020000002220000001","dir":"stop","speed":20}
+[07/20/2020 15:05:46]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	StatusCode:200  Body: true
+[07/20/2020 15:05:52]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	{"deviceid":"34020000002220000001","dir":"right","speed":20}
+[07/20/2020 15:05:52]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	StatusCode:200  Body: true
+[07/20/2020 15:05:54]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	{"deviceid":"34020000002220000001","dir":"stop","speed":20}
+[07/20/2020 15:05:55]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/PtzControl	StatusCode:200  Body: true
+[07/20/2020 15:16:19]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipDeviceList	{}
+[07/20/2020 15:17:59]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 15:17:59]	OUTPUT    ::ffff:192.168.2.45    GET    /SipGate/LiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"192.168.2.43","MediaServerPort":10000,"MediaId":"20D4D5C0","Vhost":"__defaultVhost__","App":"rtp"}
+[07/20/2020 15:18:08]	INPUT    ::ffff:192.168.2.45    GET    /SipGate/GetSipDeviceList	{}
+[07/20/2020 15:21:21]	INPUT    ::ffff:192.168.2.129    GET    /SipGate/GetSipDeviceList	{}
+[07/20/2020 15:21:56]	INPUT    ::ffff:192.168.2.129    GET    /SipGate/GetSipDeviceList	{}
+[07/20/2020 15:26:41]	INPUT    ::ffff:192.168.2.129    GET    /SipGate/LiveVideo	{"deviceid":"34020000002220000001","cameraid":"34020000001370000008"}
+[07/20/2020 15:26:41]	OUTPUT    ::ffff:192.168.2.129    GET    /SipGate/LiveVideo	StatusCode:200  Body: {"DeviceIpaddress":"192.168.2.164","Deivceid":"34020000002220000001","Cameraid":"34020000001370000008","MediaServerIpaddress":"192.168.2.43","MediaServerPort":10000,"MediaId":"20D4D5C0","Vhost":"__defaultVhost__","App":"rtp"}

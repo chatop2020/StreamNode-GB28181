@@ -1,0 +1,27 @@
+﻿<sipaccounts>
+    <sipaccount>
+        <ID>10</ID>
+        <Name>上级平台</Name>
+        <GbVersion>GB-2016</GbVersion>
+        <LocalID>34020000002000000001</LocalID>
+        <LocalIP>192.168.2.45</LocalIP>
+        <LocalPort>5060</LocalPort>
+        <RemotePort>5060</RemotePort>
+        <Authentication>false</Authentication>
+        <SIPUsername>admin</SIPUsername>
+        <SIPPassword>123456</SIPPassword>
+        <MsgProtocol>UDP</MsgProtocol>
+        <StreamProtocol>TCP</StreamProtocol>
+        <TcpMode>passive</TcpMode>
+        <MsgEncode>GB2312</MsgEncode>
+        <PacketOutOrder>true</PacketOutOrder>
+        <KeepaliveInterval>5000</KeepaliveInterval>
+        <KeepaliveNumber>3</KeepaliveNumber>
+        <MediaIP>192.168.2.43</MediaIP>
+        <MediaPort>10000</MediaPort>
+        <MediaPortMin>10000</MediaPortMin>
+        <MediaPortMax>10000</MediaPortMax>
+        <!--<ServiceType>GBToGB</ServiceType>-->
+        <!--<ServiceType>GBToDevice</ServiceType>-->
+    </sipaccount>
+</sipaccounts>

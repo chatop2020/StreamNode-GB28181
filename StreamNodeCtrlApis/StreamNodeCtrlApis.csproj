@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DebugType>full</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CommonFunctions\CommonFunctions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="SystemInfoLibrary" Version="1.4.3" />
+    </ItemGroup>
+
+</Project>

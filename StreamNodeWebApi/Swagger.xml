@@ -1,0 +1,551 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StreamNodeWebApi</name>
+    </assembly>
+    <members>
+        <member name="T:StreamNodeWebApi.AuthVerifyAttribute">
+            <summary>
+            验证session和allowkey的类
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.AuthVerifyAttribute.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            请求结束后
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AuthVerifyAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            请求进行中，判断用户session及allowkey的合法性
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:StreamNodeWebApi.LogAttribute">
+            <summary>
+            日志记录
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.LogAttribute.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            请求后
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.LogAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            请求中
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.getCameraInstanceList">
+            <summary>
+            5秒一次获取摄像头注册信息
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.doDeleteFor24HourAgo(CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            清除24小时前软删除的文件
+            </summary>
+            <param name="sdp"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.getDvrPlanFileDataList(CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            获取记录日期列表
+            </summary>
+            <param name="plan"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.getDvrPlanFileSize(CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            获取文件大小
+            </summary>
+            <param name="sdp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.DeleteFileByDay(System.Collections.Generic.List{System.String},CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            一天一天删除文件
+            </summary>
+            <param name="days"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.deleteFileOneByOne(System.Decimal,CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            文件一个一个删除
+            </summary>
+            <param name="videoSize"></param>
+            <param name="sdp"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.ExecDelete(CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            执行删除指令
+            </summary>
+            <param name="sdp"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.isTimeRange(CommonFunctions.DBStructs.DvrDayTimeRange)">
+            <summary>
+            检查时间范围
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.checkTimeRange(CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            检查是否在时间范围内
+            </summary>
+            <param name="sdp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.getDvrOnorOff(CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            获取录制状态
+            </summary>
+            <param name="sdp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.setDvrOnorOff(CommonFunctions.DBStructs.StreamDvrPlan,System.Boolean)">
+            <summary>
+            设置是否启用录制
+            </summary>
+            <param name="sdp"></param>
+            <param name="enable"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.execOnOrOff(CommonFunctions.DBStructs.StreamDvrPlan)">
+            <summary>
+            执行启动和关闭指令
+            </summary>
+            <param name="dvrPlan"></param>
+        </member>
+        <member name="T:StreamNodeWebApi.Controllers.DvrPlanController">
+            <summary>
+            授权访问接口类
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.CutOrMergeVideoFile(CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile)">
+            <summary>
+            添加一个裁剪合并任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.GetMergeTaskStatus(System.String,System.String)">
+            <summary>
+            获取裁剪合并任务状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.GetBacklogTaskList(System.String)">
+            <summary>
+            获取裁剪合并任务积压列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.DeleteDvrPlanById(System.Int64)">
+            <summary>
+            删除一个录制计划ById
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.OnOrOffDvrPlanById(System.Int64,System.Boolean)">
+            <summary>
+            启用或停用一个录制计划
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.SetDvrPlanById(System.Int64,CommonFunctions.ManageStructs.ReqStreamDvrPlan)">
+             <summary>
+             修改录制计划ById
+             </summary>
+             <param name="id"></param>
+             <param name="sdp"></param>
+             <returns></returns>
+            
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.CreateDvrPlan(CommonFunctions.ManageStructs.ReqStreamDvrPlan)">
+            <summary>
+            创建录制计划
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.GetDvrPlan(CommonFunctions.ManageStructs.ReqGetDvrPlan)">
+             <summary>
+             获取录制计划
+             </summary>
+             <returns></returns>
+            
+        </member>
+        <member name="T:StreamNodeWebApi.Controllers.MediaServerController">
+            <summary>
+            流媒体相关接口类
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.UndoSoftDelete(System.Int64)">
+            <summary>
+            恢复被软删除的录像文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.HardDeleteDvrVideoById(System.Int64)">
+            <summary>
+            删除一个录像文件ById（硬删除，立即删除文件，数据库做delete标记）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.HardDeleteDvrVideoByIdList(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            删除一批录像文件ById（硬删除，立即删除文件，数据库做delete标记）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.SoftDeleteDvrVideoById(System.Int64)">
+            <summary>
+            删除一个录像文件ById（软删除，只做标记，不删除文件，文件在24小时后删除）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetDvrVideoList(CommonFunctions.ManageStructs.ReqGetDvrVideo)">
+            <summary>
+            获取录像文件(条件灵活)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetCameraInstanceList(System.String)">
+            <summary>
+            获取摄像头实例列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.ModifyCameraInstance(System.String,CommonFunctions.WebApiStructs.Request.ReqMoidfyCameraInstance)">
+            <summary>
+            修改一个注册摄像头实例
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.DeleteCameraInstance(System.String,System.String)">
+            <summary>
+            删除一个摄像头实例
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="cameraId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.AddCameraInstance(System.String,CommonFunctions.WebApiStructs.Request.ReqAddCameraInstance)">
+            <summary>
+            注册添加一个摄像头实例
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetPlayerSessionList(System.String)">
+            <summary>
+            获取在线播放器列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetCameraSessionList(System.String)">
+            <summary>
+            获取在线摄像头列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetConfig(System.String)">
+            <summary>
+            获取流媒体配置信息
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.AddFFmpegProxy(System.String,System.String)">
+            <summary>
+            启动一个ffmpeg代理流
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="src_url"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.CloseStreams(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitCloseStreams)">
+            <summary>
+            关闭一个流
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetStreamList(System.String)">
+            <summary>
+            获取流列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.StartRecord(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStartRecord)">
+            <summary>
+            启动流的录制
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.StopRecord(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStopRecord)">
+            <summary>
+            停止流的录制
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetRecordStatus(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStopRecord)">
+            <summary>
+            获取流的录制状态
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.OpenRtpPort(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitOpenRtpPort)">
+            <summary>
+            打开某个rtp端口
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.CloseRtpPort(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitCloseRtpPort)">
+            <summary>
+            关闭某个rtp端口
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetRtpPortList(System.String)">
+            <summary>
+            获取流媒体已经开放的rtp端口列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.CheckMediaServerRunning(System.String)">
+            <summary>
+            检查流媒体服务是否正在运行
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.RestartMediaServer(System.String)">
+            <summary>
+            重启流媒体服务
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.StopMediaServer(System.String)">
+            <summary>
+            关闭流媒体服务
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.StartMediaServer(System.String)">
+            <summary>
+            启动流媒体服务
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="T:StreamNodeWebApi.Controllers.SipGateController">
+            <summary>
+            Sip网关类接口
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SipGateController.ActiveDeviceCatalogQuery(System.String)">
+            <summary>
+            获取Sip网关自动推流状态
+            </summary>
+            <param name="deviceid"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SipGateController.GetAutoPushStreamState">
+            <summary>
+            获取Sip网关自动推流状态
+            </summary>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SipGateController.SetAutoPushStreamState(System.Boolean)">
+            <summary>
+            设置Sip网关自动推流状态
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SipGateController.LiveVideo(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            请求实时视频
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="deviceid"></param>
+            <param name="cameraid"></param>
+            <param name="tcp"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SipGateController.ByeLiveVideo(System.String,System.String,System.String)">
+            <summary>
+            停止实时视频预览
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="deviceid"></param>
+            <param name="cameraid"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SipGateController.GetSipDeviceList(System.String)">
+            <summary>
+            获取已注册的设备列表
+            </summary>
+            <param name="deviceid"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SipGateController.PtzControl(System.String,System.String,System.Int32)">
+            <summary>
+            ptz控制
+            </summary>
+            <param name="deviceid"></param>
+            <param name="dir"></param>
+            <param name="speed"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="T:StreamNodeWebApi.Controllers.SystemController">
+            <summary>
+            系统接口类
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SystemController.GetMediaServerInstance(System.String)">
+            <summary>
+            获取一个流媒体服务的实例
+            </summary>
+            <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.SystemController.GetMediaServerList">
+            <summary>
+            获取流媒体服务器列表 
+            </summary>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="T:StreamNodeWebApi.Controllers.TestController">
+            <summary>
+            系统接口类
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.TestController.AddStreamProxy(System.String,System.String)">
+            <summary>
+            测试AddStreamProxy接口
+            </summary>
+            <param name="deviceid"></param>
+            <param name="url"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.TestController.GetSipDeviceList">
+            <summary>
+            获取sip设备列表 
+            </summary>
+            <returns></returns>
+            
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.TestController.GetAllCameraSession">
+            <summary>
+            获取所有摄像头列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:StreamNodeWebApi.Controllers.WebHookController">
+            <summary>
+            Sip网关类接口
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            注入httpcontext
+            </summary>
+            <param name="httpContextAccessor"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnRecordMp4Completed(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnRecordMp4Completed)">
+            <summary>
+            录制文件完成时
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnMediaServerStart(System.Object)">
+            <summary>
+            流媒体服务启动事件
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.MediaServerRegister(CommonFunctions.WebApiStructs.Response.ResMediaServerWebApiReg)">
+            <summary>
+            用于流媒体控制器注册到控制中心
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="T:StreamNodeWebApi.DatetimeJsonConverter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.DatetimeJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.DatetimeJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTime,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StreamMediaServerKeeper</name>
+    </assembly>
+    <members>
+        <member name="T:StreamMediaServerKeeper.Common">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Common.GetValue(System.String,System.String,System.String)">
+            <summary>
+            正则获取内容
+            </summary>
+            <param name="str"></param>
+            <param name="s"></param>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Common.generalGuid">
+            <summary>
+            获取随机字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Common.getMediaServerConfig">
+            <summary>
+            读取流媒体配置文件中关键信息
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Common.KillSelf(System.String)">
+            <summary>
+            结束自己
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Common.GetProcessPid(System.String)">
+            <summary>
+            获取pid
+            </summary>
+            <param name="processName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.GetBacklogTaskList">
+            <summary>
+            获取合并裁剪任务积压列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.GetMergeTaskStatus(System.String)">
+            <summary>
+            获取合并剪辑任务的进度信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.AddCutOrMergeTask(StreamMediaServerKeeper.CutMergeTask)">
+            <summary>
+            添加一个裁剪合并任务
+            </summary>
+            <param name="rcmv"></param>
+            <param name="task"></param>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.FileExists(System.String)">
+            <summary>
+            文件是否存在
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.DeleteFile(System.Collections.Generic.List{System.String})">
+            <summary>
+            批量删除文件
+            </summary>
+            <param name="filePathList"></param>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.DeleteFile(System.String)">
+            <summary>
+            删除一个文件
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.ClearNoFileDir">
+            <summary>
+            清空录制目录中的空目录
+            </summary>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.StartServer">
+            <summary>
+            启动流媒体服务器
+            </summary>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.StopServer">
+            <summary>
+            停止流媒体服务器
+            </summary>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.RestartServer">
+            <summary>
+            重启流媒体服务器
+            </summary>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.CheckIsRunning">
+            <summary>
+            流媒体服务器是否正在运行
+            </summary>
+            <returns></returns>
+            <exception cref="T:StreamMediaServerKeeper.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.CutMergeService.GetMergeTaskStatus(System.String,StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            获取合并裁剪任务的情况
+            </summary>
+            <param name="taskId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.CutMergeService.GetBacklogTaskList(StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            获取裁剪积压任务列表
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.CutMergeService.AddCutOrMergeTask(StreamMediaServerKeeper.CutMergeTask,StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            添加一个裁剪合并任务
+            </summary>
+            <param name="rcmv"></param>
+            <param name="task"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.CutMergeService.packageToTsStreamFile(StreamMediaServerKeeper.CutMergeTask)">
+            <summary>
+            将mp4转为ts格式封装，这里可能需要捕获异常，超时30分钟
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.CutMergeService.mergeProcess(StreamMediaServerKeeper.CutMergeTask)">
+            <summary>
+            生成合并文件，并合并ts文件，同时输出mp4文件， -movflags faststart 标记是可让mp4在web上快速加载播放，超时30分钟
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.CutMergeService.cutProcess(StreamMediaServerKeeper.CutMergeStruct)">
+            <summary>
+            对需要裁剪的视频进行裁剪，超时30分钟
+            </summary>
+            <param name="cms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.CutMergeService.CutMerge(StreamMediaServerKeeper.CutMergeTask)">
+            <summary>
+            对文件进行操作
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StreamMediaServerKeeper.TaskStatus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.CutMergeTask">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StreamMediaServerKeeper.CutMergeTask._processPercentage">
+            <summary>
+            Create=0%
+            Packageing=45%
+            Cutting=15%
+            Mergeing=40%
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CutMergeTask.CutMergeFileList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CutMergeTask.TaskId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CutMergeTask.CallbakUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CutMergeTask.CreateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CutMergeTask.TaskStatus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CutMergeTask.ProcessPercentage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StreamMediaServerKeeper.CutMergeTaskStatusResponse._processPercentage">
+            <summary>
+            Create=0%
+            Packageing=45%
+            Cutting=15%
+            Mergeing=40%
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.DatetimeJsonConverter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.DatetimeJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.DatetimeJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTime,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:StreamMediaServerKeeper.ErrorNumber">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.ErrorMessage">
+            <summary>
+            错误代码描述
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.FFmpegGetDuration.GetDuration(System.String,System.String,System.Int64@,System.String@)">
+            <summary>
+            输出视频的时长（毫秒）
+            </summary>
+            <param name="ffmpegBinPath"></param>
+            <param name="videoFilePath"></param>
+            <param name="duartion"></param>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StreamMediaServerKeeper.JsonHelper">
+            <summary>
+            json工具类
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.JsonHelper.ToJson(System.Object,Newtonsoft.Json.MissingMemberHandling)">
+            <summary>
+            将指定的对象序列化成 JSON 数据。
+            </summary>
+            <param name="obj">要序列化的对象。</param>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.JsonHelper.FromJson``1(System.String,Newtonsoft.Json.MissingMemberHandling)">
+            <summary>
+            将指定的 JSON 数据反序列化成指定对象。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="json">JSON 数据。</param>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StreamMediaServerKeeper.LinuxShell">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.LinuxShell.Run(System.String)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.LinuxShell.Run(System.String,System.Int32)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.LinuxShell.Run(System.String,System.Int32,System.String@)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <param name="stdOutput">结果输出</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.LinuxShell.Run(System.String,System.Int32,System.String@,System.String@)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <param name="stdOutput">结果输出</param>
+            <param name="stdError">错误输出</param>
+            <returns></returns>
+        </member>
+        <member name="T:StreamMediaServerKeeper.NetHelper">
+            <summary>
+            http请求类
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpDeleteRequestByProxy(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http delete请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpGetRequest(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32)">
+            <summary>
+            http get请求
+            </summary>
+            <param name="url"></param>
+            <param name="headers">headers</param>
+            <param name="encode"></param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpGetRequestByProxy(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http get请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpGetRequestAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32)">
+            <summary>
+            http get请求
+            </summary>
+            <param name="url"></param>
+            <param name="headers">headers</param>
+            <param name="encode"></param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpGetRequestByProxyAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http get请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpPostRequest(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.Int32)">
+            <summary>
+            http post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="param">请求参数</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpPostRequestByProxy(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="param">请求参数</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpPostRequestAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.Int32)">
+            <summary>
+            http post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="param">请求参数</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.HttpPostRequestByProxyAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="param">请求参数</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.CheckValidationResult(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            不检查证书
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.GetHttpLength(System.String)">
+            <summary>
+            从文件头得到远程文件的长度
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetHelper.Download(System.String,System.String)">
+            <summary>
+            Http方式下载文件
+            </summary>
+            <param name="url">http地址</param>
+            <param name="localfile">本地文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.FileExists(System.String,StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            检查文件是否存在
+            </summary>
+            <param name="filePath"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.DeleteFile(System.String,StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            删除一个文件
+            </summary>
+            <param name="filePath"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.DeleteFileList(System.Collections.Generic.List{System.String},StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            批量删除文件
+            </summary>
+            <param name="filePathList"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.ClearNoFileDir(StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            删除录制目录中的空目录
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.CheckIsRunning(StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            检查流媒体是否正在运行
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.StopServer(StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            关闭流媒体
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.RestartServer(StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            重启流媒体服务
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.RunServer(StreamMediaServerKeeper.ResponseStruct@)">
+            <summary>
+            启动流媒体服务
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessApis.checkProcessExists">
+            <summary>
+            用可执行文件路径确定进程是否正在运行
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
