@@ -1,4 +1,5 @@
 using System;
+using CommonFunctions.WebApiStructs.Response;
 
 namespace CommonFunctions.ManageStructs
 {
@@ -9,6 +10,7 @@ namespace CommonFunctions.ManageStructs
         private string? _callbakUrl;
         private DateTime _createTime;
         private TaskStatus? _taskStatus;
+        private CutMergeTaskResponse? _taskResponse;
 
         /// <summary>
         /// Create=0%
@@ -46,6 +48,12 @@ namespace CommonFunctions.ManageStructs
         {
             get => _processPercentage;
             set => _processPercentage = value;
+        }
+
+        public CutMergeTaskResponse? TaskResponse
+        {
+            get => _taskResponse;
+            set => _taskResponse = value;
         }
     }
 }
