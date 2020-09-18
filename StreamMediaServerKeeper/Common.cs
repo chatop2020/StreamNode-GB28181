@@ -17,7 +17,6 @@ namespace StreamMediaServerKeeper
         public static string WorkPath = Environment.CurrentDirectory + "/";
         public static string ConfigPath = WorkPath + "Config.conf";
         public static string FFmpegBinPath = WorkPath + "ffmpeg";
-        public static string FFprobeBinPath = WorkPath + "ffprobe";
         public static string StaticFilePath = WorkPath + "www/";
         public static string CutOrMergePath = StaticFilePath + "CutMergeFile/";
         public static string CutOrMergeTempPath = StaticFilePath + "CutMergeDir/";

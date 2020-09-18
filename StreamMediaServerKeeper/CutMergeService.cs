@@ -387,10 +387,10 @@ namespace StreamMediaServerKeeper
                         Directory.Delete(taskPath, true);
                     }
 
-                    if (File.Exists(Common.CutOrMergePath + task!.TaskId + "files.txt")
+                    if (File.Exists(Common.CutOrMergeTempPath + task!.TaskId + "files.txt")
                     ) //清理战场
                     {
-                        File.Delete(Common.CutOrMergePath  + task!.TaskId + "files.txt");
+                        File.Delete(Common.CutOrMergeTempPath  + task!.TaskId + "files.txt");
                     }
                 }
             }
