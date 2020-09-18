@@ -406,3 +406,8 @@ nohup dotnet StreamNodeWebApi.dll >./log/run.log &
 ~~~shell
 nohup dotnet StreamMediaServerKeeper.dll >./log/run.log &
 ~~~
+# 调试
+## StreamNodeWebApi
+- http://ip:port(5800)/swagger/index.html
+## StreamMediaServerKeeper
+- http://ip:port(6880)/swagger/index.html
