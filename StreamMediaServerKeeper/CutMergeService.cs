@@ -27,6 +27,11 @@ namespace StreamMediaServerKeeper
                     var taskReturn = CutMerge(value);
                     if (taskReturn != null)
                     {
+                       var taskStatus= CutMergeTaskStatusList.FindLast(x => x.TaskId.Equals(taskReturn.Task.TaskId));
+                       if (taskStatus != null)
+                       {
+                           taskStatus.TaskResponse = taskReturn;
+                       }
                         taskReturn.Uri = "http://"+Common.MyIPAddress+":" + Common.HttpPort.ToString() +"/"+
                                          taskReturn.FilePath!.Replace(Common.StaticFilePath, "");
                         var postDate = JsonHelper.ToJson(taskReturn);
@@ -49,7 +54,7 @@ namespace StreamMediaServerKeeper
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            var ret = CutMergeService.CutMergeTaskStatusList.FindLast(x => x.TaskId == taskId);
+            var ret = CutMergeTaskStatusList.FindLast(x => x.TaskId == taskId);
             
             if (ret == null)
             {
@@ -65,7 +70,7 @@ namespace StreamMediaServerKeeper
                 ProcessPercentage = ret.ProcessPercentage,
                 TaskId = ret.TaskId,
                 TaskStatus = ret.TaskStatus,
-                
+                TaskResponse = ret.TaskResponse,
             };
            
             return result;
