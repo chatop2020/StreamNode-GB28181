@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using CommonFunctions.WebApiStructs.Response;
 
 namespace CommonFunctions.ManageStructs
 {
@@ -22,6 +23,7 @@ namespace CommonFunctions.ManageStructs
         private string? _callbakUrl;
         private DateTime _createTime;
         private TaskStatus? _taskStatus;
+        private string? _playUrl;
 
         /// <summary>
         /// Create=0%
@@ -65,6 +67,12 @@ namespace CommonFunctions.ManageStructs
         {
             get => _processPercentage;
             set => _processPercentage = value;
+        }
+
+        public string? PlayUrl
+        {
+            get => _playUrl;
+            set => _playUrl = value;
         }
     }
 }

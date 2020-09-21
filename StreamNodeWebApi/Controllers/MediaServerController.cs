@@ -32,7 +32,7 @@ namespace StreamNodeWebApi.Controllers
         public CutMergeTaskResponse CutOrMergeVideoFile(ReqCutOrMergeVideoFile rcmv)
         {
             ResponseStruct rs;
-            var ret = DvrPlanApis.CutOrMergeVideoFile(rcmv,out rs);
+            var ret = MediaServerApis.CutOrMergeVideoFile(rcmv,out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
@@ -52,7 +52,7 @@ namespace StreamNodeWebApi.Controllers
         public CutMergeTaskStatusResponse GetMergeTaskStatus(string mediaServerId,string taskId)
         {
             ResponseStruct rs;
-            var ret = DvrPlanApis.GetMergeTaskStatus(mediaServerId,taskId,out rs);
+            var ret = MediaServerApis.GetMergeTaskStatus(mediaServerId,taskId,out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
@@ -73,7 +73,7 @@ namespace StreamNodeWebApi.Controllers
         public List<CutMergeTaskStatusResponse> GetBacklogTaskList(string mediaServerId)
         {
             ResponseStruct rs;
-            var ret = DvrPlanApis.GetBacklogTaskList(mediaServerId,out rs);
+            var ret = MediaServerApis.GetBacklogTaskList(mediaServerId,out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));

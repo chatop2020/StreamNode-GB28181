@@ -10,7 +10,7 @@ namespace CommonFunctions.ManageStructs
         private string? _callbakUrl;
         private DateTime _createTime;
         private TaskStatus? _taskStatus;
-        private CutMergeTaskResponse? _taskResponse;
+        private string? _playUrl;
 
         /// <summary>
         /// Create=0%
@@ -50,10 +50,10 @@ namespace CommonFunctions.ManageStructs
             set => _processPercentage = value;
         }
 
-        public CutMergeTaskResponse? TaskResponse
+        public string? PlayUrl
         {
-            get => _taskResponse;
-            set => _taskResponse = value;
+            get => _playUrl;
+            set => _playUrl = value;
         }
     }
 }
