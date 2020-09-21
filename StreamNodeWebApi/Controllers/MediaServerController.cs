@@ -22,6 +22,66 @@ namespace StreamNodeWebApi.Controllers
     public class MediaServerController : ControllerBase
     {
         /// <summary>
+        /// 添加一个裁剪合并任务
+        /// </summary>
+        /// <returns></returns>
+        [Route("CutOrMergeVideoFile")]
+        [HttpPost]
+        [Log]
+        [AuthVerify]
+        public CutMergeTaskResponse CutOrMergeVideoFile(ReqCutOrMergeVideoFile rcmv)
+        {
+            ResponseStruct rs;
+            var ret = DvrPlanApis.CutOrMergeVideoFile(rcmv,out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+            return ret;
+        }
+
+        
+        /// <summary>
+        /// 获取裁剪合并任务状态
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetMergeTaskStatus")]
+        [HttpGet]
+        [Log]
+        [AuthVerify]
+        public CutMergeTaskStatusResponse GetMergeTaskStatus(string mediaServerId,string taskId)
+        {
+            ResponseStruct rs;
+            var ret = DvrPlanApis.GetMergeTaskStatus(mediaServerId,taskId,out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+            return ret;
+        }
+        
+        
+        
+        /// <summary>
+        /// 获取裁剪合并任务积压列表
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetBacklogTaskList")]
+        [HttpGet]
+        [Log]
+        [AuthVerify]
+        public List<CutMergeTaskStatusResponse> GetBacklogTaskList(string mediaServerId)
+        {
+            ResponseStruct rs;
+            var ret = DvrPlanApis.GetBacklogTaskList(mediaServerId,out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+            return ret;
+        }
+        
+        /// <summary>
         /// 恢复被软删除的录像文件
         /// </summary>
         /// <returns></returns>

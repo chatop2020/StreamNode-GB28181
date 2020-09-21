@@ -121,24 +121,6 @@
             授权访问接口类
             </summary>
         </member>
-        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.CutOrMergeVideoFile(CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile)">
-            <summary>
-            添加一个裁剪合并任务
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.GetMergeTaskStatus(System.String,System.String)">
-            <summary>
-            获取裁剪合并任务状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.GetBacklogTaskList(System.String)">
-            <summary>
-            获取裁剪合并任务积压列表
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.DeleteDvrPlanById(System.Int64)">
             <summary>
             删除一个录制计划ById
@@ -177,6 +159,24 @@
             <summary>
             流媒体相关接口类
             </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.CutOrMergeVideoFile(CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile)">
+            <summary>
+            添加一个裁剪合并任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetMergeTaskStatus(System.String,System.String)">
+            <summary>
+            获取裁剪合并任务状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetBacklogTaskList(System.String)">
+            <summary>
+            获取裁剪合并任务积压列表
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.MediaServerController.UndoSoftDelete(System.Int64)">
             <summary>
