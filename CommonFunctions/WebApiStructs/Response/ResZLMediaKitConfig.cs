@@ -8,6 +8,7 @@ namespace CommonFunctions.WebApiStructs.Response
     [Serializable]
     public class ZLMediaKitConfigForResponse
     {
+       
         private bool? _api_apiDebug;
         private string? _api_defaultSnap;
         private string? _api_secret;
@@ -25,9 +26,9 @@ namespace CommonFunctions.WebApiStructs.Response
         private bool? _general_modifyStamp;
         private bool? _general_publishToHls;
         private bool? _general_publishToMP4;
-        private bool? _general_publishToRtxp;
         private bool? _general_resetWhenRePlay;
         private int? _general_streamNoneReaderDelayMS;
+        private bool? _hls_broadcastRecordTs;
         private int? _hls_fileBufSize;
         private string? _hls_filePath;
         private int? _hls_segDur;
@@ -40,6 +41,7 @@ namespace CommonFunctions.WebApiStructs.Response
         private string? _hook_on_play;
         private string? _hook_on_publish;
         private string? _hook_on_record_mp4;
+        private string? _hook_on_record_ts;
         private string? _hook_on_rtsp_auth;
         private string? _hook_on_rtsp_realm;
         private string? _hook_on_server_started;
@@ -216,13 +218,6 @@ namespace CommonFunctions.WebApiStructs.Response
             set => _general_publishToMP4 = value;
         }
 
-        [JsonProperty("general.publishToRtxp")]
-        [JsonConverter(typeof(JsonConvStr2Bool))]
-        public bool? General_PublishToRtxp
-        {
-            get => _general_publishToRtxp;
-            set => _general_publishToRtxp = value;
-        }
 
         [JsonProperty("general.resetWhenRePlay")]
         [JsonConverter(typeof(JsonConvStr2Bool))]
@@ -239,7 +234,15 @@ namespace CommonFunctions.WebApiStructs.Response
             set => _general_streamNoneReaderDelayMS = value;
         }
 
-        [JsonProperty("hls.fileBufSize")]
+        [JsonProperty("hls.broadcastRecordTs")]
+        [JsonConverter(typeof(JsonConvStr2Bool))]
+        public bool? Hls_BroadcastRecordTs
+        {
+            get => _hls_broadcastRecordTs;
+            set => _hls_broadcastRecordTs = value;
+          
+        }
+        [JsonProperty("hls.fileBufSize")] 
         public int? Hls_FileBufSize
         {
             get => _hls_fileBufSize;
@@ -318,10 +321,16 @@ namespace CommonFunctions.WebApiStructs.Response
         }
 
         [JsonProperty("hook.on_record_mp4")]
-        public string? Hoo_On_Record_Mp4
+        public string? Hook_On_Record_Mp4
         {
             get => _hook_on_record_mp4;
             set => _hook_on_record_mp4 = value;
+        }
+        [JsonProperty("hook.on_record_ts")]
+        public string? Hook_On_Record_Ts
+        {
+            get => _hook_on_record_ts;
+            set => _hook_on_record_ts = value;
         }
 
         [JsonProperty("hook.on_rtsp_auth")]

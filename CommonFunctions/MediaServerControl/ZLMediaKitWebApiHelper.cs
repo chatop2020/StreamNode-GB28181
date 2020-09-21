@@ -896,6 +896,8 @@ namespace CommonFunctions.MediaServerControl
                         }
                     }
 
+                
+                    
                     var resConfig = JsonHelper.FromJson<ResZLMediaKitConfig>(httpRet);
                     if (resConfig != null)
                     {
