@@ -92,7 +92,7 @@ namespace StreamMediaServerKeeper
                 Directory.CreateDirectory(Common.CutOrMergeTempPath);
             }
 
-            var staticfile = new StaticFileOptions();
+            /*var staticfile = new StaticFileOptions();
             staticfile.FileProvider = new PhysicalFileProvider(Common.StaticFilePath); //指定静态文件服务器
 
             //手动设置MIME Type,或者设置一个默认值， 以解决某些文件MIME Type文件识别不到，出现404错误
@@ -102,13 +102,21 @@ namespace StreamMediaServerKeeper
             {
                 c.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
             };
-            app.UseStaticFiles(staticfile);
+            app.UseStaticFiles(staticfile);*/
 
             app.UseFileServer(new FileServerOptions()
             {
                 FileProvider = new PhysicalFileProvider
                 (Path.Combine(Directory.GetCurrentDirectory(), Common.RecordPath)), //实际目录地址
                 RequestPath = new Microsoft.AspNetCore.Http.PathString("/CustomizedRecord"), //用户访问地址
+                EnableDirectoryBrowsing = true //开启目录浏览
+            });
+            
+            app.UseFileServer(new FileServerOptions()
+            {
+                FileProvider = new PhysicalFileProvider
+                    (Path.Combine(Directory.GetCurrentDirectory(), Common.CutOrMergePath)), //实际目录地址
+                RequestPath = new Microsoft.AspNetCore.Http.PathString("/CutMergeFile"), //用户访问地址
                 EnableDirectoryBrowsing = true //开启目录浏览
             });
 
