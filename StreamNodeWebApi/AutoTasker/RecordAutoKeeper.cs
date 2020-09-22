@@ -406,18 +406,21 @@ namespace StreamNodeWebApi.AutoTasker
             List<string?> dateList = null!;
             videoSize = getDvrPlanFileSize(sdp)!;
             dateList = getDvrPlanFileDataList(sdp)!;
-
-            if (dateList != null)
+            if (dateList != null && dateList.Count>0)
             {
                 Common.RemoveNull(dateList);
                 dateCount = dateList.Count;
+            }
+            else
+            {
+                dateCount = 0;
             }
 
             if (sdp.OverStepPlan == OverStepPlan.StopDvr)
             {
                 if (sdp.LimitDays > 0) //处理有天数限制的情况
                 {
-                    if (sdp.LimitDays < dateList.Count)
+                    if (sdp.LimitDays < dateCount)
                     {
                         //停掉
                         isEnable = false;
