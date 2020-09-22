@@ -721,7 +721,7 @@ namespace CommonFunctions.MediaServerControl
             };
             string innerUrl = "http://" + _ipaddress + ":" + _webApiPort + "/GetMergeTaskStatus?taskId="+taskId.Trim();
             var httpRet = NetHelper.HttpGetRequest(innerUrl, null, "utf-8", 5000);
-            Console.WriteLine("httpret返回内容2：\r\n"+httpRet);
+            
             if (!string.IsNullOrEmpty(httpRet))
             {
                 try
@@ -732,11 +732,7 @@ namespace CommonFunctions.MediaServerControl
                         return resCutMergeTaskStatusResponse;
                     }
 
-                    rs = new ResponseStruct()
-                    {
-                        Code = ErrorNumber.MediaServerCtrlWebApiExcept,
-                        Message = httpRet,
-                    };
+                   
                     return null;
                 }
                 catch
@@ -772,7 +768,7 @@ namespace CommonFunctions.MediaServerControl
             };
             string innerUrl = "http://" + _ipaddress + ":" + _webApiPort + "/GetBacklogTaskList";
             var httpRet = NetHelper.HttpGetRequest(innerUrl, null, "utf-8", 5000);
-            Console.WriteLine("httpret返回内容：\r\n"+httpRet);
+           
             if (!string.IsNullOrEmpty(httpRet))
             {
                 try
@@ -783,11 +779,7 @@ namespace CommonFunctions.MediaServerControl
                         return resCutMergeTaskStatusResponseList;
                     }
 
-                    rs = new ResponseStruct()
-                    {
-                        Code = ErrorNumber.MediaServerCtrlWebApiExcept,
-                        Message = httpRet,
-                    };
+                  
                     return null;
                 }
                 catch
@@ -835,11 +827,7 @@ namespace CommonFunctions.MediaServerControl
                         return resCutMergeTaskResponse;
                     }
 
-                    rs = new ResponseStruct()
-                    {
-                        Code = ErrorNumber.MediaServerCtrlWebApiExcept,
-                        Message = httpRet,
-                    };
+                  
                     return null;
                 }
                 catch

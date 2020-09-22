@@ -607,10 +607,10 @@ namespace CommonFunctions
             FileStream writeStream; // 写入本地文件流对象
 
             long remoteFileLength = GetHttpLength(url); // 取得远程文件长度
-            System.Console.WriteLine("remoteFileLength=" + remoteFileLength);
+           
             if (remoteFileLength <= 0 || remoteFileLength == 745)
             {
-                System.Console.WriteLine("远程文件不存在.");
+               
                 return false;
             }
 
