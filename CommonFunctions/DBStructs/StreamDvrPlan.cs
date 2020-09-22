@@ -37,6 +37,8 @@ namespace CommonFunctions.DBStructs
         public long? LimitSpace { get; set; }
 
         public int? LimitDays { get; set; }
+        
+       
         [Column(MapType = typeof(string))] public OverStepPlan? OverStepPlan { get; set; }
 
         [Navigate(nameof(DvrDayTimeRange.StreamDvrPlanId))]

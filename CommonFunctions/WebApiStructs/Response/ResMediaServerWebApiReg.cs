@@ -10,6 +10,7 @@ namespace CommonFunctions.WebApiStructs.Response
         private string? _ipaddress;
         private string _mediaServerId;
         private string _secret;
+        private string? _recordFilePath;
 
 
         public ushort MediaServerHttpPort
@@ -41,6 +42,12 @@ namespace CommonFunctions.WebApiStructs.Response
         {
             get => _secret;
             set => _secret = value;
+        }
+
+        public string? RecordFilePath
+        {
+            get => _recordFilePath;
+            set => _recordFilePath = value;
         }
     }
 }

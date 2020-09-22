@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using CommonFunctions;
+using CommonFunctions.DBStructs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -67,6 +69,7 @@ namespace StreamMediaServerKeeper
             }
             */
 
+
             app.UseHttpsRedirection();
             // 启用Swagger中间件
             app.UseSwagger();
@@ -83,6 +86,7 @@ namespace StreamMediaServerKeeper
             {
                 Directory.CreateDirectory(Common.CutOrMergePath);
             }
+
             if (!Directory.Exists(Common.CutOrMergeTempPath))
             {
                 Directory.CreateDirectory(Common.CutOrMergeTempPath);
@@ -99,6 +103,14 @@ namespace StreamMediaServerKeeper
                 c.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
             };
             app.UseStaticFiles(staticfile);
+
+            app.UseFileServer(new FileServerOptions()
+            {
+                FileProvider = new PhysicalFileProvider
+                (Path.Combine(Directory.GetCurrentDirectory(), Common.RecordPath)), //实际目录地址
+                RequestPath = new Microsoft.AspNetCore.Http.PathString("/CustomizedRecord"), //用户访问地址
+                EnableDirectoryBrowsing = true //开启目录浏览
+            });
 
 
             app.UseEndpoints(

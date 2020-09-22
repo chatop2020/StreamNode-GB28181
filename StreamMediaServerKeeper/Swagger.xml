@@ -9,6 +9,11 @@
             
             </summary>
         </member>
+        <member name="F:StreamMediaServerKeeper.Common.CustomizedRecordFilePath">
+            <summary>
+            自定义的录制文件存储位置
+            </summary>
+        </member>
         <member name="M:StreamMediaServerKeeper.Common.GetValue(System.String,System.String,System.String)">
             <summary>
             正则获取内容

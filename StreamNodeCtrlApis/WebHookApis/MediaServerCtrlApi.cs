@@ -622,7 +622,7 @@ namespace StreamNodeCtrlApis.WebHookApis
             tmpDvrVideo.PushMediaServerId = record.Mediaserverid;
             tmpDvrVideo.UpdateTime = currentTime;
             tmpDvrVideo.RecordDate = st.ToString("yyyy-MM-dd");
-            tmpDvrVideo.DownloadUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.WebApiPort + "/" +
+            tmpDvrVideo.DownloadUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.WebApiPort + "/CustomizedRecord/" +
                                       tmpDvrVideo.DownloadUrl;
 
             CameraSession session = null;
@@ -712,7 +712,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 }
 
                 MediaServerInstance msi = new MediaServerInstance(req.Ipaddress, req.WebApiServerhttpPort,
-                    req.MediaServerHttpPort, req.Secret, req.MediaServerId);
+                    req.MediaServerHttpPort, req.Secret, req.MediaServerId,req.RecordFilePath);
                 msi.KeepAlive = DateTime.Now;
 
                 lock (Common.MediaServerList)

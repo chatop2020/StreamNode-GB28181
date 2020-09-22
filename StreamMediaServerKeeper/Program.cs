@@ -10,6 +10,11 @@ namespace StreamMediaServerKeeper
         
         public static void Main(string[] args)
         {
+            ///启动一下，Common对象
+            if (string.IsNullOrEmpty(Common.CustomizedRecordFilePath))
+            {
+                Common.CustomizedRecordFilePath = "";
+            }
             CreateHostBuilder(args).Build().Run();
         }
 

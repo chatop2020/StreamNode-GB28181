@@ -10,6 +10,7 @@ namespace StreamMediaServerKeeper
         private string? _ipaddress;
         private string? _mediaServerId;
         private string? _secret;
+        private string? _recordFilePath;
 
         public ushort? MediaServerHttpPort
         {
@@ -40,6 +41,12 @@ namespace StreamMediaServerKeeper
         {
             get => _secret;
             set => _secret = value;
+        }
+
+        public string? RecordFilePath
+        {
+            get => _recordFilePath;
+            set => _recordFilePath = value;
         }
     }
 }

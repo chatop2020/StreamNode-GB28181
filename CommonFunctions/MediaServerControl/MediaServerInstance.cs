@@ -25,6 +25,7 @@ namespace CommonFunctions.MediaServerControl
         private DateTime _updateTime; //最后控制时间
         private DateTime _keepAlive;
         private ZLMediaKitWebApiHelper _webApi; //流媒体服务操作类
+        private string? _recordFilePath;//保存录制文件的目录
 
         private ZLMediaKitConfigForResponse _config = new ZLMediaKitConfigForResponse(); //流媒体服务器配置
         //private List<OnlineClientSession> _onlineClientSessionList = new List<OnlineClientSession>();
@@ -112,6 +113,12 @@ namespace CommonFunctions.MediaServerControl
             }
 
             return 0;
+        }
+
+        public string? RecordFilePath
+        {
+            get => _recordFilePath;
+            set => _recordFilePath = value;
         }
 
         public ZLMediaKitConfigForResponse Config
@@ -264,7 +271,7 @@ namespace CommonFunctions.MediaServerControl
         }*/
 
         public MediaServerInstance(string ipaddress, ushort webApiPort, ushort mediaServerHttpPort, string secret,
-            string mediaServerId)
+            string mediaServerId,string recordFilePath)
         {
             _ipaddress = ipaddress;
             _webApiPort = webApiPort;
@@ -273,6 +280,7 @@ namespace CommonFunctions.MediaServerControl
             _mediaServerId = mediaServerId;
             _webApi = new ZLMediaKitWebApiHelper(_ipaddress, mediaServerHttpPort, _secret);
             _updateTime = DateTime.Now;
+            _recordFilePath = recordFilePath;
             new Thread(new ThreadStart(delegate
 
             {

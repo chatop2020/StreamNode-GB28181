@@ -31,6 +31,10 @@ namespace StreamMediaServerKeeper
         public static string MediaServerId = null!;
         public static ProcessApis ProcessApis = new ProcessApis();
         public static string MyIPAddress = "";
+        /// <summary>
+        /// 自定义的录制文件存储位置
+        /// </summary>
+        public static string CustomizedRecordFilePath = "";
         public static LogMonitor LogMonitor= new LogMonitor();
         
       
@@ -156,6 +160,8 @@ namespace StreamMediaServerKeeper
                 "http://" + streamNodeUri.Host + ":" + streamNodeUri.Port + "/WebHook/OnPublish"; //有流发布时
             data["hook"]["on_record_mp4"] =
                 "http://" + streamNodeUri.Host + ":" + streamNodeUri.Port + "/WebHook/OnRecordMp4Completed"; //当录制mp4完成时
+            data["hook"]["on_record_ts"]=
+                "http://" + streamNodeUri.Host + ":" + streamNodeUri.Port + "/WebHook/OnRecordTsCompleted"; //当录制ts完成时
             data["hook"]["on_rtsp_auth"] = ""; //rtsp鉴权，不作支持
             data["hook"]["on_rtsp_realm"] = ""; //rtsp专用鉴权，不作支持
             data["hook"]["on_shell_login"] = ""; //shell鉴权，不作支持
@@ -242,6 +248,34 @@ namespace StreamMediaServerKeeper
                             {
                                 return false;
                             }
+                        }
+                        if (str.ToLower().Contains("customizedrecordfilepath"))
+                        {
+                            string[] tmpArr = str.Trim().Split("::", StringSplitOptions.RemoveEmptyEntries);
+                            if (tmpArr.Length == 2)
+                            {
+                                CustomizedRecordFilePath = tmpArr[1].Trim().TrimEnd(';');
+                                if (!string.IsNullOrEmpty(CustomizedRecordFilePath))
+                                {
+                                    DirectoryInfo di = null;
+                                    if (!Directory.Exists(CustomizedRecordFilePath))
+                                    {
+                                         di=Directory.CreateDirectory(CustomizedRecordFilePath);
+                                    }
+                                    else
+                                    {
+                                        di=new DirectoryInfo(CustomizedRecordFilePath);
+                                    }
+
+                                    if (di != null && di.Exists)
+                                    {
+                                        //如果自定义的存储位置不为空，则使用自定义存储位置替换原有存储位置
+                                        RecordPath = CustomizedRecordFilePath;  
+                                    }
+                                   
+                                }
+                            }
+                            
                         }
                     }
                 }
@@ -338,6 +372,7 @@ namespace StreamMediaServerKeeper
                         MediaServerId = MediaServerId,
                         Secret = Secret,
                         WebApiServerhttpPort = HttpPort,
+                        RecordFilePath = RecordPath,
                     };
                     string reqData = JsonHelper.ToJson(req);
                     try

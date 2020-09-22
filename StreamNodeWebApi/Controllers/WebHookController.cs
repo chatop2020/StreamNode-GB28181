@@ -170,6 +170,7 @@ namespace StreamNodeWebApi.Controllers
             
             var tmpObj = JsonHelper.FromJson<ZLMediaKitConfigForResponse>(str);
 
+           
             ResponseStruct rs;
             var ret = MediaServerCtrlApi.OnMediaServerStart(tmpObj, out rs);
             if (rs.Code != ErrorNumber.None)
@@ -201,6 +202,7 @@ namespace StreamNodeWebApi.Controllers
                 req.Ipaddress = thisip.MapToIPv4().ToString();
             }
 
+          
             var ret = MediaServerCtrlApi.ServerReg(req, out rs);
             if (rs.Code != ErrorNumber.None)
             {

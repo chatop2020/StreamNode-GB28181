@@ -315,6 +315,52 @@ NoticeCenter::Instance().addListener(nullptr,Broadcast::kBroadcastStreamNoneRead
 
 ~~~
 
+-src/Record/Recorder.cpp
+~~~c++
+string Recorder::getRecordPath(Recorder::type type, const string &vhost, const string &app, const string &stream_id, const string &customized_path) {
+    GET_CONFIG(bool, enableVhost, General::kEnableVhost);
+    switch (type) {
+        case Recorder::type_hls: {
+            GET_CONFIG(string, hlsPath, Hls::kFilePath);
+            string m3u8FilePath;
+            if (enableVhost) {
+                m3u8FilePath = vhost + "/" + app + "/" + stream_id + "/hls.m3u8";
+            } else {
+                m3u8FilePath = app + "/" + stream_id + "/hls.m3u8";
+            }
+            //Here we use the customized file path.
+            if (!customized_path.empty()) {
+                m3u8FilePath = customized_path + "/hls.m3u8";
+            }
+            return File::absolutePath(m3u8FilePath, hlsPath);
+        }
+        case Recorder::type_mp4: {
+            GET_CONFIG(string, recordPath, Record::kFilePath);
+            GET_CONFIG(string, recordAppName, Record::kAppName);
+            string mp4FilePath;
+            if (enableVhost) {
+                mp4FilePath = vhost + "/" + recordAppName + "/" + app + "/" + stream_id + "/";
+            } else {
+                mp4FilePath = recordAppName + "/" + app + "/" + stream_id + "/";
+            }
+            //Here we use the customized file path.
+            if (!customized_path.empty()) {
+                /*开始删除*/
+                // mp4FilePath = customized_path + "/";
+                /*删除结束*/
+                /*开始添加*/
+                return  customized_path + "/"+mp4FilePath;
+                /*开始添加*/
+            }
+
+            return File::absolutePath(mp4FilePath, recordPath);
+        }
+        default:
+            return "";
+    }
+}
+~~~
+
 # 组成部分
 ## StreamNodeWebApi
 - 全局的流媒体管理API服务，包含了所有流媒体功能的控制，如摄像头注册，录制计划，rtp推流,ptz控制等。
@@ -367,6 +413,8 @@ NoticeCenter::Instance().addListener(nullptr,Broadcast::kBroadcastStreamNoneRead
 ~~~
 
 
+
+
 ## StreamNodeWebApi/system.conf
 - StreamNodeWebApi的配置文件,参数名与参数值以::分开，每行以;结束
 - 数据库方面采用CodeFirst 模式，在数据库中建立一个名为streamnode的库，数据表会自动创建
@@ -386,6 +434,7 @@ MediaServerBinPath::/root/MediaService/MediaServer;//ZLMediaKit流媒体服务�
 StreamNodeServerUrl::http://192.168.2.43:5800/WebHook/MediaServerRegister; //向哪个StreamNodeWebApi注册自己的服务
 HttpPort::6880;//服务的WebApi端口
 IpAddress::192.168.2.43;//本机ip地址
+CustomizedRecordFilePath::/home/cdtnb; //自定义存储视频的位置 
 ~~~
 
 

@@ -373,6 +373,7 @@ namespace StreamNodeWebApi.AutoTasker
                                 Secret = "",
                                 Stream = obj.StreamId,
                                 Vhost = obj.Vhost,
+                                Customized_Path = mediaServer.RecordFilePath,
                             }, out _);
                         }
                         else
