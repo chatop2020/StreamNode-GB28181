@@ -5,6 +5,59 @@ using Newtonsoft.Json;
 namespace CommonFunctions.WebApiStructs.Response
 {
     [Serializable]
+    public class originSock
+    {
+        private string? _identifier;
+        private string? _local_ip;
+        private ushort? _local_port;
+        private string? _peer_ip;
+        private ushort? _peer_port;
+
+        public string? Identifier
+        {
+            get => _identifier;
+            set => _identifier = value;
+        }
+
+        public string? Local_Ip
+        {
+            get => _local_ip;
+            set => _local_ip = value;
+        }
+
+        public ushort? Local_Port
+        {
+            get => _local_port;
+            set => _local_port = value;
+        }
+
+        public string? Peer_Ip
+        {
+            get => _peer_ip;
+            set => _peer_ip = value;
+        }
+
+        public ushort? Peer_Port
+        {
+            get => _peer_port;
+            set => _peer_port = value;
+        }
+    }
+
+    [Serializable]
+    public enum originType
+    {
+        unknown = 0,
+        rtmp_push = 1,
+        rtsp_push = 2,
+        rtp_push = 3,
+        pull = 4,
+        ffmpeg_pull = 5,
+        mp4_vod = 6,
+        device_chn = 7
+    }
+
+    [Serializable]
     public class TracksItem
     {
         private int? _channels;
@@ -89,12 +142,17 @@ namespace CommonFunctions.WebApiStructs.Response
     [Serializable]
     public class MediaDataItem
     {
+      
         private string? _app;
         private int? _readerCount;
         private string? _schema;
         private string? _stream;
         private int? _totalReaderCount;
         private string? _vhost;
+        private originSock? _originSock;
+        private originType? _originType;
+        private string? _originTypeStr;
+        private string? _originUrl;
         private List<TracksItem> _tracks;
 
         [JsonProperty("app")]
@@ -136,6 +194,30 @@ namespace CommonFunctions.WebApiStructs.Response
         {
             get => _vhost;
             set => _vhost = value;
+        }
+
+        public originSock? OriginSock
+        {
+            get => _originSock;
+            set => _originSock = value;
+        }
+
+        public originType? OriginType
+        {
+            get => _originType;
+            set => _originType = value;
+        }
+
+        public string? OriginTypeStr
+        {
+            get => _originTypeStr;
+            set => _originTypeStr = value;
+        }
+
+        public string? OriginUrl
+        {
+            get => _originUrl;
+            set => _originUrl = value;
         }
 
         [JsonProperty("tracks")]
