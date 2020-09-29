@@ -2,6 +2,9 @@
 ## 简介
 - 本项目是基于ZLMediaKit的流媒体控制管理接口平台，支持RTSP,GB28181的设备拉流与推流控制，GB28181部分支持PTZ控制。
 - 对ZLMediaKit的源码做了一些小的改造，用于将ZLMediaKit的http回调增加流媒体服务的唯一标识，以及对ffmpeg管理部分的一个小修改
+## 结构介绍
+- ![StreamNode结构.jpg](https://i.loli.net/2020/09/29/xwkeW8agYspHKUt.jpg)
+## 修改ZLMediaKit的部分代码（ZLMediaKit作者将在近期将以下修改代码直接合并到自己的主分支上，后续将不需要再修改ZLmediaKit的代码了）
 - /src/Common/config.cpp
 ~~~c++
 namespace mediakit {
