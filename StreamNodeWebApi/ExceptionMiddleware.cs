@@ -61,7 +61,7 @@ namespace StreamNodeWebApi
                 var json = new {message = e.Message};
                 error = JsonConvert.SerializeObject(json);
             }
-            else error = "抱歉，出错了\r\n"+e.Message+"\r\n"+e.StackTrace;
+            else error = "抱歉，出错了\r\n" + e.Message + "\r\n" + e.StackTrace;
 
             string info = $@"StatusCode:{context.Response.StatusCode}";
             string remoteIpAddr = context.Connection.RemoteIpAddress.ToString();

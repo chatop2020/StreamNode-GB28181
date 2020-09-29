@@ -9,9 +9,6 @@ using IniParser.Model;
 
 namespace StreamMediaServerKeeper
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public static class Common
     {
         public static string WorkPath = Environment.CurrentDirectory + "/";
@@ -31,13 +28,13 @@ namespace StreamMediaServerKeeper
         public static string MediaServerId = null!;
         public static ProcessApis ProcessApis = new ProcessApis();
         public static string MyIPAddress = "";
+
         /// <summary>
         /// 自定义的录制文件存储位置
         /// </summary>
         public static string CustomizedRecordFilePath = "";
-        public static LogMonitor LogMonitor= new LogMonitor();
-        
-      
+
+        public static LogMonitor LogMonitor = new LogMonitor();
 
 
         /// <summary>
@@ -54,7 +51,7 @@ namespace StreamMediaServerKeeper
             return rg.Match(str).Value;
         }
 
-        
+
         private static string checkMediaServerConfig()
         {
             string dir = Path.GetDirectoryName(MediaServerBinPath) + "/";
@@ -160,7 +157,7 @@ namespace StreamMediaServerKeeper
                 "http://" + streamNodeUri.Host + ":" + streamNodeUri.Port + "/WebHook/OnPublish"; //有流发布时
             data["hook"]["on_record_mp4"] =
                 "http://" + streamNodeUri.Host + ":" + streamNodeUri.Port + "/WebHook/OnRecordMp4Completed"; //当录制mp4完成时
-            data["hook"]["on_record_ts"]=
+            data["hook"]["on_record_ts"] =
                 "http://" + streamNodeUri.Host + ":" + streamNodeUri.Port + "/WebHook/OnRecordTsCompleted"; //当录制ts完成时
             data["hook"]["on_rtsp_auth"] = ""; //rtsp鉴权，不作支持
             data["hook"]["on_rtsp_realm"] = ""; //rtsp专用鉴权，不作支持
@@ -249,6 +246,7 @@ namespace StreamMediaServerKeeper
                                 return false;
                             }
                         }
+
                         if (str.ToLower().Contains("customizedrecordfilepath"))
                         {
                             string[] tmpArr = str.Trim().Split("::", StringSplitOptions.RemoveEmptyEntries);
@@ -260,22 +258,20 @@ namespace StreamMediaServerKeeper
                                     DirectoryInfo di = null;
                                     if (!Directory.Exists(CustomizedRecordFilePath))
                                     {
-                                         di=Directory.CreateDirectory(CustomizedRecordFilePath);
+                                        di = Directory.CreateDirectory(CustomizedRecordFilePath);
                                     }
                                     else
                                     {
-                                        di=new DirectoryInfo(CustomizedRecordFilePath);
+                                        di = new DirectoryInfo(CustomizedRecordFilePath);
                                     }
 
                                     if (di != null && di.Exists)
                                     {
                                         //如果自定义的存储位置不为空，则使用自定义存储位置替换原有存储位置
-                                        RecordPath = CustomizedRecordFilePath;  
+                                        RecordPath = CustomizedRecordFilePath;
                                     }
-                                   
                                 }
                             }
-                            
                         }
                     }
                 }
@@ -394,7 +390,7 @@ namespace StreamMediaServerKeeper
                         }
                     }
 
-                    Thread.Sleep(1000 *2);
+                    Thread.Sleep(1000 * 2);
                 }
                 catch (Exception ex)
                 {
@@ -406,7 +402,6 @@ namespace StreamMediaServerKeeper
 
         static Common()
         {
-        
             try
             {
                 CutMergeService.start = true;

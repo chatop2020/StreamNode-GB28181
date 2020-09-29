@@ -92,7 +92,7 @@ namespace GB28181
 
                     // Attempt to extract a SIP message from the receive buffer.
                     byte[] sipMsgBuffer =
-                        SIPConnection.ProcessReceive(SocketBuffer, 0, SocketBufferEndPosition, out bytesSkipped);
+                        ProcessReceive(SocketBuffer, 0, SocketBufferEndPosition, out bytesSkipped);
 
                     while (sipMsgBuffer != null)
                     {
@@ -119,7 +119,7 @@ namespace GB28181
                             //Array.Clear(SocketBuffer, SocketBufferEndPosition, SocketBuffer.Length - SocketBufferEndPosition);
 
                             // Try and extract another SIP message from the receive buffer.
-                            sipMsgBuffer = SIPConnection.ProcessReceive(SocketBuffer, 0, SocketBufferEndPosition,
+                            sipMsgBuffer = ProcessReceive(SocketBuffer, 0, SocketBufferEndPosition,
                                 out bytesSkipped);
                         }
                     }

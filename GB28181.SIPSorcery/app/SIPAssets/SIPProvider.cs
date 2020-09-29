@@ -15,13 +15,15 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
-using GB28181.Sys;
+using System.Xml;
 using GB28181.Logger4Net;
-using SIPSorcery.Sys;
+using GB28181.Sys;
 using SIPSorcery.SIP;
+using SIPSorcery.Sys;
 #if !SILVERLIGHT
 using System.Data;
 
@@ -816,7 +818,7 @@ namespace GB28181.App
         }
 
 
-        public System.Collections.Generic.Dictionary<Guid, object> Load(System.Xml.XmlDocument dom)
+        public Dictionary<Guid, object> Load(XmlDocument dom)
         {
             throw new NotImplementedException();
         }

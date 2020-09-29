@@ -14,9 +14,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Net;
 using System.Threading;
-//using SIPSorcery.SIP;
 using GB28181.Logger4Net;
-using SIPSorcery.Sys;
+using SIPSorcery.Sys; //using SIPSorcery.SIP;
 
 #if UNITTEST
 using NUnit.Framework;

@@ -15,17 +15,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Resources;
 using System.Text;
-using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Schema;
-using GB28181.Sys;
 using GB28181.Logger4Net;
+using GB28181.Sys;
 using SIPSorcery.SIP;
 
 #if UNITTEST

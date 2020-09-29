@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Runtime.Serialization;
-using GB28181.Sys;
-using SIPSorcery.Sys;
-using SIPSorcery.SIP;
+using System.Collections.Generic;
 using System.Data;
+using System.Runtime.Serialization;
+using System.Xml;
+using GB28181.Sys;
+using SIPSorcery.SIP;
+using SIPSorcery.Sys;
 
 namespace GB28181.App
 {
@@ -538,7 +540,7 @@ namespace GB28181.App
         }
 
 
-        public System.Collections.Generic.Dictionary<Guid, object> Load(System.Xml.XmlDocument dom)
+        public Dictionary<Guid, object> Load(XmlDocument dom)
         {
             throw new NotImplementedException();
         }

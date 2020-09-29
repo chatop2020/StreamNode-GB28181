@@ -2,7 +2,6 @@ using System;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Request;
 
-
 namespace CommonFunctions.WebApiStructs.Response
 {
     public enum CutMergeRequestStatus
@@ -11,6 +10,7 @@ namespace CommonFunctions.WebApiStructs.Response
         Failed,
         WaitForCallBack,
     }
+
     [Serializable]
     public class CutMergeTaskResponse
     {

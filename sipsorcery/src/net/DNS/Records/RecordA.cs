@@ -36,11 +36,11 @@ namespace Heijden.DNS
 {
     public class RecordA : Record
     {
-        public System.Net.IPAddress Address;
+        public IPAddress Address;
 
         public RecordA(RecordReader rr)
         {
-            Address = new System.Net.IPAddress(rr.ReadBytes(4));
+            Address = new IPAddress(rr.ReadBytes(4));
         }
 
         public RecordA(IPAddress address)

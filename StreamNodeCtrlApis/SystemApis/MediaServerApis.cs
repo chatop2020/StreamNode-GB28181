@@ -11,14 +11,12 @@ using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
 using GB28181.Servers.SIPMonitor;
 using GB28181.Sys.Model;
-using LibGB28181SipGate;
 
 namespace StreamNodeCtrlApis.SystemApis
 {
     public static class MediaServerApis
     {
-        
-         /// <summary>
+        /// <summary>
         /// 获取需要裁剪合并的文件列表 
         /// </summary>
         /// <param name="rcmv"></param>
@@ -41,7 +39,6 @@ namespace StreamNodeCtrlApis.SystemApis
                     x => x.PushMediaServerId!.Trim().ToLower().Equals(rcmv.MediaServerId!.Trim().ToLower()))
                 .WhereIf(!string.IsNullOrEmpty(rcmv.CameraId),
                     x => x.CameraId!.Trim().ToLower().Equals(rcmv.CameraId!.Trim().ToLower()))
-              
                 .ToList(); //取条件范围的前60分钟及后60分钟内的所有数据
 
             var mediaObj = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(rcmv.MediaServerId));
@@ -408,7 +405,8 @@ namespace StreamNodeCtrlApis.SystemApis
         /// <param name="mediaServerId"></param>
         /// <param name="rs"></param>
         /// <returns></returns>
-        public static CutMergeTaskStatusResponse GetMergeTaskStatus(string mediaServerId,string taskId ,out ResponseStruct rs)
+        public static CutMergeTaskStatusResponse GetMergeTaskStatus(string mediaServerId, string taskId,
+            out ResponseStruct rs)
         {
             rs = new ResponseStruct()
             {
@@ -437,8 +435,8 @@ namespace StreamNodeCtrlApis.SystemApis
                 return null;
             }
 
-            var ret = mediaObj.GetMergeTaskStatus(taskId,out rs);
-            if ( rs.Code == ErrorNumber.None)
+            var ret = mediaObj.GetMergeTaskStatus(taskId, out rs);
+            if (rs.Code == ErrorNumber.None)
             {
                 return ret;
             }
@@ -450,7 +448,7 @@ namespace StreamNodeCtrlApis.SystemApis
             };
             return null;
         }
-        
+
         /// <summary>
         /// 获取裁剪合并任务积压列表
         /// </summary>
@@ -487,7 +485,7 @@ namespace StreamNodeCtrlApis.SystemApis
             }
 
             var retList = mediaObj.GetBacklogTaskList(out rs);
-            if ( rs.Code == ErrorNumber.None)
+            if (rs.Code == ErrorNumber.None)
             {
                 return retList;
             }
@@ -499,7 +497,7 @@ namespace StreamNodeCtrlApis.SystemApis
             };
             return null;
         }
-        
+
         /// <summary>
         /// 恢复被软删除的录制文件
         /// </summary>

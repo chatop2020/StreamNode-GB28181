@@ -142,7 +142,6 @@ namespace CommonFunctions.WebApiStructs.Response
     [Serializable]
     public class MediaDataItem
     {
-      
         private string? _app;
         private int? _readerCount;
         private string? _schema;

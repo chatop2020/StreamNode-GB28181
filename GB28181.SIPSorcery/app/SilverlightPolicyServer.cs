@@ -14,13 +14,12 @@
 
 
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using GB28181.Sys;
 using GB28181.Logger4Net;
+using GB28181.Sys;
 
 namespace GB28181.App
 {
@@ -136,7 +135,7 @@ namespace GB28181.App
                 }
 
                 // make sure the request is valid 
-                string request = System.Text.Encoding.UTF8.GetString(m_buffer, 0, m_received);
+                string request = Encoding.UTF8.GetString(m_buffer, 0, m_received);
                 if (StringComparer.InvariantCultureIgnoreCase.Compare(request, s_policyRequestString) != 0)
                 {
                     m_connection.Close();

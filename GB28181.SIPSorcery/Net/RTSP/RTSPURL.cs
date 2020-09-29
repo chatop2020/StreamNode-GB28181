@@ -11,12 +11,6 @@
 //
 
 using System;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Data;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
 using GB28181.Logger4Net;
 
 #if UNITTEST

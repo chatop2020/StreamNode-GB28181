@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -31,7 +30,6 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         public bool FileExists(string filePath, out ResponseStruct rs)
         {
-           
             rs = new ResponseStruct()
             {
                 Code = ErrorNumber.None,
@@ -48,7 +46,6 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         public bool DeleteFile(string filePath, out ResponseStruct rs)
         {
-           
             rs = new ResponseStruct()
             {
                 Code = ErrorNumber.None,
@@ -70,7 +67,6 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         public bool DeleteFileList(List<string> filePathList, out ResponseStruct rs)
         {
-          
             rs = new ResponseStruct()
             {
                 Code = ErrorNumber.None,
@@ -95,7 +91,6 @@ namespace StreamMediaServerKeeper
         /// </summary>
         public bool ClearNoFileDir(out ResponseStruct rs)
         {
-          
             rs = new ResponseStruct()
             {
                 Code = ErrorNumber.None,
@@ -183,30 +178,6 @@ namespace StreamMediaServerKeeper
             }
 
             return true;
-            /*
-            if (checkProcessExists())
-            {
-                string cmd = "kill -2 " + _pid.ToString();
-                var ret = LinuxShell.Run(cmd, 500);
-                if (ret)
-                {
-                    while (checkProcessExists())
-                    {
-                        
-                    }
-                    return true;
-                }
-
-                rs = new ResponseStruct()
-                {
-                    Code = ErrorNumber.Other,
-                    Message = ErrorMessage.ErrorDic![ErrorNumber.Other],
-                };
-                return false;
-            }
-           
-
-            return true; */
         }
 
         /// <summary>

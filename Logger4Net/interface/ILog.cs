@@ -1,7 +1,5 @@
 ﻿namespace GB28181.Logger4Net
 {
-    using System;
-
     public interface ILog
     {
         void Debug(string debugMessge);

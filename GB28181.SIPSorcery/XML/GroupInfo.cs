@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace GB28181.Sys.XML
@@ -51,7 +48,7 @@ namespace GB28181.Sys.XML
 
         public GroupInfoItem Get(string id)
         {
-            foreach (var item in GroupInfo.Instance.Items)
+            foreach (var item in Instance.Items)
             {
                 if (id == item.GroupCode.ToString())
                     return item;
@@ -62,7 +59,7 @@ namespace GB28181.Sys.XML
 
         public GroupInfoItem Get(int guid)
         {
-            foreach (var item in GroupInfo.Instance.Items)
+            foreach (var item in Instance.Items)
             {
                 if (guid == item.Guid)
                     return item;
@@ -77,7 +74,7 @@ namespace GB28181.Sys.XML
             Items.Remove(item);
         }
 
-        private List<GroupInfo.GroupInfoItem> list = new List<GroupInfoItem>();
+        private List<GroupInfoItem> list = new List<GroupInfoItem>();
 
         public void RemoveAll(string id)
         {
@@ -182,7 +179,7 @@ namespace GB28181.Sys.XML
                     }
                 }
 
-                GroupInfo.Instance.Save();
+                Instance.Save();
             }
         }
 

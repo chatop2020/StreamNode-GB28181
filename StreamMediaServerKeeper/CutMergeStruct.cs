@@ -1,12 +1,8 @@
 using System;
-using Newtonsoft.Json;
 
 namespace StreamMediaServerKeeper
 {
-
-    
     [Serializable]
-
     public class CutMergeStruct
     {
         private long? _dbId;
@@ -14,7 +10,7 @@ namespace StreamMediaServerKeeper
         private DateTime? _startTime;
         private DateTime? _endTime;
         private long? _fileSize;
-        private long? _duration; 
+        private long? _duration;
         private string? _cutStartPos;
         private string? _cutEndPos;
 
@@ -36,7 +32,7 @@ namespace StreamMediaServerKeeper
             set => _startTime = value;
         }
 
-    
+
         public DateTime? EndTime
         {
             get => _endTime;

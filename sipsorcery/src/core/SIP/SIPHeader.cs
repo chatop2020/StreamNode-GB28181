@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -129,7 +130,7 @@ namespace SIPSorcery.SIP
                         }
                         else
                         {
-                            if (ipEndPoint.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                            if (ipEndPoint.Address.AddressFamily == AddressFamily.InterNetworkV6)
                             {
                                 return "[" + ipEndPoint.Address.ToString() + "]";
                             }
@@ -2520,7 +2521,7 @@ namespace SIPSorcery.SIP
         public SIPHeader Copy()
         {
             string headerString = this.ToString();
-            string[] sipHeaders = SIPHeader.SplitHeaders(headerString);
+            string[] sipHeaders = SplitHeaders(headerString);
             return ParseSIPHeaders(sipHeaders);
         }
 

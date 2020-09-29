@@ -4,11 +4,6 @@
         <name>StreamMediaServerKeeper</name>
     </assembly>
     <members>
-        <member name="T:StreamMediaServerKeeper.Common">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="F:StreamMediaServerKeeper.Common.CustomizedRecordFilePath">
             <summary>
             自定义的录制文件存储位置

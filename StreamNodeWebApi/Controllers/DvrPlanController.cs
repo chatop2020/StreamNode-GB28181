@@ -2,12 +2,9 @@ using System.Collections.Generic;
 using CommonFunctions;
 using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
-using CommonFunctions.WebApiStructs.Request;
-using CommonFunctions.WebApiStructs.Response;
 using LibGB28181SipGate;
 using Microsoft.AspNetCore.Mvc;
 using StreamNodeCtrlApis.SystemApis;
-
 
 namespace StreamNodeWebApi.Controllers
 {
@@ -18,11 +15,6 @@ namespace StreamNodeWebApi.Controllers
     [Route("/DvrPlan")]
     public class DvrPlanController : ControllerBase
     {
-        
-       
-
-        
-        
         /// <summary>
         /// 删除一个录制计划ById
         /// </summary>
@@ -39,9 +31,10 @@ namespace StreamNodeWebApi.Controllers
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-       
+
 
         /// <summary>
         /// 启用或停用一个录制计划
@@ -54,15 +47,15 @@ namespace StreamNodeWebApi.Controllers
         public bool OnOrOffDvrPlanById(long id, bool enable)
         {
             ResponseStruct rs;
-            var ret = DvrPlanApis.OnOrOffDvrPlanById(id,enable, out rs);
+            var ret = DvrPlanApis.OnOrOffDvrPlanById(id, enable, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-        
-        
+
 
         /// <summary>
         /// 修改录制计划ById
@@ -75,17 +68,18 @@ namespace StreamNodeWebApi.Controllers
         [HttpPost]
         [Log]
         [AuthVerify]
-        public bool SetDvrPlanById( long id, ReqStreamDvrPlan sdp)
+        public bool SetDvrPlanById(long id, ReqStreamDvrPlan sdp)
         {
             ResponseStruct rs;
-            var ret = DvrPlanApis.SetDvrPlanById(id,sdp, out rs);
+            var ret = DvrPlanApis.SetDvrPlanById(id, sdp, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-       
+
 
         /// <summary>
         /// 创建录制计划
@@ -95,7 +89,7 @@ namespace StreamNodeWebApi.Controllers
         [HttpPost]
         [Log]
         [AuthVerify]
-        public bool CreateDvrPlan(  ReqStreamDvrPlan sdp)
+        public bool CreateDvrPlan(ReqStreamDvrPlan sdp)
         {
             ResponseStruct rs;
             var ret = DvrPlanApis.CreateDvrPlan(sdp, out rs);
@@ -103,9 +97,10 @@ namespace StreamNodeWebApi.Controllers
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-      
+
 
         /// <summary>
         /// 获取录制计划
@@ -124,8 +119,8 @@ namespace StreamNodeWebApi.Controllers
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-       
     }
 }

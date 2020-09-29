@@ -1,10 +1,11 @@
 ﻿//Copyright (C) Microsoft Corporation.  All rights reserved.
 
 using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text;
 using System.Threading;
 
 namespace System.Linq.Dynamic
@@ -683,7 +684,7 @@ namespace System.Linq.Dynamic
                 }
                 else
                 {
-                    AddSymbol("@" + i.ToString(System.Globalization.CultureInfo.InvariantCulture), value);
+                    AddSymbol("@" + i.ToString(CultureInfo.InvariantCulture), value);
                 }
             }
         }
@@ -2295,7 +2296,7 @@ namespace System.Linq.Dynamic
 
         Exception ParseError(int pos, string format, params object[] args)
         {
-            return new ParseException(string.Format(System.Globalization.CultureInfo.CurrentCulture, format, args),
+            return new ParseException(string.Format(CultureInfo.CurrentCulture, format, args),
                 pos);
         }
 

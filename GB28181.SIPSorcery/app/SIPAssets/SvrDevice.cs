@@ -1,9 +1,11 @@
-﻿using GB28181.Logger4Net;
-using GB28181.Sys;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Runtime.Serialization;
+using System.Xml;
+using GB28181.Logger4Net;
+using GB28181.Sys;
 
 namespace GB28181.App
 {
@@ -503,7 +505,7 @@ namespace GB28181.App
             set { _updateTime = value; }
         }
 
-        public void Load(System.Data.DataRow row)
+        public void Load(DataRow row)
         {
             try
             {
@@ -557,7 +559,7 @@ namespace GB28181.App
             }
         }
 
-        public System.Data.DataTable GetTable()
+        public DataTable GetTable()
         {
             return null;
         }
@@ -583,7 +585,7 @@ namespace GB28181.App
         }
 
 
-        public Dictionary<Guid, object> Load(System.Xml.XmlDocument dom)
+        public Dictionary<Guid, object> Load(XmlDocument dom)
         {
             throw new NotImplementedException();
         }

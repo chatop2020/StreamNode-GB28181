@@ -1,18 +1,18 @@
-﻿using GB28181.Logger4Net;
-using GB28181.Net;
-using GB28181.Servers.SIPMessage;
-using GB28181;
-using GB28181.App;
-using GB28181.Sys;
-using GB28181.Config;
-using GB28181.Sys.XML;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Sockets;
-using System.Threading;
 using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using GB28181.App;
+using GB28181.Config;
+using GB28181.Logger4Net;
+using GB28181.Net;
+using GB28181.Servers.SIPMessage;
+using GB28181.Sys;
+using GB28181.Sys.XML;
 using SIPSorcery.SIP;
 
 namespace GB28181.Servers.SIPMonitor
@@ -2309,14 +2309,14 @@ namespace GB28181.Servers.SIPMonitor
         public static string Gb2312_gbk(string text)
         {
             //声明字符集   
-            System.Text.Encoding gbk, gb2312;
+            Encoding gbk, gb2312;
             //utf8   
-            gbk = System.Text.Encoding.GetEncoding("gb2312");
+            gbk = Encoding.GetEncoding("gb2312");
             //gb2312   
-            gb2312 = System.Text.Encoding.GetEncoding("gbk");
+            gb2312 = Encoding.GetEncoding("gbk");
             byte[] utf;
             utf = gbk.GetBytes(text);
-            utf = System.Text.Encoding.Convert(gbk, gb2312, utf);
+            utf = Encoding.Convert(gbk, gb2312, utf);
             //返回转换后的字符   
             return gb2312.GetString(utf);
         }
@@ -2344,7 +2344,7 @@ namespace GB28181.Servers.SIPMonitor
                     HeartBeatCount = heartBeatCount
                 }
             };
-            string xmlBody = GB28181.Sys.XML.DeviceConfig.Instance.Save<DeviceConfig>(config);
+            string xmlBody = Sys.XML.DeviceConfig.Instance.Save<DeviceConfig>(config);
             configReq.Body = xmlBody;
             _sipMsgCoreService.SendRequest(RemoteEndPoint, configReq);
         }

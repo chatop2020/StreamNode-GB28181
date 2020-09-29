@@ -1,5 +1,4 @@
 using System;
-using CommonFunctions.ManageStructs;
 
 namespace CommonFunction.ManageStructs
 {
@@ -37,7 +36,6 @@ namespace CommonFunction.ManageStructs
             set => _clientType = value;
         }
 
-     
 
         public string? PlayUrl
         {

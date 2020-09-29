@@ -112,7 +112,7 @@ namespace SIPSorcery.Media
         private static readonly byte PCMA_SILENCE_BYTE_ZERO = 0x55;
         private static readonly byte PCMA_SILENCE_BYTE_ONE = 0xD5;
 
-        private static ILogger Log = SIPSorcery.Sys.Log.Logger;
+        private static ILogger Log = Sys.Log.Logger;
 
         private StreamReader _audioStreamReader;
         private SignalGenerator _signalGenerator;

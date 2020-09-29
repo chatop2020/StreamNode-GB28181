@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Xml;
 
 namespace GB28181.App
@@ -8,9 +9,9 @@ namespace GB28181.App
     {
         Guid Id { get; set; }
 
-        void Load(System.Data.DataRow row);
+        void Load(DataRow row);
         Dictionary<Guid, object> Load(XmlDocument dom);
-        System.Data.DataTable GetTable();
+        DataTable GetTable();
         string ToXML();
         string ToXMLNoParent();
         string GetXMLElementName();

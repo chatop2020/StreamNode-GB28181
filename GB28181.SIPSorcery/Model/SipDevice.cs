@@ -42,7 +42,7 @@ namespace GB28181.Sys.Model
         private Camera _camera;
         private string? _inputUrl;
 
-       
+
         public string? MediaServerId
         {
             get => _mediaServerId;
@@ -85,7 +85,7 @@ namespace GB28181.Sys.Model
             set => _streamServerPort = value;
         }
 
-     
+
         public SipCameraStatus? SipCameraStatus
         {
             get => _sipCameraStatus;

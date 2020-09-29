@@ -321,18 +321,18 @@ namespace SIPSorcery.Net
                 {
                     if (mediaFormat.FormatAttribute != null)
                     {
-                        formatAttributes += SDPMediaAnnouncement.MEDIA_FORMAT_ATTRIBUE_PREFIX + mediaFormat.FormatID +
+                        formatAttributes += MEDIA_FORMAT_ATTRIBUE_PREFIX + mediaFormat.FormatID +
                                             " " + mediaFormat.FormatAttribute + m_CRLF;
                     }
                     else
                     {
-                        formatAttributes += SDPMediaAnnouncement.MEDIA_FORMAT_ATTRIBUE_PREFIX + mediaFormat.FormatID +
+                        formatAttributes += MEDIA_FORMAT_ATTRIBUE_PREFIX + mediaFormat.FormatID +
                                             " " + mediaFormat.Name + "/" + mediaFormat.ClockRate + m_CRLF;
                     }
 
                     if (mediaFormat.FormatParameterAttribute != null)
                     {
-                        formatAttributes += SDPMediaAnnouncement.MEDIA_FORMAT_PARAMETERS_ATTRIBUE_PREFIX +
+                        formatAttributes += MEDIA_FORMAT_PARAMETERS_ATTRIBUE_PREFIX +
                                             mediaFormat.FormatID + " " + mediaFormat.FormatParameterAttribute + m_CRLF;
                     }
                 }

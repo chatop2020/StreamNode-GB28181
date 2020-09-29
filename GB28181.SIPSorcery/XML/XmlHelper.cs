@@ -1,9 +1,9 @@
-﻿using GB28181.Logger4Net;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using GB28181.Logger4Net;
 
 namespace GB28181.Sys.XML
 {
@@ -211,11 +211,11 @@ namespace GB28181.Sys.XML
 
         public string ConvertUtf8ToDefault(string message)
         {
-            System.Text.Encoding utf8;
-            utf8 = System.Text.Encoding.GetEncoding("utf-8");
+            Encoding utf8;
+            utf8 = Encoding.GetEncoding("utf-8");
             byte[] array = Encoding.Unicode.GetBytes(message);
-            byte[] s4 = System.Text.Encoding.Convert(System.Text.Encoding.UTF8,
-                System.Text.Encoding.GetEncoding("gb2312"), array);
+            byte[] s4 = Encoding.Convert(Encoding.UTF8,
+                Encoding.GetEncoding("gb2312"), array);
             string str = Encoding.Default.GetString(s4);
             return str;
         }
@@ -275,7 +275,7 @@ namespace GB28181.Sys.XML
         /// //检查并构造路径
         /// </summary>
         /// <param name="type"></param>
-        private void CheckConstructPath(System.Type type)
+        private void CheckConstructPath(Type type)
         {
             //构造路径
             string temppath = m_dir + type.Name + ".xml";

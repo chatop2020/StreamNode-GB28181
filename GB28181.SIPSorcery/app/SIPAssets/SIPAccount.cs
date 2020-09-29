@@ -16,10 +16,6 @@
 //
 
 
-using GB28181.Logger4Net;
-using GB28181.Net.RTP;
-using GB28181.Sys;
-using SIPSorcery.Sys;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +25,11 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Xml;
+using GB28181.Logger4Net;
+using GB28181.Net.RTP;
 using GB28181.Servers.SIPMessage;
+using GB28181.Sys;
+using SIPSorcery.Sys;
 
 namespace GB28181.App
 {

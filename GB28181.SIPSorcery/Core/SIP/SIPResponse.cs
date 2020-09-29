@@ -116,7 +116,7 @@ namespace GB28181
             try
             {
                 SIPMessage sipMessage = SIPMessage.ParseSIPMessage(sipMessageStr, null, null);
-                return SIPResponse.ParseSIPResponse(sipMessage);
+                return ParseSIPResponse(sipMessage);
             }
             catch (SIPValidationException)
             {

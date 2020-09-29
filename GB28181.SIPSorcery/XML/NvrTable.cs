@@ -110,7 +110,7 @@ namespace GB28181.Sys.XML
 
         public NvrItem Get(string ip)
         {
-            foreach (var item in NvrTable.Instance.Items)
+            foreach (var item in Instance.Items)
             {
                 if (ip == item.CamIP)
                     return item;
@@ -516,11 +516,11 @@ namespace GB28181.Sys.XML
 
         public static string GetEnumDescription<T>(T value)
         {
-            System.Reflection.FieldInfo fi = value.GetType().GetField(value.ToString());
+            FieldInfo fi = value.GetType().GetField(value.ToString());
 
-            System.ComponentModel.DescriptionAttribute[] attributes =
-                (System.ComponentModel.DescriptionAttribute[]) fi.GetCustomAttributes(
-                    typeof(System.ComponentModel.DescriptionAttribute),
+            DescriptionAttribute[] attributes =
+                (DescriptionAttribute[]) fi.GetCustomAttributes(
+                    typeof(DescriptionAttribute),
                     false
                 );
 

@@ -140,7 +140,7 @@ namespace GB28181.Logger4Net
             {
                 string Dir = AppDomain.CurrentDomain.BaseDirectory + "\\Log\\" + directory + "\\";
 
-                string FileName = "log_" + System.DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
+                string FileName = "log_" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
 
                 var Dirinfo = new DirectoryInfo(Dir);
 

@@ -7,7 +7,7 @@ namespace CommonFunctions.ManageStructs
     {
         private string? _mediaServerId;
         private string? _cameraId;
-       
+
         public string? MediaServerId
         {
             get => _mediaServerId;
@@ -19,7 +19,5 @@ namespace CommonFunctions.ManageStructs
             get => _cameraId;
             set => _cameraId = value;
         }
-
-       
     }
 }

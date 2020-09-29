@@ -644,9 +644,7 @@ namespace CommonFunctions.MediaServerControl
             };
             return null;
         }
-        
-        
-        
+
 
         /// <summary>
         /// 添加ffmpeg代理的视频流
@@ -896,8 +894,7 @@ namespace CommonFunctions.MediaServerControl
                         }
                     }
 
-                
-                    
+
                     var resConfig = JsonHelper.FromJson<ResZLMediaKitConfig>(httpRet);
                     if (resConfig != null)
                     {

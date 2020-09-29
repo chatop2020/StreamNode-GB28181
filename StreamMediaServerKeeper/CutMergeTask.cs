@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace StreamMediaServerKeeper
 {
@@ -8,7 +7,6 @@ namespace StreamMediaServerKeeper
     /// 
     /// </summary>
     [Serializable]
-
     public enum TaskStatus
     {
         Create,
@@ -17,6 +15,7 @@ namespace StreamMediaServerKeeper
         Mergeing,
         Closed,
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -29,13 +28,14 @@ namespace StreamMediaServerKeeper
         private DateTime _createTime;
         private TaskStatus? _taskStatus;
         private string? _playUrl;
+
         /// <summary>
         /// Create=0%
         /// Packageing=45%
         /// Cutting=15%
         /// Mergeing=40%
         /// </summary>
-        private double? _processPercentage=0f;
+        private double? _processPercentage = 0f;
 
         /// <summary>
         /// 

@@ -8,8 +8,6 @@
 //
 
 
-using System.Configuration;
-
 namespace GB28181.Sys
 {
     public class WCFUtility

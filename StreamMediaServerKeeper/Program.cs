@@ -7,7 +7,7 @@ namespace StreamMediaServerKeeper
     public class Program
     {
         public static string WorkPath = Environment.CurrentDirectory + "/";
-        
+
         public static void Main(string[] args)
         {
             ///启动一下，Common对象
@@ -15,6 +15,7 @@ namespace StreamMediaServerKeeper
             {
                 Common.CustomizedRecordFilePath = "";
             }
+
             CreateHostBuilder(args).Build().Run();
         }
 

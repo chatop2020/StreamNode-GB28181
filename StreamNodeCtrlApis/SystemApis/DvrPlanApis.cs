@@ -1,19 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using CommonFunctions;
 using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
-using CommonFunctions.WebApiStructs.Request;
-using CommonFunctions.WebApiStructs.Response;
-using TaskStatus = CommonFunctions.ManageStructs.TaskStatus;
 
 namespace StreamNodeCtrlApis.SystemApis
 {
     public static class DvrPlanApis
     {
-       
-
         /// <summary>
         /// 通过id删除一个录制计划
         /// </summary>

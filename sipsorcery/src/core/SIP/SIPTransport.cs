@@ -869,9 +869,9 @@ namespace SIPSorcery.SIP
                                         {
                                             if (requestTransaction.TransactionState ==
                                                 SIPTransactionStatesEnum.Completed && sipRequest.Method !=
-                                                                                   SIPMethodsEnum.ACK
-                                                                                   && sipRequest.Method !=
-                                                                                   SIPMethodsEnum.PRACK)
+                                                SIPMethodsEnum.ACK
+                                                && sipRequest.Method !=
+                                                SIPMethodsEnum.PRACK)
                                             {
                                                 if (requestTransaction.TransactionFinalResponse != null)
                                                 {

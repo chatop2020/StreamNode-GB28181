@@ -16,7 +16,6 @@ using System.Runtime.Serialization;
 using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 
-
 namespace GB28181
 {
     [DataContract]

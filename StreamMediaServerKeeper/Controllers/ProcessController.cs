@@ -7,7 +7,6 @@ namespace StreamMediaServerKeeper.Controllers
     [Route("/")]
     public class ProcessController : ControllerBase
     {
-        
         /// <summary>
         /// 获取合并裁剪任务积压列表
         /// </summary>
@@ -17,7 +16,7 @@ namespace StreamMediaServerKeeper.Controllers
         public List<CutMergeTaskStatusResponse> GetBacklogTaskList()
         {
             ResponseStruct rs;
-            var ret = CutMergeService.GetBacklogTaskList( out rs);
+            var ret = CutMergeService.GetBacklogTaskList(out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
@@ -25,8 +24,8 @@ namespace StreamMediaServerKeeper.Controllers
 
             return ret;
         }
-        
-        
+
+
         /// <summary>
         /// 获取合并剪辑任务的进度信息
         /// </summary>
@@ -45,7 +44,7 @@ namespace StreamMediaServerKeeper.Controllers
             return ret;
         }
 
-        
+
         /// <summary>
         /// 添加一个裁剪合并任务
         /// </summary>
@@ -66,6 +65,7 @@ namespace StreamMediaServerKeeper.Controllers
 
             return ret;
         }
+
         /// <summary>
         /// 文件是否存在
         /// </summary>

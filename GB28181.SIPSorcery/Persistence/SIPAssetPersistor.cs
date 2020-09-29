@@ -18,13 +18,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using GB28181.App;
-using GB28181.Sys;
-using GB28181.Logger4Net;
 using System.Data;
 using System.Data.Common;
-
+using System.Linq.Expressions;
+using System.Reflection;
+using GB28181.App;
+using GB28181.Logger4Net;
+using GB28181.Sys;
 
 namespace GB28181.Persistence
 {
@@ -46,110 +46,110 @@ namespace GB28181.Persistence
         public virtual T Add(T asset)
         {
             Added?.Invoke(asset);
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual List<T> Add(List<T> assets)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual T Update(T asset)
         {
             Updated?.Invoke(asset);
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual void UpdateProperty(Guid id, string propertyName, object value)
         {
             Modified.Invoke();
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual void IncrementProperty(Guid id, string propertyName)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual void DecrementProperty(Guid id, string propertyName)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
 
         public virtual void Delete()
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual void Delete(T asset)
         {
             Deleted?.Invoke(asset);
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual void Delete(Expression<Func<T, bool>> where)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual T Get(Guid id)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual object GetProperty(Guid id, string propertyName)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual int Count(Expression<Func<T, bool>> where)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual T Get(Expression<Func<T, bool>> where)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual List<T> Get(Expression<Func<T, bool>> where, string orderByField, int offset, int count)
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 
         public virtual List<T> Get()
         {
-            throw new NotImplementedException("Method " + System.Reflection.MethodBase.GetCurrentMethod().Name +
-                                              " in " + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+            throw new NotImplementedException("Method " + MethodBase.GetCurrentMethod().Name +
+                                              " in " + MethodBase.GetCurrentMethod().DeclaringType
                                                   .ToString() + " not implemented.");
         }
 

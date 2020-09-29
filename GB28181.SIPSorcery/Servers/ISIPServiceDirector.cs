@@ -1,8 +1,9 @@
-﻿using GB28181.Sys.XML;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using GB28181.Servers.SIPMonitor;
+using GB28181.Sys.XML;
 
 namespace GB28181.Servers
 {
@@ -16,10 +17,10 @@ namespace GB28181.Servers
         List<Dictionary<string, DateTime>> VideoSessionAlive { get; }
 
         //ip/port/protocol/ 
-        Task<Tuple<string, int, GB28181.SIPHeader, ProtocolType>> RealVideoReq(string gbid, int[] mediaPort,
+        Task<Tuple<string, int, SIPHeader, ProtocolType>> RealVideoReq(string gbid, int[] mediaPort,
             string receiveIP);
 
-        Task<Tuple<string, int, GB28181.SIPHeader, ProtocolType>> BackVideoReq(string gbid, int[] mediaPort,
+        Task<Tuple<string, int, SIPHeader, ProtocolType>> BackVideoReq(string gbid, int[] mediaPort,
             string receiveIP, ulong beginTime, ulong endTime);
 
         //Stop 
@@ -43,12 +44,12 @@ namespace GB28181.Servers
         /// <param name="ptzCommand"></param>
         /// <param name="speed"></param>
         /// <param name="deviceid"></param>
-        void PtzControl(SIPMonitor.PTZCommand ptzCommand, int speed, string deviceid);
+        void PtzControl(PTZCommand ptzCommand, int speed, string deviceid);
 
         void DeviceStateQuery(string deviceid);
         int RecordFileQuery(string deviceId, DateTime startTime, DateTime endTime, string type);
 
-        Task<Tuple<string, int, GB28181.SIPHeader, ProtocolType>> VideoDownloadReq(DateTime beginTime, DateTime endTime,
+        Task<Tuple<string, int, SIPHeader, ProtocolType>> VideoDownloadReq(DateTime beginTime, DateTime endTime,
             string gbid, int[] mediaPort, string receiveIP);
 
         bool BackVideoStopPlayingControlReq(string gbid, string sessionid);

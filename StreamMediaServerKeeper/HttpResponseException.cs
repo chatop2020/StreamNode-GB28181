@@ -1,6 +1,5 @@
 using System;
 
-
 namespace StreamMediaServerKeeper
 {
     public class HttpResponseException : Exception

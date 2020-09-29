@@ -1,5 +1,4 @@
 using System;
-using CommonFunctions.WebApiStructs.Response;
 
 namespace CommonFunctions.ManageStructs
 {

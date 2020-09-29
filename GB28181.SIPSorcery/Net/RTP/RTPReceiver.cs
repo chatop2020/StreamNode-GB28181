@@ -9,9 +9,6 @@
 // License: 
 // Aaron Clauson
 
-using System;
-using System.Net;
-
 #if UNITTEST
 using NUnit.Framework;
 #endif

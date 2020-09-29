@@ -12,8 +12,6 @@
 
 using System;
 using System.Net;
-using System.Collections.Generic;
-using System.Text;
 using GB28181.Logger4Net;
 
 namespace GB28181.Net

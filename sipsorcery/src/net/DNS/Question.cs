@@ -118,7 +118,7 @@ namespace Heijden.DNS
             }
 
             sb[sb.Length - 1] = '\0';
-            return System.Text.Encoding.ASCII.GetBytes(sb.ToString());
+            return Encoding.ASCII.GetBytes(sb.ToString());
         }
 
         public byte[] Data

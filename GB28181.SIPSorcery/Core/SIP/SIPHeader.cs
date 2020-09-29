@@ -16,9 +16,9 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using SIPSorcery.Sys;
 using GB28181.Logger4Net;
 using SIPSorcery.SIP;
+using SIPSorcery.Sys;
 
 #if UNITTEST
 using NUnit.Framework;
@@ -2970,7 +2970,7 @@ namespace GB28181
         public SIPHeader Copy()
         {
             string headerString = this.ToString();
-            string[] sipHeaders = SIPHeader.SplitHeaders(headerString);
+            string[] sipHeaders = SplitHeaders(headerString);
             return ParseSIPHeaders(sipHeaders);
         }
 

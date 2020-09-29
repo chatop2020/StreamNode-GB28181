@@ -1,6 +1,5 @@
 using System;
 using CommonFunction.ManageStructs;
-using CommonFunctions.ManageStructs;
 using FreeSql.DataAnnotations;
 using GB28181.Sys.Model;
 
@@ -46,7 +45,7 @@ namespace CommonFunctions.DBStructs
             set => _ipaddress = value;
         }
 
-   
+
         public string? CameraId
         {
             get => _cameraId;
@@ -59,7 +58,7 @@ namespace CommonFunctions.DBStructs
             set => _createTime = value;
         }
 
-    
+
         public ClientType? ClientType
         {
             get => _clientType;
@@ -90,8 +89,6 @@ namespace CommonFunctions.DBStructs
             set => _streamId = value;
         }
 
-
-       
 
         public string? PushMediaServerId
         {

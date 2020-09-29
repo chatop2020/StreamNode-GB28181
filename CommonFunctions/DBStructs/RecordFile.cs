@@ -86,7 +86,6 @@ namespace CommonFunctions.DBStructs
             set => _cameraIpAddress = value;
         }
 
-      
 
         public long? Duration
         {

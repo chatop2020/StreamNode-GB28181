@@ -16,21 +16,7 @@ namespace CommonFunctions.WebApiStructs.Request
         private string? _url;
         private string? _vhost;
         private int? _time_len;
-        
-        /*
-         * "app" : "rtp",
-   "file_name" : "12-50-56.mp4",
-   "file_path" : "/root/MediaService/www/record/rtp/20D4D5C0/2020-08-24/12-50-56.mp4",
-   "file_size" : 7507638,
-   "folder" : "/root/MediaService/www/record/rtp/20D4D5C0/",
-   "mediaserverid" : "NF308M6K-129980D0-8AB1LE22-45K9J04C-6J00FB1D-718LUIA2",
-   "start_time" : 1598244656,
-   "stream" : "20D4D5C0",
-   "time_len" : 30,
-   "url" : "record/rtp/20D4D5C0/2020-08-24/12-50-56.mp4",
-   "vhost" : "__defaultVhost__"
 
-         */
 
         public string? App
         {
@@ -74,7 +60,6 @@ namespace CommonFunctions.WebApiStructs.Request
             set => _stream = value;
         }
 
-      
 
         public string? Mediaserverid
         {

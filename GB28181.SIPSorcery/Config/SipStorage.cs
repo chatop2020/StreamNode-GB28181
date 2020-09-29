@@ -8,6 +8,8 @@ using GB28181.Persistence;
 using GB28181.Sys;
 using Microsoft.Extensions.Configuration;
 using SIPSorcery.Sys;
+using StorageTypes = GB28181.Sys.StorageTypes;
+using StorageTypesConverter = GB28181.Sys.StorageTypesConverter;
 
 /// <summary>
 /// read configuraton and config the data storage
@@ -24,7 +26,7 @@ namespace GB28181.Config
         public static readonly SipStorage Instance = new SipStorage();
 
         //数据存储类型，比如xml,json,sqlite.postgresql
-        private static Sys.StorageTypes m_storageType;
+        private static StorageTypes m_storageType;
 
         //连接字符串
         private static string m_connStr;
@@ -86,17 +88,17 @@ namespace GB28181.Config
         static SipStorage()
         {
             m_storageType = (AppState.GetConfigSetting(m_storageTypeKey) != null)
-                ? Sys.StorageTypesConverter.GetStorageType(AppState.GetConfigSetting(m_storageTypeKey))
-                : Sys.StorageTypes.Unknown;
+                ? StorageTypesConverter.GetStorageType(AppState.GetConfigSetting(m_storageTypeKey))
+                : StorageTypes.Unknown;
 
             var rootPath = AppDomain.CurrentDomain.BaseDirectory;
             m_connStr = Path.Combine(rootPath, AppState.GetConfigSetting(m_connStrKey));
-            if (m_storageType == Sys.StorageTypes.SQLite)
+            if (m_storageType == StorageTypes.SQLite)
             {
                 m_connStr = string.Format(m_connStr, rootPath);
             }
 
-            if (m_storageType == Sys.StorageTypes.Unknown || m_connStr.IsNullOrBlank())
+            if (m_storageType == StorageTypes.Unknown || m_connStr.IsNullOrBlank())
             {
                 logger.Error(
                     $"The SIP Registrar cannot start with no persistence settings:m_storageType: {m_storageType},m_connStr :{m_connStr}.");

@@ -28,60 +28,59 @@ namespace StreamNodeWebApi.Controllers
         {
             if (response != null)
             {
-                Console.WriteLine("收到task参数：\r\n"+JsonHelper.ToJson(response));
+                Console.WriteLine("收到task参数：\r\n" + JsonHelper.ToJson(response));
             }
         }
-      /// <summary>
-      /// 测试AddStreamProxy接口
-      /// </summary>
-      /// <param name="deviceid"></param>
-      /// <param name="url"></param>
-      /// <returns></returns>
-      /// <exception cref="HttpResponseException"></exception>
+
+        /// <summary>
+        /// 测试AddStreamProxy接口
+        /// </summary>
+        /// <param name="deviceid"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
         [Route("AddStreamProxy")]
         [HttpGet]
         [Log]
         [AuthVerify]
-       public ResZLMediaKitAddStreamProxy AddStreamProxy(string deviceid,string url)
-       {
-           ResponseStruct rs;
-           var ret = MediaServerApis.AddStreamProxy( deviceid, url,out rs);
-           if (rs.Code != ErrorNumber.None)
-           {
-               throw new HttpResponseException(JsonHelper.ToJson(rs));
-           }
+        public ResZLMediaKitAddStreamProxy AddStreamProxy(string deviceid, string url)
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.AddStreamProxy(deviceid, url, out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
 
-           return ret;
-       }
+            return ret;
+        }
 
-       
-       /// <summary>
-       /// 获取sip设备列表 
-       /// </summary>
-       /// <returns></returns>
-       /// 
-       [Route("GetSipDeviceList")]
-       [HttpGet]
-       [Log]
-       [AuthVerify]
-       public List<SipDevice> GetSipDeviceList()
-       {
-            
-           return Common.SipProcess.SipDeviceList;
-       }
-       
-      
-       /// <summary>
-       /// 获取所有摄像头列表
-       /// </summary>
-       /// <returns></returns>
+
+        /// <summary>
+        /// 获取sip设备列表 
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [Route("GetSipDeviceList")]
+        [HttpGet]
+        [Log]
+        [AuthVerify]
+        public List<SipDevice> GetSipDeviceList()
+        {
+            return Common.SipProcess.SipDeviceList;
+        }
+
+
+        /// <summary>
+        /// 获取所有摄像头列表
+        /// </summary>
+        /// <returns></returns>
         [Route("GetAllCameraSession")]
         [HttpGet]
         [Log]
         [AuthVerify]
         public List<CameraSession> GetAllCameraSession()
         {
-            
             return Common.CameraSessions;
         }
     }

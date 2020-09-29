@@ -1,6 +1,6 @@
-﻿using GB28181.Logger4Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using GB28181.Logger4Net;
 
 #if UNITTEST
 using NUnit.Framework;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-
 namespace GB28181.App
 {
     public delegate void SetterDelegate(object instance, string propertyName, object value);

@@ -17,6 +17,7 @@
 
 using System;
 using System.Net;
+using System.Net.Sockets;
 
 namespace Heijden.DNS
 {
@@ -124,7 +125,7 @@ namespace Heijden.DNS
 
         public RR(IPAddress address)
         {
-            if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+            if (address.AddressFamily == AddressFamily.InterNetworkV6)
             {
                 RECORD = new RecordAAAA(address);
             }

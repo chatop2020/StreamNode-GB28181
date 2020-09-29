@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading;
-using GB28181.Servers.SIPMessage;
 using GB28181.Servers.SIPMonitor;
 
 namespace LibGB28181SipGate

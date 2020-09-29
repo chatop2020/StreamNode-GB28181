@@ -13,9 +13,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;

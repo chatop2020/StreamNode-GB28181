@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using CommonFunctions.WebApiStructs.Response;
 
 namespace CommonFunctions.ManageStructs
 {

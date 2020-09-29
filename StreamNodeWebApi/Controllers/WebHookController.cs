@@ -1,16 +1,12 @@
 using System;
 using System.Net;
 using CommonFunctions;
-using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
-using GB28181.Servers.SIPMonitor;
-using GB28181.Sys.Model;
 using LibGB28181SipGate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StreamNodeCtrlApis.SystemApis;
 using StreamNodeCtrlApis.WebHookApis;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -56,7 +52,6 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
-      
 
         [Route("OnPublish")]
         [HttpPost]
@@ -74,7 +69,6 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
-      
 
         [Route("OnStreamChange")]
         [HttpPost]
@@ -89,10 +83,9 @@ namespace StreamNodeWebApi.Controllers
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
 
-            return ret;  
+            return ret;
         }
 
-     
 
         [Route("OnStreamNoneReader")]
         [HttpPost]
@@ -107,7 +100,7 @@ namespace StreamNodeWebApi.Controllers
                 Close = false,
             };
         }
-        
+
         [Route("OnStop")]
         [HttpPost]
         [Log]
@@ -125,7 +118,6 @@ namespace StreamNodeWebApi.Controllers
         }
 
 
-
         [Route("OnPlay")]
         [HttpPost]
         [Log]
@@ -141,8 +133,6 @@ namespace StreamNodeWebApi.Controllers
 
             return ret;
         }
-        
-     
 
 
         /// <summary>
@@ -167,10 +157,10 @@ namespace StreamNodeWebApi.Controllers
                     str += tmpstr + "\r\n";
                 }
             }
-            
+
             var tmpObj = JsonHelper.FromJson<ZLMediaKitConfigForResponse>(str);
 
-           
+
             ResponseStruct rs;
             var ret = MediaServerCtrlApi.OnMediaServerStart(tmpObj, out rs);
             if (rs.Code != ErrorNumber.None)
@@ -202,7 +192,7 @@ namespace StreamNodeWebApi.Controllers
                 req.Ipaddress = thisip.MapToIPv4().ToString();
             }
 
-          
+
             var ret = MediaServerCtrlApi.ServerReg(req, out rs);
             if (rs.Code != ErrorNumber.None)
             {

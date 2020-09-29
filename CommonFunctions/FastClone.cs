@@ -6,8 +6,8 @@ namespace CommonFunctions
 {
     public static class FastClone<TIn, TOut>
     {
-
         private static readonly Func<TIn, TOut> cache = GetFunc();
+
         private static Func<TIn, TOut> GetFunc()
         {
             ParameterExpression parameterExpression = Expression.Parameter(typeof(TIn), "p");
@@ -18,13 +18,16 @@ namespace CommonFunctions
                 if (!item.CanWrite)
                     continue;
 
-                MemberExpression property = Expression.Property(parameterExpression, typeof(TIn).GetProperty(item.Name));
+                MemberExpression property =
+                    Expression.Property(parameterExpression, typeof(TIn).GetProperty(item.Name));
                 MemberBinding memberBinding = Expression.Bind(item, property);
                 memberBindingList.Add(memberBinding);
             }
 
-            MemberInitExpression memberInitExpression = Expression.MemberInit(Expression.New(typeof(TOut)), memberBindingList.ToArray());
-            Expression<Func<TIn, TOut>> lambda = Expression.Lambda<Func<TIn, TOut>>(memberInitExpression, new ParameterExpression[] { parameterExpression });
+            MemberInitExpression memberInitExpression =
+                Expression.MemberInit(Expression.New(typeof(TOut)), memberBindingList.ToArray());
+            Expression<Func<TIn, TOut>> lambda = Expression.Lambda<Func<TIn, TOut>>(memberInitExpression,
+                new ParameterExpression[] {parameterExpression});
 
             return lambda.Compile();
         }
@@ -33,6 +36,5 @@ namespace CommonFunctions
         {
             return cache(tIn);
         }
-
     }
 }

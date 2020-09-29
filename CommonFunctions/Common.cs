@@ -1,14 +1,13 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
- using System.Reflection;
- using System.Runtime.InteropServices;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
- using CommonFunction.ManageStructs;
- using CommonFunctions.DBStructs;
+using CommonFunction.ManageStructs;
+using CommonFunctions.DBStructs;
 using CommonFunctions.MediaServerControl;
 using LibGB28181SipGate;
-
 
 namespace CommonFunctions
 {
@@ -25,16 +24,18 @@ namespace CommonFunctions
         public static SessionManager SessionManager = new SessionManager();
         public static List<MediaServerInstance> MediaServerList = new List<MediaServerInstance>();
         public static List<CameraInstance> CameraInstanceList = new List<CameraInstance>();
-        public static LogMonitor LogMonitor= new LogMonitor();
+
+        public static LogMonitor LogMonitor = new LogMonitor();
+
         //在线的摄像头列表
-        public static List<CameraSession> CameraSessions= new List<CameraSession>();
+        public static List<CameraSession> CameraSessions = new List<CameraSession>();
+
         //在线播放用户列表
-        public static List<PlayerSession> PlayerSessions= new List<PlayerSession>();
-        public static object CameraSessionLock= new object();
+        public static List<PlayerSession> PlayerSessions = new List<PlayerSession>();
+        public static object CameraSessionLock = new object();
         public static object SipDeviceListLock = new object();
-        public static object CameraInstanceListLock= new object();
-        public static object PlayerSessionListLock=new object();
-      
+        public static object CameraInstanceListLock = new object();
+        public static object PlayerSessionListLock = new object();
 
 
         static Common()
@@ -72,7 +73,7 @@ namespace CommonFunctions
                 return false;
             }
         }
-        
+
         /// <summary>
         /// 对象拷贝
         /// </summary>
@@ -84,6 +85,7 @@ namespace CommonFunctions
             {
                 return null;
             }
+
             Object targetDeepCopyObj;
             Type targetType = obj.GetType();
             //值类型  
@@ -94,15 +96,15 @@ namespace CommonFunctions
             //引用类型   
             else
             {
-                targetDeepCopyObj = System.Activator.CreateInstance(targetType);   //创建引用对象   
-                System.Reflection.MemberInfo[] memberCollection = obj.GetType().GetMembers();
+                targetDeepCopyObj = Activator.CreateInstance(targetType); //创建引用对象   
+                MemberInfo[] memberCollection = obj.GetType().GetMembers();
 
-                foreach (System.Reflection.MemberInfo member in memberCollection)
+                foreach (MemberInfo member in memberCollection)
                 {
                     //拷贝字段
-                    if (member.MemberType == System.Reflection.MemberTypes.Field)
+                    if (member.MemberType == MemberTypes.Field)
                     {
-                        System.Reflection.FieldInfo field = (System.Reflection.FieldInfo)member;
+                        FieldInfo field = (FieldInfo) member;
                         Object fieldValue = field.GetValue(obj);
                         if (fieldValue is ICloneable)
                         {
@@ -112,11 +114,10 @@ namespace CommonFunctions
                         {
                             field.SetValue(targetDeepCopyObj, CopyOjbect(fieldValue));
                         }
-
-                    }//拷贝属性
-                    else if (member.MemberType == System.Reflection.MemberTypes.Property)
+                    } //拷贝属性
+                    else if (member.MemberType == MemberTypes.Property)
                     {
-                        System.Reflection.PropertyInfo myProperty = (System.Reflection.PropertyInfo)member;
+                        PropertyInfo myProperty = (PropertyInfo) member;
 
                         MethodInfo info = myProperty.GetSetMethod(false);
                         if (info != null)
@@ -133,7 +134,7 @@ namespace CommonFunctions
                                     myProperty.SetValue(targetDeepCopyObj, CopyOjbect(propertyValue), null);
                                 }
                             }
-                            catch (System.Exception ex)
+                            catch (Exception ex)
                             {
                                 return null;
                             }
@@ -141,10 +142,11 @@ namespace CommonFunctions
                     }
                 }
             }
+
             return targetDeepCopyObj;
         }
-        
-        
+
+
         /// <summary>  
         /// 将 DateTime时间格式转换为Unix时间戳格式  
         /// </summary>  
@@ -152,8 +154,8 @@ namespace CommonFunctions
         /// <returns>long</returns>  
         public static long ConvertDateTimeToInt(DateTime time)
         {
-            System.DateTime Time = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1, 0, 0, 0, 0));
-            long TimeStamp = (time.Ticks - Time.Ticks) / 10000;   //除10000调整为13位     
+            DateTime Time = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1, 0, 0, 0, 0));
+            long TimeStamp = (time.Ticks - Time.Ticks) / 10000; //除10000调整为13位     
             return TimeStamp;
         }
 
@@ -164,7 +166,7 @@ namespace CommonFunctions
         /// <returns>long</returns>  
         public static DateTime ConvertDateTimeToInt(long time)
         {
-            System.DateTime Time = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1, 0, 0, 0, 0));
+            DateTime Time = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1, 0, 0, 0, 0));
             DateTime dateTime = Time.AddSeconds(time);
             return dateTime;
         }
@@ -184,7 +186,6 @@ namespace CommonFunctions
         }
 
 
-        
         /// <summary>
         /// 获取两个时间差的毫秒数
         /// </summary>

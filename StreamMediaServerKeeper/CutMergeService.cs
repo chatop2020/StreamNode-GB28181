@@ -7,41 +7,40 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-
-
 namespace StreamMediaServerKeeper
 {
     public static class CutMergeService
     {
         public static bool start = false;
         public static BlockingCollection<CutMergeTask> CutMergeTaskList = new BlockingCollection<CutMergeTask>(10);
-        public static List<CutMergeTask> CutMergeTaskStatusList= new List<CutMergeTask>();
+        public static List<CutMergeTask> CutMergeTaskStatusList = new List<CutMergeTask>();
+
         static CutMergeService()
         {
-          
             Task.Factory.StartNew(() =>
             {
                 foreach (var value in CutMergeTaskList.GetConsumingEnumerable())
                 {
-                  //  CutMergeTaskStatusList.Add(value);
+                    //  CutMergeTaskStatusList.Add(value);
                     var taskReturn = CutMerge(value);
                     if (taskReturn != null)
                     {
-                       var taskStatus= CutMergeTaskStatusList.FindLast(x => x.TaskId.Equals(taskReturn.Task.TaskId));
-                       
-                        taskReturn.Uri = "http://"+Common.MyIPAddress+":" + Common.HttpPort.ToString() +"/"+
+                        var taskStatus = CutMergeTaskStatusList.FindLast(x => x.TaskId.Equals(taskReturn.Task.TaskId));
+
+                        taskReturn.Uri = "http://" + Common.MyIPAddress + ":" + Common.HttpPort.ToString() + "/" +
                                          taskReturn.FilePath!.Replace(Common.StaticFilePath, "");
                         if (taskStatus != null)
                         {
                             taskStatus.PlayUrl = taskReturn.Uri;
                         }
+
                         var postDate = JsonHelper.ToJson(taskReturn);
                         var ret = NetHelper.HttpPostRequest(taskReturn.Task.CallbakUrl!, null!, postDate);
                     }
                 }
             });
         }
-        
+
         /// <summary>
         /// 获取合并裁剪任务的情况
         /// </summary>
@@ -56,27 +55,26 @@ namespace StreamMediaServerKeeper
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
             var ret = CutMergeTaskStatusList.FindLast(x => x.TaskId == taskId);
-            
+
             if (ret == null)
             {
-               
                 return null!;
             }
 
-            
+
             var result = new CutMergeTaskStatusResponse()
             {
                 CallbakUrl = ret.CallbakUrl,
                 CreateTime = ret.CreateTime,
                 ProcessPercentage = ret.ProcessPercentage,
                 TaskId = ret.TaskId,
-                TaskStatus = ret.TaskStatus, 
-                PlayUrl= ret.PlayUrl,
+                TaskStatus = ret.TaskStatus,
+                PlayUrl = ret.PlayUrl,
             };
-           
+
             return result;
         }
-        
+
         /// <summary>
         /// 获取裁剪积压任务列表
         /// </summary>
@@ -89,12 +87,12 @@ namespace StreamMediaServerKeeper
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            if (CutMergeTaskStatusList != null && CutMergeTaskStatusList.Count>0)
+            if (CutMergeTaskStatusList != null && CutMergeTaskStatusList.Count > 0)
             {
-                var retList= CutMergeTaskStatusList.FindAll(x => x.TaskStatus == TaskStatus.Create).ToList();
+                var retList = CutMergeTaskStatusList.FindAll(x => x.TaskStatus == TaskStatus.Create).ToList();
                 if (retList != null && retList.Count > 0)
                 {
-                    List<CutMergeTaskStatusResponse> resultList= new List<CutMergeTaskStatusResponse>();
+                    List<CutMergeTaskStatusResponse> resultList = new List<CutMergeTaskStatusResponse>();
                     foreach (var ret in retList!)
                     {
                         CutMergeTaskStatusResponse res = new CutMergeTaskStatusResponse()
@@ -115,7 +113,6 @@ namespace StreamMediaServerKeeper
             return null!;
         }
 
-        
 
         /// <summary>
         /// 添加一个裁剪合并任务
@@ -155,6 +152,7 @@ namespace StreamMediaServerKeeper
                 return null;
             }
         }
+
         /// <summary>
         /// 将mp4转为ts格式封装，这里可能需要捕获异常，超时30分钟
         /// </summary>
@@ -181,15 +179,14 @@ namespace StreamMediaServerKeeper
                 if (retRun && (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err)) &&
                     File.Exists(videoTsFilePath))
                 {
-                    
-                    FileInfo fileInfo= new FileInfo(videoTsFilePath);
+                    FileInfo fileInfo = new FileInfo(videoTsFilePath);
                     if (fileInfo.Length > 10)
                     {
-                        task.CutMergeFileList[i].FilePath = videoTsFilePath; 
+                        task.CutMergeFileList[i].FilePath = videoTsFilePath;
                     }
-                   
                 }
-                task.ProcessPercentage +=   ((double) 1 / (double) task.CutMergeFileList!.Count * 100f) * 0.4f;
+
+                task.ProcessPercentage += ((double) 1 / (double) task.CutMergeFileList!.Count * 100f) * 0.4f;
                 Thread.Sleep(20);
             }
 
@@ -204,8 +201,8 @@ namespace StreamMediaServerKeeper
         private static string mergeProcess(CutMergeTask task)
         {
             task.TaskStatus = TaskStatus.Mergeing;
-            string mergePath = Common.CutOrMergeTempPath+ task.TaskId;
-            string outPutPath =Common.CutOrMergePath +
+            string mergePath = Common.CutOrMergeTempPath + task.TaskId;
+            string outPutPath = Common.CutOrMergePath +
                                 DateTime.Now.Date.ToString("yyyy-MM-dd");
             if (!Directory.Exists(outPutPath))
             {
@@ -216,24 +213,23 @@ namespace StreamMediaServerKeeper
             for (int i = 0; i <= task.CutMergeFileList!.Count - 1; i++)
             {
                 mergeStringList.Add("file '" + task.CutMergeFileList[i].FilePath + "'");
-               
             }
 
             File.WriteAllLines(mergePath + "files.txt", mergeStringList);
-            
+
             string newFilePath = outPutPath + "/" + task.TaskId + "_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") +
                                  ".mp4";
             string ffmpegCmd = Common.FFmpegBinPath + " -threads " + Common.FFmpegThreadCount.ToString() +
                                " -f concat -safe 0 -i " + mergePath +
                                "files.txt" + " -c copy  -movflags faststart " + newFilePath;
-           
+
             var retRun = LinuxShell.Run(ffmpegCmd, 1000 * 60 * 30, out string std, out string err);
             task.ProcessPercentage += 40f;
             if (retRun && (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err)) &&
-                File.Exists(newFilePath) )
+                File.Exists(newFilePath))
             {
                 long find = -1;
-                FileInfo fileInfo= new FileInfo(newFilePath);
+                FileInfo fileInfo = new FileInfo(newFilePath);
                 if (fileInfo.Length > 10)
                 {
                     return newFilePath;
@@ -284,7 +280,6 @@ namespace StreamMediaServerKeeper
 
                 if (find > 0)
                 {
-                  
                     cms.FilePath = newTsName;
                 }
                 else
@@ -322,8 +317,8 @@ namespace StreamMediaServerKeeper
                 try
                 {
                     task = packageToTsStreamFile(task); //转ts文件
-                  
-                    
+
+
                     task.TaskStatus = TaskStatus.Cutting;
 
                     List<CutMergeStruct> cutFileList = task.CutMergeFileList!
@@ -332,16 +327,16 @@ namespace StreamMediaServerKeeper
                     {
                         if (task.CutMergeFileList[i].CutStartPos != null && task.CutMergeFileList[i].CutEndPos != null)
                         {
-                            task.ProcessPercentage +=   ((double) 1 / (double)cutFileList.Count * 100f) * 0.15f;
-                          
+                            task.ProcessPercentage += ((double) 1 / (double) cutFileList.Count * 100f) * 0.15f;
+
                             //做剪切
                             task.CutMergeFileList[i] = cutProcess(task.CutMergeFileList[i]);
                             Thread.Sleep(20);
                         }
                     }
-                  
+
                     string filePath = mergeProcess(task);
-                   
+
                     task.ProcessPercentage = 100f;
                     task.TaskStatus = TaskStatus.Closed;
                     stopwatch.Stop(); //  停止监视
@@ -350,14 +345,13 @@ namespace StreamMediaServerKeeper
                     {
                         long duration = -1;
                         string newPath = "";
-                      
-                        FFmpegGetDuration.GetDuration(Common.FFmpegBinPath, filePath, out duration,out newPath);
+
+                        FFmpegGetDuration.GetDuration(Common.FFmpegBinPath, filePath, out duration, out newPath);
                         var ret = CutMergeTaskStatusList.FindLast(x => x.TaskId == task.TaskId);
                         if (ret != null)
                         {
-                            
                         }
-                      
+
                         return new CutMergeTaskResponse
                         {
                             FilePath = newPath,
@@ -368,7 +362,7 @@ namespace StreamMediaServerKeeper
                             TimeConsuming = timespan.TotalMilliseconds,
                         };
                     }
-                  
+
                     return new CutMergeTaskResponse
                     {
                         FilePath = "",
@@ -396,7 +390,7 @@ namespace StreamMediaServerKeeper
                     if (File.Exists(Common.CutOrMergeTempPath + task!.TaskId + "files.txt")
                     ) //清理战场
                     {
-                        File.Delete(Common.CutOrMergeTempPath  + task!.TaskId + "files.txt");
+                        File.Delete(Common.CutOrMergeTempPath + task!.TaskId + "files.txt");
                     }
                 }
             }

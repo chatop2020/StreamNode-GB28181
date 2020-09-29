@@ -25,9 +25,6 @@
 // Aaron Clauson
 
 using System;
-using System.Collections;
-using System.Net;
-using GB28181.Sys;
 using SIPSorcery.Sys;
 
 #if UNITTEST

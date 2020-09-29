@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using Heijden.DNS;
 using Microsoft.Extensions.Logging;
@@ -92,7 +93,7 @@ namespace SIPSorcery.SIP.App
             try
             {
                 //return ResolveSIPService(SIPURI.ParseSIPURIRelaxed(host), true);
-                return ResolveSIPService(SIPURI.ParseSIPURIRelaxed(host), true, SIPDNSManager.PreferIPv6NameResolution);
+                return ResolveSIPService(SIPURI.ParseSIPURIRelaxed(host), true, PreferIPv6NameResolution);
             }
             catch (Exception excp)
             {
@@ -129,7 +130,7 @@ namespace SIPSorcery.SIP.App
                     int port = sipURI.Protocol != SIPProtocolsEnum.tls ? m_defaultSIPPort : m_defaultSIPSPort;
                     if (preferIPv6 == null)
                     {
-                        preferIPv6 = SIPDNSManager.PreferIPv6NameResolution;
+                        preferIPv6 = PreferIPv6NameResolution;
                     }
 
                     bool explicitPort = false;
@@ -137,7 +138,7 @@ namespace SIPSorcery.SIP.App
                     try
                     {
                         //Parse returns true if sipURI.Host can be parsed as an ipaddress
-                        bool parseresult = SIPSorcery.Sys.IPSocket.Parse(sipURI.MAddrOrHost, out host, out port);
+                        bool parseresult = IPSocket.Parse(sipURI.MAddrOrHost, out host, out port);
                         explicitPort = port >= 0;
                         if (!explicitPort)
                         {
@@ -167,7 +168,7 @@ namespace SIPSorcery.SIP.App
                         explicitPort = port >= 0;
 
                         //if(Regex.Match(host, @"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$").Success)
-                        if (SIPSorcery.Sys.IPSocket.IsIPAddress(host))
+                        if (IPSocket.IsIPAddress(host))
                         {
                             // Target is an IP address, no DNS lookup required.
                             IPAddress hostIP = IPAddress.Parse(host);
@@ -191,10 +192,10 @@ namespace SIPSorcery.SIP.App
                         string hostOnly = IPSocket.ParseHostFromSocket(host);
 
                         // If host is not fully qualified then assume there's no point using NAPTR or SRV record look ups and go straight to A's.
-                        if (hostOnly.ToLower() == System.Net.Dns.GetHostName()?.ToLower())
+                        if (hostOnly.ToLower() == Dns.GetHostName()?.ToLower())
                         {
                             // The lookup is for the current machine.
-                            var addressList = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList;
+                            var addressList = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
 
                             if (addressList?.Length == 0)
                             {
@@ -242,7 +243,7 @@ namespace SIPSorcery.SIP.App
                                 {
                                     m_inProgressSIPServiceLookups.Add(sipURI.ToString());
                                     //ThreadPool.QueueUserWorkItem(delegate { ResolveSIPService(sipURI, false); });
-                                    System.Threading.ThreadPool.QueueUserWorkItem((obj) =>
+                                    ThreadPool.QueueUserWorkItem((obj) =>
                                         ResolveSIPService(sipURI, false, preferIPv6));
                                 }
 
@@ -321,7 +322,7 @@ namespace SIPSorcery.SIP.App
                     int port = sipURI.Protocol != SIPProtocolsEnum.tls ? m_defaultSIPPort : m_defaultSIPSPort;
                     if (preferIPv6 == null)
                     {
-                        preferIPv6 = SIPDNSManager.PreferIPv6NameResolution;
+                        preferIPv6 = PreferIPv6NameResolution;
                     }
 
                     bool explicitPort = false;
@@ -329,7 +330,7 @@ namespace SIPSorcery.SIP.App
                     try
                     {
                         //Parse returns true if sipURI.Host can be parsed as an ipaddress
-                        bool parseresult = SIPSorcery.Sys.IPSocket.Parse(sipURI.MAddrOrHost, out host, out port);
+                        bool parseresult = IPSocket.Parse(sipURI.MAddrOrHost, out host, out port);
                         explicitPort = port >= 0;
                         if (!explicitPort)
                         {
@@ -359,7 +360,7 @@ namespace SIPSorcery.SIP.App
                         explicitPort = port > 0;
 
                         //if(Regex.Match(host, @"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$").Success)
-                        if (SIPSorcery.Sys.IPSocket.IsIPAddress(host))
+                        if (IPSocket.IsIPAddress(host))
                         {
                             // Target is an IP address, no DNS lookup required.
                             IPAddress hostIP = IPAddress.Parse(host);
@@ -383,10 +384,10 @@ namespace SIPSorcery.SIP.App
                         string hostOnly = IPSocket.ParseHostFromSocket(host);
 
                         // If host is not fully qualified then assume there's no point using NAPTR or SRV record look ups and go straight to A's.
-                        if (hostOnly.ToLower() == System.Net.Dns.GetHostName()?.ToLower())
+                        if (hostOnly.ToLower() == Dns.GetHostName()?.ToLower())
                         {
                             // The lookup is for the current machine.
-                            var addressList = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList;
+                            var addressList = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
 
                             if (addressList?.Length == 0)
                             {
@@ -437,7 +438,7 @@ namespace SIPSorcery.SIP.App
                             {
                                 m_inProgressSIPServiceLookups.Add(sipURI.ToString());
                                 //ThreadPool.QueueUserWorkItem(delegate { ResolveSIPService(sipURI, false); });
-                                System.Threading.ThreadPool.QueueUserWorkItem((obj) =>
+                                ThreadPool.QueueUserWorkItem((obj) =>
                                     ResolveSIPService(sipURI, false, preferIPv6));
                             }
 
@@ -658,7 +659,7 @@ namespace SIPSorcery.SIP.App
                 {
                     if (preferIPv6 == null)
                     {
-                        preferIPv6 = SIPDNSManager.PreferIPv6NameResolution;
+                        preferIPv6 = PreferIPv6NameResolution;
                     }
 
                     foreach (RecordCNAME aRecord in aRecordResponse.RecordsCNAME)

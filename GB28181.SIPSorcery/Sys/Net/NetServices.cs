@@ -16,10 +16,12 @@ using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
 using GB28181.Logger4Net;
+using SIPSorcery.Sys;
 
 namespace GB28181.Sys.Net
 {
@@ -64,7 +66,7 @@ namespace GB28181.Sys.Net
 
                 while (attempts < 50)
                 {
-                    int port = SIPSorcery.Sys.Crypto.GetRandomInt(start, end);
+                    int port = Crypto.GetRandomInt(start, end);
                     if (inUsePorts == null || !inUsePorts.Contains(port))
                     {
                         try
@@ -110,7 +112,7 @@ namespace GB28181.Sys.Net
                 //}
 
                 var inUseUDPPorts =
-                    (from p in System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties()
+                    (from p in IPGlobalProperties.GetIPGlobalProperties()
                             .GetActiveUdpListeners()
                         where p.Port >= startPort && p.Port <= endPort &&
                               p.Address.ToString() == localAddress.ToString()
@@ -189,7 +191,7 @@ namespace GB28181.Sys.Net
 
                             break;
                         }
-                        catch (System.Net.Sockets.SocketException)
+                        catch (SocketException)
                         {
                             if (controlPort != 0)
                             {

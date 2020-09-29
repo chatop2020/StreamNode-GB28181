@@ -21,8 +21,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml;
-using GB28181.Sys;
 using GB28181.Logger4Net;
+using GB28181.Sys;
 #if !SILVERLIGHT
 using System.Data;
 

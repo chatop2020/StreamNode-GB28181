@@ -50,6 +50,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DnsClient;
 using Microsoft.Extensions.Logging;
 using SIPSorcery.Sys;
 
@@ -71,7 +72,7 @@ namespace SIPSorcery.Net
     /// </remarks>
     public class IceSession
     {
-        private static DnsClient.LookupClient _dnsLookupClient;
+        private static LookupClient _dnsLookupClient;
 
         /// <summary>
         /// List of state conditions for a check list entry as the connectivity checks are 
@@ -484,7 +485,7 @@ namespace SIPSorcery.Net
 
             if (_dnsLookupClient == null)
             {
-                _dnsLookupClient = new DnsClient.LookupClient();
+                _dnsLookupClient = new LookupClient();
             }
 
             _rtpChannel = rtpChannel;
@@ -902,7 +903,7 @@ namespace SIPSorcery.Net
             if (!IPAddress.TryParse(remoteCandidate.address, out var remoteCandidateIPAddr))
             {
                 // The candidate string can be a hostname or an IP address.
-                var lookupResult = await _dnsLookupClient.QueryAsync(remoteCandidate.address, DnsClient.QueryType.A);
+                var lookupResult = await _dnsLookupClient.QueryAsync(remoteCandidate.address, QueryType.A);
 
                 if (lookupResult.Answers.Count > 0)
                 {
@@ -1170,7 +1171,7 @@ namespace SIPSorcery.Net
                     #region STUN Binding Requests.
 
                     // TODO: The integrity check method needs to be implemented (currently just returns true).
-                    bool result = stunMessage.CheckIntegrity(System.Text.Encoding.UTF8.GetBytes(LocalIcePassword),
+                    bool result = stunMessage.CheckIntegrity(Encoding.UTF8.GetBytes(LocalIcePassword),
                         LocalIceUser, RemoteIceUser);
 
                     if (!result)

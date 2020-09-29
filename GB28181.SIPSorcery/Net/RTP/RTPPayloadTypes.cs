@@ -9,8 +9,6 @@
 // License: 
 // Aaron Clauson
 
-using System;
-
 namespace GB28181.Net
 {
     public enum RTPPayloadTypesEnum

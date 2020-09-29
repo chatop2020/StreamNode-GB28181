@@ -3,7 +3,7 @@ using System;
 namespace CommonFunctions.WebApiStructs.Request
 {
     [Serializable]
-    public class ReqZLMediaKitAddStreamProxy:ReqZLMediaKitRequestBase
+    public class ReqZLMediaKitAddStreamProxy : ReqZLMediaKitRequestBase
     {
         private string _vhost;
         private string _app;
@@ -68,6 +68,5 @@ namespace CommonFunctions.WebApiStructs.Request
             get => _rtp_type;
             set => _rtp_type = value;
         }
-       
     }
 }

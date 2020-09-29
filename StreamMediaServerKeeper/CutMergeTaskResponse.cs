@@ -1,6 +1,5 @@
 using System;
 
-
 namespace StreamMediaServerKeeper
 {
     public enum CutMergeRequestStatus
@@ -9,6 +8,7 @@ namespace StreamMediaServerKeeper
         Failed,
         WaitForCallBack,
     }
+
     [Serializable]
     public class CutMergeTaskResponse
     {

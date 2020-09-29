@@ -17,9 +17,8 @@ using System.Net.Sockets;
 using System.Threading;
 using GB28181.Logger4Net;
 using GB28181.Sys;
-using GB28181.Sys.Net;
 using SIPSorcery.Sys;
-
+using NetServices = GB28181.Sys.Net.NetServices;
 
 namespace GB28181.Net
 {
@@ -228,7 +227,7 @@ namespace GB28181.Net
 
         public RTPSink(IPAddress localAddress, ArrayList inUsePorts)
         {
-            m_udpListener = Sys.Net.NetServices.CreateRandomUDPListener(localAddress, RTP_PORTRANGE_START,
+            m_udpListener = NetServices.CreateRandomUDPListener(localAddress, RTP_PORTRANGE_START,
                 RTP_PORTRANGE_END, inUsePorts, out m_localEndPoint);
 
             // If a setting has been supplied in the config file use that.

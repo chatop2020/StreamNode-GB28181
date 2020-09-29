@@ -6,7 +6,6 @@ using CommonFunctions;
 using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Request;
-using LibGB28181SipGate;
 using StreamNodeCtrlApis.SystemApis;
 
 namespace StreamNodeWebApi.AutoTasker
@@ -347,7 +346,6 @@ namespace StreamNodeWebApi.AutoTasker
             return false;
         }
 
-      
 
         /// <summary>
         /// 设置是否启用录制
@@ -392,9 +390,6 @@ namespace StreamNodeWebApi.AutoTasker
         }
 
 
-     
-
-
         /// <summary>
         /// 执行启动和关闭指令
         /// </summary>
@@ -407,7 +402,7 @@ namespace StreamNodeWebApi.AutoTasker
             List<string?> dateList = null!;
             videoSize = getDvrPlanFileSize(sdp)!;
             dateList = getDvrPlanFileDataList(sdp)!;
-            if (dateList != null && dateList.Count>0)
+            if (dateList != null && dateList.Count > 0)
             {
                 Common.RemoveNull(dateList);
                 dateCount = dateList.Count;
@@ -508,49 +503,49 @@ namespace StreamNodeWebApi.AutoTasker
                 try
                 {
                     i++;
-                    if(Common.MediaServerList!=null && Common.MediaServerList.Count>0)
-                    foreach (var mediaServer in Common.MediaServerList)
-                    {
-                        if (mediaServer != null && mediaServer.IsRunning)
+                    if (Common.MediaServerList != null && Common.MediaServerList.Count > 0)
+                        foreach (var mediaServer in Common.MediaServerList)
                         {
-                            if (i % 50 == 0)
+                            if (mediaServer != null && mediaServer.IsRunning)
                             {
-                                mediaServer.ClearNoFileDir(out _); //清除空目录
-                            }
-
-                            ReqGetDvrPlan rgdp = new ReqGetDvrPlan();
-                            rgdp.MediaServerId = mediaServer.MediaServerId;
-                            var dvrPlanList = DvrPlanApis.GetDvrPlanList(rgdp, out ResponseStruct rs);
-                            if (dvrPlanList == null || dvrPlanList.Count == 0) continue;
-                            foreach (var dvrPlan in dvrPlanList)
-                            {
-                                if (dvrPlan == null || dvrPlan.Enable == false)
+                                if (i % 50 == 0)
                                 {
-                                    continue;
+                                    mediaServer.ClearNoFileDir(out _); //清除空目录
                                 }
 
-                                CameraInstance camera = null;
-                                lock (Common.CameraInstanceList)
+                                ReqGetDvrPlan rgdp = new ReqGetDvrPlan();
+                                rgdp.MediaServerId = mediaServer.MediaServerId;
+                                var dvrPlanList = DvrPlanApis.GetDvrPlanList(rgdp, out ResponseStruct rs);
+                                if (dvrPlanList == null || dvrPlanList.Count == 0) continue;
+                                foreach (var dvrPlan in dvrPlanList)
                                 {
-                                    camera =
-                                        Common.CameraInstanceList.FindLast(x =>
-                                            x.CameraId.Equals(dvrPlan.CameraId));
-                                }
-
-                                if (camera != null)
-                                {
-                                    ExecDelete(dvrPlan);
-                                    if (camera.EnableLive &&
-                                        getCameraSessionStatus(camera.PushMediaServerId, camera.CameraId))
+                                    if (dvrPlan == null || dvrPlan.Enable == false)
                                     {
-                                        execOnOrOff(dvrPlan);
+                                        continue;
                                     }
-                                }
 
-                                Thread.Sleep(2000);
+                                    CameraInstance camera = null;
+                                    lock (Common.CameraInstanceList)
+                                    {
+                                        camera =
+                                            Common.CameraInstanceList.FindLast(x =>
+                                                x.CameraId.Equals(dvrPlan.CameraId));
+                                    }
+
+                                    if (camera != null)
+                                    {
+                                        ExecDelete(dvrPlan);
+                                        if (camera.EnableLive &&
+                                            getCameraSessionStatus(camera.PushMediaServerId, camera.CameraId))
+                                        {
+                                            execOnOrOff(dvrPlan);
+                                        }
+                                    }
+
+                                    Thread.Sleep(2000);
+                                }
                             }
                         }
-                    }
 
                     Thread.Sleep(5000);
                 }

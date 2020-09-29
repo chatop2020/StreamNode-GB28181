@@ -13,10 +13,9 @@
 // License: 
 // BSD 3-Clause "New" or "Revised" License, see included LICENSE.md file.
 
+using System.Reflection;
 using GB28181.Logger4Net;
 using GB28181.Sys;
-using System.Reflection;
-
 
 [assembly: AssemblyCulture("")]
 

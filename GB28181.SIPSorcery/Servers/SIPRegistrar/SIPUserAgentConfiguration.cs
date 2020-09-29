@@ -20,11 +20,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using GB28181.Sys;
 using GB28181.Logger4Net;
+using GB28181.Sys;
 
 #if UNITTEST
 using NUnit.Framework;

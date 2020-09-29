@@ -9,7 +9,6 @@ using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
 using GB28181.Servers.SIPMonitor;
 using GB28181.Sys.Model;
-using GB28181.Sys.XML;
 using LibGB28181SipGate;
 using StreamNodeCtrlApis.SystemApis;
 
@@ -209,9 +208,10 @@ namespace StreamNodeCtrlApis.WebHookApis
                 lock (Common.CameraSessionLock)
                 {
                     session.IsOnline = true;
-                    session.OnlineTime=DateTime.Now;
+                    session.OnlineTime = DateTime.Now;
                     session.UpTime = 0;
                 }
+
                 ClientOnOffLog tmpClientLog = new ClientOnOffLog()
                 {
                     App = session.App,
@@ -265,11 +265,11 @@ namespace StreamNodeCtrlApis.WebHookApis
                     switch (req.Player)
                     {
                         case true:
-                           
-                                player = Common.PlayerSessions.FindLast(x => x.SessionId.Equals(req.Id)
-                                                                             && x.ClientType ==
-                                                                             ClientType.Player);
-                         
+
+                            player = Common.PlayerSessions.FindLast(x => x.SessionId.Equals(req.Id)
+                                                                         && x.ClientType ==
+                                                                         ClientType.Player);
+
 
                             break;
                         case false:
@@ -462,19 +462,18 @@ namespace StreamNodeCtrlApis.WebHookApis
                 CameraSession checksession = null;
                 lock (Common.CameraSessionLock)
                 {
-                     checksession = Common.CameraSessions.FindLast(x => x.App.Equals(req.App)
-                                                                           && x.Vhost.Equals(req.Vhost) &&
-                                                                           x.StreamId.Equals(req.Stream) &&
-                                                                           x.MediaServerId.Equals(req.Mediaserverid));
+                    checksession = Common.CameraSessions.FindLast(x => x.App.Equals(req.App)
+                                                                       && x.Vhost.Equals(req.Vhost) &&
+                                                                       x.StreamId.Equals(req.Stream) &&
+                                                                       x.MediaServerId.Equals(req.Mediaserverid));
                 }
 
                 if (checksession == null)
                 {
-                  
                     var ffmpegObj = mediaServer.WebApi.FFmpegProxies.FindLast(x => x.App.Equals(req.App)
-                                                                                   && x.Vhost.Equals(req.Vhost) &&
-                                                                                   x.StreamId.Equals(req.Stream));
-                  
+                        && x.Vhost.Equals(req.Vhost) &&
+                        x.StreamId.Equals(req.Stream));
+
                     if (ffmpegObj != null && ffmpegObj.MediaInfo != null && ffmpegObj.MediaInfo.Count > 0 &&
                         ffmpegObj.Data != null)
                     {
@@ -485,7 +484,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                                 x.IfRtspUrl.Equals(ffmpegObj.Src_Url) && x.PushMediaServerId.Equals(req.Mediaserverid));
                         }
 
-                       
+
                         if (camera != null)
                         {
                             CameraSession session = new CameraSession()
@@ -559,10 +558,11 @@ namespace StreamNodeCtrlApis.WebHookApis
                 {
                     lock (Common.CameraSessionLock)
                     {
-                        checksession.IsOnline = true; 
-                        checksession.OnlineTime=DateTime.Now;
+                        checksession.IsOnline = true;
+                        checksession.OnlineTime = DateTime.Now;
                         checksession.UpTime = 0;
                     }
+
                     ClientOnOffLog tmpClientLog = new ClientOnOffLog()
                     {
                         App = checksession.App,
@@ -622,7 +622,8 @@ namespace StreamNodeCtrlApis.WebHookApis
             tmpDvrVideo.PushMediaServerId = record.Mediaserverid;
             tmpDvrVideo.UpdateTime = currentTime;
             tmpDvrVideo.RecordDate = st.ToString("yyyy-MM-dd");
-            tmpDvrVideo.DownloadUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.WebApiPort + "/CustomizedRecord/" +
+            tmpDvrVideo.DownloadUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.WebApiPort +
+                                      "/CustomizedRecord/" +
                                       tmpDvrVideo.DownloadUrl;
 
             CameraSession session = null;
@@ -712,7 +713,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 }
 
                 MediaServerInstance msi = new MediaServerInstance(req.Ipaddress, req.WebApiServerhttpPort,
-                    req.MediaServerHttpPort, req.Secret, req.MediaServerId,req.RecordFilePath);
+                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath);
                 msi.KeepAlive = DateTime.Now;
 
                 lock (Common.MediaServerList)

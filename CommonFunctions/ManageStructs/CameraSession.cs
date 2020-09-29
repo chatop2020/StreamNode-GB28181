@@ -1,5 +1,4 @@
 using System;
-using CommonFunctions.ManageStructs;
 using GB28181.Sys.Model;
 
 namespace CommonFunction.ManageStructs
@@ -11,6 +10,7 @@ namespace CommonFunction.ManageStructs
         Player,
         Livecast,
     }
+
     [Serializable]
     public class CameraSession
     {
@@ -34,7 +34,7 @@ namespace CommonFunction.ManageStructs
         private string? _app;
         private string? _streamId;
         private string? _mediaServerIp;
-      
+
 
         public string? CameraId
         {
@@ -155,6 +155,5 @@ namespace CommonFunction.ManageStructs
             get => _mediaServerIp;
             set => _mediaServerIp = value;
         }
-        
     }
 }

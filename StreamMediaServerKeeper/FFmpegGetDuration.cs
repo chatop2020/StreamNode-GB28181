@@ -1,26 +1,21 @@
 using System;
 using System.IO;
 
-
 namespace StreamMediaServerKeeper
 {
-   
     public static class FFmpegGetDuration
     {
-     
-        private static bool ifNotMp4(string ffmpegBinPath, string videoFilePath,out string videoPath)
+        private static bool ifNotMp4(string ffmpegBinPath, string videoFilePath, out string videoPath)
         {
             string ext = Path.GetExtension(videoFilePath);
             string newFileName = videoFilePath.Replace(ext, ".mp4");
             string ffmpegCmd = ffmpegBinPath + " -i " + videoFilePath + " -c copy -movflags faststart " +
                                newFileName;
             videoPath = newFileName;
-          
-            
+
+
             if (!string.IsNullOrEmpty(ext) && !ext.Trim().ToLower().Equals(".mp4"))
             {
-               
-
                 if (LinuxShell.Run(ffmpegCmd, 60 * 1000 * 5, out string std, out string err))
                 {
                     if (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err))
@@ -33,15 +28,17 @@ namespace StreamMediaServerKeeper
                                 File.Delete(videoFilePath);
                                 return true;
                             }
+
                             return false;
                         }
+
                         return false;
                     }
 
                     return false;
                 }
-                
             }
+
             return true;
         }
 
@@ -53,7 +50,7 @@ namespace StreamMediaServerKeeper
         /// <param name="duartion"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static bool GetDuration(string ffmpegBinPath, string videoFilePath, out long duartion,out string path)
+        public static bool GetDuration(string ffmpegBinPath, string videoFilePath, out long duartion, out string path)
         {
             duartion = -1;
             if (File.Exists(ffmpegBinPath) && File.Exists(videoFilePath))
@@ -64,12 +61,11 @@ namespace StreamMediaServerKeeper
                 {
                     videoFilePath = newPath;
                 }
+
                 path = videoFilePath;
                 string cmd = ffmpegBinPath + " -i " + videoFilePath;
                 if (LinuxShell.Run(cmd, 1000, out string std, out string err))
                 {
-                    
-                  
                     if (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err))
                     {
                         string tmp = "";

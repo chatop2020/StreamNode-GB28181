@@ -32,15 +32,16 @@ namespace StreamNodeWebApi.Controllers
         public CutMergeTaskResponse CutOrMergeVideoFile(ReqCutOrMergeVideoFile rcmv)
         {
             ResponseStruct rs;
-            var ret = MediaServerApis.CutOrMergeVideoFile(rcmv,out rs);
+            var ret = MediaServerApis.CutOrMergeVideoFile(rcmv, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
 
-        
+
         /// <summary>
         /// 获取裁剪合并任务状态
         /// </summary>
@@ -49,19 +50,19 @@ namespace StreamNodeWebApi.Controllers
         [HttpGet]
         [Log]
         [AuthVerify]
-        public CutMergeTaskStatusResponse GetMergeTaskStatus(string mediaServerId,string taskId)
+        public CutMergeTaskStatusResponse GetMergeTaskStatus(string mediaServerId, string taskId)
         {
             ResponseStruct rs;
-            var ret = MediaServerApis.GetMergeTaskStatus(mediaServerId,taskId,out rs);
+            var ret = MediaServerApis.GetMergeTaskStatus(mediaServerId, taskId, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-        
-        
-        
+
+
         /// <summary>
         /// 获取裁剪合并任务积压列表
         /// </summary>
@@ -73,14 +74,15 @@ namespace StreamNodeWebApi.Controllers
         public List<CutMergeTaskStatusResponse> GetBacklogTaskList(string mediaServerId)
         {
             ResponseStruct rs;
-            var ret = MediaServerApis.GetBacklogTaskList(mediaServerId,out rs);
+            var ret = MediaServerApis.GetBacklogTaskList(mediaServerId, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-        
+
         /// <summary>
         /// 恢复被软删除的录像文件
         /// </summary>
@@ -97,6 +99,7 @@ namespace StreamNodeWebApi.Controllers
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
 
@@ -116,9 +119,10 @@ namespace StreamNodeWebApi.Controllers
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-        
+
         /// <summary>
         /// 删除一批录像文件ById（硬删除，立即删除文件，数据库做delete标记）
         /// </summary>
@@ -135,16 +139,16 @@ namespace StreamNodeWebApi.Controllers
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
 
-        
 
         /// <summary>
         /// 删除一个录像文件ById（软删除，只做标记，不删除文件，文件在24小时后删除）
         /// </summary>
         /// <returns></returns>
-         [Route("SoftDeleteDvrVideoById")]
+        [Route("SoftDeleteDvrVideoById")]
         [HttpGet]
         [Log]
         [AuthVerify]
@@ -156,9 +160,10 @@ namespace StreamNodeWebApi.Controllers
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-       
+
         /// <summary>
         /// 获取录像文件(条件灵活)
         /// </summary>
@@ -175,10 +180,11 @@ namespace StreamNodeWebApi.Controllers
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
+
             return ret;
         }
-       
-        
+
+
         /// <summary>
         /// 获取摄像头实例列表
         /// </summary>
@@ -293,11 +299,12 @@ namespace StreamNodeWebApi.Controllers
 
             foreach (var obj in ret)
             {
-                obj.UpTime= (DateTime.Now - obj.OnlineTime).TotalSeconds;
+                obj.UpTime = (DateTime.Now - obj.OnlineTime).TotalSeconds;
             }
-            return ret;  
+
+            return ret;
         }
-        
+
         /// <summary>
         /// 获取在线摄像头列表
         /// </summary>
@@ -320,9 +327,10 @@ namespace StreamNodeWebApi.Controllers
             ret = ret.FindAll(x => x.IsOnline == true);
             foreach (var obj in ret)
             {
-                obj.UpTime= (DateTime.Now - obj.OnlineTime).TotalSeconds;
+                obj.UpTime = (DateTime.Now - obj.OnlineTime).TotalSeconds;
             }
-            return ret;  
+
+            return ret;
         }
         /*/// <summary>
         /// 获取客户端列表

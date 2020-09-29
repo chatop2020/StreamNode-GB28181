@@ -17,6 +17,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using GB28181.App;
 using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
@@ -78,7 +79,7 @@ namespace GB28181
         public event SIPTransportRequestDelegate SIPTransportRequestReceived;
         public event SIPTransportResponseDelegate SIPTransportResponseReceived;
         public event STUNRequestReceivedDelegate STUNRequestReceived;
-        private ResolveSIPEndPointDelegate ResolveSIPEndPoint_External = App.SIPDNSManager.ResolveSIPService;
+        private ResolveSIPEndPointDelegate ResolveSIPEndPoint_External = SIPDNSManager.ResolveSIPService;
 
         public event SIPTransportRequestDelegate SIPRequestInTraceEvent;
         public event SIPTransportRequestDelegate SIPRequestOutTraceEvent;
@@ -522,7 +523,7 @@ namespace GB28181
 
         public byte[] ConvertUnicodeToUTF8(string message)
         {
-            var utf8 = System.Text.Encoding.GetEncoding("utf-8");
+            var utf8 = Encoding.GetEncoding("utf-8");
             byte[] array = Encoding.GetEncoding("gb2312").GetBytes(message);
             //byte[] s4 = System.Text.Encoding.Convert(System.Text.Encoding.GetEncoding("gb2312"), System.Text.Encoding.UTF8, array);
             return array;

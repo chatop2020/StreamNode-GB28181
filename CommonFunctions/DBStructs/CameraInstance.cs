@@ -127,7 +127,6 @@ namespace CommonFunctions.DBStructs
             set => _enableLive = value;
         }
 
-      
 
         public bool? EnablePtz
         {
@@ -146,6 +145,7 @@ namespace CommonFunctions.DBStructs
             get => _updateTime;
             set => _updateTime = value;
         }
+
         [JsonIgnore]
         [Column(IsIgnore = true)]
         public int? RetryTimes

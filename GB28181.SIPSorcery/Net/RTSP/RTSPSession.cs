@@ -27,12 +27,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
-using GB28181.Sys;
 using GB28181.Logger4Net;
+using GB28181.Sys;
 using SIPSorcery.Sys;
 
 namespace GB28181.Net
@@ -248,7 +250,7 @@ namespace GB28181.Net
                 }
 
                 var inUseUDPPorts =
-                    (from p in System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties()
+                    (from p in IPGlobalProperties.GetIPGlobalProperties()
                             .GetActiveUdpListeners()
                         where p.Port >= _nextMediaPort
                         select p.Port).OrderBy(x => x).ToList();
@@ -309,7 +311,7 @@ namespace GB28181.Net
 
                             break;
                         }
-                        catch (System.Net.Sockets.SocketException sockExcp)
+                        catch (SocketException sockExcp)
                         {
                             logger.Warn("RTSP session " + _sessionID + " failed to bind to RTP port " + _rtpPort +
                                         " and/or control port of " + _controlPort + ", attempt " + bindAttempts + ". " +
@@ -550,7 +552,7 @@ namespace GB28181.Net
                                         {
                                             if (_packets.Count > RTP_PACKETS_MAX_QUEUE_LENGTH)
                                             {
-                                                System.Diagnostics.Debug.WriteLine(
+                                                Debug.WriteLine(
                                                     "RTSPSession.RTPReceive packets queue full, clearing.");
                                                 logger.Warn("RTSPSession.RTPReceive packets queue full, clearing.");
 
@@ -638,8 +640,8 @@ namespace GB28181.Net
                 {
                     _controlLastActivityAt = DateTime.Now;
 
-                    System.Diagnostics.Debug.WriteLine(bytesRead + " bytes read from Control socket for RTSP session " +
-                                                       _sessionID + ".");
+                    Debug.WriteLine(bytesRead + " bytes read from Control socket for RTSP session " +
+                                    _sessionID + ".");
 
                     if (OnControlDataReceived != null)
                     {
@@ -931,9 +933,9 @@ namespace GB28181.Net
 
                     _timestamp = DateTimeToNptTimestamp90K(DateTime.Now);
 
-                    System.Diagnostics.Debug.WriteLine("Sending " + frame.Length +
-                                                       " encoded bytes to client, timestamp " + _timestamp +
-                                                       ", starting sequence number " + _sequenceNumber + ".");
+                    Debug.WriteLine("Sending " + frame.Length +
+                                    " encoded bytes to client, timestamp " + _timestamp +
+                                    ", starting sequence number " + _sequenceNumber + ".");
 
                     for (int index = 0; index * RTP_MAX_PAYLOAD < frame.Length; index++)
                     {

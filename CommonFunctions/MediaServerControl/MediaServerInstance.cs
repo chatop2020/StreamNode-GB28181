@@ -4,9 +4,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
-using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
-using GB28181.Sys.Model;
 using LibGB28181SipGate;
 
 namespace CommonFunctions.MediaServerControl
@@ -25,10 +23,9 @@ namespace CommonFunctions.MediaServerControl
         private DateTime _updateTime; //最后控制时间
         private DateTime _keepAlive;
         private ZLMediaKitWebApiHelper _webApi; //流媒体服务操作类
-        private string? _recordFilePath;//保存录制文件的目录
+        private string? _recordFilePath; //保存录制文件的目录
 
         private ZLMediaKitConfigForResponse _config = new ZLMediaKitConfigForResponse(); //流媒体服务器配置
-        //private List<OnlineClientSession> _onlineClientSessionList = new List<OnlineClientSession>();
 
         public string? Ipaddress
         {
@@ -98,12 +95,6 @@ namespace CommonFunctions.MediaServerControl
             set => _webApi = value;
         }
 
-        /*[JsonIgnore]
-        public List<OnlineClientSession> OnlineClientSessionList
-        {
-            get => _onlineClientSessionList;
-            set => _onlineClientSessionList = value;
-        }*/
 
         private double getUpTime()
         {
@@ -179,99 +170,9 @@ namespace CommonFunctions.MediaServerControl
             }
         }
 
-        /*private void checkStreamStatus() //保证列表的正确性，每10秒进行比对
-        {
-            while (true)
-            {
-                try
-                {
-                    if (_webApi != null && IsRunning && _onlineClientSessionList != null &&
-                        _onlineClientSessionList.Count > 0)
-                    {
-                        ResponseStruct rs;
-                        var ret = _webApi.GetMediaList(out rs);
-                        if (ret != null && ret.Data != null && rs.Code == ErrorNumber.None)
-                        {
-                            lock (OnlineClientSessionList)
-                            {
-                                foreach (var client in OnlineClientSessionList)
-                                {
-                                    Thread.Sleep(500);
-                                    if (client != null && client.ClientType == ClientType.Camera)
-                                    {
-                                       
-
-                                        var retObj = ret.Data.FindLast(x => x.Vhost.Equals(client.Vhost)
-                                                                            && x.App.Equals(client.App) &&
-                                                                            x.Stream.Equals(client.StreamId));
-                                        if (retObj == null) //如果流中没有这个客户端信息，就从列表中移除掉，并且同时记录到日志表中
-                                        {
-                                            lock (OnlineClientSessionList)
-                                            {
-                                                OnlineClientSessionList.Remove(client);
-                                            }
-
-
-                                            CameraInstance cmi = null;
-                                            lock (Common.CameraInstanceList)
-                                            {
-                                                if (client.CameraProtocolType == CameraType.GB28181)
-                                                {
-                                                    cmi = Common.CameraInstanceList.FindLast(x =>
-                                                        x.CameraDeviceLable.Equals(client.CameraEx.Camera.ParentID)
-                                                        && x.CameraChannelLable.Equals(client.CameraEx.Camera
-                                                            .DeviceID) &&
-                                                        x.PushMediaServerId.Equals(client.CameraEx.MediaServerId)
-                                                        && x.CameraType == CameraType.GB28181);
-                                                }
-
-                                                if (client.CameraProtocolType == CameraType.Rtsp)
-                                                {
-                                                    cmi = Common.CameraInstanceList.FindLast(x =>
-                                                        x.IfRtspUrl.Equals(client.Input_Url) &&
-                                                        x.PushMediaServerId.Equals(client.CameraEx.MediaServerId)
-                                                        && x.CameraType == CameraType.Rtsp);
-                                                }
-                                            }
-
-
-                                            ClientOnOffLog tmpClientLog = new ClientOnOffLog()
-                                            {
-                                                App = client.App,
-                                                CameraProtocolType = client.CameraProtocolType,
-                                                ClientType = client.ClientType,
-                                                CreateTime = DateTime.Now,
-                                                Ipaddress = client.Ipaddress,
-                                                CameraId = cmi != null ? cmi.CameraId : null,
-                                                OnOff = OnOff.Off,
-                                                PushMediaServerId = _mediaServerId,
-                                                Vhost = client.Vhost,
-                                                StreamId = client.StreamId,
-                                            };
-
-                                            OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
-                                        }
-                                        
-                                    }
-
-                                    Thread.Sleep(100);
-                                }
-                            }
-                        }
-                    }
-
-                    Thread.Sleep(5000);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("报错了：\r\n" + ex.Message + "\r\n" + ex.StackTrace);
-                    continue;
-                }
-            }
-        }*/
 
         public MediaServerInstance(string ipaddress, ushort webApiPort, ushort mediaServerHttpPort, string secret,
-            string mediaServerId,string recordFilePath)
+            string mediaServerId, string recordFilePath)
         {
             _ipaddress = ipaddress;
             _webApiPort = webApiPort;
@@ -427,65 +328,6 @@ namespace CommonFunctions.MediaServerControl
             return false;
         }
 
-        /*/// <summary>
-        /// 关闭流媒体
-        /// </summary>
-        /// <param name="rs"></param>
-        /// <returns></returns>
-        public bool StopServer(out ResponseStruct rs)
-        {
-            rs = new ResponseStruct()
-            {
-                Code = ErrorNumber.None,
-                Message = ErrorMessage.ErrorDic![ErrorNumber.None],
-            };
-
-
-            string innerUrl = "http://" + _ipaddress + ":" + _webApiPort + "/StopServer";
-            var httpRet = NetHelper.HttpGetRequest(innerUrl, null, "utf-8", 5000);
-            if (!string.IsNullOrEmpty(httpRet))
-            {
-                try
-                {
-                    bool _tmpBool;
-                    var res = bool.TryParse(httpRet, out _tmpBool);
-                    if (res && _tmpBool)
-                    {
-                        _pid = 0;
-                        _updateTime = DateTime.Now;
-                        lock (OnlineClientSessionList)
-                        {
-                            _onlineClientSessionList.Clear();
-                        }
-
-                        return true;
-                    }
-
-                    return false;
-                }
-                catch
-                {
-                    rs = new ResponseStruct()
-                    {
-                        Code = ErrorNumber.MediaServerCtrlWebApiExcept,
-                        Message = ErrorMessage.ErrorDic![ErrorNumber.MediaServerCtrlWebApiExcept],
-                    };
-                    lock (OnlineClientSessionList)
-                    {
-                        _onlineClientSessionList.Clear();
-                    }
-
-                    return false;
-                }
-            }
-
-            rs = new ResponseStruct()
-            {
-                Code = ErrorNumber.Other,
-                Message = ErrorMessage.ErrorDic![ErrorNumber.Other],
-            };
-            return false;
-        }*/
 
         /// <summary>
         /// 重启流媒体服务
@@ -713,7 +555,7 @@ namespace CommonFunctions.MediaServerControl
             return false;
         }
 
-        
+
         /// <summary>
         /// 添加一个裁剪与合并任务
         /// </summary>
@@ -727,9 +569,10 @@ namespace CommonFunctions.MediaServerControl
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            string innerUrl = "http://" + _ipaddress + ":" + _webApiPort + "/GetMergeTaskStatus?taskId="+taskId.Trim();
+            string innerUrl = "http://" + _ipaddress + ":" + _webApiPort + "/GetMergeTaskStatus?taskId=" +
+                              taskId.Trim();
             var httpRet = NetHelper.HttpGetRequest(innerUrl, null, "utf-8", 5000);
-            
+
             if (!string.IsNullOrEmpty(httpRet))
             {
                 try
@@ -740,7 +583,7 @@ namespace CommonFunctions.MediaServerControl
                         return resCutMergeTaskStatusResponse;
                     }
 
-                   
+
                     return null;
                 }
                 catch
@@ -761,13 +604,13 @@ namespace CommonFunctions.MediaServerControl
             };
             return null;
         }
-        
+
         /// <summary>
         /// 获取裁剪积压任务列表
         /// </summary>
         /// <param name="rs"></param>
         /// <returns></returns>
-        public  List<CutMergeTaskStatusResponse> GetBacklogTaskList(out ResponseStruct rs)
+        public List<CutMergeTaskStatusResponse> GetBacklogTaskList(out ResponseStruct rs)
         {
             rs = new ResponseStruct()
             {
@@ -776,18 +619,19 @@ namespace CommonFunctions.MediaServerControl
             };
             string innerUrl = "http://" + _ipaddress + ":" + _webApiPort + "/GetBacklogTaskList";
             var httpRet = NetHelper.HttpGetRequest(innerUrl, null, "utf-8", 5000);
-           
+
             if (!string.IsNullOrEmpty(httpRet))
             {
                 try
                 {
-                    var resCutMergeTaskStatusResponseList = JsonHelper.FromJson< List<CutMergeTaskStatusResponse>>(httpRet);
+                    var resCutMergeTaskStatusResponseList =
+                        JsonHelper.FromJson<List<CutMergeTaskStatusResponse>>(httpRet);
                     if (resCutMergeTaskStatusResponseList != null)
                     {
                         return resCutMergeTaskStatusResponseList;
                     }
 
-                  
+
                     return null;
                 }
                 catch
@@ -835,7 +679,7 @@ namespace CommonFunctions.MediaServerControl
                         return resCutMergeTaskResponse;
                     }
 
-                  
+
                     return null;
                 }
                 catch

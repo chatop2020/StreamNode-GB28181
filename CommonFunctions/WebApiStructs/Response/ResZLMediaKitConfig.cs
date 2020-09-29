@@ -2,13 +2,11 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-
 namespace CommonFunctions.WebApiStructs.Response
 {
     [Serializable]
     public class ZLMediaKitConfigForResponse
     {
-       
         private bool? _api_apiDebug;
         private string? _api_defaultSnap;
         private string? _api_secret;
@@ -240,9 +238,9 @@ namespace CommonFunctions.WebApiStructs.Response
         {
             get => _hls_broadcastRecordTs;
             set => _hls_broadcastRecordTs = value;
-          
         }
-        [JsonProperty("hls.fileBufSize")] 
+
+        [JsonProperty("hls.fileBufSize")]
         public int? Hls_FileBufSize
         {
             get => _hls_fileBufSize;
@@ -326,6 +324,7 @@ namespace CommonFunctions.WebApiStructs.Response
             get => _hook_on_record_mp4;
             set => _hook_on_record_mp4 = value;
         }
+
         [JsonProperty("hook.on_record_ts")]
         public string? Hook_On_Record_Ts
         {

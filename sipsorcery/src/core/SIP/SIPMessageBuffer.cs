@@ -287,9 +287,9 @@ namespace SIPSorcery.SIP
             else
             {
                 byte[] contentHeaderBytes =
-                    Encoding.UTF8.GetBytes(m_CRLF + SIPSorcery.SIP.SIPHeaders.SIP_HEADER_CONTENTLENGTH.ToUpper());
+                    Encoding.UTF8.GetBytes(m_CRLF + SIP.SIPHeaders.SIP_HEADER_CONTENTLENGTH.ToUpper());
                 byte[] compactContentHeaderBytes =
-                    Encoding.UTF8.GetBytes(m_CRLF + SIPSorcery.SIP.SIPHeaders.SIP_COMPACTHEADER_CONTENTLENGTH
+                    Encoding.UTF8.GetBytes(m_CRLF + SIP.SIPHeaders.SIP_COMPACTHEADER_CONTENTLENGTH
                         .ToUpper());
 
                 int inContentHeaderPosn = 0;

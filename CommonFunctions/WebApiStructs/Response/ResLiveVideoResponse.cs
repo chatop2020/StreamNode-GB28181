@@ -1,5 +1,4 @@
 using System;
-using CommonFunctions.ManageStructs;
 using GB28181.Sys.Model;
 
 namespace CommonFunctions.WebApiStructs.Response

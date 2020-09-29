@@ -1,9 +1,4 @@
-﻿using GB28181;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Timers;
 
 namespace GB28181.Servers
@@ -64,7 +59,7 @@ namespace GB28181.Servers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timeSend_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void timeSend_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (_response == null || _request.Header.CallId != _response.Header.CallId)
             {

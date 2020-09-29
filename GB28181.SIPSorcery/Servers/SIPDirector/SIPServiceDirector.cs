@@ -1,13 +1,14 @@
-﻿using GB28181.Logger4Net;
-using GB28181.Net;
-using GB28181.Servers.SIPMessage;
-using GB28181.Sys;
-using GB28181.Sys.XML;
-using SIPSorcery.SIP;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using GB28181.Logger4Net;
+using GB28181.Net;
+using GB28181.Servers.SIPMessage;
+using GB28181.Servers.SIPMonitor;
+using GB28181.Sys;
+using GB28181.Sys.XML;
+using SIPSorcery.SIP;
 
 namespace GB28181.Servers
 {
@@ -77,7 +78,7 @@ namespace GB28181.Servers
         /// <param name="mediaPort"></param>
         /// <param name="receiveIP"></param>
         /// <returns></returns>
-        async public Task<Tuple<string, int, GB28181.SIPHeader, ProtocolType>> RealVideoReq(string gbid,
+        async public Task<Tuple<string, int, SIPHeader, ProtocolType>> RealVideoReq(string gbid,
             int[] mediaPort, string receiveIP)
         {
             logger.Debug("Make video request started.");
@@ -108,7 +109,7 @@ namespace GB28181.Servers
         /// <param name="mediaPort"></param>
         /// <param name="receiveIP"></param>
         /// <returns></returns>
-        async public Task<Tuple<string, int, GB28181.SIPHeader, ProtocolType>> BackVideoReq(string gbid,
+        async public Task<Tuple<string, int, SIPHeader, ProtocolType>> BackVideoReq(string gbid,
             int[] mediaPort, string receiveIP, ulong beginTime, ulong endTime)
         {
             logger.Debug("BackVideoReq started.");
@@ -215,7 +216,7 @@ namespace GB28181.Servers
         /// <param name="ptzCommand"></param>
         /// <param name="speed"></param>
         /// <param name="deviceid"></param>
-        public void PtzControl(SIPMonitor.PTZCommand ptzCommand, int speed, string deviceid)
+        public void PtzControl(PTZCommand ptzCommand, int speed, string deviceid)
         {
             _sipCoreMessageService.PtzControl(ptzCommand, speed, deviceid);
         }
@@ -276,7 +277,7 @@ namespace GB28181.Servers
             return _sipCoreMessageService.RecordFileQuery(deviceId, startTime, endTime, type);
         }
 
-        async public Task<Tuple<string, int, GB28181.SIPHeader, ProtocolType>> VideoDownloadReq(DateTime beginTime,
+        async public Task<Tuple<string, int, SIPHeader, ProtocolType>> VideoDownloadReq(DateTime beginTime,
             DateTime endTime, string gbid, int[] mediaPort, string receiveIP)
         {
             logger.Debug("Video Download Request started.");

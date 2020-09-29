@@ -6,7 +6,7 @@ namespace CommonFunctions
 {
     public class LogMonitor
     {
-        private int interval = 1000*60*10;
+        private int interval = 1000 * 60 * 10;
 
         private void processFileMove(string filePath)
         {
@@ -17,14 +17,13 @@ namespace CommonFunctions
                 Directory.CreateDirectory(dirPath + "/logbak");
             }
 
-            fileName = dirPath + "/logbak/back_" + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss") +"_"+ fileName;
+            fileName = dirPath + "/logbak/back_" + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss") + "_" + fileName;
             File.Copy(filePath, fileName);
             LinuxShell.Run("cat /dev/null >" + filePath);
             LogWriter.WriteLog("转存运行日志,并清空现有日志", filePath + "->" + fileName);
         }
 
-       
-       
+
         private void Run()
         {
             while (true)

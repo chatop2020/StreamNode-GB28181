@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SIPSorcery.Sys;
 
 namespace SIPSorcery.Net
 {
@@ -235,7 +236,7 @@ namespace SIPSorcery.Net
                 }
             }
 
-            public KeyParameter() : this(Sys.Crypto.GetRandomString(128 / 8), Sys.Crypto.GetRandomString(112 / 8))
+            public KeyParameter() : this(Crypto.GetRandomString(128 / 8), Crypto.GetRandomString(112 / 8))
             {
             }
 
@@ -525,12 +526,12 @@ namespace SIPSorcery.Net
                     case CryptoSuites.F8_128_HMAC_SHA1_80:
                         if (string.IsNullOrWhiteSpace(key))
                         {
-                            key = Sys.Crypto.GetRandomString(128 / 8);
+                            key = Crypto.GetRandomString(128 / 8);
                         }
 
                         if (string.IsNullOrWhiteSpace(salt))
                         {
-                            salt = Sys.Crypto.GetRandomString(112 / 8);
+                            salt = Crypto.GetRandomString(112 / 8);
                         }
 
                         return new KeyParameter(key, salt);
@@ -540,36 +541,36 @@ namespace SIPSorcery.Net
                     case CryptoSuites.AES_CM_192_HMAC_SHA1_32:
                         if (string.IsNullOrWhiteSpace(key))
                         {
-                            key = Sys.Crypto.GetRandomString(192 / 8);
+                            key = Crypto.GetRandomString(192 / 8);
                         }
 
                         if (string.IsNullOrWhiteSpace(salt))
                         {
-                            salt = Sys.Crypto.GetRandomString(112 / 8);
+                            salt = Crypto.GetRandomString(112 / 8);
                         }
 
                         return new KeyParameter(key, salt);
                     case CryptoSuites.AEAD_AES_128_GCM:
                         if (string.IsNullOrWhiteSpace(key))
                         {
-                            key = Sys.Crypto.GetRandomString(128 / 8);
+                            key = Crypto.GetRandomString(128 / 8);
                         }
 
                         if (string.IsNullOrWhiteSpace(salt))
                         {
-                            salt = Sys.Crypto.GetRandomString(96 / 8);
+                            salt = Crypto.GetRandomString(96 / 8);
                         }
 
                         return new KeyParameter(key, salt);
                     case CryptoSuites.AEAD_AES_256_GCM:
                         if (string.IsNullOrWhiteSpace(key))
                         {
-                            key = Sys.Crypto.GetRandomString(256 / 8);
+                            key = Crypto.GetRandomString(256 / 8);
                         }
 
                         if (string.IsNullOrWhiteSpace(salt))
                         {
-                            salt = Sys.Crypto.GetRandomString(96 / 8);
+                            salt = Crypto.GetRandomString(96 / 8);
                         }
 
                         return new KeyParameter(key, salt);
@@ -579,12 +580,12 @@ namespace SIPSorcery.Net
                     case CryptoSuites.AES_CM_256_HMAC_SHA1_32:
                         if (string.IsNullOrWhiteSpace(key))
                         {
-                            key = Sys.Crypto.GetRandomString(256 / 8);
+                            key = Crypto.GetRandomString(256 / 8);
                         }
 
                         if (string.IsNullOrWhiteSpace(salt))
                         {
-                            salt = Sys.Crypto.GetRandomString(112 / 8);
+                            salt = Crypto.GetRandomString(112 / 8);
                         }
 
                         return new KeyParameter(key, salt);
@@ -727,7 +728,7 @@ namespace SIPSorcery.Net
                 string p = sessionParam.Trim();
                 try
                 {
-                    SessionParameter.SrtpSessionParams paramType = SrtpSessionParams.unknown;
+                    SrtpSessionParams paramType = SrtpSessionParams.unknown;
                     if (p.StartsWith(KDR_PREFIX))
                     {
                         string sKdr = p.Substring(KDR_PREFIX.Length);
@@ -755,7 +756,7 @@ namespace SIPSorcery.Net
                     else if (p.StartsWith(FEC_ORDER_PREFIX))
                     {
                         string sFecOrder = p.Substring(FEC_ORDER_PREFIX.Length);
-                        SessionParameter.FecTypes fecOrder =
+                        FecTypes fecOrder =
                             (from e in Enum.GetNames(typeof(FecTypes))
                                 where e.CompareTo(sFecOrder) == 0
                                 select (FecTypes) Enum.Parse(typeof(FecTypes), e)).FirstOrDefault();

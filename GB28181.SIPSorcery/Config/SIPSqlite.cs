@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GB28181.App;
 using GB28181.Logger4Net;
 using GB28181.Persistence;
-using GB28181.App;
-using SIPSorcery.Sys;
 using GB28181.Sys;
-
+using SIPSorcery.Sys;
+using StorageTypes = GB28181.Sys.StorageTypes;
+using StorageTypesConverter = GB28181.Sys.StorageTypesConverter;
 
 namespace GB28181.Config
 {
@@ -16,7 +17,7 @@ namespace GB28181.Config
         private static readonly string m_connStrKey = SIPSorceryConfiguration.PERSISTENCE_STORAGECONNSTR_KEY;
         private static readonly string m_XMLFilename = "gb28181.xml";
         private static readonly ILog logger = AppState.logger;
-        private static Sys.StorageTypes m_storageType;
+        private static StorageTypes m_storageType;
         private static string m_connStr;
 
         private static SIPSqlite _instance;
@@ -53,15 +54,15 @@ namespace GB28181.Config
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Config/";
             m_storageType = (AppState.GetConfigSetting(m_storageTypeKey) != null)
-                ? Sys.StorageTypesConverter.GetStorageType(AppState.GetConfigSetting(m_storageTypeKey))
-                : Sys.StorageTypes.Unknown;
+                ? StorageTypesConverter.GetStorageType(AppState.GetConfigSetting(m_storageTypeKey))
+                : StorageTypes.Unknown;
             m_connStr = AppState.GetConfigSetting(m_connStrKey);
-            if (m_storageType == Sys.StorageTypes.SQLite)
+            if (m_storageType == StorageTypes.SQLite)
             {
                 m_connStr = string.Format(m_connStr, path);
             }
 
-            if (m_storageType == Sys.StorageTypes.Unknown || m_connStr.IsNullOrBlank())
+            if (m_storageType == StorageTypes.Unknown || m_connStr.IsNullOrBlank())
             {
                 logger.Error(
                     $"The SIP Registrar cannot start with no persistence settings:m_storageType: {m_storageType},m_connStr :{m_connStr}.");

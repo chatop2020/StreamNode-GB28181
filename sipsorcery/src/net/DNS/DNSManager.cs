@@ -302,7 +302,7 @@ namespace SIPSorcery.Net
                     // Completed event was fired, the DNS entry will now be in cache.
                     DNSResponse result = m_resolver.QueryCache(host, queryType);
                     for (int iSuffix = 0;
-                        iSuffix < DNSManager.GetDnsSuffixes().Length && DNSManager.UseDNSSuffixes;
+                        iSuffix < GetDnsSuffixes().Length && UseDNSSuffixes;
                         iSuffix++)
                     {
                         if (result != null)
@@ -319,7 +319,7 @@ namespace SIPSorcery.Net
                             hostsuf += ".";
                         }
 
-                        hostsuf += DNSManager.m_dnsSuffixes[iSuffix];
+                        hostsuf += m_dnsSuffixes[iSuffix];
                         result = m_resolver.QueryCache(hostsuf, queryType);
                     }
 
@@ -357,7 +357,7 @@ namespace SIPSorcery.Net
             {
                 string host = null;
                 int port = 0;
-                if (SIPSorcery.Sys.IPSocket.Parse(hostname, out host, out port))
+                if (IPSocket.Parse(hostname, out host, out port))
                 {
                     DNSResponse result = new DNSResponse(IPAddress.Parse(host));
                     return result;
@@ -417,20 +417,20 @@ namespace SIPSorcery.Net
 
         public static void ReStart()
         {
-            DNSManager.Stop();
+            Stop();
 
             logger.LogDebug("DNSManager (Re)Starting.");
 
-            DNSManager.m_dnsSuffixes = null;
-            DNSManager.m_resolver = null;
-            DNSManager.m_inProgressLookups.Clear();
-            while (!DNSManager.m_queuedLookups.IsEmpty)
+            m_dnsSuffixes = null;
+            m_resolver = null;
+            m_inProgressLookups.Clear();
+            while (!m_queuedLookups.IsEmpty)
             {
                 LookupRequest lookupreq;
-                DNSManager.m_queuedLookups.TryDequeue(out lookupreq);
+                m_queuedLookups.TryDequeue(out lookupreq);
             }
 
-            DNSManager.m_close = false;
+            m_close = false;
 
             try
             {
@@ -446,7 +446,7 @@ namespace SIPSorcery.Net
                     m_resolver = new Resolver(Resolver.DefaultDnsServers.ToArray());
                 }
 
-                DNSManager.UseDNSSuffixes = true;
+                UseDNSSuffixes = true;
 
                 for (int index = 0; index < NUMBER_LOOKUP_THREADS; index++)
                 {
@@ -566,7 +566,7 @@ namespace SIPSorcery.Net
 
                             //rj2: use default dns suffixes for address resolution
                             for (int iSuffix = 0;
-                                iSuffix < DNSManager.GetDnsSuffixes().Length && bDnsErr && DNSManager.UseDNSSuffixes &&
+                                iSuffix < GetDnsSuffixes().Length && bDnsErr && UseDNSSuffixes &&
                                 !m_close;
                                 iSuffix++)
                             {
@@ -576,7 +576,7 @@ namespace SIPSorcery.Net
                                     host += ".";
                                 }
 
-                                host += DNSManager.m_dnsSuffixes[iSuffix];
+                                host += m_dnsSuffixes[iSuffix];
                                 if (lookupRequest.DNSServers == null)
                                 {
                                     dnsResponse = m_resolver.Query(host, lookupRequest.QueryType,

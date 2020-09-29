@@ -13,8 +13,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -188,7 +188,7 @@ namespace GB28181.Net
 
                 RTSPMessage rtspMessage = null;
 
-                System.Diagnostics.Debug.WriteLine(rtspReqStr);
+                Debug.WriteLine(rtspReqStr);
 
                 byte[] rtspRequestBuffer = Encoding.UTF8.GetBytes(rtspReqStr);
                 _rtspStream.Write(rtspRequestBuffer, 0, rtspRequestBuffer.Length);
@@ -198,7 +198,7 @@ namespace GB28181.Net
 
                 if (bytesRead > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(buffer, 0, bytesRead));
+                    Debug.WriteLine(Encoding.UTF8.GetString(buffer, 0, bytesRead));
 
                     rtspMessage = RTSPMessage.ParseRTSPMessage(buffer, null, null);
 
@@ -244,7 +244,7 @@ namespace GB28181.Net
             try
             {
                 logger.Warn("RTSPCient.RTPQueueFull purging frames list.");
-                System.Diagnostics.Debug.WriteLine("RTSPCient.RTPQueueFull purging frames list.");
+                Debug.WriteLine("RTSPCient.RTPQueueFull purging frames list.");
 
                 lock (_frames)
                 {
@@ -271,7 +271,7 @@ namespace GB28181.Net
             RTSPHeader playHeader = new RTSPHeader(_cseq++, _rtspSession.SessionID);
             playRequest.Header = playHeader;
 
-            System.Diagnostics.Debug.WriteLine(playRequest.ToString());
+            Debug.WriteLine(playRequest.ToString());
 
             var rtspRequestBuffer = Encoding.UTF8.GetBytes(playRequest.ToString());
             _rtspStream.Write(rtspRequestBuffer, 0, rtspRequestBuffer.Length);
@@ -281,7 +281,7 @@ namespace GB28181.Net
 
             if (bytesRead > 0)
             {
-                System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(buffer, 0, bytesRead));
+                Debug.WriteLine(Encoding.UTF8.GetString(buffer, 0, bytesRead));
 
                 var rtspMessage = RTSPMessage.ParseRTSPMessage(buffer, null, null);
 
@@ -314,7 +314,7 @@ namespace GB28181.Net
                     RTSPHeader teardownHeader = new RTSPHeader(_cseq++, _rtspSession.SessionID);
                     teardownRequest.Header = teardownHeader;
 
-                    System.Diagnostics.Debug.WriteLine(teardownRequest.ToString());
+                    Debug.WriteLine(teardownRequest.ToString());
 
                     var buffer = Encoding.UTF8.GetBytes(teardownRequest.ToString());
                     _rtspStream.Write(buffer, 0, buffer.Length);
@@ -420,7 +420,7 @@ namespace GB28181.Net
 
                             if (rtpPacket.Header.Timestamp < _lastCompleteFrameTimestamp)
                             {
-                                System.Diagnostics.Debug.WriteLine(
+                                Debug.WriteLine(
                                     "Ignoring RTP packet with timestamp " + rtpPacket.Header.Timestamp +
                                     " as it's earlier than the last complete frame.");
                             }
@@ -430,7 +430,7 @@ namespace GB28181.Net
                                 {
                                     var oldestFrame = _frames.OrderBy(x => x.Timestamp).First();
                                     _frames.Remove(oldestFrame);
-                                    System.Diagnostics.Debug.WriteLine(
+                                    Debug.WriteLine(
                                         "Receive queue full, dropping oldest frame with timestamp " +
                                         oldestFrame.Timestamp + ".");
                                 }
@@ -471,7 +471,7 @@ namespace GB28181.Net
                                     foreach (var oldFrame in _frames
                                         .Where(x => x.Timestamp <= rtpPacket.Header.Timestamp).ToList())
                                     {
-                                        System.Diagnostics.Debug.WriteLine(
+                                        Debug.WriteLine(
                                             "Discarding old frame for timestamp " + oldFrame.Timestamp + ".");
                                         logger.Warn("Discarding old frame for timestamp " + oldFrame.Timestamp + ".");
                                         _frames.Remove(oldFrame);
@@ -542,7 +542,7 @@ namespace GB28181.Net
                     RTSPHeader optionsHeader = new RTSPHeader(_cseq++, _rtspSession.SessionID);
                     optionsRequest.Header = optionsHeader;
 
-                    System.Diagnostics.Debug.WriteLine(optionsRequest.ToString());
+                    Debug.WriteLine(optionsRequest.ToString());
 
                     var rtspRequestBuffer = Encoding.UTF8.GetBytes(optionsRequest.ToString());
                     _rtspStream.Write(rtspRequestBuffer, 0, rtspRequestBuffer.Length);
@@ -552,7 +552,7 @@ namespace GB28181.Net
 
                     if (bytesRead > 0)
                     {
-                        System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(buffer, 0, bytesRead));
+                        Debug.WriteLine(Encoding.UTF8.GetString(buffer, 0, bytesRead));
 
                         var rtspMessage = RTSPMessage.ParseRTSPMessage(buffer, null, null);
 

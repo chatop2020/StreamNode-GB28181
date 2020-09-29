@@ -14,11 +14,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using GB28181.Sys;
 using GB28181.Logger4Net;
 
 #if UNITTEST
@@ -59,8 +56,7 @@ namespace GB28181
         [DataMember] public char TagDelimiter = DEFAULT_PARAMETER_DELIMITER;
 
         //[IgnoreDataMember]
-        [DataMember]
-        public Dictionary<string, string> m_dictionary =
+        [DataMember] public Dictionary<string, string> m_dictionary =
             new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
 
         [IgnoreDataMember]

@@ -12,13 +12,10 @@
 //
 
 using System;
-using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
-using GB28181.Sys;
 using GB28181.Logger4Net;
-using SIPSorcery.Sys;
 using SIPSorcery.SIP;
+using SIPSorcery.Sys;
 
 #if UNITTEST
 using NUnit.Framework;

@@ -78,7 +78,7 @@ namespace SIPSorcery.Net
         public byte[] ToByteBufferStringKey(string messageIntegrityKey, bool addFingerprint)
         {
             return ToByteBuffer(
-                messageIntegrityKey.NotNullOrBlank() ? System.Text.Encoding.UTF8.GetBytes(messageIntegrityKey) : null,
+                messageIntegrityKey.NotNullOrBlank() ? Encoding.UTF8.GetBytes(messageIntegrityKey) : null,
                 addFingerprint);
         }
 

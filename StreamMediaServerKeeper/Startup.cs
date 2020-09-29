@@ -1,21 +1,11 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using CommonFunctions;
-using CommonFunctions.DBStructs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace StreamMediaServerKeeper
@@ -107,16 +97,16 @@ namespace StreamMediaServerKeeper
             app.UseFileServer(new FileServerOptions()
             {
                 FileProvider = new PhysicalFileProvider
-                (Path.Combine(Directory.GetCurrentDirectory(), Common.RecordPath)), //实际目录地址
-                RequestPath = new Microsoft.AspNetCore.Http.PathString("/CustomizedRecord"), //用户访问地址
+                    (Path.Combine(Directory.GetCurrentDirectory(), Common.RecordPath)), //实际目录地址
+                RequestPath = new PathString("/CustomizedRecord"), //用户访问地址
                 EnableDirectoryBrowsing = true //开启目录浏览
             });
-            
+
             app.UseFileServer(new FileServerOptions()
             {
                 FileProvider = new PhysicalFileProvider
                     (Path.Combine(Directory.GetCurrentDirectory(), Common.CutOrMergePath)), //实际目录地址
-                RequestPath = new Microsoft.AspNetCore.Http.PathString("/CutMergeFile"), //用户访问地址
+                RequestPath = new PathString("/CutMergeFile"), //用户访问地址
                 EnableDirectoryBrowsing = true //开启目录浏览
             });
 

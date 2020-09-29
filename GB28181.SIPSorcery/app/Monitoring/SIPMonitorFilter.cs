@@ -15,12 +15,11 @@
 // BSD 3-Clause "New" or "Revised" License, see included LICENSE.md file.
 //
 
-using GB28181.Sys;
-using SIPSorcery.SIP;
-using SIPSorcery.Sys;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using SIPSorcery.SIP;
+using SIPSorcery.Sys;
 
 #if UNITTEST
 using NUnit.Framework;

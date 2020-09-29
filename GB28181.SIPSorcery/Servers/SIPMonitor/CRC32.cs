@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
-using System.IO;
 
 namespace GB28181.Servers.SIPMonitor
 {
@@ -45,7 +43,7 @@ namespace GB28181.Servers.SIPMonitor
 
         public static uint GetCRC32(string sInputString)
         {
-            byte[] buffer = System.Text.ASCIIEncoding.ASCII.GetBytes(sInputString);
+            byte[] buffer = ASCIIEncoding.ASCII.GetBytes(sInputString);
             uint iCount = (uint) buffer.Length;
             uint crc = 0xFFFFFFFF;
 

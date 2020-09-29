@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Runtime.Serialization;
+using System.Xml;
 
 namespace GB28181.App
 {
@@ -242,9 +244,9 @@ namespace GB28181.App
             set { _updateTime = value; }
         }
 
-        public void Load(System.Data.DataRow row)
+        public void Load(DataRow row)
         {
-            _id = row["ID"] != null ? new Guid(row["ID"] as string) : System.Guid.NewGuid();
+            _id = row["ID"] != null ? new Guid(row["ID"] as string) : Guid.NewGuid();
             _channelGuid = row["ChannelGuid"] != null ? Convert.ToInt32(row["ChannelGuid"]) : 0;
             _channelID = row["ChannelID"] as string;
             _gbID = row["GBDevID"] as string;
@@ -266,7 +268,7 @@ namespace GB28181.App
             _updateTime = row["UpdateTime"] != DBNull.Value ? Convert.ToDateTime(row["UpdateTime"]) : DateTime.Now;
         }
 
-        public System.Data.DataTable GetTable()
+        public DataTable GetTable()
         {
             throw new NotImplementedException();
         }
@@ -292,7 +294,7 @@ namespace GB28181.App
         }
 
 
-        public Dictionary<Guid, object> Load(System.Xml.XmlDocument dom)
+        public Dictionary<Guid, object> Load(XmlDocument dom)
         {
             throw new NotImplementedException();
         }

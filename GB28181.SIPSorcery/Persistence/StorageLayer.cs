@@ -21,8 +21,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text.RegularExpressions;
-using GB28181.Sys;
 using GB28181.Logger4Net;
+using GB28181.Sys;
 
 //using Npgsql;
 //using NpgsqlTypes;

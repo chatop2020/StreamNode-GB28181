@@ -19,8 +19,6 @@ using SIPRequest = GB28181.SIPRequest;
 using SIPResponse = GB28181.SIPResponse;
 using SIPTransaction = GB28181.SIPTransaction;
 using SIPTransport = GB28181.SIPTransport;
-using SIPTransportConfig = GB28181.SIPTransportConfig;
-
 
 namespace LibGB28181SipGate
 {
@@ -169,7 +167,7 @@ namespace LibGB28181SipGate
         /// </summary>
         /// <param name="sipRequest"></param>
         /// <param name="sIPAccount"></param>
-        private void OnSipRegisterReceived(SIPRequest sipRequest, GB28181.App.SIPAccount sIPAccount)
+        private void OnSipRegisterReceived(SIPRequest sipRequest, SIPAccount sIPAccount)
         {
             lock (SipDeviceList)
             {
@@ -214,7 +212,7 @@ namespace LibGB28181SipGate
         /// </summary>
         /// <param name="sipRequest"></param>
         /// <param name="sIPAccount"></param>
-        private void OnSipUnRegisterReceived(SIPRequest sipRequest, GB28181.App.SIPAccount sIPAccount)
+        private void OnSipUnRegisterReceived(SIPRequest sipRequest, SIPAccount sIPAccount)
         {
             lock (SipDeviceList)
             {
@@ -621,7 +619,7 @@ namespace LibGB28181SipGate
         private void OnResponseCodeReceived(SIPResponse response, string message, SIPEndPoint remoteEp)
         {
             //待实现
-          //  Console.Write("Response:" + response.ToString() + " Message:" + message + " Remote:" + remoteEp.Address);
+            //  Console.Write("Response:" + response.ToString() + " Message:" + message + " Remote:" + remoteEp.Address);
         }
 
         private void OnResponseNeedResponeReceived(SIPResponse response, SIPRequest request, string message,

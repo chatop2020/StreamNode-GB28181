@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GB28181.Logger4Net
+﻿namespace GB28181.Logger4Net
 {
     public class Layout
     {

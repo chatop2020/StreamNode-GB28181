@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CommonFunctions.DBStructs;
 
-
 namespace CommonFunctions.ManageStructs
 {
     [Serializable]

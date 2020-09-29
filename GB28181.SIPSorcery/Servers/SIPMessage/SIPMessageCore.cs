@@ -1,17 +1,6 @@
-﻿using GB28181.Logger4Net;
-using GB28181.Net;
-using GB28181.Net.RTP;
-using GB28181.Servers.SIPMonitor;
-using GB28181;
-using GB28181.App;
-using GB28181.Sys;
-using GB28181.Config;
-using GB28181.Sys.Model;
-using GB28181.Sys.XML;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,7 +9,16 @@ using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using GB28181.App;
 using GB28181.Cache;
+using GB28181.Config;
+using GB28181.Logger4Net;
+using GB28181.Net;
+using GB28181.Net.RTP;
+using GB28181.Servers.SIPMonitor;
+using GB28181.Sys;
+using GB28181.Sys.Model;
+using GB28181.Sys.XML;
 using SIPSorcery.SIP;
 
 namespace GB28181.Servers.SIPMessage
@@ -273,7 +271,7 @@ namespace GB28181.Servers.SIPMessage
         /// </summary>
         /// <param name="sipRequest"></param>
         /// <param name="sIPAccount"></param>
-        private void _sipRegistrarCore_RegisterReceived(SIPRequest sipRequest, GB28181.App.SIPAccount sIPAccount)
+        private void _sipRegistrarCore_RegisterReceived(SIPRequest sipRequest, SIPAccount sIPAccount)
         {
             if (OnRegisterReceived != null)
             {
@@ -287,7 +285,7 @@ namespace GB28181.Servers.SIPMessage
         /// </summary>
         /// <param name="sipRequest"></param>
         /// <param name="sIPAccount"></param>
-        private void _sipRegistrarCore_UnRegisterReceived(SIPRequest sipRequest, GB28181.App.SIPAccount sIPAccount)
+        private void _sipRegistrarCore_UnRegisterReceived(SIPRequest sipRequest, SIPAccount sIPAccount)
         {
             if (OnUnRegisterReceived != null)
             {

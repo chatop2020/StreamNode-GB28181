@@ -10,12 +10,11 @@ namespace Test_SSH
             Console.WriteLine("Hello World!");
 
 
-            using (var sshClient = new SshClient("192.168.2.43", 22, "root", "cdtnb..."))
+            using (var sshClient = new SshClient("192.168.2.43", 22, "root", "password"))
 
             {
                 sshClient.Connect();
-                /*using (var cmd = sshClient.CreateCommand("/root/Server/MediaServer"))
-                {*/
+
                 try
                 {
                     var stream = sshClient.CreateShellStream("input", 0, 0, 0, 0, 1000000);
@@ -26,9 +25,7 @@ namespace Test_SSH
                         Console.WriteLine(output);
                     }
 
-                    /*ShellStream ss= new ShellStream();
-                     var res=cmd.Execute();
-                    Console.Write(res);*/
+
                     Console.WriteLine("end");
                 }
                 catch (Exception ex)

@@ -15,11 +15,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using GB28181.Sys;
 using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 
@@ -155,7 +150,7 @@ namespace GB28181
             try
             {
                 SIPMessage sipMessage = SIPMessage.ParseSIPMessage(sipMessageStr, null, null);
-                return SIPRequest.ParseSIPRequest(sipMessage);
+                return ParseSIPRequest(sipMessage);
             }
             catch (SIPValidationException)
             {

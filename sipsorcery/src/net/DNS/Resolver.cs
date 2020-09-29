@@ -25,6 +25,7 @@ using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using SIPSorcery.Sys;
@@ -50,7 +51,7 @@ namespace Heijden.DNS
         /// </summary>
         public string Version
         {
-            get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
 
         /// <summary>
@@ -788,7 +789,7 @@ namespace Heijden.DNS
             return this.Query(name, qtype, qclass, this.m_DnsServers);
         }
 
-        public DNS.DNSResponse Query(string name, QType qtype, QClass qclass, List<IPEndPoint> dnsServers)
+        public DNSResponse Query(string name, QType qtype, QClass qclass, List<IPEndPoint> dnsServers)
         {
             return this.Query(name, qtype, qclass, DEFAULT_TIMEOUT, dnsServers);
         }

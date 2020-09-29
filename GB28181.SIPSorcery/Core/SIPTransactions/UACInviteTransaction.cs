@@ -16,15 +16,8 @@
 
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using GB28181.Sys;
-using GB28181.Logger4Net;
-using SIPSorcery.Sys;
 using SIPSorcery.SIP;
+using SIPSorcery.Sys;
 
 namespace GB28181
 {
