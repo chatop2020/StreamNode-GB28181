@@ -4,6 +4,41 @@
 - 对ZLMediaKit的源码做了一些小的改造，用于将ZLMediaKit的http回调增加流媒体服务的唯一标识，以及对ffmpeg管理部分的一个小修改
 ## 结构介绍
 - ![StreamNode结构.jpg](https://i.loli.net/2020/09/29/xwkeW8agYspHKUt.jpg)
+## Sip网关的工作流程
+
+- 摄像头配置StreamNodeWebApi中Sip网关的相关参数信息
+- 摄像头上线时，自动通过GB28181协议向Sip网关注册自己
+- Sip网关发现摄像头上线后，发启设备目录查询请求
+- 摄像头收到设备目录查询请求后，按GB28181协议要求发送自身设备列表到Sip网关
+- Sip网关收到设备列表后，完成摄像头推拉流必须的参数
+- 摄像头与Sip网关保持心跳响应
+- Sip网关在一定周期内发现摄像头心跳断连，自动跳出Sip设备列表中的摄像头
+
+## StreamNode推拉流的工作流程
+- StreamNodeWebApi支持FFmpeg及GB28181方式接入摄像头，其中FFmpeg目前只拉Rtsp视频流
+- GB28181协议兼容支持GB28181-2016
+- 在接入摄像头前需明确了解摄像头是按Rtsp方式接入还是按GB28181方式接入
+- Rtsp方式接入需要正确使用摄像头的Rtsp地址，如：rtsp://username:password@ip:port/main/ch1 
+- GB28181方式接入需要在摄像头配置页面配置StreamNodeWebApi中Sip网关的相关参数
+- GB28181参数主要有 Sip网关ip地址，Sip网关ID，摄像头ID，摄像头音视频流通道ID等
+- GB28181及Rtps方式接入的摄像头音视频编码格式最好使用H.264/ACC,以保证摄像头音视频流正常被ZLMediaKit识别解析，其他支持格式请查看ZLMediakit官方说明
+- GB28181方式接入的摄像头在启动时，会尝试连接配置在摄像头中的Sip网关
+- Sip网关在收到摄像头的注册请求时会通过GB28181-2016协议与摄头通讯，详见《Sip网关的工作流程》
+- StreamNodeWebApi维护了一个定时检查的注册摄像头推拉流状态，如果发现注册摄像头在线并且还未处于推流或拉流状态（没有视频流）的情况下将发启推拉流请求
+- Rtsp拉流：当此注册摄像头注册信息中的拉流方式为Rtsp时，StreamNodeWebApi将生成ZLMediakitAddFFmpegProxy请求结构（含摄像头的Rtsp地址），并向ZLMediaKit的AddFFmpegProxy WebApi接口发起拉流请求，ZLMediaKit服务收到AddFFmpegProxy请求后，启动ffmpeg进程，将ffmpeg拉流产生的音视频流推送给流媒体服务器，拉流成功后，ZLMediaKit将会产生OnStreamChange事件，通过Webhook的方式来告知StreamNode(还有其他辅助手段，不再此介绍了)，正常拉流的情况下，可以在操作系统层面看到如下进程信息”/opt/ffmpeg/ffmpeg -re -rtsp_transport tcp -i rtsp://admin:password@192.168.2.165:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1 -vcodec copy -acodec copy -f flv -y rtmp://127.0.0.1/rtsp_proxy/FDC35E14“
+- GB28181请求推流：当此注册摄像头注册信息中的拉流方式为GB28181时，StreamNodeWebApi,将向ZLMediaKit申请rtp动态端口（TCP，UDP全开），端口申请成功获取到实际端口号后，StreamNodeApi根据摄像头注册信息组织实时流请求的Sip报文，并在此时确定流的ssrc值，将生成的Sip请求实时流报文通过Sip通讯通渞发送给摄像头，摄像头收到请求后根据Sip报文内容向ZLMediakit流媒体服务器的Sip报文指定端口以指定ssrc值推送rtp流，ZLMediaKit收到rtp流后对期进行解码，生产Onpublish事件并告知SteramNodeWebApi的Webhook接口，StreamNodeWebApi实现后续的相关处理
+- 摄像头的推拉流工作受控与StreamNodeWebApi的摄像头注册信息中的LiveEnable字段，可以通过改变此字段的值（true,false）来实现摄像头音视频流的开关
+
+## StreamNode录制计划
+- 可对每个注册摄像头进行录制计划的控制，以控制某时某刻音视频文件录制的启停
+- 系统当前仅支持mp4文件的录制
+- StreamNodeWebApi，以星期为单位控制每个星期n的00:00:01到23:59:59的录制与不录制控制（可以出现多个星期n的数据，表示每天启用与停用录制可以多段，我记得我好像是这么实现的）
+- 如果某个摄像头启用了录制功能，却没有指定星期n的录制计划要求，系统默认其为全天录制
+## StreamNode对音视频文件的裁剪与合并操作
+- 有时需要提取某个摄像头在某个时间范围的视频，可以通过StreamNodeWebApi的相关接口进行获取
+- 此操作是一个耗时操作，因此采用异步回调的方式来获取任务结果，调用方需提供一个WebApi接口来接受任务结果
+- 可能因为某些原因造成回调时调用方的WebApi不可用，导致任务结果未收到的情况，系统提供任务状态查询接口供调用方查询，此接口同样适用于任务进度的追踪（StreamMediaServerKeeper被重启后所有之前的任务结果会被清空，因为StreamMediaServerKeeper没有数据库持久保存这些数据）
+
 ## 修改ZLMediaKit的部分代码（ZLMediaKit作者将在近期将以下修改代码直接合并到自己的主分支上，后续将不需要再修改ZLmediaKit的代码了）
 - /src/Common/config.cpp
 ~~~c++
