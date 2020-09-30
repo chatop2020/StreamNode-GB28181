@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading;
+using CommonFunction.ManageStructs;
 using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Response;
@@ -286,12 +288,27 @@ namespace CommonFunctions.MediaServerControl
                         _updateTime = DateTime.Now;
                         lock (Common.CameraSessionLock)
                         {
-                            Common.CameraSessions.Clear();
+                            for (int i = 0; i <= Common.CameraSessions.Count - 1; i++)
+                            {
+                                if (Common.CameraSessions[i].MediaServerId.Equals(_mediaServerId))
+                                {
+                                    Common.CameraSessions[i] = null;
+                                }
+                            }
+                            Common.RemoveNull(Common.CameraSessions);
                         }
 
                         lock (Common.PlayerSessionListLock)
                         {
-                            Common.PlayerSessions.Clear();
+                            for (int i = 0; i <= Common.PlayerSessions.Count - 1; i++)
+                            {
+                                if (Common.PlayerSessions[i].MediaServerId.Equals(_mediaServerId))
+                                {
+                                    Common.PlayerSessions[i] = null;
+                                }
+                            }
+                            Common.RemoveNull(Common.PlayerSessions);
+
                         }
 
                         return true;
@@ -301,22 +318,7 @@ namespace CommonFunctions.MediaServerControl
                 }
                 catch
                 {
-                    rs = new ResponseStruct()
-                    {
-                        Code = ErrorNumber.MediaServerCtrlWebApiExcept,
-                        Message = ErrorMessage.ErrorDic![ErrorNumber.MediaServerCtrlWebApiExcept],
-                    };
-                    lock (Common.CameraSessionLock)
-                    {
-                        Common.CameraSessions.Clear();
-                    }
-
-                    lock (Common.PlayerSessionListLock)
-                    {
-                        Common.PlayerSessions.Clear();
-                    }
-
-                    return false;
+                    // ignored
                 }
             }
 
@@ -358,66 +360,40 @@ namespace CommonFunctions.MediaServerControl
                             _updateTime = DateTime.Now;
                             lock (Common.CameraSessionLock)
                             {
-                                Common.CameraSessions.Clear();
+                                for (int i = 0; i <= Common.CameraSessions.Count - 1; i++)
+                                {
+                                    if (Common.CameraSessions[i].MediaServerId.Equals(_mediaServerId))
+                                    {
+                                        Common.CameraSessions[i] = null;
+                                    }
+                                }
+                                Common.RemoveNull(Common.CameraSessions);
                             }
 
                             lock (Common.PlayerSessionListLock)
                             {
-                                Common.PlayerSessions.Clear();
+                                for (int i = 0; i <= Common.PlayerSessions.Count - 1; i++)
+                                {
+                                    if (Common.PlayerSessions[i].MediaServerId.Equals(_mediaServerId))
+                                    {
+                                        Common.PlayerSessions[i] = null;
+                                    }
+                                }
+                                Common.RemoveNull(Common.PlayerSessions);
+
                             }
 
                             return true;
                         }
 
-                        lock (Common.CameraSessionLock)
-                        {
-                            Common.CameraSessions.Clear();
-                        }
-
-                        lock (Common.PlayerSessionListLock)
-                        {
-                            Common.PlayerSessions.Clear();
-                        }
-
-                        return false;
                     }
                 }
                 catch
                 {
-                    rs = new ResponseStruct()
-                    {
-                        Code = ErrorNumber.MediaServerCtrlWebApiExcept,
-                        Message = ErrorMessage.ErrorDic![ErrorNumber.MediaServerCtrlWebApiExcept],
-                    };
-                    lock (Common.CameraSessionLock)
-                    {
-                        Common.CameraSessions.Clear();
-                    }
-
-                    lock (Common.PlayerSessionListLock)
-                    {
-                        Common.PlayerSessions.Clear();
-                    }
-
-                    return false;
+                    // ignored
                 }
             }
-
-            rs = new ResponseStruct()
-            {
-                Code = ErrorNumber.Other,
-                Message = ErrorMessage.ErrorDic![ErrorNumber.Other],
-            };
-            lock (Common.CameraSessionLock)
-            {
-                Common.CameraSessions.Clear();
-            }
-
-            lock (Common.PlayerSessionListLock)
-            {
-                Common.PlayerSessions.Clear();
-            }
-
+            
             return false;
         }
 
@@ -450,12 +426,27 @@ namespace CommonFunctions.MediaServerControl
                             _pid = _tmpPid;
                             lock (Common.CameraSessionLock)
                             {
-                                Common.CameraSessions.Clear();
+                                for (int i = 0; i <= Common.CameraSessions.Count - 1; i++)
+                                {
+                                    if (Common.CameraSessions[i].MediaServerId.Equals(_mediaServerId))
+                                    {
+                                        Common.CameraSessions[i] = null;
+                                    }
+                                }
+                                Common.RemoveNull(Common.CameraSessions);
                             }
 
                             lock (Common.PlayerSessionListLock)
                             {
-                                Common.PlayerSessions.Clear();
+                                for (int i = 0; i <= Common.PlayerSessions.Count - 1; i++)
+                                {
+                                    if (Common.PlayerSessions[i].MediaServerId.Equals(_mediaServerId))
+                                    {
+                                        Common.PlayerSessions[i] = null;
+                                    }
+                                }
+                                Common.RemoveNull(Common.PlayerSessions);
+
                             }
 
                             return true;
@@ -466,39 +457,11 @@ namespace CommonFunctions.MediaServerControl
                 }
                 catch
                 {
-                    rs = new ResponseStruct()
-                    {
-                        Code = ErrorNumber.MediaServerCtrlWebApiExcept,
-                        Message = ErrorMessage.ErrorDic![ErrorNumber.MediaServerCtrlWebApiExcept],
-                    };
-                    lock (Common.CameraSessionLock)
-                    {
-                        Common.CameraSessions.Clear();
-                    }
-
-                    lock (Common.PlayerSessionListLock)
-                    {
-                        Common.PlayerSessions.Clear();
-                    }
-
-                    return false;
+                    // ignored
                 }
             }
 
-            rs = new ResponseStruct()
-            {
-                Code = ErrorNumber.Other,
-                Message = ErrorMessage.ErrorDic![ErrorNumber.Other],
-            };
-            lock (Common.CameraSessionLock)
-            {
-                Common.CameraSessions.Clear();
-            }
-
-            lock (Common.PlayerSessionListLock)
-            {
-                Common.PlayerSessions.Clear();
-            }
+            
 
             return false;
         }
