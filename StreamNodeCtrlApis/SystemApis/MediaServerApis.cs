@@ -1335,6 +1335,7 @@ namespace StreamNodeCtrlApis.SystemApis
                                 App = result.App,
                                 StreamId = result.StreamId,
                                 MediaServerIp = mediaObj.Ipaddress,
+                                ForceOffline = false,
                             };
 
                             lock (Common.CameraSessionLock)
@@ -1365,6 +1366,7 @@ namespace StreamNodeCtrlApis.SystemApis
                     lock (Common.CameraSessionLock)
                     {
                         session.IsOnline = true;
+                        session.ForceOffline = false;
                     }
                 }
 
@@ -1470,6 +1472,7 @@ namespace StreamNodeCtrlApis.SystemApis
                                         App = result.App,
                                         StreamId = result.StreamId,
                                         MediaServerIp = mediaObj.Ipaddress,
+                                        ForceOffline = false,
                                     };
 
                                     lock (Common.CameraSessionLock)
@@ -1499,6 +1502,7 @@ namespace StreamNodeCtrlApis.SystemApis
                             //如果存在session就更新一下online属性
                             lock (Common.CameraSessionLock)
                             {
+                                session.ForceOffline = false;
                                 session.IsOnline = true;
                             }
                         }
@@ -1592,6 +1596,10 @@ namespace StreamNodeCtrlApis.SystemApis
                                 lock (Common.CameraSessionLock)
                                 {
                                     session.IsOnline = false;
+                                    if (req.Force == true)
+                                    {
+                                        session.ForceOffline = true;
+                                    }
                                 }
 
                                 ClientOnOffLog tmpClientLog = new ClientOnOffLog()

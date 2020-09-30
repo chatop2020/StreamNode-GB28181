@@ -36,6 +36,7 @@ namespace CommonFunctions.WebApiStructs.Request
             set => _stream = value;
         }
 
+        //此参数如果为true时，将会导致被结束的流不再被cameraKeeper重复推送
         public bool? Force
         {
             get => _force;

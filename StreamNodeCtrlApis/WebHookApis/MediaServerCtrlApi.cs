@@ -168,6 +168,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     PlayUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.MediaServerHttpPort +
                               "/" + req.App + "/" + req.Stream + ".flv",
                     IsOnline = true,
+                    ForceOffline = false,
                 };
                 if (getCameraSessionInfoEx(ref session))
                 {
@@ -210,6 +211,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     session.IsOnline = true;
                     session.OnlineTime = DateTime.Now;
                     session.UpTime = 0;
+                    session.ForceOffline = false;
                 }
 
                 ClientOnOffLog tmpClientLog = new ClientOnOffLog()

@@ -305,6 +305,7 @@ namespace StreamNodeCtrlApis.SipGateApis
                                 tcp == true ? PushStreamSocketType.TCP : PushStreamSocketType.UDP,
                         };
                         session.IsOnline = true;
+                        session.ForceOffline = false;
                         return obj;
                     }
 

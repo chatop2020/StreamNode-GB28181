@@ -85,7 +85,7 @@ namespace StreamNodeWebApi.AutoTasker
 
                                     bool useFFmpeg = true;
                                     ResponseStruct rs;
-                                    if (session == null || session.IsOnline == false) //如果没有，就启动
+                                    if ((session == null || session.IsOnline == false) && session.ForceOffline==false ) //如果没有，就启动,如果forceofflie=true时说明是主动结束的，不再重复推流
                                     {
                                         switch (cit.CameraType)
                                         {

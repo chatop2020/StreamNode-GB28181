@@ -405,7 +405,7 @@ namespace StreamNodeWebApi.Controllers
         /// 关闭一个流
         /// </summary>
         /// <param name="mediaServerId"></param>
-        /// <param name="req"></param>
+        /// <param name="req">req.force==true时将导致被停止的流不会被CameraKeeper返复推流</param>
         /// <returns></returns>
         /// <exception cref="HttpResponseException"></exception>
         [Route("CloseStreams")]

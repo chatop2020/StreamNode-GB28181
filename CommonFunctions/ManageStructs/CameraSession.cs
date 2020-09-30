@@ -34,6 +34,7 @@ namespace CommonFunction.ManageStructs
         private string? _app;
         private string? _streamId;
         private string? _mediaServerIp;
+        private bool? _forceOffline=false;
 
 
         public string? CameraId
@@ -154,6 +155,15 @@ namespace CommonFunction.ManageStructs
         {
             get => _mediaServerIp;
             set => _mediaServerIp = value;
+        }
+
+        /// <summary>
+        /// 强制下线，cameraKeeper中不再使这个摄像头上线，否则导致重复上线的问题
+        /// </summary>
+        public bool? ForceOffline
+        {
+            get => _forceOffline;
+            set => _forceOffline = value;
         }
     }
 }

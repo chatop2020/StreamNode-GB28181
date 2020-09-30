@@ -594,6 +594,7 @@ namespace CommonFunctions.MediaServerControl
             }
 
             req.Secret = secret;
+            req.Force = true;
             string innerUrl = url + "close_streams";
             string reqData = JsonHelper.ToJson(req);
             var oldMediaList = GetMediaList(out _);
