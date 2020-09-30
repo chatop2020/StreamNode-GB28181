@@ -921,6 +921,33 @@ namespace StreamNodeCtrlApis.SystemApis
                     .ExecuteAffrows();
                 if (ret > 0)
                 {
+                    try
+                    {
+                        lock (Common.CameraSessionLock) //删除注册摄像头时，同时停止正在推流的动作以及删除掉注册摄像头列表中的摄像头
+                        {
+                            var camera = Common.CameraSessions.FindLast(x => x.CameraId.Equals(cameraId));
+                            if (camera.IsOnline == true)
+                            {
+                                CloseStreams(mediaServerId, new ReqZLMediaKitCloseStreams()
+                                {
+                                    App = camera.App,
+                                    Force = true,
+                                    Schema = "rtmp",
+                                    Secret = "",
+                                    Stream = camera.StreamId,
+                                    Vhost = camera.Vhost,
+                                }, out _);
+                            }
+
+                            Common.CameraSessions.Remove(
+                                Common.CameraSessions.FindLast(x => x.CameraId.Equals(cameraId)));
+                        }
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+
                     return true;
                 }
             }
