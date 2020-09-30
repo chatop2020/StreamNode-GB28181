@@ -149,7 +149,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                                                               x.StreamId.Equals(req.Stream) &&
                                                               (x.ClientType == ClientType.Camera ||
                                                                x.ClientType == ClientType.Livecast)
-                                                              && x.CameraIpAddress.Equals(req.Ip));
+                                                              /*&& x.CameraIpAddress.Equals(req.Ip)*/);//为支持公网远程设备的ip不固定性，取消ip 地址校验
             }
 
             if (session == null)

@@ -22,132 +22,175 @@ namespace StreamNodeWebApi.AutoTasker
         /// </summary>
         private static void getCameraInstanceList()
         {
+           
             int i = 0;
             while (true)
             {
+               
                 i++;
                 try
                 {
+                   
                     if (i == 1 || i % 2 == 0)
                     {
+                      
                         lock (Common.CameraInstanceListLock)
                         {
+                            
                             Common.CameraInstanceList.Clear();
                             Common.CameraInstanceList.AddRange(OrmService.Db.Select<CameraInstance>().Where("1=1")
                                 .ToList());
                         }
                     }
 
+                  
                     if (Common.CameraInstanceList != null && Common.CameraInstanceList.Count > 0)
                         //循环列表
                         foreach (var cit in Common.CameraInstanceList)
                         {
+                           
                             Thread.Sleep(100);
                             if (cit != null && cit.EnableLive) //如果cit的是启动状态
                             {
+                               
                                 Thread.Sleep(1000);
                                 var mediaObj =
                                     Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(cit.PushMediaServerId));
+                                
                                 if (mediaObj != null && mediaObj.IsRunning)
                                 {
+                                   
                                     CameraSession session = null;
                                     try
                                     {
+                                       
                                         if (cit.CameraType == CameraType.GB28181)
                                         {
+                                           
                                             lock (Common.CameraSessionLock)
                                             {
+                                                
                                                 session = Common.CameraSessions.FindLast(x =>
                                                     x.ClientType == ClientType.Camera
                                                     && x.CameraType == CameraType.GB28181 &&
-                                                    x.CameraIpAddress.Equals(cit.CameraIpAddress)
-                                                    && x.CameraEx.Camera.DeviceID.Equals(cit.CameraChannelLable) &&
+                                                    /*x.CameraIpAddress.Equals(cit.CameraIpAddress)//为支持公网远程设备的ip不固定性，取消ip 地址校验
+                                                    &&*/ x.CameraEx.Camera.DeviceID.Equals(cit.CameraChannelLable) &&
                                                     x.CameraEx.Camera.ParentID.Equals(cit.CameraDeviceLable));
+                                              
                                             }
                                         }
 
+                                        
                                         if (cit.CameraType == CameraType.Rtsp)
                                         {
+                                            
                                             lock (Common.CameraSessionLock)
                                             {
+                                            
                                                 session = Common.CameraSessions.FindLast(x =>
                                                     x.ClientType == ClientType.Camera
-                                                    && x.CameraType == CameraType.Rtsp &&
-                                                    x.CameraIpAddress.Equals(cit.CameraIpAddress)
+                                                    && x.CameraType == CameraType.Rtsp /*&&
+                                                    x.CameraIpAddress.Equals(cit.CameraIpAddress)*/
+                                                    //为支持公网远程设备的ip不固定性，取消ip 地址校验
                                                     && x.CameraEx.InputUrl.Equals(cit.IfRtspUrl));
+                                               
                                             }
                                         }
                                     }
                                     catch (Exception ex)
                                     {
+                                      
                                         continue;
                                     }
 
+                                   
                                     bool useFFmpeg = true;
                                     ResponseStruct rs;
-                                    if ((session == null || session.IsOnline == false) && session.ForceOffline==false ) //如果没有，就启动,如果forceofflie=true时说明是主动结束的，不再重复推流
+                                    if (session == null || (session != null&& session.IsOnline != null && session.IsOnline == false &&
+                                        session.ForceOffline != null &&
+                                        session.ForceOffline == false)) //如果没有，就启动,如果forceofflie=true时说明是主动结束的，不再重复推流
                                     {
+                                       
                                         switch (cit.CameraType)
                                         {
                                             case CameraType.Rtsp: //rtsp的启动方式
+                                              
                                                 if (cit.RetryTimes < 2)
                                                 {
+                                                 
                                                     //rtsp方式，先跳过三次，因为zlmediakit会自动维护掉线的ffmpeg,要延迟处理一下，不然会重复创建ffmpeg
                                                     cit.RetryTimes++;
                                                     continue;
                                                 }
 
+                                                
                                                 cit.RetryTimes = 0;
                                                 ResZLMediaKitAddFFmpegProxy ret = null;
                                                 if (useFFmpeg)
                                                 {
+                                                 
                                                     ret = MediaServerApis.AddFFmpegProxy(
                                                         mediaObj.MediaServerId,
                                                         cit.IfRtspUrl, out rs);
                                                 }
                                                 else
                                                 {
+                                                    
                                                     ret = MediaServerApis.AddStreamProxy(mediaObj.MediaServerId,
                                                         cit.IfRtspUrl, out rs);
                                                 }
 
+                                              
                                                 if (ret != null && rs.Code == ErrorNumber.None)
                                                 {
+                                                  
                                                     CameraSession sessionsub = null;
                                                     lock (Common.CameraSessionLock)
                                                     {
+                                                       
                                                         sessionsub = Common.CameraSessions.FindLast(x =>
                                                             x.App!.Equals(ret.App)
                                                             && x.Vhost!.Equals(ret.Vhost) &&
                                                             x.StreamId!.Equals(ret.StreamId));
+                                                      
                                                     }
 
+                                                    
                                                     if (sessionsub != null)
                                                     {
+                                                       
                                                         lock (Common.CameraSessionLock)
                                                         {
+                                                           
                                                             sessionsub.CameraId = cit.CameraId;
                                                         }
                                                     }
                                                 }
 
+                                              
+
                                                 break;
                                             case CameraType.GB28181: //28181的启动方式
-
+                                               
                                                 var gbRet = CommonApi.LiveVideo(cit.PushMediaServerId,
                                                     cit.CameraDeviceLable,
                                                     cit.CameraChannelLable, out rs, (bool) cit.IfGb28181Tcp!);
+                                             
                                                 if (gbRet != null && rs.Code == ErrorNumber.None)
                                                 {
+                                                  
                                                     CameraSession sessionsub = null;
                                                     lock (Common.CameraSessionLock)
                                                     {
+                                                       
                                                         sessionsub = Common.CameraSessions.FindLast(x =>
                                                             x.App!.Equals(gbRet.App)
                                                             && x.Vhost!.Equals(gbRet.Vhost) &&
                                                             x.StreamId!.Equals(gbRet.MediaId));
+                                                       
                                                     }
 
+                                                  
                                                     if (sessionsub != null)
                                                     {
                                                         lock (Common.CameraSessionLock)
@@ -160,21 +203,27 @@ namespace StreamNodeWebApi.AutoTasker
                                                 break;
                                         }
                                     }
-                                    else if (session != null && string.IsNullOrEmpty(session.CameraId))
+                                    else if (session != null && string.IsNullOrEmpty(session.CameraId) && session.ForceOffline==false)
                                     {
+                                      
                                         CameraSession sessionsub = null;
                                         lock (Common.CameraSessionLock)
                                         {
+                                          
                                             sessionsub = Common.CameraSessions.FindLast(x =>
                                                 x.App!.Equals(session.App)
                                                 && x.Vhost!.Equals(session.Vhost) &&
                                                 x.StreamId!.Equals(session.StreamId));
+                                          
                                         }
 
+                                       
                                         if (sessionsub != null)
                                         {
+                                         
                                             lock (Common.CameraSessionLock)
                                             {
+                                                
                                                 sessionsub.CameraId = cit.CameraId;
                                             }
                                         }
@@ -202,8 +251,9 @@ namespace StreamNodeWebApi.AutoTasker
                                             {
                                                 session = Common.CameraSessions.FindLast(x =>
                                                     x.ClientType == ClientType.Camera
-                                                    && x.CameraType == CameraType.GB28181 &&
-                                                    x.CameraIpAddress.Equals(cit.CameraIpAddress)
+                                                    && x.CameraType == CameraType.GB28181 /*&&
+                                                    x.CameraIpAddress.Equals(cit.CameraIpAddress)*/
+                                                    //为支持公网远程设备的ip不固定性，取消ip 地址校验
                                                     && x.CameraEx.Camera.DeviceID.Equals(cit.CameraChannelLable) &&
                                                     x.CameraEx.Camera.ParentID.Equals(cit.CameraDeviceLable));
                                             }
@@ -215,8 +265,9 @@ namespace StreamNodeWebApi.AutoTasker
                                             {
                                                 session = Common.CameraSessions.FindLast(x =>
                                                     x.ClientType == ClientType.Camera
-                                                    && x.CameraType == CameraType.Rtsp &&
-                                                    x.CameraIpAddress.Equals(cit.CameraIpAddress)
+                                                    && x.CameraType == CameraType.Rtsp /*&&
+                                                    x.CameraIpAddress.Equals(cit.CameraIpAddress)*/
+                                                    //为支持公网远程设备的ip不固定性，取消ip 地址校验
                                                     && x.CameraEx.InputUrl.Equals(cit.IfRtspUrl));
                                             }
                                         }

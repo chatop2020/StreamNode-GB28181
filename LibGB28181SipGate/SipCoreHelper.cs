@@ -169,14 +169,15 @@ namespace LibGB28181SipGate
         /// <param name="sIPAccount"></param>
         private void OnSipRegisterReceived(SIPRequest sipRequest, SIPAccount sIPAccount)
         {
+           
             lock (SipDeviceList)
             {
-                var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.Header.Vias.TopViaHeader.Host)
-                                                      && x.SipPort.Equals(sipRequest.Header.Vias.TopViaHeader.Port)
+                var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.RemoteSIPEndPoint.Address.ToString())
+                                                      && x.SipPort.Equals(sipRequest.RemoteSIPEndPoint.Port.ToString())
                                                       && x.DeviceId.Equals(sipRequest.Header.From.FromURI.User));
 
-                string ip = sipRequest.Header.Vias.TopViaHeader.Host.Trim();
-                int port = sipRequest.Header.Vias.TopViaHeader.Port;
+                string ip = sipRequest.RemoteSIPEndPoint.Address.ToString();
+                int port = sipRequest.RemoteSIPEndPoint.Port;
                 string devid = sipRequest.Header.From.FromURI.User.Trim();
                 if (dev == null)
                 {
@@ -243,6 +244,7 @@ namespace LibGB28181SipGate
         /// <param name="catalog"></param>
         private void OnCatalogReceived(Catalog catalog)
         {
+            Console.WriteLine("Catalog:\r\n"+JsonHelper.ToJson(catalog));
             lock (SipDeviceList)
             {
                 string[] _tmpArr = catalog.RemoteEP.Split(":", StringSplitOptions.RemoveEmptyEntries);
