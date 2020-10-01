@@ -122,27 +122,37 @@ namespace CommonFunctions.MediaServerControl
 
         private void checkStreamStatusNew()
         {
+          
             while (true)
             {
+               
                 try
                 {
                     if (_webApi != null && IsRunning)
                     {
+                     
                         ResponseStruct rs;
                         var ret = _webApi.GetMediaList(out rs);
+                      
                         lock (Common.CameraSessionLock)
                         {
+                            
                             if (Common.CameraSessions != null && Common.CameraSessions.Count > 0)
                                 foreach (var session in Common.CameraSessions)
                                 {
-                                    if (session != null && session.MediaServerId.Equals(_mediaServerId))
+                                   
+                                    if (session != null && session.MediaServerId.Equals(_mediaServerId) && ret!=null && ret.Data!=null)
                                     {
+                                       
                                         var retObj = ret.Data.FindLast(x => x.Vhost.Equals(session.Vhost)
                                                                             && x.App.Equals(session.App) &&
                                                                             x.Stream.Equals(session.StreamId));
+                                       
                                         if (retObj == null)
                                         {
+                                          
                                             session.IsOnline = false;
+                                            
                                             ClientOnOffLog tmpClientLog = new ClientOnOffLog()
                                             {
                                                 App = session.App,
@@ -156,7 +166,9 @@ namespace CommonFunctions.MediaServerControl
                                                 Vhost = session.Vhost,
                                                 StreamId = session.StreamId,
                                             };
+                                           
                                             OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
+                                            
                                         }
                                     }
                                 }

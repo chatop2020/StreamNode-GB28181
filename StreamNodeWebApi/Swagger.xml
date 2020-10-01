@@ -38,6 +38,54 @@
             </summary>
             <param name="context"></param>
         </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.getCameraCurrentSession(CommonFunctions.DBStructs.CameraInstance)">
+            <summary>
+            获取摄像头session
+            </summary>
+            <param name="cil"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.liveGB28181(CommonFunctions.DBStructs.CameraInstance)">
+            <summary>
+            启动gb28181摄像头
+            </summary>
+            <param name="cil"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.liveRtsp(CommonFunctions.DBStructs.CameraInstance)">
+            <summary>
+            启动rtsp摄像头
+            </summary>
+            <param name="cil"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.stopRtsp(CommonFunction.ManageStructs.CameraSession)">
+            <summary>
+            停止rtsp摄像头
+            </summary>
+            <param name="session"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.stopGB28181(CommonFunction.ManageStructs.CameraSession)">
+            <summary>
+            停止gb28181摄像头
+            </summary>
+            <param name="session"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.stopCamera(CommonFunctions.DBStructs.CameraInstance)">
+            <summary>
+            停止摄像头
+            </summary>
+            <param name="cil"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.liveCamera(CommonFunctions.DBStructs.CameraInstance)">
+            <summary>
+            启动摄像头
+            </summary>
+            <param name="cil"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.keeperCamera">
+            <summary>
+            监控摄像头状态，启动或停止
+            </summary>
+        </member>
         <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.getCameraInstanceList">
             <summary>
             5秒一次获取摄像头注册信息

@@ -172,6 +172,27 @@ namespace LibGB28181SipGate
            
             lock (SipDeviceList)
             {
+                
+                
+                /*
+                 *  var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.Header.Vias.TopViaHeader.Host)
+                                                      && x.SipPort.Equals(sipRequest.Header.Vias.TopViaHeader.Port)
+                                                      && x.DeviceId.Equals(sipRequest.Header.From.FromURI.User));
+
+                string ip = sipRequest.Header.Vias.TopViaHeader.Host.Trim();
+                int port = sipRequest.Header.Vias.TopViaHeader.Port;
+                string devid = sipRequest.Header.From.FromURI.User.Trim();
+                
+                 */
+                
+                Console.WriteLine("sipRequest.RemoteSIPEndPoint.Address.ToString():"+sipRequest.RemoteSIPEndPoint.Address.ToString());
+                Console.WriteLine("sipRequest.RemoteSIPEndPoint.Port.ToString():"+sipRequest.RemoteSIPEndPoint.Port.ToString());
+
+                Console.WriteLine("sipRequest.Header.Vias.TopViaHeader.Host.Trim():"+sipRequest.Header.Vias.TopViaHeader.Host.Trim());
+                Console.WriteLine("sipRequest.Header.Vias.TopViaHeader.Port:"+sipRequest.Header.Vias.TopViaHeader.Port);
+
+
+                Console.WriteLine("sipRequest.Header.From.FromURI.User:"+sipRequest.Header.From.FromURI.User);
                 var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.RemoteSIPEndPoint.Address.ToString())
                                                       && x.SipPort.Equals(sipRequest.RemoteSIPEndPoint.Port.ToString())
                                                       && x.DeviceId.Equals(sipRequest.Header.From.FromURI.User));

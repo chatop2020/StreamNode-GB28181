@@ -325,6 +325,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                         lock (Common.CameraSessionLock)
                         {
                             camera.IsOnline = false;
+                          
                         }
                     }
                 }

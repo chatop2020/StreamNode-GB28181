@@ -13,6 +13,8 @@ using GB28181.Net;
 using GB28181.Servers.SIPMessage;
 using GB28181.Sys;
 using GB28181.Sys.XML;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SIPSorcery.SIP;
 
 namespace GB28181.Servers.SIPMonitor
@@ -139,6 +141,8 @@ namespace GB28181.Servers.SIPMonitor
             sipRequest.Body = SetMediaReq(rtpServerIp, rtpServerPort, streamid.ToString(), tcp);
             _sipMsgCoreService.SendReliableRequest(RemoteEndPoint, sipRequest);
             _reqSession = sipRequest;
+            
+           Console.WriteLine("live:\r\n"+sipRequest.ToString());
             if (needResult)
             {
                 _syncRequestContext.TryAdd(callId, sipRequest);

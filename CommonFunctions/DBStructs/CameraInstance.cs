@@ -17,6 +17,7 @@ namespace CommonFunctions.DBStructs
         private long _id;
         private string _cameraId;
         private string _cameraName;
+        private bool? _mobileCamera;
         private string? _deptId;
         private string? _deptName;
         private string? _pDetpId;
@@ -52,6 +53,15 @@ namespace CommonFunctions.DBStructs
         {
             get => _cameraName;
             set => _cameraName = value;
+        }
+
+        /// <summary>
+        /// 是否为移动摄像头，如果是移动摄像头，将不再判定它的ip地址是否一致
+        /// </summary>
+        public bool? MobileCamera
+        {
+            get => _mobileCamera;
+            set => _mobileCamera = value;
         }
 
         public string? DeptId

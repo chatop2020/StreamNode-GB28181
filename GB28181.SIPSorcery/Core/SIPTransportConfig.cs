@@ -60,7 +60,8 @@ namespace GB28181
                 channel = new SIPTCPChannel(ipEndPoint);
                 channels.Add(channel);
             }
-
+           
+            
             return channels;
         }
 
