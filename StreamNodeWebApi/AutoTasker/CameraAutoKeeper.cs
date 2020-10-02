@@ -314,16 +314,7 @@ namespace StreamNodeWebApi.AutoTasker
                     if (cameraSession == null || (cameraSession != null && cameraSession.IsOnline == false)
                     ) //camera没有，或者isonline是false要推流
                     {
-                        CameraType ctype = CameraType.None;
-                        if (cameraSession != null)
-                        {
-                            ctype = cameraSession.CameraType;
-                        }
-                        else
-                        {
-                            ctype = cil.CameraType;
-                        }
-
+                        CameraType ctype  = cameraSession != null ? cameraSession.CameraType : cil.CameraType;
                         switch (ctype)
                         {
                             case CameraType.Rtsp:
