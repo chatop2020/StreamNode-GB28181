@@ -188,7 +188,7 @@ namespace LibGB28181SipGate
                 string ip = sipRequest.RemoteSIPEndPoint.Address.ToString();
                 int port = sipRequest.RemoteSIPEndPoint.Port;
                 string devid = sipRequest.Header.From.FromURI.User.Trim();
-                var crcstr = CRC32Cls.GetCRC32(ip + port + devid).ToString();
+               // var crcstr = CRC32Cls.GetCRC32(ip + port + devid).ToString();
 
 
                 /*var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.RemoteSIPEndPoint.Address.ToString())
@@ -198,7 +198,7 @@ namespace LibGB28181SipGate
                 string ip = sipRequest.RemoteSIPEndPoint.Address.ToString();
                 int port = sipRequest.RemoteSIPEndPoint.Port;
                 string devid = sipRequest.Header.From.FromURI.User.Trim();*/
-                var dev = SipDeviceList.FindLast(x => x.CRC32.Equals(crcstr));
+                var dev = SipDeviceList.FindLast(x => x.DeviceId.Equals(devid));
                 if (dev == null)
                 {
                     var newSip = new SipDevice();
@@ -215,15 +215,25 @@ namespace LibGB28181SipGate
                     SipDeviceList.Add(newSip);
 
                     Console.WriteLine("设备注册：" + ip + "->\r\n" + newSip.ToString());
-                }
-
-                if (dev != null && dev.SipDeviceStatus == SipDeviceStatus.UnRegister)
+                }else if (dev != null && dev.SipDeviceStatus == SipDeviceStatus.UnRegister)
                 {
                     dev.CameraExList.Clear();
                     dev.AlarmList.Clear();
                     dev.LastSipRequest = sipRequest;
                     dev.SipDeviceStatus = SipDeviceStatus.Register;
                     dev.LastUpdateTime = DateTime.Now;
+                }else//发现公网不固定ip设备，可能因网络波动导致n次注册，而ip地址又不一致，造成straemnode后续处理问题，这边做一次信息修改来解决问题
+                {    //sip网关全局只允许唯一deviceid,如果发现多个deviceid时，除非此设备为注销状态，将重新激活为注册状态，除此之外一律重置相关参数信息
+                    dev.CRC32 = CRC32Cls.GetCRC32(ip + port + devid).ToString();
+                    dev.DeviceId = devid;
+                    dev.SipPort = port;
+                    dev.IpAddress = ip;
+                    dev.CameraExList.Clear();
+                    dev.AlarmList.Clear();
+                    dev.LastSipRequest = sipRequest;
+                    dev.SipDeviceStatus = SipDeviceStatus.Register;
+                    dev.LastKeepAliveTime = DateTime.Now;
+                    dev.LastUpdateTime = DateTime.Now; 
                 }
             }
         }

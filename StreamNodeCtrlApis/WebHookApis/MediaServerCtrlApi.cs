@@ -310,7 +310,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     {
                         ClientOnOffLog tmpClientLog = new ClientOnOffLog()
                         {
-                            App = player.App,
+                            App = req.App,
                             CameraProtocolType = camera.CameraType,
                             ClientType = camera.ClientType,
                             CreateTime = DateTime.Now,
