@@ -29,6 +29,7 @@ namespace LibGB28181SipGate
         private bool _autoPushStream = false;
         private bool _isRunning = false;
 
+        public Object SipDeviceLock = new Object();
 
         public SIPMessageCore SipMessageCore
         {
@@ -81,11 +82,17 @@ namespace LibGB28181SipGate
                     {
                         if (GetDeviceList(obj.DeviceId))
                         {
-                            obj.SipDeviceStatus = SipDeviceStatus.GetDeviceList;
+                            lock (SipDeviceLock)
+                            {
+                                obj.SipDeviceStatus = SipDeviceStatus.GetDeviceList;
+                            }
                         }
                         else
                         {
-                            obj.SipDeviceStatus = SipDeviceStatus.LooksLikeOffline;
+                            lock (SipDeviceLock)
+                            {
+                                obj.SipDeviceStatus = SipDeviceStatus.LooksLikeOffline;
+                            }
                         }
 
                         Thread.Sleep(100);
@@ -100,11 +107,17 @@ namespace LibGB28181SipGate
                             {
                                 if (ReqLive(camera.Camera.DeviceID))
                                 {
-                                    camera.SipCameraStatus = SipCameraStatus.RealVideo;
+                                    lock (SipDeviceLock)
+                                    {
+                                        camera.SipCameraStatus = SipCameraStatus.RealVideo;
+                                    }
                                 }
                                 else
                                 {
-                                    camera.SipCameraStatus = SipCameraStatus.Idle;
+                                    lock (SipDeviceLock)
+                                    {
+                                        camera.SipCameraStatus = SipCameraStatus.Idle;
+                                    }
                                 }
 
                                 Thread.Sleep(100);
@@ -129,7 +142,7 @@ namespace LibGB28181SipGate
                             }
                         }
 
-                        lock (SipDeviceList)
+                        lock (SipDeviceLock)
                         {
                             _sipMessageCore.RemoteTransEPs.Remove(obj.IpAddress);
                             SipDeviceList.Remove(obj);
@@ -152,7 +165,7 @@ namespace LibGB28181SipGate
         /// <param name="sIPTransaction"></param>
         private void OnDeviceAlarmSubscribeReceived(SIPTransaction sIPTransaction)
         {
-            lock (SipDeviceList)
+            lock (SipDeviceLock)
             {
                 var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sIPTransaction.RemoteEndPoint.Address));
                 if (dev != null)
@@ -169,37 +182,23 @@ namespace LibGB28181SipGate
         /// <param name="sIPAccount"></param>
         private void OnSipRegisterReceived(SIPRequest sipRequest, SIPAccount sIPAccount)
         {
-           
-            lock (SipDeviceList)
+            lock (SipDeviceLock)
             {
-                
-                
-                /*
-                 *  var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.Header.Vias.TopViaHeader.Host)
-                                                      && x.SipPort.Equals(sipRequest.Header.Vias.TopViaHeader.Port)
-                                                      && x.DeviceId.Equals(sipRequest.Header.From.FromURI.User));
 
-                string ip = sipRequest.Header.Vias.TopViaHeader.Host.Trim();
-                int port = sipRequest.Header.Vias.TopViaHeader.Port;
+                string ip = sipRequest.RemoteSIPEndPoint.Address.ToString();
+                int port = sipRequest.RemoteSIPEndPoint.Port;
                 string devid = sipRequest.Header.From.FromURI.User.Trim();
-                
-                 */
-                
-                Console.WriteLine("sipRequest.RemoteSIPEndPoint.Address.ToString():"+sipRequest.RemoteSIPEndPoint.Address.ToString());
-                Console.WriteLine("sipRequest.RemoteSIPEndPoint.Port.ToString():"+sipRequest.RemoteSIPEndPoint.Port.ToString());
-
-                Console.WriteLine("sipRequest.Header.Vias.TopViaHeader.Host.Trim():"+sipRequest.Header.Vias.TopViaHeader.Host.Trim());
-                Console.WriteLine("sipRequest.Header.Vias.TopViaHeader.Port:"+sipRequest.Header.Vias.TopViaHeader.Port);
+                var crcstr = CRC32Cls.GetCRC32(ip + port + devid).ToString();
 
 
-                Console.WriteLine("sipRequest.Header.From.FromURI.User:"+sipRequest.Header.From.FromURI.User);
-                var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.RemoteSIPEndPoint.Address.ToString())
+                /*var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.RemoteSIPEndPoint.Address.ToString())
                                                       && x.SipPort.Equals(sipRequest.RemoteSIPEndPoint.Port.ToString())
                                                       && x.DeviceId.Equals(sipRequest.Header.From.FromURI.User));
 
                 string ip = sipRequest.RemoteSIPEndPoint.Address.ToString();
                 int port = sipRequest.RemoteSIPEndPoint.Port;
-                string devid = sipRequest.Header.From.FromURI.User.Trim();
+                string devid = sipRequest.Header.From.FromURI.User.Trim();*/
+                var dev = SipDeviceList.FindLast(x => x.CRC32.Equals(crcstr));
                 if (dev == null)
                 {
                     var newSip = new SipDevice();
@@ -214,7 +213,8 @@ namespace LibGB28181SipGate
                     newSip.LastKeepAliveTime = DateTime.Now;
                     newSip.LastUpdateTime = DateTime.Now;
                     SipDeviceList.Add(newSip);
-                    Console.WriteLine("设备注册：" + ip + "->" + newSip.DeviceId);
+
+                    Console.WriteLine("设备注册：" + ip + "->\r\n" + newSip.ToString());
                 }
 
                 if (dev != null && dev.SipDeviceStatus == SipDeviceStatus.UnRegister)
@@ -236,7 +236,7 @@ namespace LibGB28181SipGate
         /// <param name="sIPAccount"></param>
         private void OnSipUnRegisterReceived(SIPRequest sipRequest, SIPAccount sIPAccount)
         {
-            lock (SipDeviceList)
+            lock (SipDeviceLock)
             {
                 var dev = SipDeviceList.FindLast(x =>
                     x.IpAddress.Equals(sipRequest.Header.Vias.TopViaHeader.Host)
@@ -265,8 +265,7 @@ namespace LibGB28181SipGate
         /// <param name="catalog"></param>
         private void OnCatalogReceived(Catalog catalog)
         {
-            Console.WriteLine("Catalog:\r\n"+JsonHelper.ToJson(catalog));
-            lock (SipDeviceList)
+            lock (SipDeviceLock)
             {
                 string[] _tmpArr = catalog.RemoteEP.Split(":", StringSplitOptions.RemoveEmptyEntries);
                 string ip = "";
@@ -349,7 +348,7 @@ namespace LibGB28181SipGate
 
         private void OnKeepAliveReceived(SIPEndPoint remoteEp, KeepAlive keepAlive, string devId)
         {
-            lock (SipDeviceList)
+            lock (SipDeviceLock)
             {
                 var dev = SipDeviceList.FindLast(x =>
                     x.IpAddress.Equals(remoteEp.Address.ToString())
