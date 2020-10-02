@@ -679,6 +679,25 @@ namespace StreamNodeCtrlApis.SystemApis
             return false;
         }
 
+
+
+        /// <summary>
+        /// 根据id,获取视频文件信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="rs"></param>
+        /// <returns></returns>
+        public static RecordFile GetDvrVideoById(long id, out ResponseStruct rs)
+        {
+            rs = new ResponseStruct()
+            {
+                Code = ErrorNumber.None,
+                Message = ErrorMessage.ErrorDic![ErrorNumber.None],
+            };
+
+           return  OrmService.Db.Select<RecordFile>().Where(x => x.Id.Equals(id)).First();
+        }
+
         /// <summary>
         /// 获取录像文件列表
         /// </summary>
@@ -778,6 +797,122 @@ namespace StreamNodeCtrlApis.SystemApis
 
             result.Total = total;
             result.Request = rgdv;
+            return result;
+        }
+
+      /// <summary>
+      /// 扩展查询已注册摄像头列表
+      /// </summary>
+      /// <param name="req"></param>
+      /// <param name="rs"></param>
+      /// <returns></returns>
+        public static ResGetCameraInstanceListEx GetCameraInstanceListEx(ReqGetCameraInstanceListEx req,
+            out ResponseStruct rs)
+        {
+            rs = new ResponseStruct()
+            {
+                Code = ErrorNumber.None,
+                Message = ErrorMessage.ErrorDic![ErrorNumber.None],
+            };
+            bool isPageQuery = (req.PageIndex != null && req.PageIndex >= 1);
+            bool haveOrderBy = req.OrderBy != null;
+            if (isPageQuery)
+            {
+                if (req.PageSize > 10000)
+                {
+                    rs = new ResponseStruct()
+                    {
+                        Code = ErrorNumber.SystemDataBaseLimited,
+                        Message = ErrorMessage.ErrorDic![ErrorNumber.SystemDataBaseLimited],
+                    };
+                    return null!;
+                }
+
+                if (req.PageIndex <= 0)
+                {
+                    rs = new ResponseStruct()
+                    {
+                        Code = ErrorNumber.SystemDataBaseLimited,
+                        Message = ErrorMessage.ErrorDic![ErrorNumber.SystemDataBaseLimited],
+                    };
+                    return null!;
+                }
+            }
+
+            string orderBy = "";
+            if (haveOrderBy)
+            {
+                foreach (var order in req.OrderBy!)
+                {
+                    if (order != null)
+                    {
+                        orderBy += order.FieldName + " " + Enum.GetName(typeof(OrderByDir), order.OrderByDir!) + ",";
+                    }
+                }
+
+                orderBy = orderBy.TrimEnd(',');
+            }
+
+            List<CameraInstance> list = null;
+            long total = -1;
+            try
+            {
+                if (!isPageQuery)
+                {
+                    list = OrmService.Db.Select<CameraInstance>()
+                        .WhereIf(!string.IsNullOrEmpty(req.MediaServerId),
+                            x => x.PushMediaServerId.Equals(req.MediaServerId))
+                        .WhereIf(req.CameraType != null || req.CameraType != CameraType.None,
+                            x => x.CameraType.Equals(req.CameraType))
+                        .WhereIf(!string.IsNullOrEmpty(req.CameraName), x => x.CameraName.Contains(req.CameraName))
+                        .WhereIf(!string.IsNullOrEmpty(req.CameraId), x => x.CameraId.Equals(req.CameraId))
+                        .WhereIf(!string.IsNullOrEmpty(req.CameraDeptId), x => x.DeptId.Equals(req.CameraDeptId))
+                        .WhereIf(req.EnableLive != null, x => x.EnableLive.Equals(req.EnableLive))
+                        .Where("1=1").OrderBy(orderBy).ToList();
+                }
+                else
+                {
+                    list = OrmService.Db.Select<CameraInstance>()
+                        .WhereIf(!string.IsNullOrEmpty(req.MediaServerId),
+                            x => x.PushMediaServerId.Equals(req.MediaServerId))
+                        .WhereIf(req.CameraType != null || req.CameraType != CameraType.None,
+                            x => x.CameraType.Equals(req.CameraType))
+                        .WhereIf(!string.IsNullOrEmpty(req.CameraName), x => x.CameraName.Contains(req.CameraName))
+                        .WhereIf(!string.IsNullOrEmpty(req.CameraId), x => x.CameraId.Equals(req.CameraId))
+                        .WhereIf(!string.IsNullOrEmpty(req.CameraDeptId), x => x.DeptId.Equals(req.CameraDeptId))
+                        .WhereIf(req.EnableLive != null, x => x.EnableLive.Equals(req.EnableLive))
+                        .Where("1=1").OrderBy(orderBy).Count(out total)
+                        .Page((int) req.PageIndex!, (int) req.PageSize!)
+                        .ToList();
+                }
+
+            }
+            catch(Exception ex)
+            {
+                rs = new ResponseStruct()
+                {
+                    Code = ErrorNumber.SystemDataBaseExcept,
+                    Message = ErrorMessage.ErrorDic![ErrorNumber.SystemDataBaseExcept]+"\r\n"+ex.Message+"\r\n"+ex.StackTrace,
+                };
+                return null;
+            }
+
+            ResGetCameraInstanceListEx result = new ResGetCameraInstanceListEx();
+            result.CameraInstanceList = list;
+            if (!isPageQuery)
+            {
+                if (list != null)
+                {
+                    total = list.Count;
+                }
+                else
+                {
+                    total = 0;
+                }
+            }
+
+            result.Total = total;
+            result.Request = req;
             return result;
         }
 
@@ -1135,6 +1270,33 @@ namespace StreamNodeCtrlApis.SystemApis
                 return new List<PlayerSession>(Common.PlayerSessions);
             }
         }
+        
+        
+     
+        /// <summary>
+        /// 根据摄像头ID查找在线摄像头
+        /// </summary>
+        /// <param name="mediaServerId"></param>
+        /// <param name="cameraId"></param>
+        /// <param name="rs"></param>
+        /// <returns></returns>
+        public static CameraSession GetCameraInstanceByCameraId(string mediaServerId,string cameraId,
+            out ResponseStruct rs)
+        {
+            rs = new ResponseStruct()
+            {
+                Code = ErrorNumber.None,
+                Message = ErrorMessage.ErrorDic![ErrorNumber.None],
+            };
+
+            lock (Common.CameraSessionLock)
+            {
+                return Common.CameraSessions.FindLast(x => x.MediaServerId.Equals(mediaServerId)
+                                                           && x.CameraId.Equals(cameraId));
+            }
+
+        }
+     
 
         /// <summary>
         /// 获取在线摄像头列表

@@ -164,6 +164,31 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
+       
+        /// <summary>
+        /// 根据id获取视频文件信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
+        [Route("GetDvrVideoById")]
+        [HttpPost]
+        [Log]
+        [AuthVerify]
+        public RecordFile GetDvrVideoById(long id)
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.GetDvrVideoById(id, out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+
+            return ret;
+        }
+
+        
+        
         /// <summary>
         /// 获取录像文件(条件灵活)
         /// </summary>
@@ -184,6 +209,29 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
+        
+       /// <summary>
+       /// 扩展查询已注册摄像头列表
+       /// </summary>
+       /// <param name="req"></param>
+       /// <returns></returns>
+       /// <exception cref="HttpResponseException"></exception>
+        [Route("GetCameraInstanceListEx")]
+        [HttpPost]
+        [Log]
+        [AuthVerify]
+        public ResGetCameraInstanceListEx GetCameraInstanceListEx(ReqGetCameraInstanceListEx req)
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.GetCameraInstanceListEx(req, out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+
+            return ret;
+        }
+        
 
         /// <summary>
         /// 获取摄像头实例列表
@@ -305,6 +353,31 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
+     
+        /// <summary>
+        /// 根据摄像头ID查询在线摄像头对象
+        /// </summary>
+        /// <param name="mediaServerId"></param>
+        /// <param name="cameraId"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
+        [Route("GetCameraInstanceByCameraId")]
+        [HttpGet]
+        [Log]
+        [AuthVerify]
+        public CameraSession GetCameraInstanceByCameraId(string mediaServerId,string cameraId)
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.GetCameraInstanceByCameraId(mediaServerId,cameraId, out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+            
+            return ret;
+        }
+        
+        
         /// <summary>
         /// 获取在线摄像头列表
         /// </summary>

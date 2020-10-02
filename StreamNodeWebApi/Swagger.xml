@@ -245,11 +245,27 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetDvrVideoById(System.Int64)">
+            <summary>
+            根据id获取视频文件信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
         <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetDvrVideoList(CommonFunctions.ManageStructs.ReqGetDvrVideo)">
             <summary>
             获取录像文件(条件灵活)
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetCameraInstanceListEx(CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx)">
+            <summary>
+            扩展查询已注册摄像头列表
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetCameraInstanceList(System.String)">
             <summary>
@@ -291,6 +307,15 @@
             获取在线播放器列表
             </summary>
             <param name="mediaServerId"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetCameraInstanceByCameraId(System.String,System.String)">
+            <summary>
+            根据摄像头ID查询在线摄像头对象
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="cameraId"></param>
             <returns></returns>
             <exception cref="T:CommonFunctions.HttpResponseException"></exception>
         </member>
