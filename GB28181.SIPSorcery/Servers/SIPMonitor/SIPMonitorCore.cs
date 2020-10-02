@@ -142,7 +142,7 @@ namespace GB28181.Servers.SIPMonitor
             _sipMsgCoreService.SendReliableRequest(RemoteEndPoint, sipRequest);
             _reqSession = sipRequest;
             
-           Console.WriteLine("live:\r\n"+sipRequest.ToString());
+          
             if (needResult)
             {
                 _syncRequestContext.TryAdd(callId, sipRequest);

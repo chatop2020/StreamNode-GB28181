@@ -526,7 +526,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                                 StreamId = req.Stream,
                                 MediaServerIp = mediaServer.Ipaddress,
                             };
-                            Console.WriteLine("session:\r\n" + JsonHelper.ToJson(session));
+                            
                             lock (Common.CameraSessionLock)
                             {
                                 Common.CameraSessions.Add(session);

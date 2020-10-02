@@ -607,10 +607,9 @@ namespace StreamMediaServerKeeper
             FileStream writeStream; // 写入本地文件流对象
 
             long remoteFileLength = GetHttpLength(url); // 取得远程文件长度
-            Console.WriteLine("remoteFileLength=" + remoteFileLength);
             if (remoteFileLength <= 0 || remoteFileLength == 745)
             {
-                Console.WriteLine("远程文件不存在.");
+               
                 return false;
             }
 
@@ -622,7 +621,6 @@ namespace StreamMediaServerKeeper
 
                 if (startPosition >= remoteFileLength)
                 {
-                    Console.WriteLine("本地文件长度" + startPosition + "已经大于等于远程文件长度" + remoteFileLength + "。下载完成。");
                     writeStream.Close();
 
                     return false;
@@ -658,7 +656,6 @@ namespace StreamMediaServerKeeper
                 {
                     currPostion += contentSize;
                     int percent = (int) (currPostion * 100 / remoteFileLength);
-                    Console.WriteLine("percent=" + percent + "%");
 
                     writeStream.Write(btArray, 0, contentSize); // 写入本地文件
                     contentSize = readStream.Read(btArray, 0, btArray.Length); // 继续向远程文件读取

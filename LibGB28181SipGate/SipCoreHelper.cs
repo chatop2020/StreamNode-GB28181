@@ -213,8 +213,7 @@ namespace LibGB28181SipGate
                     newSip.LastKeepAliveTime = DateTime.Now;
                     newSip.LastUpdateTime = DateTime.Now;
                     SipDeviceList.Add(newSip);
-
-                    Console.WriteLine("设备注册：" + ip + "->\r\n" + newSip.ToString());
+                    Console.WriteLine("设备注册->" + ip + "->\r\n" + newSip.DeviceId);
                 }else if (dev != null && dev.SipDeviceStatus == SipDeviceStatus.UnRegister)
                 {
                     dev.CameraExList.Clear();
@@ -254,7 +253,7 @@ namespace LibGB28181SipGate
                     && x.DeviceId.Equals(sipRequest.Header.From.FromURI.User));
                 if (dev != null)
                 {
-                    Console.WriteLine("设备注销：" + dev.IpAddress + "->" + dev.DeviceId);
+                    Console.WriteLine("设备注销->" + dev.IpAddress + "->" + dev.DeviceId);
                     dev.SipDeviceStatus = SipDeviceStatus.UnRegister;
                     dev.LastSipRequest = sipRequest;
                     dev.LastUpdateTime = DateTime.Now;
@@ -424,7 +423,7 @@ namespace LibGB28181SipGate
                 TaskList.Add(gdlt);
                 string streamid = pip + pid + devId;
                 uint stid = CRC32Cls.GetCRC32(streamid);
-                Console.WriteLine("资料：" + streamid + " 10进制：" + stid + " 16进制：" + string.Format("{0:X8}", stid));
+                Console.WriteLine("资料->" + streamid + " 10进制->" + stid + " 16进制->" + string.Format("{0:X8}", stid));
                 var ret = gdlt.Invite(stid, rptServerIp, rptPort, tcp);
                 if (ret)
                 {
@@ -445,7 +444,7 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + " 请求实时视频成功");
+                    Console.WriteLine("请求实时视频成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
                 }
                 else
                 {
@@ -465,7 +464,8 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + "  请求实时视频失败");
+                    Console.WriteLine("请求实时视频失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
+                 
                 }
 
                 TaskList.Remove(gdlt);
@@ -499,7 +499,7 @@ namespace LibGB28181SipGate
                 int port = 0;
                 string streamid = pip + pid + devId;
                 uint stid = CRC32Cls.GetCRC32(streamid);
-                Console.WriteLine("资料：" + streamid + " 10进制：" + stid + " 16进制：" + string.Format("{0:X8}", stid));
+                Console.WriteLine("资料->" + streamid + " 10进制->" + stid + " 16进制->" + string.Format("{0:X8}", stid));
                 var ret = gdlt.Invite(stid, out ip, out port);
 
                 if (ret)
@@ -523,7 +523,8 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + " 请求实时视频成功");
+                  
+                    Console.WriteLine("请求实时视频成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
                 }
                 else
                 {
@@ -542,8 +543,8 @@ namespace LibGB28181SipGate
                             camera.PushStreamSocketType = null;
                         }
                     }
-
-                    Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + "  请求实时视频失败");
+                    
+                    Console.WriteLine("请求实时视频失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
                 }
 
                 TaskList.Remove(gdlt);
@@ -587,11 +588,12 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + " 请求终止实时视频成功");
+                    Console.WriteLine("请求实时视频成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
+                  
                 }
                 else
                 {
-                    Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + "  请求终止实时视频失败");
+                    Console.WriteLine("请求终止实时视频失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
                 }
 
                 TaskList.Remove(gdlt);
@@ -611,11 +613,13 @@ namespace LibGB28181SipGate
                 var ret = gdlt.PtzContorl(dir, speed);
                 if (ret)
                 {
-                    Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + " 请求PTZ控制成功");
+                    Console.WriteLine("请求PTZ控制成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
+                    
                 }
                 else
                 {
-                    Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + "  请求PTZ控制失败");
+                    Console.WriteLine("请求PTZ控制失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
+                   
                 }
 
                 TaskList.Remove(gdlt);
@@ -632,11 +636,13 @@ namespace LibGB28181SipGate
             var ret = gdlt.GetDeviceList();
             if (ret)
             {
-                Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + " 获取设备目录成功");
+                Console.WriteLine("获取设备目录成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
+              
             }
             else
             {
-                Console.WriteLine(gdlt.DeviceId + ":" + gdlt.CallId + " 获取设备目录失败");
+                Console.WriteLine("获取设备目录失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
+              
             }
 
             TaskList.Remove(gdlt);
