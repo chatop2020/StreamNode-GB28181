@@ -521,6 +521,12 @@ namespace StreamNodeWebApi.AutoTasker
                                 {
                                     if (dvrPlan == null || dvrPlan.Enable == false)
                                     {
+                                        var ret = getDvrOnorOff(dvrPlan);//如果录制计划为停止状态，在处理下一个计划任务前要查看该录制计划是否正在执行，正在扫行的话，要停掉它
+                                        if (ret)
+                                        {
+                                            setDvrOnorOff(dvrPlan, false);
+                                        }
+
                                         continue;
                                     }
 
