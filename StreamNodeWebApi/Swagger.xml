@@ -86,11 +86,6 @@
             监控摄像头状态，启动或停止
             </summary>
         </member>
-        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.getCameraInstanceList">
-            <summary>
-            5秒一次获取摄像头注册信息
-            </summary>
-        </member>
         <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.doDeleteFor24HourAgo(CommonFunctions.DBStructs.StreamDvrPlan)">
             <summary>
             清除24小时前软删除的文件
