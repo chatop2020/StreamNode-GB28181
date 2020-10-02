@@ -184,6 +184,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                         PushMediaServerId = mediaServer.MediaServerId,
                         Vhost = session.Vhost,
                         StreamId = session.StreamId,
+                        Schema = "like gb28181",
                     };
                     OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                     lock (Common.CameraSessionLock)
@@ -226,6 +227,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     PushMediaServerId = mediaServer.MediaServerId,
                     Vhost = session.Vhost,
                     StreamId = session.StreamId,
+                    Schema = "like gb28181",
                 };
                 OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
             }
@@ -299,6 +301,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                             PushMediaServerId = mediaServer.MediaServerId,
                             Vhost = req.Vhost,
                             StreamId = req.Stream,
+                            Schema = req.Schema,
                         };
                         OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                         lock (Common.PlayerSessionListLock)
@@ -320,6 +323,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                             PushMediaServerId = mediaServer.MediaServerId,
                             Vhost = req.Vhost,
                             StreamId = req.Stream,
+                            Schema = req.Schema,
                         };
                         OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                         lock (Common.CameraSessionLock)
@@ -544,6 +548,8 @@ namespace StreamNodeCtrlApis.WebHookApis
                                 PushMediaServerId = mediaServer.MediaServerId,
                                 Vhost = session.Vhost,
                                 StreamId = session.StreamId,
+                                Schema = "rtsp",
+                                
                             };
                             OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                         }
@@ -578,6 +584,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                         PushMediaServerId = mediaServer.MediaServerId,
                         Vhost = checksession.Vhost,
                         StreamId = checksession.StreamId,
+                        Schema = "rtsp",
                     };
                     OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                 }

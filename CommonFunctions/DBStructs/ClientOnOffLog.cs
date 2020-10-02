@@ -29,6 +29,7 @@ namespace CommonFunctions.DBStructs
         private string? _vhost;
         private string? _app;
         private string? _streamId;
+        private string? _schema;
         private string? _pushMediaServerId;
         private OnOff _onOff;
 
@@ -89,6 +90,11 @@ namespace CommonFunctions.DBStructs
             set => _streamId = value;
         }
 
+        public string? Schema
+        {
+            get => _schema;
+            set => _schema = value;
+        }
 
         public string? PushMediaServerId
         {
