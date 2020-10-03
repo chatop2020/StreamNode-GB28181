@@ -503,7 +503,11 @@ namespace StreamNodeWebApi.AutoTasker
                 try
                 {
                     i++;
-                    if (Common.MediaServerList != null && Common.MediaServerList.Count > 0)
+                    if (Common.MediaServerList == null || Common.MediaServerList.Count <= 0)
+                    {
+                        Thread.Sleep(5000);
+                        continue;
+                    }
                         foreach (var mediaServer in Common.MediaServerList)
                         {
                             if (mediaServer != null && mediaServer.IsRunning)

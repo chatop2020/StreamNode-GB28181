@@ -413,6 +413,7 @@ namespace StreamNodeWebApi.AutoTasker
 
                     if (Common.CameraInstanceList == null || Common.CameraInstanceList.Count <= 0)
                     {
+                        Thread.Sleep(5000);
                         continue;
                     }
 
