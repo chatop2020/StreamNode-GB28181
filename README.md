@@ -6,7 +6,7 @@
 - 【修复】Sip网关支持部署在内网，映射到公网IP的端口，即可提供服务,同时修复了推流设备在内网中GB28181协议注册时未正确获得真实设备IP的问题，表示可以正确识别与通讯内网的GB28181设备。
 ## 接口功能
 ### DvrPlan 录制计划
-​- /DvrPlan​/DeleteDvrPlanById          删除一个录制计划ById
+- /DvrPlan​/DeleteDvrPlanById          删除一个录制计划ById
 - ​/DvrPlan​/OnOrOffDvrPlanById         启用或停用一个录制计划
 - ​/DvrPlan​/SetDvrPlanById         修改录制计划ById
 - /DvrPlan​/CreateDvrPlan           创建录制计划
@@ -44,7 +44,7 @@
 - /MediaServer​/StopMediaServer         关闭流媒体服务
 - /MediaServer​/StartMediaServer            启动流媒体服务
 ### Sip网关相关
-​- /SipGate​/ActiveDeviceCatalogQuery           获取Sip设备的目录列表
+- /SipGate​/ActiveDeviceCatalogQuery           获取Sip设备的目录列表
 - /SipGate​/GetAutoPushStreamState          获取Sip网关自动推流状态
 - SipGate​/SetAutoPushStreamState           设置Sip网关自动推流状态
 - /SipGate​/LiveVideo           请求实时视频
