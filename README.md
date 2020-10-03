@@ -4,6 +4,63 @@
 - 对ZLMediaKit的源码做了一些小的改造，用于将ZLMediaKit的http回调增加流媒体服务的唯一标识，以及对ffmpeg管理部分的一个小修改
 - 【新增】支持对公网动态ip的GB28181设备支持，通过数据库中的标记来确定是否校验设备IP地址，因此可以支持如4G国标协议执法记录仪接入
 - 【修复】Sip网关支持部署在内网，映射到公网IP的端口，即可提供服务,同时修复了推流设备在内网中GB28181协议注册时未正确获得真实设备IP的问题，表示可以正确识别与通讯内网的GB28181设备。
+## 接口功能
+### DvrPlan 录制计划
+​- /DvrPlan​/DeleteDvrPlanById          删除一个录制计划ById
+- ​/DvrPlan​/OnOrOffDvrPlanById         启用或停用一个录制计划
+- ​/DvrPlan​/SetDvrPlanById         修改录制计划ById
+- /DvrPlan​/CreateDvrPlan           创建录制计划
+- /DvrPlan​/GetDvrPlan          获取录制计划
+### MediaServer 流媒体控制
+- ​/MediaServer​/CutOrMergeVideoFile        添加一个裁剪合并任务
+- ​/MediaServer​/GetMergeTaskStatus         获取裁剪合并任务状态
+- /MediaServer​/GetBacklogTaskList          获取裁剪合并任务积压列表
+- /MediaServer​/UndoSoftDelete          恢复被软删除的录像文件
+- /MediaServer​/HardDeleteDvrVideoById          删除一个录像文件ById（硬删除，立即删除文件，数据库做delete标记）
+- /MediaServer​/HardDeleteDvrVideoByIdList          删除一批录像文件ById（硬删除，立即删除文件，数据库做delete标记）
+- /MediaServer​/SoftDeleteDvrVideoById          删除一个录像文件ById（软删除，只做标记，不删除文件，文件在24小时后删除）
+- /MediaServer​/GetDvrVideoById         根据id获取视频文件信息
+- /MediaServer​/GetDvrVideoList         获取录像文件列表
+- /MediaServer​/GetCameraInstanceListEx         扩展查询已注册摄像头列表
+- /MediaServer​/GetCameraInstanceList           获取摄像头实例列表
+- /MediaServer​/ModifyCameraInstance            修改一个注册摄像头实例
+- /MediaServer​/DeleteCameraInstance            删除一个摄像头实例
+- ​/MediaServer​/AddCameraInstance          注册添加一个摄像头实例
+- /MediaServer​/GetPlayerSessionList            获取在线播放器列表
+- /MediaServer​/GetCameraInstanceByCameraId         根据摄像头ID查询在线摄像头对象
+- /MediaServer​/GetCameraSessionList            获取在线摄像头列表
+- /MediaServer​/GetConfig           获取流媒体配置信息
+- /MediaServer​/AddFFmpegProxy          启动一个ffmpeg代理流
+- /MediaServer​/CloseStreams            关闭一个流
+- /MediaServer​/GetStreamList           获取流列表
+- /MediaServer​/StartRecord         启动流的录制
+- /MediaServer​/StopRecord          停止流的录制
+- /MediaServer​/GetRecordStatus         获取流的录制状态
+- /MediaServer​/OpenRtpPort         打开某个rtp端口
+- ​/MediaServer​/CloseRtpPort           关闭某个rtp端口
+- ​/MediaServer​/GetRtpPortList         获取流媒体已经开放的rtp端口列表
+- /MediaServer​/CheckMediaServerRunning         检查流媒体服务是否正在运行
+- /MediaServer​/RestartMediaServer          重启流媒体服务
+- /MediaServer​/StopMediaServer         关闭流媒体服务
+- /MediaServer​/StartMediaServer            启动流媒体服务
+### Sip网关相关
+​- /SipGate​/ActiveDeviceCatalogQuery           获取Sip设备的目录列表
+- /SipGate​/GetAutoPushStreamState          获取Sip网关自动推流状态
+- SipGate​/SetAutoPushStreamState           设置Sip网关自动推流状态
+- /SipGate​/LiveVideo           请求实时视频
+- /SipGate​/ByeLiveVideo            停止实时视频预览
+- /SipGate​/GetSipDeviceList            获取已注册的设备列表
+- /SipGate​/PtzControl          ptz控制
+### 系统相关
+- /System​/GetGlobleSystemInfo          获取全局的系统信息
+- /System​/GetMediaServerInstance           获取一个流媒体服务的实例
+- ​/System​/GetMediaServerList          获取流媒体服务器列表
+### Test
+- 一些测试接口，可以无视
+### WebHook
+- 用于ZLMediaKit回调的一些接口，可以无视
+
+
 ## 结构介绍
 - ![StreamNode结构.jpg](https://i.loli.net/2020/09/29/xwkeW8agYspHKUt.jpg)
 ## Sip网关的工作流程
