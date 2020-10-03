@@ -7,6 +7,7 @@ using CommonFunctions.WebApiStructs.Response;
 using LibGB28181SipGate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StreamNodeCtrlApis.SystemApis;
 using StreamNodeCtrlApis.WebHookApis;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -31,6 +32,28 @@ namespace StreamNodeWebApi.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+
+        /// <summary>
+        /// 当有新设备注册时（目录查询到时），自动写入摄像头数据库
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
+        [Route("OnSipDeviceRegister")]
+        [HttpPost]
+        [Log]
+        [AuthVerify]
+        public bool OnSipDeviceRegister(ReqAddCameraInstance req)
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.AddSipDeviceToDB(req, out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+
+            return ret;  
+        }
 
         /// <summary>
         /// 录制文件完成时

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 using GB28181;
@@ -187,16 +188,6 @@ namespace LibGB28181SipGate
                 string ip = sipRequest.RemoteSIPEndPoint.Address.ToString();
                 int port = sipRequest.RemoteSIPEndPoint.Port;
                 string devid = sipRequest.Header.From.FromURI.User.Trim();
-                // var crcstr = CRC32Cls.GetCRC32(ip + port + devid).ToString();
-
-
-                /*var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.RemoteSIPEndPoint.Address.ToString())
-                                                      && x.SipPort.Equals(sipRequest.RemoteSIPEndPoint.Port.ToString())
-                                                      && x.DeviceId.Equals(sipRequest.Header.From.FromURI.User));
-
-                string ip = sipRequest.RemoteSIPEndPoint.Address.ToString();
-                int port = sipRequest.RemoteSIPEndPoint.Port;
-                string devid = sipRequest.Header.From.FromURI.User.Trim();*/
                 var dev = SipDeviceList.FindLast(x => x.DeviceId.Equals(devid));
                 if (dev == null)
                 {
@@ -329,6 +320,40 @@ namespace LibGB28181SipGate
                             camera.Camera.Latitude = sub.LatitudeValue;
                             dev.CameraExList.Add(camera);
                             dev.LastUpdateTime = DateTime.Now;
+                            
+                            /*实验性自动添加摄像头到数据库*/
+                            CameraInstanceForSip c= new CameraInstanceForSip();
+                            c.Activated = false;
+                            c.EnableLive = false;
+                            c.EnablePtz = false;
+                            c.CameraName = camera.Camera.Name;
+                            c.CreateTime=DateTime.Now;
+                            c.DeptId = "";
+                            c.DeptName = "";
+                            c.MobileCamera = false;
+                            c.UpdateTime=DateTime.Now;
+                            c.CameraId = "unknow_" + DateTime.Now.Ticks;
+                            c.CameraType = CameraType.GB28181;
+                            c.CameraChannelLable = camera.Camera.DeviceID;
+                            c.CameraDeviceLable = dev.DeviceId;
+                            c.CameraIpAddress = dev.IpAddress;
+                            c.IfGb28181Tcp = false;
+                            c.IfRtspUrl = "";
+                            c.PDetpId = "";
+                            c.PushMediaServerId="unknow_"+ DateTime.Now.Ticks;
+                            
+                            string reqData = JsonHelper.ToJson(c);
+                            try
+                            {
+                                
+                                string url = "http://127.0.0.1:5800/WebHook/OnSipDeviceRegister";
+                                var httpRet = NetHelper.HttpPostRequest(url, null!, reqData, "utf-8", 3000);
+                            }
+                            catch
+                            {
+                              
+                            }
+                            /*实验性自动添加摄像头到数据库*/
                         }
                     }
                 }

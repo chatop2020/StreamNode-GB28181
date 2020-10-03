@@ -724,6 +724,30 @@ namespace StreamNodeWebApi.Controllers
 
             return ret;
         }
+        
+        
+        /// <summary>
+        /// 激活sip网关自动添加的摄像头
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
+        [Route("ActivateSipCamera")]
+        [HttpGet]
+        [Log]
+        [AuthVerify]
+        public CameraInstance ActivateSipCamera(ReqActivateSipCamera req)
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.ActivateSipCamera(req, out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+
+            return ret;
+        }
+        
 
         /// <summary>
         /// 启动流媒体服务

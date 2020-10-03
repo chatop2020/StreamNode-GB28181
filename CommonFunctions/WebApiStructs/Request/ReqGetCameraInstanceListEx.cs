@@ -15,6 +15,7 @@ namespace CommonFunctions.WebApiStructs.Request
         private CameraType? _cameraType;
         private bool? _enableLive;
         private string? _cameraId;
+        private bool? _activated;
         private int? _pageIndex;
         private int? _pageSize;
         private List<OrderByStruct>? _orderBy;
@@ -54,6 +55,12 @@ namespace CommonFunctions.WebApiStructs.Request
         {
             get => _cameraId;
             set => _cameraId = value;
+        }
+
+        public bool? Activated
+        {
+            get => _activated;
+            set => _activated = value;
         }
 
         public int? PageIndex

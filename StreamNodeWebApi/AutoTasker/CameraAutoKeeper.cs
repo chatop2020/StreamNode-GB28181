@@ -419,12 +419,12 @@ namespace StreamNodeWebApi.AutoTasker
 
                     foreach (var cit in Common.CameraInstanceList)
                     {
-                        if (cit != null && cit.EnableLive) //启动摄像头
+                        if (cit != null && cit.EnableLive && cit.Activated==true) //启动摄像头,必须是activated为true时才能启动
                         {
                             liveCamera(cit);
                         }
 
-                        if (cit != null && cit.EnableLive == false) //停止摄像头
+                        if (cit != null && (cit.EnableLive == false || cit.Activated==false)) //停止摄像头,如果activated为False,就一定要停止
                         {
                             stopCamera(cit);
                         }

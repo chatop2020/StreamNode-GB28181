@@ -1,20 +1,13 @@
 using System;
-using System.Text.Json.Serialization;
-using FreeSql.DataAnnotations;
 using GB28181.Sys.Model;
 
-namespace CommonFunctions.DBStructs
+namespace LibGB28181SipGate
 {
-    [Table(Name = "Camera")]
-    [Index("cmr_cameraid", "CameraId", true)]
-    [Index("cmr_cameraname", "CameraName", false)]
-    [Index("cmr_dept", "DeptId,PDetpId", false)]
-    [Index("cmr_deptex", "DeptName", false)]
-    [Index("cmr_enablelive", "EnableKive", false)]
+  
     [Serializable]
-    public class CameraInstance
+    public class CameraInstanceForSip
     {
-        private long _id;
+       
         private string _cameraId;
         private string _cameraName;
         private bool? _mobileCamera;
@@ -33,16 +26,11 @@ namespace CommonFunctions.DBStructs
         private bool? _enablePtz;
         private DateTime? _createTime;
         private DateTime? _updateTime;
-        private int? _retryTimes;
         private bool? _activated;//当有sip设备注册时，自动进入到数据库，但activated为false
 
 
-        [Column(IsPrimary = true, IsIdentity = true)]
-        public long Id
-        {
-            get => _id;
-            set => _id = value;
-        }
+      
+      
 
         public string CameraId
         {
@@ -107,7 +95,7 @@ namespace CommonFunctions.DBStructs
             set => _cameraDeviceLable = value;
         }
 
-        [Column(MapType = typeof(string))]
+   
         public CameraType CameraType
         {
             get => _cameraType;
@@ -167,13 +155,6 @@ namespace CommonFunctions.DBStructs
         }
 
 
-        [JsonIgnore]
-        [Column(IsIgnore = true)]
-        public int? RetryTimes
-        {
-            get => _retryTimes;
-            set => _retryTimes = value;
-        }
-        
+       
     }
 }
