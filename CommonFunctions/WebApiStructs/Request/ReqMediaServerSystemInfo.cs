@@ -1,17 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using CommonFunctions.WebApiStructs.Response;
 
 namespace CommonFunctions.WebApiStructs.Request
 {
-
- 
-
     [Serializable]
     public class ReqMediaServerSystemInfo
     {
-        
         private OStype? _osType;
         private DateTime? _updateTime;
         private string? _assemblyPath;

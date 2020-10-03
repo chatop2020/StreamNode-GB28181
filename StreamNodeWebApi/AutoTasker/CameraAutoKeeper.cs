@@ -7,6 +7,7 @@ using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
 using GB28181.Sys.Model;
+using LibGB28181SipGate;
 using StreamNodeCtrlApis.SipGateApis;
 using StreamNodeCtrlApis.SystemApis;
 
@@ -89,6 +90,8 @@ namespace StreamNodeWebApi.AutoTasker
 
                 if (gbRet != null && rs.Code == ErrorNumber.None)
                 {
+                    Console.WriteLine("GB28181推流成功->" + cil.CameraId + "->" + cil.CameraDeviceLable + "->" +
+                                      cil.CameraChannelLable+"->"+"(TCP:"+cil.IfGb28181Tcp+")");
                     CameraSession sessionsub = null;
                     lock (Common.CameraSessionLock)
                     {
@@ -106,6 +109,11 @@ namespace StreamNodeWebApi.AutoTasker
                             sessionsub.CameraId = cil.CameraId;
                         }
                     }
+                }
+                else
+                {
+                    Console.WriteLine("GB28181推流失败->" + cil.CameraId + "->" + cil.CameraDeviceLable + "->" +
+                                      cil.CameraChannelLable + "->" +"(TCP:"+cil.IfGb28181Tcp+")->"+ JsonHelper.ToJson(rs));
                 }
             }
             catch (Exception ex)
@@ -156,6 +164,7 @@ namespace StreamNodeWebApi.AutoTasker
 
                 if (ret != null && rs.Code == ErrorNumber.None)
                 {
+                 Console.WriteLine("Rtsp推流成功->" + cil.CameraId + "->" + cil.IfRtspUrl);
                     CameraSession sessionsub = null;
                     lock (Common.CameraSessionLock)
                     {
@@ -172,6 +181,10 @@ namespace StreamNodeWebApi.AutoTasker
                             sessionsub.CameraId = cil.CameraId;
                         }
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Rtsp推流失败->" + cil.CameraId + "->" +cil.IfRtspUrl+"->" + JsonHelper.ToJson(rs));
                 }
             }
             catch (Exception ex)
@@ -209,6 +222,14 @@ namespace StreamNodeWebApi.AutoTasker
 
                 var ret = MediaServerApis.CloseStreams(mediaObj.MediaServerId, req,
                     out rs);
+                if (ret.Code == 0)
+                {
+                    Console.WriteLine("Rtsp结束成功->" + session.CameraId + "->" + session.CameraEx.InputUrl);
+                }
+                else
+                {
+                    Console.WriteLine("Rtsp结束失败->" + session.CameraId + "->" + session.CameraEx.InputUrl);
+                }
             }
             catch (Exception ex)
             {
@@ -254,6 +275,16 @@ namespace StreamNodeWebApi.AutoTasker
 
                 var ret3 = MediaServerApis.CloseRtpPort(mediaObj.MediaServerId, req3,
                     out rs);
+                if (ret3.Code == 0)
+                {
+                    Console.WriteLine("GB28181结束成功->" + session.CameraId + "->" + session.CameraEx.Camera.ParentID + "->" +
+                                      session.CameraEx.Camera.DeviceID );
+                }
+                else
+                {
+                    Console.WriteLine("GB28181结束失败->" +  session.CameraId + "->" + session.CameraEx.Camera.ParentID + "->" +
+                                      session.CameraEx.Camera.DeviceID+"->"+ JsonHelper.ToJson(rs));
+                }
             }
             catch (Exception ex)
             {
@@ -313,7 +344,7 @@ namespace StreamNodeWebApi.AutoTasker
                     if (cameraSession == null || (cameraSession != null && cameraSession.IsOnline == false)
                     ) //camera没有，或者isonline是false要推流
                     {
-                        CameraType ctype  = cameraSession != null ? cameraSession.CameraType : cil.CameraType;
+                        CameraType ctype = cameraSession != null ? cameraSession.CameraType : cil.CameraType;
                         switch (ctype)
                         {
                             case CameraType.Rtsp:
@@ -329,6 +360,7 @@ namespace StreamNodeWebApi.AutoTasker
                         }
                     }
                     else if (cameraSession != null && string.IsNullOrEmpty(cameraSession.CameraId)
+                                                   && cameraSession.IsOnline == true
                     ) //当camera不为空，但camera.cameraid为空时，不需要重新推，但要补全这个id
                     {
                         CameraSession sessionsub = null;

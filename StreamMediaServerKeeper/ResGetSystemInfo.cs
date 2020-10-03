@@ -4,8 +4,6 @@ using System.Diagnostics;
 
 namespace StreamMediaServerKeeper
 {
-
-   
     [Serializable]
     public class LoadAverage
     {
@@ -77,12 +75,9 @@ namespace StreamMediaServerKeeper
     {
         public DateTime? UpdateTime
         {
-            get
-            {
-                return DateTime.Now;
-                
-            }
+            get { return DateTime.Now; }
         }
+
         public OStype? OStype
         {
             get
@@ -171,27 +166,21 @@ namespace StreamMediaServerKeeper
 
         public long? TatolSystemRunningTime
         {
-            get
-            {
-               return SystemHelper.GetSystemRunningTime();
-            }
+            get { return SystemHelper.GetSystemRunningTime(); }
         }
 
         public string? TatolSystemRunningTimeText
         {
-            get
-            {
-                return SystemHelper.GetSystemRunningTimeText( SystemHelper.GetSystemRunningTime());
-            }
+            get { return SystemHelper.GetSystemRunningTimeText(SystemHelper.GetSystemRunningTime()); }
         }
-        
-        
-    
+
+
         public CPUInfo? LinuxCpuInfo
         {
             get
             {
-                if (OStype == StreamMediaServerKeeper.OStype.LinuxX32 || OStype == StreamMediaServerKeeper.OStype.LinuxX64)
+                if (OStype == StreamMediaServerKeeper.OStype.LinuxX32 ||
+                    OStype == StreamMediaServerKeeper.OStype.LinuxX64)
                 {
                     var c = SystemHelper.GetCPUused();
                     return new CPUInfo()
@@ -212,7 +201,8 @@ namespace StreamMediaServerKeeper
         {
             get
             {
-                if (OStype == StreamMediaServerKeeper.OStype.LinuxX32 || OStype == StreamMediaServerKeeper.OStype.LinuxX64)
+                if (OStype == StreamMediaServerKeeper.OStype.LinuxX32 ||
+                    OStype == StreamMediaServerKeeper.OStype.LinuxX64)
                 {
                     var l = SystemHelper.GetLoadAverage();
                     return l != null ? l : null;
@@ -224,12 +214,11 @@ namespace StreamMediaServerKeeper
 
         public MemoryMetrics? LinuxMemoryUsage
         {
-
             get
             {
-                if (OStype == StreamMediaServerKeeper.OStype.LinuxX32 || OStype == StreamMediaServerKeeper.OStype.LinuxX64)
+                if (OStype == StreamMediaServerKeeper.OStype.LinuxX32 ||
+                    OStype == StreamMediaServerKeeper.OStype.LinuxX64)
                 {
-
                     return SystemHelper.GetLinuxMemoryMetrics();
                 }
                 else
@@ -239,12 +228,9 @@ namespace StreamMediaServerKeeper
             }
         }
 
-        public  List<DriveMetrics>? HddListInfo
+        public List<DriveMetrics>? HddListInfo
         {
-            get
-            {
-                return SystemHelper.GetDriveMetrics();
-            }
+            get { return SystemHelper.GetDriveMetrics(); }
         }
     }
 }

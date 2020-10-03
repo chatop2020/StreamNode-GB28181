@@ -37,8 +37,8 @@ namespace CommonFunctions
         public static object SipDeviceListLock = new object();
         public static object CameraInstanceListLock = new object();
         public static object PlayerSessionListLock = new object();
-        
-        public static ResGetSystemInfo SystemInfo= new ResGetSystemInfo();
+
+        public static ResGetSystemInfo SystemInfo = new ResGetSystemInfo();
 
 
         static Common()

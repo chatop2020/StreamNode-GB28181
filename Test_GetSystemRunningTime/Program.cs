@@ -5,9 +5,7 @@ namespace Test_GetSystemRunningTime
 {
     class Program
     {
-        
-        
-      public static string GetSystemRunningTimeText(long d)
+        public static string GetSystemRunningTimeText(long d)
         {
             long tickcount = d;
 
@@ -27,13 +25,9 @@ namespace Test_GetSystemRunningTime
 
             return $"{days}天{hours}时{minutes}分{seconds}秒{milliseconds}毫秒";
         }
-        
-        
-       
 
-        
-        
-        public static long  GetSystemRunningTime()
+
+        public static long GetSystemRunningTime()
         {
             string std = "";
             if (File.Exists("/proc/uptime"))
@@ -46,16 +40,15 @@ namespace Test_GetSystemRunningTime
                     var ret = double.TryParse(s_arr[0], out r);
                     if (ret)
                     {
-                        return (long) (r*1000);
+                        return (long) (r * 1000);
                     }
                 }
             }
-           
+
             return 0;
         }
-        
-        
-        
+
+
         static void Main(string[] args)
         {
             Console.WriteLine(GetSystemRunningTime());

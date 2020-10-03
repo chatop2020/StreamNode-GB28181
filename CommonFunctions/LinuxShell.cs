@@ -122,7 +122,6 @@ namespace CommonFunctions
                     {
                         stdOutput = process.StandardOutput.ReadToEnd();
                         stdError = process.StandardError.ReadToEnd();
-                       
                     }
 
                     return result;

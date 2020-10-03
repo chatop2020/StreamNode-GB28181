@@ -1541,7 +1541,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Warn("SIPMessageReceived exception : " + excp.Message);
+                logger.Warn("SIPMessageReceived exception : \r\n" + excp.Message+"\r\n"+excp.StackTrace);
                 FireSIPBadRequestInTraceEvent(sipChannel.SIPChannelEndPoint, remoteEndPoint,
                     "Exception SIPTransport. " + excp.Message, SIPValidationFieldsEnum.Unknown, rawSIPMessage);
                 if (PerformanceMonitorPrefix != null)

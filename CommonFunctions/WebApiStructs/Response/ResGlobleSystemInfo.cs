@@ -22,10 +22,11 @@ namespace CommonFunctions.WebApiStructs.Response
             set => _mediaServerSystemInfo = value;
         }
     }
+
     [Serializable]
     public class ResGlobleSystemInfo
     {
-        private ResGetSystemInfo _StreamCtrlSystemInfo=null;
+        private ResGetSystemInfo _StreamCtrlSystemInfo = null;
         private List<MediaServerInfomation> _mediaServerSystemInfos;
         private DateTime _updateTime;
 

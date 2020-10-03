@@ -657,7 +657,7 @@ namespace CommonFunctions
                 {
                     currPostion += contentSize;
                     int percent = (int) (currPostion * 100 / remoteFileLength);
-                    
+
 
                     writeStream.Write(btArray, 0, contentSize); // 写入本地文件
                     contentSize = readStream.Read(btArray, 0, btArray.Length); // 继续向远程文件读取

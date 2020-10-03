@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading;
-using CommonFunction.ManageStructs;
 using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Request;
@@ -130,37 +128,31 @@ namespace CommonFunctions.MediaServerControl
 
         private void checkStreamStatusNew()
         {
-          
             while (true)
             {
-               
                 try
                 {
                     if (_webApi != null && IsRunning)
                     {
-                     
                         ResponseStruct rs;
                         var ret = _webApi.GetMediaList(out rs);
-                      
+
                         lock (Common.CameraSessionLock)
                         {
-                            
                             if (Common.CameraSessions != null && Common.CameraSessions.Count > 0)
                                 foreach (var session in Common.CameraSessions)
                                 {
-                                   
-                                    if (session != null && session.MediaServerId.Equals(_mediaServerId) && ret!=null && ret.Data!=null)
+                                    if (session != null && session.MediaServerId.Equals(_mediaServerId) &&
+                                        ret != null && ret.Data != null)
                                     {
-                                       
                                         var retObj = ret.Data.FindLast(x => x.Vhost.Equals(session.Vhost)
                                                                             && x.App.Equals(session.App) &&
                                                                             x.Stream.Equals(session.StreamId));
-                                       
+
                                         if (retObj == null)
                                         {
-                                          
                                             session.IsOnline = false;
-                                            
+
                                             ClientOnOffLog tmpClientLog = new ClientOnOffLog()
                                             {
                                                 App = session.App,
@@ -174,9 +166,8 @@ namespace CommonFunctions.MediaServerControl
                                                 Vhost = session.Vhost,
                                                 StreamId = session.StreamId,
                                             };
-                                           
+
                                             OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
-                                            
                                         }
                                     }
                                 }
@@ -194,7 +185,7 @@ namespace CommonFunctions.MediaServerControl
 
 
         public MediaServerInstance(string ipaddress, ushort webApiPort, ushort mediaServerHttpPort, string secret,
-            string mediaServerId, string recordFilePath,ReqMediaServerSystemInfo? systemInfo)
+            string mediaServerId, string recordFilePath, ReqMediaServerSystemInfo? systemInfo)
         {
             _ipaddress = ipaddress;
             _webApiPort = webApiPort;
@@ -316,6 +307,7 @@ namespace CommonFunctions.MediaServerControl
                                     Common.CameraSessions[i] = null;
                                 }
                             }
+
                             Common.RemoveNull(Common.CameraSessions);
                         }
 
@@ -328,8 +320,8 @@ namespace CommonFunctions.MediaServerControl
                                     Common.PlayerSessions[i] = null;
                                 }
                             }
-                            Common.RemoveNull(Common.PlayerSessions);
 
+                            Common.RemoveNull(Common.PlayerSessions);
                         }
 
                         return true;
@@ -388,6 +380,7 @@ namespace CommonFunctions.MediaServerControl
                                         Common.CameraSessions[i] = null;
                                     }
                                 }
+
                                 Common.RemoveNull(Common.CameraSessions);
                             }
 
@@ -400,13 +393,12 @@ namespace CommonFunctions.MediaServerControl
                                         Common.PlayerSessions[i] = null;
                                     }
                                 }
-                                Common.RemoveNull(Common.PlayerSessions);
 
+                                Common.RemoveNull(Common.PlayerSessions);
                             }
 
                             return true;
                         }
-
                     }
                 }
                 catch
@@ -414,7 +406,7 @@ namespace CommonFunctions.MediaServerControl
                     // ignored
                 }
             }
-            
+
             return false;
         }
 
@@ -454,6 +446,7 @@ namespace CommonFunctions.MediaServerControl
                                         Common.CameraSessions[i] = null;
                                     }
                                 }
+
                                 Common.RemoveNull(Common.CameraSessions);
                             }
 
@@ -466,8 +459,8 @@ namespace CommonFunctions.MediaServerControl
                                         Common.PlayerSessions[i] = null;
                                     }
                                 }
-                                Common.RemoveNull(Common.PlayerSessions);
 
+                                Common.RemoveNull(Common.PlayerSessions);
                             }
 
                             return true;
@@ -482,7 +475,6 @@ namespace CommonFunctions.MediaServerControl
                 }
             }
 
-            
 
             return false;
         }

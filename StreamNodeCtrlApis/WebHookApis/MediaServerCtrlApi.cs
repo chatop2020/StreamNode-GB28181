@@ -114,8 +114,6 @@ namespace StreamNodeCtrlApis.WebHookApis
             return false;
         }
 
-        
-        
 
         /// <summary>
         /// 只有rtp推流或才rtmp，rtsp推流才会有onpublish事件触发，因此这里忽略ffmpeg推流的方式
@@ -152,7 +150,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                                                               x.StreamId.Equals(req.Stream) &&
                                                               (x.ClientType == ClientType.Camera ||
                                                                x.ClientType == ClientType.Livecast)
-                                                              /*&& x.CameraIpAddress.Equals(req.Ip)*/);//为支持公网远程设备的ip不固定性，取消ip 地址校验
+                    /*&& x.CameraIpAddress.Equals(req.Ip)*/); //为支持公网远程设备的ip不固定性，取消ip 地址校验
             }
 
             if (session == null)
@@ -332,7 +330,6 @@ namespace StreamNodeCtrlApis.WebHookApis
                         lock (Common.CameraSessionLock)
                         {
                             camera.IsOnline = false;
-                          
                         }
                     }
                 }
@@ -533,7 +530,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                                 StreamId = req.Stream,
                                 MediaServerIp = mediaServer.Ipaddress,
                             };
-                            
+
                             lock (Common.CameraSessionLock)
                             {
                                 Common.CameraSessions.Add(session);
@@ -552,7 +549,6 @@ namespace StreamNodeCtrlApis.WebHookApis
                                 Vhost = session.Vhost,
                                 StreamId = session.StreamId,
                                 Schema = "rtsp",
-                                
                             };
                             OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                         }
@@ -721,6 +717,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     {
                         retObj.SystemInfo = req.SystemInfo;
                     }
+
                     if (retObj.Config == null)
                     {
                         MediaServerApis.GetConfig(req.MediaServerId, out _); //配置信息不存在时获取配置信息 
@@ -730,7 +727,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 }
 
                 MediaServerInstance msi = new MediaServerInstance(req.Ipaddress, req.WebApiServerhttpPort,
-                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath,req.SystemInfo);
+                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath, req.SystemInfo);
                 msi.KeepAlive = DateTime.Now;
 
                 lock (Common.MediaServerList)

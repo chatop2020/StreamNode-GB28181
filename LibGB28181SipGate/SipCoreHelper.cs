@@ -184,11 +184,10 @@ namespace LibGB28181SipGate
         {
             lock (SipDeviceLock)
             {
-
                 string ip = sipRequest.RemoteSIPEndPoint.Address.ToString();
                 int port = sipRequest.RemoteSIPEndPoint.Port;
                 string devid = sipRequest.Header.From.FromURI.User.Trim();
-               // var crcstr = CRC32Cls.GetCRC32(ip + port + devid).ToString();
+                // var crcstr = CRC32Cls.GetCRC32(ip + port + devid).ToString();
 
 
                 /*var dev = SipDeviceList.FindLast(x => x.IpAddress.Equals(sipRequest.RemoteSIPEndPoint.Address.ToString())
@@ -214,15 +213,18 @@ namespace LibGB28181SipGate
                     newSip.LastUpdateTime = DateTime.Now;
                     SipDeviceList.Add(newSip);
                     Console.WriteLine("设备注册->" + ip + "->\r\n" + newSip.DeviceId);
-                }else if (dev != null && dev.SipDeviceStatus == SipDeviceStatus.UnRegister)
+                }
+                else if (dev != null && dev.SipDeviceStatus == SipDeviceStatus.UnRegister)
                 {
                     dev.CameraExList.Clear();
                     dev.AlarmList.Clear();
                     dev.LastSipRequest = sipRequest;
                     dev.SipDeviceStatus = SipDeviceStatus.Register;
                     dev.LastUpdateTime = DateTime.Now;
-                }else//发现公网不固定ip设备，可能因网络波动导致n次注册，而ip地址又不一致，造成straemnode后续处理问题，这边做一次信息修改来解决问题
-                {    //sip网关全局只允许唯一deviceid,如果发现多个deviceid时，除非此设备为注销状态，将重新激活为注册状态，除此之外一律重置相关参数信息
+                }
+                else //发现公网不固定ip设备，可能因网络波动导致n次注册，而ip地址又不一致，造成straemnode后续处理问题，这边做一次信息修改来解决问题
+                {
+                    //sip网关全局只允许唯一deviceid,如果发现多个deviceid时，除非此设备为注销状态，将重新激活为注册状态，除此之外一律重置相关参数信息
                     dev.CRC32 = CRC32Cls.GetCRC32(ip + port + devid).ToString();
                     dev.DeviceId = devid;
                     dev.SipPort = port;
@@ -232,7 +234,7 @@ namespace LibGB28181SipGate
                     dev.LastSipRequest = sipRequest;
                     dev.SipDeviceStatus = SipDeviceStatus.Register;
                     dev.LastKeepAliveTime = DateTime.Now;
-                    dev.LastUpdateTime = DateTime.Now; 
+                    dev.LastUpdateTime = DateTime.Now;
                 }
             }
         }
@@ -444,7 +446,7 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    Console.WriteLine("请求实时视频成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
+                    Console.WriteLine("请求实时视频成功->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
                 else
                 {
@@ -464,8 +466,7 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    Console.WriteLine("请求实时视频失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
-                 
+                    Console.WriteLine("请求实时视频失败->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
 
                 TaskList.Remove(gdlt);
@@ -523,8 +524,8 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                  
-                    Console.WriteLine("请求实时视频成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
+
+                    Console.WriteLine("请求实时视频成功->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
                 else
                 {
@@ -543,8 +544,8 @@ namespace LibGB28181SipGate
                             camera.PushStreamSocketType = null;
                         }
                     }
-                    
-                    Console.WriteLine("请求实时视频失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
+
+                    Console.WriteLine("请求实时视频失败->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
 
                 TaskList.Remove(gdlt);
@@ -588,12 +589,11 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    Console.WriteLine("请求实时视频成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
-                  
+                    Console.WriteLine("请求实时视频成功->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
                 else
                 {
-                    Console.WriteLine("请求终止实时视频失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
+                    Console.WriteLine("请求终止实时视频失败->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
 
                 TaskList.Remove(gdlt);
@@ -613,13 +613,11 @@ namespace LibGB28181SipGate
                 var ret = gdlt.PtzContorl(dir, speed);
                 if (ret)
                 {
-                    Console.WriteLine("请求PTZ控制成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
-                    
+                    Console.WriteLine("请求PTZ控制成功->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
                 else
                 {
-                    Console.WriteLine("请求PTZ控制失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
-                   
+                    Console.WriteLine("请求PTZ控制失败->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
 
                 TaskList.Remove(gdlt);
@@ -636,13 +634,11 @@ namespace LibGB28181SipGate
             var ret = gdlt.GetDeviceList();
             if (ret)
             {
-                Console.WriteLine("获取设备目录成功->"+gdlt.DeviceId + "->" + gdlt.CallId );
-              
+                Console.WriteLine("获取设备目录成功->" + gdlt.DeviceId + "->" + gdlt.CallId);
             }
             else
             {
-                Console.WriteLine("获取设备目录失败->"+gdlt.DeviceId + "->" + gdlt.CallId );
-              
+                Console.WriteLine("获取设备目录失败->" + gdlt.DeviceId + "->" + gdlt.CallId);
             }
 
             TaskList.Remove(gdlt);

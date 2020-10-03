@@ -4,11 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.Threading;
+using System.Threading.Tasks;
 using CommonFunctions.WebApiStructs.Response;
-using LibGB28181SipGate;
+using Newtonsoft.Json;
 
 namespace CommonFunctions
 {
@@ -295,9 +294,9 @@ namespace CommonFunctions
         }
 
 
-      public static string GetSystemRunningTimeText(long d)
-      {
-          if (d == 0) return "未知";
+        public static string GetSystemRunningTimeText(long d)
+        {
+            if (d == 0) return "未知";
             long tickcount = d;
             long days = tickcount / (24 * 60 * 60 * 1000); //24*60*60*1000
             tickcount = tickcount % (24 * 60 * 60 * 1000);
@@ -310,31 +309,29 @@ namespace CommonFunctions
             long milliseconds = tickcount;
             return $"{days}天{hours}时{minutes}分{seconds}秒{milliseconds}毫秒";
         }
-        
-        
-       
 
-      public static long  GetSystemRunningTime()
-      {
-          if (File.Exists("/proc/uptime"))
-          {
-              string std = File.ReadAllText("/proc/uptime");
-              string[] s_arr = std.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-              if (s_arr.Length == 2)
-              {
-                  double r;
-                  var ret = double.TryParse(s_arr[0], out r);
-                  if (ret)
-                  {
-                      return (long) (r*1000);
-                  }
-              }
-          }
-           
-          return 0;
-      }
-        
-        
+
+        public static long GetSystemRunningTime()
+        {
+            if (File.Exists("/proc/uptime"))
+            {
+                string std = File.ReadAllText("/proc/uptime");
+                string[] s_arr = std.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (s_arr.Length == 2)
+                {
+                    double r;
+                    var ret = double.TryParse(s_arr[0], out r);
+                    if (ret)
+                    {
+                        return (long) (r * 1000);
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+
         /// <summary>
         /// 获取指定进程运行总时间（毫秒）
         /// </summary>
@@ -672,6 +669,7 @@ Swap:          8191           0        8191
                     }
                 }
             }
+
             return result;
         }
 
@@ -905,6 +903,7 @@ Linux 3.10.0-1062.12.1.el7.x86_64 (localhost.localdomain) 	2020年07月20日 	_x
         /// </summary>
         [JsonProperty("free")]
         public double? Free { get; set; }
+
         /// <summary>
         /// 空闲百分比
         /// </summary>

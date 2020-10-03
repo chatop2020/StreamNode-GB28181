@@ -10,9 +10,9 @@ namespace StreamMediaServerKeeper
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("systeminfo:\r\n"+JsonHelper.ToJson(new ResGetSystemInfo()));
-           
-            
+            Console.WriteLine("systeminfo:\r\n" + JsonHelper.ToJson(new ResGetSystemInfo()));
+
+
             ///启动一下，Common对象
             if (string.IsNullOrEmpty(Common.CustomizedRecordFilePath))
             {

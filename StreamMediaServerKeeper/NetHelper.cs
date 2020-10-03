@@ -609,7 +609,6 @@ namespace StreamMediaServerKeeper
             long remoteFileLength = GetHttpLength(url); // 取得远程文件长度
             if (remoteFileLength <= 0 || remoteFileLength == 745)
             {
-               
                 return false;
             }
 

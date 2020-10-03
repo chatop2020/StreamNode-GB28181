@@ -680,7 +680,6 @@ namespace StreamNodeCtrlApis.SystemApis
         }
 
 
-
         /// <summary>
         /// 根据id,获取视频文件信息
         /// </summary>
@@ -695,7 +694,7 @@ namespace StreamNodeCtrlApis.SystemApis
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
 
-           return  OrmService.Db.Select<RecordFile>().Where(x => x.Id.Equals(id)).First();
+            return OrmService.Db.Select<RecordFile>().Where(x => x.Id.Equals(id)).First();
         }
 
         /// <summary>
@@ -800,12 +799,12 @@ namespace StreamNodeCtrlApis.SystemApis
             return result;
         }
 
-      /// <summary>
-      /// 扩展查询已注册摄像头列表
-      /// </summary>
-      /// <param name="req"></param>
-      /// <param name="rs"></param>
-      /// <returns></returns>
+        /// <summary>
+        /// 扩展查询已注册摄像头列表
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="rs"></param>
+        /// <returns></returns>
         public static ResGetCameraInstanceListEx GetCameraInstanceListEx(ReqGetCameraInstanceListEx req,
             out ResponseStruct rs)
         {
@@ -885,14 +884,14 @@ namespace StreamNodeCtrlApis.SystemApis
                         .Page((int) req.PageIndex!, (int) req.PageSize!)
                         .ToList();
                 }
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 rs = new ResponseStruct()
                 {
                     Code = ErrorNumber.SystemDataBaseExcept,
-                    Message = ErrorMessage.ErrorDic![ErrorNumber.SystemDataBaseExcept]+"\r\n"+ex.Message+"\r\n"+ex.StackTrace,
+                    Message = ErrorMessage.ErrorDic![ErrorNumber.SystemDataBaseExcept] + "\r\n" + ex.Message + "\r\n" +
+                              ex.StackTrace,
                 };
                 return null;
             }
@@ -1270,9 +1269,8 @@ namespace StreamNodeCtrlApis.SystemApis
                 return new List<PlayerSession>(Common.PlayerSessions);
             }
         }
-        
-        
-     
+
+
         /// <summary>
         /// 根据摄像头ID查找在线摄像头
         /// </summary>
@@ -1280,7 +1278,7 @@ namespace StreamNodeCtrlApis.SystemApis
         /// <param name="cameraId"></param>
         /// <param name="rs"></param>
         /// <returns></returns>
-        public static CameraSession GetCameraInstanceByCameraId(string mediaServerId,string cameraId,
+        public static CameraSession GetCameraInstanceByCameraId(string mediaServerId, string cameraId,
             out ResponseStruct rs)
         {
             rs = new ResponseStruct()
@@ -1294,9 +1292,8 @@ namespace StreamNodeCtrlApis.SystemApis
                 return Common.CameraSessions.FindLast(x => x.MediaServerId.Equals(mediaServerId)
                                                            && x.CameraId.Equals(cameraId));
             }
-
         }
-     
+
 
         /// <summary>
         /// 获取在线摄像头列表
@@ -1546,7 +1543,6 @@ namespace StreamNodeCtrlApis.SystemApis
         }
 
 
-
         public static ResGlobleSystemInfo GetGlobleSystemInfo(out ResponseStruct rs)
         {
             rs = new ResponseStruct()
@@ -1555,15 +1551,15 @@ namespace StreamNodeCtrlApis.SystemApis
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
             var result = new ResGlobleSystemInfo();
-            result.StreamCtrlSystemInfo=new ResGetSystemInfo();
-      
+            result.StreamCtrlSystemInfo = new ResGetSystemInfo();
+
             foreach (var mediaObj in Common.MediaServerList)
             {
                 if (mediaObj != null && mediaObj.IsRunning)
                 {
                     if (result.MediaServerSystemInfos == null)
                     {
-                        result.MediaServerSystemInfos=new List<MediaServerInfomation>();
+                        result.MediaServerSystemInfos = new List<MediaServerInfomation>();
                     }
 
                     var tmp = new MediaServerInfomation()
@@ -1577,10 +1573,8 @@ namespace StreamNodeCtrlApis.SystemApis
 
             result.UpdateTime = DateTime.Now;
             return result;
-
         }
 
-        
 
         /// <summary>
         /// 启动一个FFmpeg流

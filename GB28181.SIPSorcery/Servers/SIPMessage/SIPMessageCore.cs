@@ -509,32 +509,44 @@ namespace GB28181.Servers.SIPMessage
         /// <param name="request"></param>
         private void InviteHandle(SIPEndPoint localEP, SIPEndPoint remoteEP, SIPRequest request)
         {
-            _byeRemoteEP = remoteEP;
-            int[] port = SetMediaPort();
-            var trying = GetResponse(localEP, remoteEP, SIPResponseStatusCodesEnum.Trying, "", request);
-            _transport.SendResponse(trying);
-            SIPResponse audioOK = GetResponse(localEP, remoteEP, SIPResponseStatusCodesEnum.Ok, "", request);
-            audioOK.Header.ContentType = "application/sdp";
-            SIPURI localUri = new SIPURI(LocalSIPId, LocalEP.ToHost(), "");
-            SIPContactHeader contact = new SIPContactHeader(null, localUri);
-            audioOK.Header.Contact = new List<SIPContactHeader>
+            ///这里貌似被攻击了，有公网ip,不停的请求音频，导致本地端口注册失败，抛错，因为暂时用不着向上级平台级联，因此先不去理会这个请求，直接return掉
+            return;
+            try
             {
-                contact
-            };
-            //SDP
-            audioOK.Body = SetMediaAudio(localEP.Address.ToString(), port[0], request.URI.User);
-            _audioResponse = audioOK;
-            _transport.SendResponse(audioOK);
-            int recvPort = GetReceivePort(request.Body, SDPMediaTypesEnum.audio);
-            string ip = GetReceiveIP(request.Body);
-            _audioRemoteEP = new IPEndPoint(IPAddress.Parse(ip), recvPort);
-            if (_audioChannel == null)
-            {
-                _audioChannel = new UDPChannel(TcpConnectMode.active, IPAddress.Any, port, ProtocolType.Udp, false,
-                    recvPort);
-            }
+                Console.WriteLine("localEP->" + localEP.ToString());
+                Console.WriteLine("remoteEP->" + remoteEP.ToString());
+                Console.WriteLine("SIPRequest->" + request.ToString());
+                _byeRemoteEP = remoteEP;
+                int[] port = SetMediaPort();
+                var trying = GetResponse(localEP, remoteEP, SIPResponseStatusCodesEnum.Trying, "", request);
+                _transport.SendResponse(trying);
+                SIPResponse audioOK = GetResponse(localEP, remoteEP, SIPResponseStatusCodesEnum.Ok, "", request);
+                audioOK.Header.ContentType = "application/sdp";
+                SIPURI localUri = new SIPURI(LocalSIPId, LocalEP.ToHost(), "");
+                SIPContactHeader contact = new SIPContactHeader(null, localUri);
+                audioOK.Header.Contact = new List<SIPContactHeader>
+                {
+                    contact
+                };
+                //SDP
+                audioOK.Body = SetMediaAudio(localEP.Address.ToString(), port[0], request.URI.User);
+                _audioResponse = audioOK;
+                _transport.SendResponse(audioOK);
+                int recvPort = GetReceivePort(request.Body, SDPMediaTypesEnum.audio);
+                string ip = GetReceiveIP(request.Body);
+                _audioRemoteEP = new IPEndPoint(IPAddress.Parse(ip), recvPort);
+                if (_audioChannel == null)
+                {
+                    _audioChannel = new UDPChannel(TcpConnectMode.active, IPAddress.Any, port, ProtocolType.Udp, false,
+                        recvPort);
+                }
 
-            _audioChannel.Start();
+                _audioChannel.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("InviteHandle:\r\n"+ex.Message+"\r\n"+ex.StackTrace);
+            }
         }
 
         public void AckHandle(SIPEndPoint localEP, SIPEndPoint remoteEP, SIPRequest request)

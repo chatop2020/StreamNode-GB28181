@@ -184,7 +184,6 @@ namespace StreamNodeWebApi.Controllers
         [AuthVerify]
         public ResMediaServerWebApiReg MediaServerRegister(ResMediaServerWebApiReg req)
         {
-            Console.WriteLine("reg:\r\n"+JsonHelper.ToJson(req));
             ResponseStruct rs;
             if (string.IsNullOrEmpty(req.Ipaddress))
             {

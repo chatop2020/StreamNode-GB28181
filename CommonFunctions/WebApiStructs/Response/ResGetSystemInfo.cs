@@ -4,8 +4,6 @@ using System.Diagnostics;
 
 namespace CommonFunctions.WebApiStructs.Response
 {
-
-   
     [Serializable]
     public class LoadAverage
     {
@@ -77,12 +75,9 @@ namespace CommonFunctions.WebApiStructs.Response
     {
         public DateTime? UpdateTime
         {
-            get
-            {
-                return DateTime.Now;
-                
-            }
+            get { return DateTime.Now; }
         }
+
         public OStype? OStype
         {
             get
@@ -171,21 +166,15 @@ namespace CommonFunctions.WebApiStructs.Response
 
         public long? TatolSystemRunningTime
         {
-            get
-            {
-                return SystemHelper.GetSystemRunningTime();
-            }
+            get { return SystemHelper.GetSystemRunningTime(); }
         }
 
         public string? TatolSystemRunningTimeText
         {
-            get
-            {
-                return SystemHelper.GetSystemRunningTimeText( SystemHelper.GetSystemRunningTime());
-            }
+            get { return SystemHelper.GetSystemRunningTimeText(SystemHelper.GetSystemRunningTime()); }
         }
-        
-    
+
+
         public CPUInfo? LinuxCpuInfo
         {
             get
@@ -223,12 +212,10 @@ namespace CommonFunctions.WebApiStructs.Response
 
         public MemoryMetrics? LinuxMemoryUsage
         {
-
             get
             {
                 if (OStype == Response.OStype.LinuxX32 || OStype == Response.OStype.LinuxX64)
                 {
-
                     return SystemHelper.GetLinuxMemoryMetrics();
                 }
                 else
@@ -238,12 +225,9 @@ namespace CommonFunctions.WebApiStructs.Response
             }
         }
 
-        public  List<DriveMetrics>? HddListInfo
+        public List<DriveMetrics>? HddListInfo
         {
-            get
-            {
-                return SystemHelper.GetDriveMetrics();
-            }
+            get { return SystemHelper.GetDriveMetrics(); }
         }
     }
 }

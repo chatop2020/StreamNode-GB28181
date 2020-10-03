@@ -1,7 +1,4 @@
-using System;
-using System.Diagnostics;
 using CommonFunctions;
-using LibGB28181SipGate;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using StreamNodeWebApi.AutoTasker;
@@ -15,14 +12,6 @@ namespace StreamNodeWebApi
 
         public static void Main(string[] args)
         {
-            
-            
-            
-           
-
-            
-            
-            
             CameraAutoKeeper = new CameraAutoKeeper();
             RecordAutoKeeper = new RecordAutoKeeper();
             CreateHostBuilder(args).Build().Run();

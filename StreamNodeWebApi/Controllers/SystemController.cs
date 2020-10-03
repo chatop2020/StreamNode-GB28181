@@ -18,8 +18,6 @@ namespace StreamNodeWebApi.Controllers
     [SwaggerTag("系统相关接口")]
     public class SystemController : ControllerBase
     {
-        
-
         /// <summary>
         /// 获取全局的系统信息
         /// </summary>
@@ -32,7 +30,7 @@ namespace StreamNodeWebApi.Controllers
         public ResGlobleSystemInfo GetGlobleSystemInfo()
         {
             ResponseStruct rs;
-            var ret = MediaServerApis.GetGlobleSystemInfo( out rs);
+            var ret = MediaServerApis.GetGlobleSystemInfo(out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
@@ -40,7 +38,7 @@ namespace StreamNodeWebApi.Controllers
 
             return ret;
         }
-        
+
         /// <summary>
         /// 获取一个流媒体服务的实例
         /// </summary>

@@ -34,7 +34,7 @@ namespace CommonFunction.ManageStructs
         private string? _app;
         private string? _streamId;
         private string? _mediaServerIp;
-        private bool? _forceOffline=false;
+        private bool? _forceOffline = false;
 
 
         public string? CameraId
