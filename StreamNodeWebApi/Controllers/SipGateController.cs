@@ -20,7 +20,7 @@ namespace StreamNodeWebApi.Controllers
     public class SipGateController : ControllerBase
     {
         /// <summary>
-        /// 获取Sip网关自动推流状态
+        /// 获取sip设备的设备目录列表
         /// </summary>
         /// <param name="deviceid"></param>
         /// <returns></returns>
