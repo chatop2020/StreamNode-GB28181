@@ -4,7 +4,7 @@ namespace CommonFunctions
 {
     public static class LinuxShell
     {
-        private const string processName = "c";
+        private const string processName = "/bin/bash";
 
         /// <summary>
         /// 执行CMD命令
