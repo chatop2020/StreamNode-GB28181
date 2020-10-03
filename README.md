@@ -60,6 +60,10 @@
 ### WebHook
 - 用于ZLMediaKit回调的一些接口，可以无视
 
+## TODO List
+- 预计全面改用Log4net来记录日志，取消掉原来的Console.WriteLine等记录日志的手段(未开始)
+- 考虑SIP网关支持级联到上级平台(未开始)
+- 直播推流的完善支持(未开始)
 
 ## 结构介绍
 - ![StreamNode结构.jpg](https://i.loli.net/2020/09/29/xwkeW8agYspHKUt.jpg)
