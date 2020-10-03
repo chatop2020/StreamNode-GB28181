@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace CommonFunctions
+namespace Test_GetSystemRunningTime
 {
     public static class LinuxShell
     {

@@ -6,6 +6,7 @@ using System.Threading;
 using CommonFunction.ManageStructs;
 using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
+using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
 using LibGB28181SipGate;
 
@@ -21,6 +22,7 @@ namespace CommonFunctions.MediaServerControl
         private string _secret; //流媒体服务接口验证key
         private string _mediaServerId; //流媒体服务的deviceid
         private ushort _mediaServerHttpPort; //流媒体服务接口端口
+        private ReqMediaServerSystemInfo? _systemInfo;
         private uint _pid = 0; //流媒体服务的pid
         private DateTime _updateTime; //最后控制时间
         private DateTime _keepAlive;
@@ -95,6 +97,12 @@ namespace CommonFunctions.MediaServerControl
         {
             get => _webApi;
             set => _webApi = value;
+        }
+
+        public ReqMediaServerSystemInfo? SystemInfo
+        {
+            get => _systemInfo;
+            set => _systemInfo = value;
         }
 
 
@@ -186,7 +194,7 @@ namespace CommonFunctions.MediaServerControl
 
 
         public MediaServerInstance(string ipaddress, ushort webApiPort, ushort mediaServerHttpPort, string secret,
-            string mediaServerId, string recordFilePath)
+            string mediaServerId, string recordFilePath,ReqMediaServerSystemInfo? systemInfo)
         {
             _ipaddress = ipaddress;
             _webApiPort = webApiPort;
@@ -196,6 +204,7 @@ namespace CommonFunctions.MediaServerControl
             _webApi = new ZLMediaKitWebApiHelper(_ipaddress, mediaServerHttpPort, _secret);
             _updateTime = DateTime.Now;
             _recordFilePath = recordFilePath;
+            _systemInfo = systemInfo == null ? null : systemInfo;
             new Thread(new ThreadStart(delegate
 
             {

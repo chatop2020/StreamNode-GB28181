@@ -11,6 +11,7 @@ namespace StreamMediaServerKeeper
         private string? _mediaServerId;
         private string? _secret;
         private string? _recordFilePath;
+        private ResGetSystemInfo? _systemInfo;
 
         public ushort? MediaServerHttpPort
         {
@@ -47,6 +48,12 @@ namespace StreamMediaServerKeeper
         {
             get => _recordFilePath;
             set => _recordFilePath = value;
+        }
+
+        public ResGetSystemInfo? SystemInfo
+        {
+            get => _systemInfo;
+            set => _systemInfo = value;
         }
     }
 }

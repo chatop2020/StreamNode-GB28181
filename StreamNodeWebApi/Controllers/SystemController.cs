@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CommonFunctions;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.MediaServerControl;
+using CommonFunctions.WebApiStructs.Response;
 using LibGB28181SipGate;
 using Microsoft.AspNetCore.Mvc;
 using StreamNodeCtrlApis.SystemApis;
@@ -17,6 +18,29 @@ namespace StreamNodeWebApi.Controllers
     [SwaggerTag("系统相关接口")]
     public class SystemController : ControllerBase
     {
+        
+
+        /// <summary>
+        /// 获取全局的系统信息
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
+        [Route("GetGlobleSystemInfo")]
+        [HttpGet]
+        [Log]
+        [AuthVerify]
+        public ResGlobleSystemInfo GetGlobleSystemInfo()
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.GetGlobleSystemInfo( out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+
+            return ret;
+        }
+        
         /// <summary>
         /// 获取一个流媒体服务的实例
         /// </summary>

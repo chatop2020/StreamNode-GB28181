@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SSH", "Test_SSH\Test_S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamMediaServerKeeper", "StreamMediaServerKeeper\StreamMediaServerKeeper.csproj", "{9B191663-1EC0-41D9-AA9B-77BC9384BA32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_GetSystemRunningTime", "Test_GetSystemRunningTime\Test_GetSystemRunningTime.csproj", "{F804BDAC-8C7F-4692-8738-A9D24038CE13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,5 +68,9 @@ Global
 		{9B191663-1EC0-41D9-AA9B-77BC9384BA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B191663-1EC0-41D9-AA9B-77BC9384BA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B191663-1EC0-41D9-AA9B-77BC9384BA32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F804BDAC-8C7F-4692-8738-A9D24038CE13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F804BDAC-8C7F-4692-8738-A9D24038CE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F804BDAC-8C7F-4692-8738-A9D24038CE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F804BDAC-8C7F-4692-8738-A9D24038CE13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

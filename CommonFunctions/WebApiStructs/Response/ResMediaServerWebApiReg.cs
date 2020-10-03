@@ -1,4 +1,5 @@
 using System;
+using CommonFunctions.WebApiStructs.Request;
 
 namespace CommonFunctions.WebApiStructs.Response
 {
@@ -11,6 +12,7 @@ namespace CommonFunctions.WebApiStructs.Response
         private string _mediaServerId;
         private string _secret;
         private string? _recordFilePath;
+        private ReqMediaServerSystemInfo? _systemInfo;
 
 
         public ushort MediaServerHttpPort
@@ -48,6 +50,12 @@ namespace CommonFunctions.WebApiStructs.Response
         {
             get => _recordFilePath;
             set => _recordFilePath = value;
+        }
+
+        public ReqMediaServerSystemInfo? SystemInfo
+        {
+            get => _systemInfo;
+            set => _systemInfo = value;
         }
     }
 }

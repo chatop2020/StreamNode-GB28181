@@ -114,6 +114,9 @@ namespace StreamNodeCtrlApis.WebHookApis
             return false;
         }
 
+        
+        
+
         /// <summary>
         /// 只有rtp推流或才rtmp，rtsp推流才会有onpublish事件触发，因此这里忽略ffmpeg推流的方式
         /// </summary>
@@ -714,6 +717,10 @@ namespace StreamNodeCtrlApis.WebHookApis
                 if (retObj != null)
                 {
                     retObj.KeepAlive = DateTime.Now;
+                    if (req.SystemInfo != null)
+                    {
+                        retObj.SystemInfo = req.SystemInfo;
+                    }
                     if (retObj.Config == null)
                     {
                         MediaServerApis.GetConfig(req.MediaServerId, out _); //配置信息不存在时获取配置信息 
@@ -723,7 +730,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 }
 
                 MediaServerInstance msi = new MediaServerInstance(req.Ipaddress, req.WebApiServerhttpPort,
-                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath);
+                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath,req.SystemInfo);
                 msi.KeepAlive = DateTime.Now;
 
                 lock (Common.MediaServerList)

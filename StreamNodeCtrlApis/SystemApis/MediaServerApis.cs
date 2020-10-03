@@ -1545,6 +1545,43 @@ namespace StreamNodeCtrlApis.SystemApis
             }
         }
 
+
+
+        public static ResGlobleSystemInfo GetGlobleSystemInfo(out ResponseStruct rs)
+        {
+            rs = new ResponseStruct()
+            {
+                Code = ErrorNumber.None,
+                Message = ErrorMessage.ErrorDic![ErrorNumber.None],
+            };
+            var result = new ResGlobleSystemInfo();
+            result.StreamCtrlSystemInfo=new ResGetSystemInfo();
+      
+            foreach (var mediaObj in Common.MediaServerList)
+            {
+                if (mediaObj != null && mediaObj.IsRunning)
+                {
+                    if (result.MediaServerSystemInfos == null)
+                    {
+                        result.MediaServerSystemInfos=new List<MediaServerInfomation>();
+                    }
+
+                    var tmp = new MediaServerInfomation()
+                    {
+                        MediaSeverId = mediaObj.MediaServerId,
+                        MediaServerSystemInfo = mediaObj.SystemInfo,
+                    };
+                    result.MediaServerSystemInfos.Add(tmp);
+                }
+            }
+
+            result.UpdateTime = DateTime.Now;
+            return result;
+
+        }
+
+        
+
         /// <summary>
         /// 启动一个FFmpeg流
         /// </summary>

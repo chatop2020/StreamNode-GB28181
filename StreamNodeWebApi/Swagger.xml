@@ -518,6 +518,13 @@
             系统接口类
             </summary>
         </member>
+        <member name="M:StreamNodeWebApi.Controllers.SystemController.GetGlobleSystemInfo">
+            <summary>
+            获取全局的系统信息
+            </summary>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
         <member name="M:StreamNodeWebApi.Controllers.SystemController.GetMediaServerInstance(System.String)">
             <summary>
             获取一个流媒体服务的实例

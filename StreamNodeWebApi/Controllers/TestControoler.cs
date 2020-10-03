@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using CommonFunction.ManageStructs;
 using CommonFunctions;
 using CommonFunctions.ManageStructs;
@@ -20,6 +21,16 @@ namespace StreamNodeWebApi.Controllers
     [SwaggerTag("测试接口")]
     public class TestController : ControllerBase
     {
+
+        [Route("GetSystemInfo")]
+        [HttpPost]
+        [Log]
+        [AuthVerify]
+        public  ResGetSystemInfo TestGetSystemInfo()
+        {
+            return Common.SystemInfo;
+        }
+        
         [Route("GetTask")]
         [HttpPost]
         [Log]

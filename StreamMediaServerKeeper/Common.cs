@@ -11,6 +11,7 @@ namespace StreamMediaServerKeeper
 {
     public static class Common
     {
+      
         public static string WorkPath = Environment.CurrentDirectory + "/";
         public static string ConfigPath = WorkPath + "Config.conf";
         public static string FFmpegBinPath = WorkPath + "ffmpeg";
@@ -28,6 +29,7 @@ namespace StreamMediaServerKeeper
         public static string MediaServerId = null!;
         public static ProcessApis ProcessApis = new ProcessApis();
         public static string MyIPAddress = "";
+        public static ResGetSystemInfo MySystemInfo = null;
 
         /// <summary>
         /// 自定义的录制文件存储位置
@@ -357,33 +359,69 @@ namespace StreamMediaServerKeeper
 
         private static void KeepAlive()
         {
+            int i = 0;
             while (true)
             {
+                i++;
+                if (i > 999999999)
+                {
+                    i = 1;
+                    MySystemInfo = null;
+                }
                 try
                 {
-                    ReqMediaServerReg req = new ReqMediaServerReg()
+                    ReqMediaServerReg req = null;
+                    if (i == 1 || i % 5 == 0 || MySystemInfo==null)
                     {
-                        Ipaddress = MyIPAddress,
-                        MediaServerHttpPort = MediaServerHttpPort,
-                        MediaServerId = MediaServerId,
-                        Secret = Secret,
-                        WebApiServerhttpPort = HttpPort,
-                        RecordFilePath = RecordPath,
-                    };
+                        MySystemInfo= new ResGetSystemInfo();
+                         req = new ReqMediaServerReg()
+                        {
+                            Ipaddress = MyIPAddress,
+                            MediaServerHttpPort = MediaServerHttpPort,
+                            MediaServerId = MediaServerId,
+                            Secret = Secret,
+                            WebApiServerhttpPort = HttpPort,
+                            RecordFilePath = RecordPath,
+                            SystemInfo=MySystemInfo,
+                        };
+                    }
+                    else 
+                    {
+                         req = new ReqMediaServerReg()
+                        {
+                            Ipaddress = MyIPAddress,
+                            MediaServerHttpPort = MediaServerHttpPort,
+                            MediaServerId = MediaServerId,
+                            Secret = Secret,
+                            WebApiServerhttpPort = HttpPort,
+                            RecordFilePath = RecordPath,
+                            SystemInfo = null,
+                        };
+                    }
+
                     string reqData = JsonHelper.ToJson(req);
                     try
                     {
                         var httpRet = NetHelper.HttpPostRequest(StreamNodeServerUrl, null!, reqData, "utf-8", 5000);
                         if (string.IsNullOrEmpty(httpRet))
                         {
+                            MySystemInfo = null;
                             if (ProcessApis.CheckIsRunning(out _) > 0)
                             {
                                 ProcessApis.StopServer(out _); //发现streamctrl异常回复，就关掉流媒体服务器
                             }
                         }
+                        else
+                        {
+                            if (ProcessApis.CheckIsRunning(out _)== 0)
+                            {
+                                ProcessApis.RunServer(out _); //如果正常返回，但是流媒体没启动，则启动流媒体
+                            } 
+                        }
                     }
                     catch
                     {
+                        MySystemInfo = null;
                         if (ProcessApis.CheckIsRunning(out _) > 0)
                         {
                             ProcessApis.StopServer(out _); //发现streamctrl异常回复，就关掉流媒体服务器
@@ -394,6 +432,7 @@ namespace StreamMediaServerKeeper
                 }
                 catch (Exception ex)
                 {
+                    MySystemInfo = null;
                     Console.WriteLine("报错了：\r\n" + ex.Message + "\r\n" + ex.StackTrace);
                     continue;
                 }
