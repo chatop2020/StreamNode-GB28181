@@ -423,6 +423,11 @@ namespace StreamNodeWebApi.AutoTasker
 
                     foreach (var cit in Common.CameraInstanceList)
                     {
+                        if (cit.PushMediaServerId.Contains("unknow"))
+                        {
+                            continue;
+                            
+                        }
                         if (cit != null && cit.EnableLive && cit.Activated==true) //启动摄像头,必须是activated为true时才能启动
                         {
                             liveCamera(cit);
