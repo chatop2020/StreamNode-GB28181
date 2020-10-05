@@ -438,6 +438,14 @@
             <returns></returns>
             <exception cref="T:CommonFunctions.HttpResponseException"></exception>
         </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.ActivateSipCamera(CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera)">
+            <summary>
+            激活sip网关自动添加的摄像头
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
         <member name="M:StreamNodeWebApi.Controllers.MediaServerController.StartMediaServer(System.String)">
             <summary>
             启动流媒体服务
@@ -453,7 +461,7 @@
         </member>
         <member name="M:StreamNodeWebApi.Controllers.SipGateController.ActiveDeviceCatalogQuery(System.String)">
             <summary>
-            获取Sip网关自动推流状态
+            获取sip设备的设备目录列表
             </summary>
             <param name="deviceid"></param>
             <returns></returns>
@@ -577,6 +585,14 @@
             注入httpcontext
             </summary>
             <param name="httpContextAccessor"></param>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnSipDeviceRegister(CommonFunctions.WebApiStructs.Request.ReqAddCameraInstance)">
+            <summary>
+            当有新设备注册时（目录查询到时），自动写入摄像头数据库
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnRecordMp4Completed(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnRecordMp4Completed)">
             <summary>

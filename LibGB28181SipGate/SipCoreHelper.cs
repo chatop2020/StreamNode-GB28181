@@ -226,6 +226,19 @@ namespace LibGB28181SipGate
                     dev.SipDeviceStatus = SipDeviceStatus.Register;
                     dev.LastKeepAliveTime = DateTime.Now;
                     dev.LastUpdateTime = DateTime.Now;
+                    /*尝试修复公网非固定ip设备的重启后无法通讯问题*/
+                    lock (SipMessageCore.NodeMonitorService) 
+                    {
+                        var obj = SipMessageCore.NodeMonitorService[devid];
+                        if (obj != null)
+                        {
+                            Console.WriteLine("老的endpoint:"+obj.RemoteEndPoint.ToString());
+                            Console.WriteLine("新的endpoint:"+sipRequest.RemoteSIPEndPoint.ToString());
+                            obj.RemoteEndPoint = sipRequest.RemoteSIPEndPoint;
+                        }
+                    }
+                    /*尝试修复公网非固定ip设备的重启后无法通讯问题*/
+                    
                 }
             }
         }
@@ -352,6 +365,7 @@ namespace LibGB28181SipGate
                                 }
                                 catch
                                 {
+                                    // ignored
                                 }
                             }
                             /*实验性自动添加摄像头到数据库*/
@@ -433,6 +447,7 @@ namespace LibGB28181SipGate
         {
             string pid = "";
             string pip = "";
+            bool found = false;
             foreach (var device in _sipDeviceList)
             {
                 foreach (var ca in device.CameraExList)
@@ -441,7 +456,14 @@ namespace LibGB28181SipGate
                     {
                         pid = device.DeviceId;
                         pip = device.IpAddress;
+                        found = true;
+                        break;
                     }
+                }
+
+                if (found)
+                {
+                    break;
                 }
             }
 
