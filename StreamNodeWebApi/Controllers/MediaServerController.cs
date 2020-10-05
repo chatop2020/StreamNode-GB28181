@@ -733,7 +733,7 @@ namespace StreamNodeWebApi.Controllers
         /// <returns></returns>
         /// <exception cref="HttpResponseException"></exception>
         [Route("ActivateSipCamera")]
-        [HttpGet]
+        [HttpPost]
         [Log]
         [AuthVerify]
         public CameraInstance ActivateSipCamera(ReqActivateSipCamera req)

@@ -867,7 +867,7 @@ namespace StreamNodeCtrlApis.SystemApis
                         .WhereIf(!string.IsNullOrEmpty(req.CameraId), x => x.CameraId.Equals(req.CameraId))
                         .WhereIf(!string.IsNullOrEmpty(req.CameraDeptId), x => x.DeptId.Equals(req.CameraDeptId))
                         .WhereIf(req.EnableLive != null, x => x.EnableLive.Equals(req.EnableLive))
-                        .WhereIf(req.Activated!=null,x=>x.Activated.Equals(req.Activated))
+                        .WhereIf(req.Activated != null, x => x.Activated.Equals(req.Activated))
                         .Where("1=1").OrderBy(orderBy).ToList();
                 }
                 else
@@ -881,7 +881,7 @@ namespace StreamNodeCtrlApis.SystemApis
                         .WhereIf(!string.IsNullOrEmpty(req.CameraId), x => x.CameraId.Equals(req.CameraId))
                         .WhereIf(!string.IsNullOrEmpty(req.CameraDeptId), x => x.DeptId.Equals(req.CameraDeptId))
                         .WhereIf(req.EnableLive != null, x => x.EnableLive.Equals(req.EnableLive))
-                        .WhereIf(req.Activated!=null,x=>x.Activated.Equals(req.Activated))
+                        .WhereIf(req.Activated != null, x => x.Activated.Equals(req.Activated))
                         .Where("1=1").OrderBy(orderBy).Count(out total)
                         .Page((int) req.PageIndex!, (int) req.PageSize!)
                         .ToList();
@@ -1205,7 +1205,7 @@ namespace StreamNodeCtrlApis.SystemApis
 
             try
             {
-                cameraItc.Activated = true;//手工注册时，每个摄像头的activated都为true
+                cameraItc.Activated = true; //手工注册时，每个摄像头的activated都为true
                 var ret = OrmService.Db.Insert<CameraInstance>(cameraItc).ExecuteAffrows();
                 if (ret > 0)
                 {
@@ -1334,7 +1334,7 @@ namespace StreamNodeCtrlApis.SystemApis
 
             lock (Common.CameraSessionLock)
             {
-                return new List<CameraSession>(Common.CameraSessions);
+                return new List<CameraSession>(Common.CameraSessions.FindAll(x=>x.MediaServerId.Equals(mediaServerId)));
             }
         }
 
@@ -2596,16 +2596,17 @@ namespace StreamNodeCtrlApis.SystemApis
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-           var ret= OrmService.Db.Select<CameraInstance>().Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
+            var ret = OrmService.Db.Select<CameraInstance>()
+                .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
                 .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable)).Count();
-           if (ret <= 0)//不存在
-           {
-              var ret2= OrmService.Db.Insert(req).ExecuteAffrows();
-              if (ret2 > 0)
-                  return true;
-           }
+            if (ret <= 0) //不存在
+            {
+                var ret2 = OrmService.Db.Insert<CameraInstance>(req).ExecuteAffrows();
+                if (ret2 > 0)
+                    return true;
+            }
 
-           return false;
+            return false;
         }
 
 
@@ -2644,17 +2645,25 @@ namespace StreamNodeCtrlApis.SystemApis
                 };
                 return null;
             }
-            
+
+
             var ret = OrmService.Db.Select<CameraInstance>()
                 .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
                 .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))
-                .Where(x => x.Activated.Equals(false)).Count();
-            if (ret == 1)
+                .Where(x => x.Activated.Equals(false)).First();
+
+
+            if (ret != null)
             {
-                string cid= string.Format("{0:X8}", CRC32Cls.GetCRC32(req.PushMediaServerId + CameraType.GB28181 +
-                                                                         req.CameraIpAddress + req.CameraChannelLable +
-                                                                         ""));
-               var ret2= OrmService.Db.Update<CameraInstance>().SetIf(req.EnableLive != null, x => x.EnableLive, req.EnableLive)
+                string cid = string.Format("{0:X8}", CRC32Cls.GetCRC32(req.PushMediaServerId + CameraType.GB28181 +
+                                                                       (string.IsNullOrEmpty(req.CameraIpAddress) ==
+                                                                        true
+                                                                           ? ret.CameraIpAddress
+                                                                           : req.CameraIpAddress) +
+                                                                       req.CameraChannelLable +
+                                                                       ""));
+                var ret2 = OrmService.Db.Update<CameraInstance>()
+                    .SetIf(req.EnableLive != null, x => x.EnableLive, req.EnableLive)
                     .SetIf(!string.IsNullOrEmpty(req.CameraName), x => x.CameraName, req.CameraName)
                     .SetIf(!string.IsNullOrEmpty(req.DeptId), x => x.DeptId, req.DeptId)
                     .SetIf(!string.IsNullOrEmpty(req.DeptName), x => x.DeptName, req.DeptName)
@@ -2665,21 +2674,22 @@ namespace StreamNodeCtrlApis.SystemApis
                     .SetIf(!string.IsNullOrEmpty(req.CameraIpAddress), x => x.CameraIpAddress, req.CameraIpAddress)
                     .SetIf(req.IfGb28181Tcp != null, x => x.IfGb28181Tcp, req.IfGb28181Tcp)
                     .Set(x => x.PushMediaServerId, req.PushMediaServerId)
-                    .Set(x=>x.Activated,true)
-                    .Set(x=>x.CameraId,cid)
-                    .Set(x=>x.UpdateTime,DateTime.Now)
+                    .Set(x => x.Activated, true)
+                    .Set(x => x.CameraId, cid)
+                    .Set(x => x.UpdateTime, DateTime.Now)
                     .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
                     .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))
                     .Where(x => x.Activated.Equals(false))
                     .ExecuteAffrows();
-               if (ret2 == 1)
-               {
-                   return OrmService.Db.Select<CameraInstance>()
-                       .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
-                       .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))
-                       .Where(x => x.Activated.Equals(true)).First();
-               }
+                if (ret2 == 1)
+                {
+                    return OrmService.Db.Select<CameraInstance>()
+                        .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
+                        .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))
+                        .Where(x => x.Activated.Equals(true)).First();
+                }
             }
+
             rs = new ResponseStruct()
             {
                 Code = ErrorNumber.SipDeviceOrCameraNotFound,
