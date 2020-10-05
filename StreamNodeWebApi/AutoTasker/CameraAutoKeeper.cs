@@ -45,7 +45,7 @@ namespace StreamNodeWebApi.AutoTasker
                             session = Common.CameraSessions.FindLast(x =>
                                 x.ClientType == ClientType.Camera
                                 && x.CameraType == CameraType.GB28181 &&
-                                x.CameraIpAddress.Equals(cil.CameraIpAddress) //为支持公网远程设备的ip不固定性，取消ip 地址校验
+                                x.CameraEx.Camera.IPAddress.Equals(cil.CameraIpAddress) //为支持公网远程设备的ip不固定性，取消ip 地址校验
                                 && x.CameraEx.Camera.DeviceID.Equals(cil.CameraChannelLable) &&
                                 x.CameraEx.Camera.ParentID.Equals(cil.CameraDeviceLable));
                         }
@@ -243,6 +243,7 @@ namespace StreamNodeWebApi.AutoTasker
         /// <param name="session"></param>
         private static void stopGB28181(CameraSession session)
         {
+            Console.WriteLine("进来停止");
             try
             {
                 ResponseStruct rs = null;
@@ -266,6 +267,7 @@ namespace StreamNodeWebApi.AutoTasker
 
                 var ret2 = MediaServerApis.CloseStreams(mediaObj.MediaServerId, req2,
                     out rs);
+                Console.WriteLine("进来停止-closestreams");
 
                 var req3 = new ReqZLMediaKitCloseRtpPort()
                 {
@@ -275,6 +277,7 @@ namespace StreamNodeWebApi.AutoTasker
 
                 var ret3 = MediaServerApis.CloseRtpPort(mediaObj.MediaServerId, req3,
                     out rs);
+                Console.WriteLine("进来停止-CloseRtpPort");
                 if (ret3.Code == 0)
                 {
                     Console.WriteLine("GB28181结束成功->" + session.CameraId + "->" + session.CameraEx.Camera.ParentID + "->" +
@@ -299,13 +302,14 @@ namespace StreamNodeWebApi.AutoTasker
         /// <param name="cil"></param>
         private static void stopCamera(CameraInstance cil)
         {
+            Console.WriteLine("stopCamera" + cil.CameraId);
             try
             {
                 if (cil != null && cil.EnableLive == false)
                 {
                     CameraSession cameraSession = null;
                     cameraSession = getCameraCurrentSession(cil);
-
+                    Console.WriteLine("cameraSession:----->=" + JsonHelper.ToJson(cameraSession));
                     if (cameraSession != null)
                     {
                         switch (cil.CameraType)
@@ -315,7 +319,7 @@ namespace StreamNodeWebApi.AutoTasker
                                 stopRtsp(cameraSession);
                                 break;
                             case CameraType.GB28181:
-
+                                Console.WriteLine("stopGB28181:-->" + JsonHelper.ToJson(cameraSession));
                                 stopGB28181(cameraSession);
                                 break;
                         }
