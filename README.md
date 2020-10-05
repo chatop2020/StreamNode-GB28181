@@ -43,6 +43,7 @@
 - /MediaServer​/RestartMediaServer          重启流媒体服务
 - /MediaServer​/StopMediaServer         关闭流媒体服务
 - /MediaServer​/StartMediaServer            启动流媒体服务
+- /MediaServer/ActivateSipCamera            对Sip网关自动写入的GB28181设备进行激活
 ### Sip网关相关
 - /SipGate​/ActiveDeviceCatalogQuery           获取Sip设备的目录列表
 - /SipGate​/GetAutoPushStreamState          获取Sip网关自动推流状态
@@ -65,6 +66,11 @@
 - 增加接口调用的鉴权机制(未开始)
 - 考虑SIP网关支持级联到上级平台(未开始)
 - 直播推流的完善支持(未开始)
+## 更新日志
+- 2020-10-05    【新增】sip网关收到gb28181设备的设备列表后，自动向Camera表插入这些设备列表作为可推流的设备后选 ，设置激活状态为非激活状态，此类设备需要通过接口进行激活。
+                【新增】增加/MediaServer/ActivateSipCamera接口，来完成对自动写入数据库的数据进行激活。
+                【修正】修正一个停止推流的bug。
+                【修正】修正一个可能存在的，针对于公网非固定ip的gb28181设备的通讯障碍问题。
 
 ## 结构介绍
 - ![StreamNode结构.jpg](https://i.loli.net/2020/09/29/xwkeW8agYspHKUt.jpg)

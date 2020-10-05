@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Security.AccessControl;
@@ -269,6 +270,42 @@ namespace LibGB28181SipGate
         }
 
 
+        /// <summary>
+        /// 获取配置文件中的http端口号
+        /// </summary>
+        /// <param name="httpPort"></param>
+        /// <returns></returns>
+        private bool getHttpPortFromSystemConfig(out string httpPort)
+        {
+            var dir = Environment.CurrentDirectory;
+            if (File.Exists(dir + "/" + "system.conf"))
+            {
+                List<string> tmp_sl = File.ReadAllLines(dir + "/" + "system.conf").ToList();
+                foreach (var str in tmp_sl)
+                {
+                    string tmps = str.Trim().ToLower();
+                    if (!tmps.EndsWith(";") || tmps.StartsWith("#")) continue;
+                    tmps = tmps.TrimEnd(';');
+                    if (tmps.Contains("httpport"))
+                    {
+                        var arr_s=tmps.Split("::", StringSplitOptions.RemoveEmptyEntries);
+                        if (arr_s.Length == 2)
+                        {
+                            ushort pp = 0;
+                            var r = ushort.TryParse(arr_s[1], out pp);
+                            if (r == true && pp >= ushort.MinValue && pp <= ushort.MaxValue)
+                            {
+                                httpPort = pp.ToString();
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            httpPort = "";
+            return false;
+        }
+
         private void OnSipServiceChange(string msg, ServiceStatus state)
         {
             //sip服务状态改变时，待实现
@@ -360,7 +397,18 @@ namespace LibGB28181SipGate
                                 string reqData = JsonHelper.ToJson(c);
                                 try
                                 {
-                                    string url = "http://127.0.0.1:5800/WebHook/OnSipDeviceRegister";
+                                    string httpport = "";
+                                    string url = "";
+
+                                    if (getHttpPortFromSystemConfig(out httpport))
+                                    {
+                                         url = "http://127.0.0.1:"+httpport+"/WebHook/OnSipDeviceRegister";
+                                    }
+                                    else
+                                    {
+                                         url = "http://127.0.0.1:5800/WebHook/OnSipDeviceRegister";
+                                    }
+                                    
                                     var httpRet = NetHelper.HttpPostRequest(url, null!, reqData, "utf-8", 3000);
                                 }
                                 catch
