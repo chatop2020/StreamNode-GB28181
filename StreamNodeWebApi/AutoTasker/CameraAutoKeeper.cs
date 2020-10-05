@@ -310,7 +310,7 @@ namespace StreamNodeWebApi.AutoTasker
                     CameraSession cameraSession = null;
                     cameraSession = getCameraCurrentSession(cil);
                   
-                    if (cameraSession != null)
+                    if (cameraSession != null && cameraSession.IsOnline==true)
                     {
                         switch (cil.CameraType)
                         {
