@@ -228,18 +228,47 @@ namespace LibGB28181SipGate
                     dev.LastKeepAliveTime = DateTime.Now;
                     dev.LastUpdateTime = DateTime.Now;
                     /*尝试修复公网非固定ip设备的重启后无法通讯问题*/
-                    lock (SipMessageCore.NodeMonitorService) 
+                    lock (SipDeviceLock)
                     {
-                        var obj = SipMessageCore.NodeMonitorService[devid];
-                        if (obj != null)
+                       
+                        var deviceObj = SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(dev.DeviceId));
+                        if (!ip.Equals(deviceObj.Value.RemoteEndPoint.Address.ToString())
+                            || !port.ToString().Equals(deviceObj.Value.RemoteEndPoint.Port.ToString()))
                         {
-                            Console.WriteLine("老的endpoint:"+obj.RemoteEndPoint.ToString());
-                            Console.WriteLine("新的endpoint:"+sipRequest.RemoteSIPEndPoint.ToString());
-                            obj.RemoteEndPoint = sipRequest.RemoteSIPEndPoint;
+                            
+                            var sipurl=new SIPURI(dev.DeviceId,ip+":"+port, "");
+                            sipurl.Protocol = SIPProtocolsEnum.udp;
+                            deviceObj.Value.RemoteEndPoint = new SIPEndPoint(sipurl);
+                        }
+
+                        var camearDev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(dev.DeviceId));
+                        if (camearDev != null && camearDev.CameraExList != null)
+                        {
+                            foreach (var cex in camearDev.CameraExList)
+                            {
+                                if (cex != null && cex.Camera != null && !string.IsNullOrEmpty(cex.Camera.DeviceID))
+                                {
+                                    
+                                    var obj = SipMessageCore.NodeMonitorService.FirstOrDefault(x =>
+                                        x.Key.Equals(cex.Camera.DeviceID));
+                                    if (obj.Value != null)
+                                    {
+                                        if (!ip.Equals(obj.Value.RemoteEndPoint.Address.ToString())
+                                            || !port.ToString()
+                                                .Equals(obj.Value.RemoteEndPoint.Port.ToString()))
+                                        {
+                                            var sipurl=new SIPURI(dev.DeviceId,ip+":"+port, "");
+                                            sipurl.Protocol = SIPProtocolsEnum.udp;
+                                            obj.Value.RemoteEndPoint = new SIPEndPoint(sipurl);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+
+
                     /*尝试修复公网非固定ip设备的重启后无法通讯问题*/
-                    
                 }
             }
         }
@@ -288,7 +317,7 @@ namespace LibGB28181SipGate
                     tmps = tmps.TrimEnd(';');
                     if (tmps.Contains("httpport"))
                     {
-                        var arr_s=tmps.Split("::", StringSplitOptions.RemoveEmptyEntries);
+                        var arr_s = tmps.Split("::", StringSplitOptions.RemoveEmptyEntries);
                         if (arr_s.Length == 2)
                         {
                             ushort pp = 0;
@@ -302,6 +331,7 @@ namespace LibGB28181SipGate
                     }
                 }
             }
+
             httpPort = "";
             return false;
         }
@@ -373,7 +403,8 @@ namespace LibGB28181SipGate
 
                             /*实验性自动添加摄像头到数据库*/
                             int extId = int.Parse(camera.Camera.DeviceID.Substring(10, 3));
-                            if (extId == 131 || extId == 132 || extId == 134 || extId == 137)//只有131,132,134,137的是摄像头，添加进来，其他不要
+                            if (extId == 131 || extId == 132 || extId == 134 || extId == 137
+                            ) //只有131,132,134,137的是摄像头，添加进来，其他不要
                             {
                                 CameraInstanceForSip c = new CameraInstanceForSip();
                                 c.Activated = false;
@@ -402,13 +433,13 @@ namespace LibGB28181SipGate
 
                                     if (getHttpPortFromSystemConfig(out httpport))
                                     {
-                                         url = "http://127.0.0.1:"+httpport+"/WebHook/OnSipDeviceRegister";
+                                        url = "http://127.0.0.1:" + httpport + "/WebHook/OnSipDeviceRegister";
                                     }
                                     else
                                     {
-                                         url = "http://127.0.0.1:5800/WebHook/OnSipDeviceRegister";
+                                        url = "http://127.0.0.1:5800/WebHook/OnSipDeviceRegister";
                                     }
-                                    
+
                                     var httpRet = NetHelper.HttpPostRequest(url, null!, reqData, "utf-8", 3000);
                                 }
                                 catch
@@ -416,6 +447,7 @@ namespace LibGB28181SipGate
                                     // ignored
                                 }
                             }
+
                             /*实验性自动添加摄像头到数据库*/
                         }
                     }
@@ -449,6 +481,40 @@ namespace LibGB28181SipGate
         {
             lock (SipDeviceLock)
             {
+               
+                    var deviceObj = SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(devId));
+                    if (!remoteEp.Address.ToString().Equals(deviceObj.Value.RemoteEndPoint.Address.ToString())
+                        || !remoteEp.Port.ToString().Equals(deviceObj.Value.RemoteEndPoint.Port.ToString()))
+                    {
+                        deviceObj.Value.RemoteEndPoint = remoteEp;
+                    }
+
+                    var camearDev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(devId));
+                    if (camearDev != null && camearDev.CameraExList != null)
+                    {
+                        foreach (var cex in camearDev.CameraExList)
+                        {
+                            if (cex != null && cex.Camera != null && !string.IsNullOrEmpty(cex.Camera.DeviceID))
+                            {
+                                var obj = SipMessageCore.NodeMonitorService.FirstOrDefault(x =>
+                                    x.Key.Equals(cex.Camera.DeviceID));
+
+                                if (obj.Value != null)
+                                {
+                                    if (!remoteEp.Address.ToString()
+                                            .Equals(obj.Value.RemoteEndPoint.Address.ToString())
+                                        || !remoteEp.Port.ToString()
+                                            .Equals(obj.Value.RemoteEndPoint.Port.ToString()))
+                                    {
+                                        obj.Value.RemoteEndPoint = remoteEp;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                
+
+
                 var dev = SipDeviceList.FindLast(x =>
                     x.IpAddress.Equals(remoteEp.Address.ToString())
                     && x.SipPort.Equals(remoteEp.Port)
