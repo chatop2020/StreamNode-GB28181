@@ -84,6 +84,7 @@ namespace StreamNodeWebApi.AutoTasker
             try
             {
                 ResponseStruct rs = null;
+                
                 var gbRet = CommonApi.LiveVideo(cil.PushMediaServerId,
                     cil.CameraDeviceLable,
                     cil.CameraChannelLable, out rs, (bool) cil.IfGb28181Tcp!);
@@ -430,12 +431,50 @@ namespace StreamNodeWebApi.AutoTasker
                         }
                         if (cit != null && cit.EnableLive && cit.Activated==true) //启动摄像头,必须是activated为true时才能启动
                         {
-                            liveCamera(cit);
+                            bool found = false;
+                            lock (Common.SipProcess.SipDeviceLock)
+                            {
+                                var dev=Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(cit.CameraDeviceLable));
+                                if (dev != null && dev.CameraExList!=null && dev.CameraExList.Count>0)
+                                {
+                                    var camera = dev.CameraExList.FindLast(x =>
+                                        x.Camera != null && x.Camera.DeviceID.Equals(cit.CameraChannelLable));
+                                    if (camera != null)
+                                    {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (found == true)
+                            {
+                                liveCamera(cit);
+                            }
                         }
 
                         if (cit != null && (cit.EnableLive == false || cit.Activated==false)) //停止摄像头,如果activated为False,就一定要停止
                         {
-                            stopCamera(cit);
+                            
+                            bool found = false;
+                            lock (Common.SipProcess.SipDeviceLock)
+                            {
+                                var dev=Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(cit.CameraDeviceLable));
+                                if (dev != null && dev.CameraExList!=null && dev.CameraExList.Count>0)
+                                {
+                                    var camera = dev.CameraExList.FindLast(x =>
+                                        x.Camera != null && x.Camera.DeviceID.Equals(cit.CameraChannelLable));
+                                    if (camera != null)
+                                    {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (found == true)
+                            {
+                                stopCamera(cit);
+                            }
                         }
                     }
                 }
