@@ -128,7 +128,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            var mediaServer = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(req.Mediaserverid));
+            var mediaServer = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(req.MediaServerId));
             if (mediaServer == null)
             {
                 return new ResToWebHookOnPublish()
@@ -144,7 +144,7 @@ namespace StreamNodeCtrlApis.WebHookApis
             CameraSession session = null;
             lock (Common.CameraSessionLock)
             {
-                session = Common.CameraSessions.FindLast(x => x.MediaServerId.Equals(req.Mediaserverid)
+                session = Common.CameraSessions.FindLast(x => x.MediaServerId.Equals(req.MediaServerId)
                                                               && x.Vhost.Equals(req.Vhost) &&
                                                               x.App.Equals(req.App) &&
                                                               x.StreamId.Equals(req.Stream) &&
@@ -164,7 +164,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     CameraIpAddress = req.Ip,
                     UpTime = 0f,
                     OnlineTime = DateTime.Now,
-                    MediaServerId = req.Mediaserverid,
+                    MediaServerId = req.MediaServerId,
                     IsRecord = false,
                     PlayUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.MediaServerHttpPort +
                               "/" + req.App + "/" + req.Stream + ".flv",
@@ -251,7 +251,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            var mediaServer = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(req.Mediaserverid));
+            var mediaServer = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(req.MediaServerId));
             if (mediaServer == null)
             {
                 return new ResToWebHookOnStreamChange()
@@ -436,7 +436,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            var mediaServer = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(req.Mediaserverid));
+            var mediaServer = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(req.MediaServerId));
             if (mediaServer == null)
             {
                 return new ResToWebHookOnStreamChange()
@@ -454,7 +454,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     Duration = null,
                     Id = null,
                     Ip = null,
-                    Mediaserverid = req.Mediaserverid,
+                    MediaServerId = req.MediaServerId,
                     Params = null,
                     Player = false,
                     Port = null,
@@ -472,7 +472,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     checksession = Common.CameraSessions.FindLast(x => x.App.Equals(req.App)
                                                                        && x.Vhost.Equals(req.Vhost) &&
                                                                        x.StreamId.Equals(req.Stream) &&
-                                                                       x.MediaServerId.Equals(req.Mediaserverid));
+                                                                       x.MediaServerId.Equals(req.MediaServerId));
                 }
 
                 if (checksession == null)
@@ -488,7 +488,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                         lock (Common.CameraInstanceListLock)
                         {
                             camera = Common.CameraInstanceList.FindLast(x =>
-                                x.IfRtspUrl.Equals(ffmpegObj.Src_Url) && x.PushMediaServerId.Equals(req.Mediaserverid));
+                                x.IfRtspUrl.Equals(ffmpegObj.Src_Url) && x.PushMediaServerId.Equals(req.MediaServerId));
                         }
 
 
@@ -604,7 +604,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            var mediaServer = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(record.Mediaserverid));
+            var mediaServer = Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(record.MediaServerId));
             if (mediaServer == null)
             {
                 return new ResToWebHookOnStreamChange()
@@ -628,7 +628,7 @@ namespace StreamNodeCtrlApis.WebHookApis
             tmpDvrVideo.Duration = record.Time_Len;
             tmpDvrVideo.Undo = false;
             tmpDvrVideo.Deleted = false;
-            tmpDvrVideo.PushMediaServerId = record.Mediaserverid;
+            tmpDvrVideo.PushMediaServerId = record.MediaServerId;
             tmpDvrVideo.UpdateTime = currentTime;
             tmpDvrVideo.RecordDate = st.ToString("yyyy-MM-dd");
             tmpDvrVideo.DownloadUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.WebApiPort +

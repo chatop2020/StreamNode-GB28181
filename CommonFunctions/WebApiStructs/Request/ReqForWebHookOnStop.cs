@@ -16,12 +16,12 @@ namespace CommonFunctions.WebApiStructs.Request
         private string? _ip;
         private ushort? _port;
         private string? _id;
-        private string? _mediaserverid;
+        private string? _mediaServerId;
 
-        public string? Mediaserverid
+        public string? MediaServerId
         {
-            get => _mediaserverid;
-            set => _mediaserverid = value;
+            get => _mediaServerId;
+            set => _mediaServerId = value;
         }
 
         public string? App

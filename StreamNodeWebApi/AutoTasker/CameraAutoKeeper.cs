@@ -321,8 +321,30 @@ namespace StreamNodeWebApi.AutoTasker
                                 break;
                             case CameraType.GB28181:
                              
-                                stopGB28181(cameraSession);
+                                bool found = false;
+                                lock (Common.SipProcess.SipDeviceLock)
+                                {
+                                    var dev=Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(cil.CameraDeviceLable));
+                                    if (dev != null && dev.CameraExList!=null && dev.CameraExList.Count>0)
+                                    {
+                                        var camera = dev.CameraExList.FindLast(x =>
+                                            x.Camera != null && x.Camera.DeviceID.Equals(cil.CameraChannelLable));
+                                        if (camera != null)
+                                        {
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (found == true)
+                                {
+                                    stopGB28181(cameraSession);
+                                  
+                                }
+                                
                                 break;
+                               
                         }
                     }
                 }
@@ -359,9 +381,28 @@ namespace StreamNodeWebApi.AutoTasker
                                 break;
                             case CameraType.GB28181:
 
-                                liveGB28181(cil);
+                                bool found = false;
+                                lock (Common.SipProcess.SipDeviceLock)
+                                {
+                                    var dev=Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(cil.CameraDeviceLable));
+                                    if (dev != null && dev.CameraExList!=null && dev.CameraExList.Count>0)
+                                    {
+                                        var camera = dev.CameraExList.FindLast(x =>
+                                            x.Camera != null && x.Camera.DeviceID.Equals(cil.CameraChannelLable));
+                                        if (camera != null)
+                                        {
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
 
+                                if (found == true)
+                                {
+                                    liveGB28181(cil);
+                                }
                                 break;
+                              
                         }
                     }
                     else if (cameraSession != null && string.IsNullOrEmpty(cameraSession.CameraId)
@@ -431,50 +472,13 @@ namespace StreamNodeWebApi.AutoTasker
                         }
                         if (cit != null && cit.EnableLive && cit.Activated==true) //启动摄像头,必须是activated为true时才能启动
                         {
-                            bool found = false;
-                            lock (Common.SipProcess.SipDeviceLock)
-                            {
-                                var dev=Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(cit.CameraDeviceLable));
-                                if (dev != null && dev.CameraExList!=null && dev.CameraExList.Count>0)
-                                {
-                                    var camera = dev.CameraExList.FindLast(x =>
-                                        x.Camera != null && x.Camera.DeviceID.Equals(cit.CameraChannelLable));
-                                    if (camera != null)
-                                    {
-                                        found = true;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (found == true)
-                            {
-                                liveCamera(cit);
-                            }
+                            liveCamera(cit);
                         }
 
                         if (cit != null && (cit.EnableLive == false || cit.Activated==false)) //停止摄像头,如果activated为False,就一定要停止
                         {
-                            
-                            bool found = false;
-                            lock (Common.SipProcess.SipDeviceLock)
-                            {
-                                var dev=Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(cit.CameraDeviceLable));
-                                if (dev != null && dev.CameraExList!=null && dev.CameraExList.Count>0)
-                                {
-                                    var camera = dev.CameraExList.FindLast(x =>
-                                        x.Camera != null && x.Camera.DeviceID.Equals(cit.CameraChannelLable));
-                                    if (camera != null)
-                                    {
-                                        found = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (found == true)
-                            {
-                                stopCamera(cit);
-                            }
+                            stopCamera(cit);
+                           
                         }
                     }
                 }

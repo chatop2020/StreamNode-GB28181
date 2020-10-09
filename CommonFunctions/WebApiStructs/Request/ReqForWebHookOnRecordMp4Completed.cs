@@ -12,7 +12,7 @@ namespace CommonFunctions.WebApiStructs.Request
         private long? _file_Size;
         private long? _start_Time;
         private string? _stream;
-        private string? _mediaserverid;
+        private string? _mediaServerId;
         private string? _url;
         private string? _vhost;
         private int? _time_len;
@@ -61,10 +61,10 @@ namespace CommonFunctions.WebApiStructs.Request
         }
 
 
-        public string? Mediaserverid
+        public string? MediaServerId
         {
-            get => _mediaserverid;
-            set => _mediaserverid = value;
+            get => _mediaServerId;
+            set => _mediaServerId = value;
         }
 
         public string? Url

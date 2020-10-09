@@ -5,16 +5,16 @@ namespace CommonFunctions.WebApiStructs.Request
     [Serializable]
     public class ReqForWebHookOnStreamNoneReader
     {
-        private string? _mediaserverid;
+        private string? _mediaServerId;
         private string? _app;
         private string? _schema;
         private string? _stream;
         private string? _vhost;
 
-        public string? Mediaserverid
+        public string? MediaServerId
         {
-            get => _mediaserverid;
-            set => _mediaserverid = value;
+            get => _mediaServerId;
+            set => _mediaServerId = value;
         }
 
         public string? App

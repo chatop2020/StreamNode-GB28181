@@ -7,6 +7,7 @@ namespace CommonFunctions.WebApiStructs.Response
     [Serializable]
     public class ZLMediaKitConfigForResponse
     {
+        private string? _mediaServerId;
         private bool? _api_apiDebug;
         private string? _api_defaultSnap;
         private string? _api_secret;
@@ -89,6 +90,13 @@ namespace CommonFunctions.WebApiStructs.Response
         private ushort? _rtsp_sslport;
         private int? _shell_maxReqSize;
         private ushort? _shell_port;
+
+        [JsonProperty("mediaServerId")]
+        public string? MediaServerId
+        {
+            get => _mediaServerId;
+            set => _mediaServerId = value;
+        }
 
         [JsonProperty("api.apiDebug")]
         [JsonConverter(typeof(JsonConvStr2Bool))]

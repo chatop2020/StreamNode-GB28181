@@ -8,7 +8,7 @@ namespace CommonFunctions.WebApiStructs.Request
         private string? _app;
         private string? _id;
         private string? _ip;
-        private string? _mediaserverid;
+        private string? _mediaServerId;
         private string? _params;
         private ushort? _port;
         private string? _schema;
@@ -34,10 +34,10 @@ namespace CommonFunctions.WebApiStructs.Request
             set => _ip = value;
         }
 
-        public string? Mediaserverid
+        public string? MediaServerId
         {
-            get => _mediaserverid;
-            set => _mediaserverid = value;
+            get => _mediaServerId;
+            set => _mediaServerId = value;
         }
 
         public string? Params

@@ -116,7 +116,6 @@ namespace StreamNodeWebApi.Controllers
         [AuthVerify]
         public ResToWebHookOnStreamNoneReader OnStreamNoneReader(ReqForWebHookOnStreamNoneReader req)
         {
-            Console.WriteLine("OnStreamNoneReader:\r\n" + JsonHelper.ToJson(req));
             return new ResToWebHookOnStreamNoneReader()
             {
                 Code = 0,
@@ -180,7 +179,7 @@ namespace StreamNodeWebApi.Controllers
                     str += tmpstr + "\r\n";
                 }
             }
-
+            
             var tmpObj = JsonHelper.FromJson<ZLMediaKitConfigForResponse>(str);
 
 
