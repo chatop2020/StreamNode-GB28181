@@ -557,6 +557,7 @@ CustomizedRecordFilePath::/home/cdtnb; //自定义存储视频的位置
 - ffmpeg 4.2.2以上
 - ffmpeg 需要放在StreamNodeWebApi和StreamMediaServerKeeper的部署目录中
 ## 启动
+- mysql中创建一个名为“straemnode”的数据库，要和StreamNodeWebApi/system.conf中db行指定的一致，字符集请使用utf-8
 - StreamNodeWebApi 全局只启动一份
 - 部署目录中手工创建一个log文件夹
 ~~~shell
