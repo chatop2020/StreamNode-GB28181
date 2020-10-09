@@ -332,7 +332,7 @@ namespace StreamNodeWebApi.AutoTasker
                                         if (camera != null)
                                         {
                                             found = true;
-                                            break;
+                                            //break;
                                         }
                                     }
                                 }
@@ -392,7 +392,7 @@ namespace StreamNodeWebApi.AutoTasker
                                         if (camera != null)
                                         {
                                             found = true;
-                                            break;
+                                            //break;
                                         }
                                     }
                                 }
