@@ -110,7 +110,7 @@
 - 此操作是一个耗时操作，因此采用异步回调的方式来获取任务结果，调用方需提供一个WebApi接口来接受任务结果
 - 可能因为某些原因造成回调时调用方的WebApi不可用，导致任务结果未收到的情况，系统提供任务状态查询接口供调用方查询，此接口同样适用于任务进度的追踪（StreamMediaServerKeeper被重启后所有之前的任务结果会被清空，因为StreamMediaServerKeeper没有数据库持久保存这些数据）
 
-## 修改ZLMediaKit的部分代码（ZLMediaKit作者将在近期将以下修改代码直接合并到自己的主分支上，后续将不需要再修改ZLmediaKit的代码了）
+## 修改ZLMediaKit的部分代码（ZLMediaKit官方已经在2020-10-09日合并了我的pr,使用2020-10-09以后ZLMeidakit代码生成的可的行文件就不需要再做以下代码修改了）
 - /src/Common/config.cpp
 ~~~c++
 namespace mediakit {
