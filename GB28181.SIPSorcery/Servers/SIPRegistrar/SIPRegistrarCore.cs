@@ -79,7 +79,7 @@ namespace GB28181.Servers
         private const int MAX_PROCESS_REGISTER_SLEEP = 10000;
         private const string REGISTRAR_THREAD_NAME_PREFIX = "sipregistrar-core";
 
-      //  private static ILog logger = AppState.GetLogger("sipregistrar");
+        //  private static ILog logger = AppState.GetLogger("sipregistrar");
 
         //最小的注册有效期，30秒
         public const int MINIMUM_EXPIRY_SECONDS = 30;
@@ -170,7 +170,8 @@ namespace GB28181.Servers
                     }
                     else if (requestedExpiry > 0 && requestedExpiry < m_minimumBindingExpiry)
                     {
-                        Logger.Logger.Debug("Bad register request, no expiry of " + requestedExpiry + " to small from " +
+                        Logger.Logger.Debug("Bad register request, no expiry of " + requestedExpiry +
+                                            " to small from " +
                                             remoteEndPoint + ".");
                         SIPResponse tooFrequentResponse = GetErrorResponse(registerRequest,
                             SIPResponseStatusCodesEnum.IntervalTooBrief, null);
@@ -204,7 +205,8 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception AddRegisterRequest (" + remoteEndPoint.ToString() + "). ->" + excp.Message);
+                Logger.Logger.Error("Exception AddRegisterRequest (" + remoteEndPoint.ToString() + "). ->" +
+                                    excp.Message);
             }
         }
 
@@ -248,7 +250,7 @@ namespace GB28181.Servers
                         {
                             // This occurs when the queue is empty.
                             Logger.Logger.Error("InvalidOperationException ProcessRegisterRequest Register Job. ->" +
-                                               invalidOpExcp.Message);
+                                                invalidOpExcp.Message);
                         }
                         catch (Exception regExcp)
                         {
@@ -265,7 +267,8 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception ProcessRegisterRequest (" + Thread.CurrentThread.Name + "). ->" + excp.Message);
+                Logger.Logger.Error("Exception ProcessRegisterRequest (" + Thread.CurrentThread.Name + "). ->" +
+                                    excp.Message);
             }
         }
 

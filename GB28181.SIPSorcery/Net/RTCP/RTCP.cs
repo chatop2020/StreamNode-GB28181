@@ -266,7 +266,7 @@ namespace GB28181.Net
             "syncsrc={0}, ts={1} ,te={2} , dur={3} ,seqs={4,-5:S} ,seqe={5,-5:S} ,pkttot={6,-3:S} ,jitmax={7,-3:S}, jitavg={8,-4:S} " +
             ",transit={9,-5:S} ,pktrate={10,-5:S} ,bytestot={11,-5:S} ,bw={12,-9:S} ,drops={13} ,jitdrops={14} ,duplicates={15} ,outoforder={16}";
 
-      //  private static ILog logger = LogManager.GetLogger("rtcp");
+        //  private static ILog logger = LogManager.GetLogger("rtcp");
 
         public int JitterBufferMilliseconds = 150; // The size of a the theoretical jitter buffer.
 
@@ -313,7 +313,8 @@ namespace GB28181.Net
             m_lastSampleTime = DateTime.Now;
 
             Logger.Logger.Debug("New RTCP report created for " + syncSource + " for stream from " +
-                                IPSocket.GetSocketString(remoteEndPoint) + ", start seq num=" + startSequenceNumber + ".");
+                                IPSocket.GetSocketString(remoteEndPoint) + ", start seq num=" + startSequenceNumber +
+                                ".");
             //resultsLogger.Info("StartTime,StartTimestamp,EndTime,EndTimestamp,Duration(ms),StartSeqNum,EndSeqNum,TotalPackets,TotalBytes,TransmissionRate(bps),Drops,Duplicates");
 
             RTPReceiveRecord measurement =
@@ -718,7 +719,8 @@ namespace GB28181.Net
         {
             try
             {
-                Logger.Logger.Debug("Shutting down RTCPReportSampler for syncsource= " + m_syncSource + " on stream from " +
+                Logger.Logger.Debug("Shutting down RTCPReportSampler for syncsource= " + m_syncSource +
+                                    " on stream from " +
                                     m_remoteEndPoint.ToString() + ".");
 
                 m_checkForSamples = false;

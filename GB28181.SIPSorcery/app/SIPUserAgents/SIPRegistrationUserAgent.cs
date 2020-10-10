@@ -40,7 +40,7 @@ namespace GB28181.App
             MAX_REGISTER_ATTEMPTS =
                 3; // The maximum number of registration attempts that will be made without a failure condition before incurring a temporary failure.
 
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         private static readonly string m_userAgent = SIPConstants.SIP_USERAGENT_STRING;
 
@@ -138,14 +138,16 @@ namespace GB28181.App
 
                     if (!m_exit && m_isRegistered)
                     {
-                        Logger.Logger.Debug("SIPRegistrationUserAgent was successful, scheduling next registration to " +
-                                            m_sipAccountAOR.ToString() + " in " + (m_expiry - REGISTRATION_HEAD_TIME) + "s.");
+                        Logger.Logger.Debug(
+                            "SIPRegistrationUserAgent was successful, scheduling next registration to " +
+                            m_sipAccountAOR.ToString() + " in " + (m_expiry - REGISTRATION_HEAD_TIME) + "s.");
                         Thread.Sleep((m_expiry - REGISTRATION_HEAD_TIME) * 1000);
                     }
                     else
                     {
-                        Logger.Logger.Debug("SIPRegistrationUserAgent temporarily failed, scheduling next registration to " +
-                                            m_sipAccountAOR.ToString() + " in " + REGISTER_FAILURERETRY_INTERVAL + "s.");
+                        Logger.Logger.Debug(
+                            "SIPRegistrationUserAgent temporarily failed, scheduling next registration to " +
+                            m_sipAccountAOR.ToString() + " in " + REGISTER_FAILURERETRY_INTERVAL + "s.");
                         Thread.Sleep(REGISTER_FAILURERETRY_INTERVAL * 1000);
                     }
                 }
@@ -377,7 +379,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPRegistrationUserAgent ServerResponseReceived (" + remoteEndPoint + "). ->" +
+                Logger.Logger.Error("Exception SIPRegistrationUserAgent ServerResponseReceived (" + remoteEndPoint +
+                                    "). ->" +
                                     excp.Message);
             }
         }

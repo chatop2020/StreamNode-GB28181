@@ -42,7 +42,7 @@ namespace GB28181.App
 
         private static readonly string m_filterTextType = SIPMIMETypes.MWI_TEXT_TYPE;
 
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         private SIPTransport m_sipTransport;
         private SIPEndPoint m_outboundProxy;
@@ -112,7 +112,8 @@ namespace GB28181.App
             {
                 if (!m_exit)
                 {
-                    Logger.Logger.Debug("Stopping SIP notifier user agent for user " + m_authUsername + " and resource URI " +
+                    Logger.Logger.Debug("Stopping SIP notifier user agent for user " + m_authUsername +
+                                        " and resource URI " +
                                         m_resourceURI.ToString() + ".");
 
                     m_exit = true;
@@ -188,7 +189,8 @@ namespace GB28181.App
         {
             try
             {
-                Logger.Logger.Debug("SIPNotifierClient starting for " + m_resourceURI.ToString() + " and event package " +
+                Logger.Logger.Debug("SIPNotifierClient starting for " + m_resourceURI.ToString() +
+                                    " and event package " +
                                     m_sipEventPackage.ToString() + ".");
 
                 while (!m_exit)

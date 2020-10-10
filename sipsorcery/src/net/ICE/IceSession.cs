@@ -340,7 +340,7 @@ namespace SIPSorcery.Net
         /// </summary>
         private const int N = 5;
 
-        private static readonly ILogger logger = Log.Logger;
+        //private static readonly ILogger logger = Log.Logger;
 
         private RTPChannel _rtpChannel;
         private IPAddress _remoteSignallingAddress;
@@ -530,14 +530,14 @@ namespace SIPSorcery.Net
 
                 if (_candidates == null || _candidates.Count == 0)
                 {
-                    logger.LogWarning("ICE session did not discover any host candidates no point continuing.");
+                    Logger.Logger.Warn("ICE session did not discover any host candidates no point continuing.");
                     OnIceCandidateError?.Invoke();
                     OnIceConnectionStateChange?.Invoke(RTCIceConnectionState.failed);
                     OnIceConnectionStateChange(RTCIceConnectionState.failed);
                 }
                 else
                 {
-                    logger.LogDebug($"ICE session discovered {_candidates.Count} local candidates.");
+                    Logger.Logger.Debug($"ICE session discovered {_candidates.Count} local candidates.");
 
                     if (_iceServers != null)
                     {
@@ -558,7 +558,7 @@ namespace SIPSorcery.Net
         /// <param name="password">The remote peer's ICE password.</param>
         public void SetRemoteCredentials(string username, string password)
         {
-            logger.LogDebug("ICE session remote credentials set.");
+            Logger.Logger.Debug("ICE session remote credentials set.");
 
             RemoteIceUser = username;
             RemoteIcePassword = password;
@@ -592,43 +592,43 @@ namespace SIPSorcery.Net
             {
                 // Note that the way ICE signals the end of the gathering stage is to send
                 // an empty candidate or "end-of-candidates" SDP attribute.
-                logger.LogWarning($"ICE session omitting empty remote candidate.");
+                Logger.Logger.Warn($"ICE session omitting empty remote candidate.");
             }
             else if (candidate.component != Component)
             {
                 // This occurs if the remote party made an offer and assumed we couldn't multiplex the audio and video streams.
                 // It will offer the same ICE candidates separately for the audio and video announcements.
-                logger.LogWarning($"ICE session omitting remote candidate with unsupported component: {candidate}.");
+                Logger.Logger.Warn($"ICE session omitting remote candidate with unsupported component: {candidate}.");
             }
             else if (candidate.protocol != RTCIceProtocol.udp)
             {
                 // This implementation currently only supports UDP for RTP communications.
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"ICE session omitting remote candidate with unsupported transport protocol: {candidate.protocol}.");
             }
             else if (candidate.address.Trim().ToLower().EndsWith(MDNS_TLD))
             {
                 // Supporting MDNS lookups means an additional nuget dependency. Hopefully
                 // support is coming to .Net Core soon (AC 12 Jun 2020).
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"ICE session omitting remote candidate with unsupported MDNS hostname: {candidate.address}");
             }
             else if (IPAddress.TryParse(candidate.address, out var addr) &&
                      (IPAddress.Any.Equals(addr) || IPAddress.IPv6Any.Equals(addr)))
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"ICE session omitting remote candidate with wildcard IP address: {candidate.address}");
             }
             else if (candidate.port <= 0 || candidate.port > IPEndPoint.MaxPort)
             {
-                logger.LogWarning($"ICE session omitting remote candidate with invalid port: {candidate.port}");
+                Logger.Logger.Warn($"ICE session omitting remote candidate with invalid port: {candidate.port}");
             }
             else
             {
                 // Have a remote candidate. Connectivity checks can start. Note because we support ICE trickle
                 // we may also still be gathering candidates. Connectivity checks and gathering can be done in parallel.
 
-                logger.LogDebug($"ICE session received remote candidate: {candidate}");
+                Logger.Logger.Debug($"ICE session received remote candidate: {candidate}");
 
                 _remoteCandidates.Add(candidate);
                 _pendingRemoteCandidates.Enqueue(candidate);
@@ -781,24 +781,25 @@ namespace SIPSorcery.Net
                         {
                             if (!_iceServerConnections.ContainsKey(stunUri))
                             {
-                                logger.LogDebug($"Adding ICE server to connection checks {stunUri}.");
+                                Logger.Logger.Debug($"Adding ICE server to connection checks {stunUri}.");
 
                                 var iceServerState = new IceServerConnectionState(stunUri, iceServer.username,
                                     iceServer.credential);
                                 _iceServerConnections.TryAdd(stunUri, iceServerState);
 
-                                logger.LogDebug($"Attempting to resolve STUN server URI {stunUri}.");
+                                Logger.Logger.Debug($"Attempting to resolve STUN server URI {stunUri}.");
 
                                 STUNDns.Resolve(stunUri).ContinueWith(x =>
                                 {
                                     if (x.Result != null)
                                     {
-                                        logger.LogDebug($"ICE server {stunUri} successfully resolved to {x.Result}.");
+                                        Logger.Logger.Debug(
+                                            $"ICE server {stunUri} successfully resolved to {x.Result}.");
                                         iceServerState.ServerEndPoint = x.Result;
                                     }
                                     else
                                     {
-                                        logger.LogWarning($"Unable to resolve ICE server end point for {stunUri}.");
+                                        Logger.Logger.Warn($"Unable to resolve ICE server end point for {stunUri}.");
                                         iceServerState.Error = SocketError.HostNotFound;
                                     }
                                 });
@@ -806,7 +807,7 @@ namespace SIPSorcery.Net
                         }
                         else
                         {
-                            logger.LogWarning($"ICE session could not parse ICE server URL {url}.");
+                            Logger.Logger.Warn($"ICE session could not parse ICE server URL {url}.");
                         }
                     }
                 }
@@ -824,7 +825,7 @@ namespace SIPSorcery.Net
                 if (_iceServerConnections.Count(x =>
                     x.Value.Error == SocketError.Success && x.Value.Candidate == null) == 0)
                 {
-                    logger.LogDebug(
+                    Logger.Logger.Debug(
                         "ICE session there are no ICE servers left to check, closing check ICE servers timer.");
                     _processIceServersTimer.Dispose();
                 }
@@ -846,7 +847,7 @@ namespace SIPSorcery.Net
                             if (iceServerState.LastResponseReceivedAt == DateTime.MinValue &&
                                 iceServerState.RequestsSent >= IceServerConnectionState.MAX_REQUESTS)
                             {
-                                logger.LogWarning(
+                                Logger.Logger.Warn(
                                     $"Connection attempt to ICE server {iceServerState._uri} timed out after {iceServerState.RequestsSent} requests.");
                                 iceServerState.Error = SocketError.TimedOut;
                             }
@@ -866,7 +867,7 @@ namespace SIPSorcery.Net
 
                                 if (sendResult != SocketError.Success)
                                 {
-                                    logger.LogWarning(
+                                    Logger.Logger.Warn(
                                         $"Error sending STUN server binding request {iceServerState.RequestsSent} for " +
                                         $"{iceServerState._uri} to {iceServerState.ServerEndPoint}. {sendResult}.");
 
@@ -908,12 +909,12 @@ namespace SIPSorcery.Net
                 if (lookupResult.Answers.Count > 0)
                 {
                     remoteCandidateIPAddr = lookupResult.Answers.AddressRecords().FirstOrDefault()?.Address;
-                    logger.LogDebug(
+                    Logger.Logger.Debug(
                         $"ICE session resolved remote candidate {remoteCandidate.address} to {remoteCandidateIPAddr}.");
                 }
                 else
                 {
-                    logger.LogDebug($"ICE session failed to resolve remote candidate {remoteCandidate.address}.");
+                    Logger.Logger.Debug($"ICE session failed to resolve remote candidate {remoteCandidate.address}.");
                 }
             }
 
@@ -981,21 +982,21 @@ namespace SIPSorcery.Net
             {
                 if (entry.Priority > existingEntry.Priority)
                 {
-                    logger.LogDebug(
+                    Logger.Logger.Debug(
                         $"Removing lower priority entry and adding candidate pair to checklist for: {entry.RemoteCandidate}");
                     _checklist.Remove(existingEntry);
                     _checklist.Add(entry);
                 }
                 else
                 {
-                    logger.LogDebug(
+                    Logger.Logger.Debug(
                         $"Existing checklist entry has higher priority, NOT adding entry for: {entry.RemoteCandidate}");
                 }
             }
             else
             {
                 // No existing entry.
-                logger.LogDebug($"Adding new candidate pair to checklist for: {entry.RemoteCandidate}");
+                Logger.Logger.Debug($"Adding new candidate pair to checklist for: {entry.RemoteCandidate}");
                 _checklist.Add(entry);
             }
         }
@@ -1026,7 +1027,7 @@ namespace SIPSorcery.Net
                 {
                     if (RemoteIceUser == null || RemoteIcePassword == null)
                     {
-                        logger.LogWarning(
+                        Logger.Logger.Warn(
                             "ICE session checklist processing cannot occur as either the remote ICE user or password are not set.");
                         ConnectionState = RTCIceConnectionState.failed;
                     }
@@ -1045,7 +1046,7 @@ namespace SIPSorcery.Net
 
                             foreach (var failedEntry in failedEntries)
                             {
-                                logger.LogDebug(
+                                Logger.Logger.Debug(
                                     $"Checks for checklist entry have timed out, state being set to failed: {failedEntry.LocalCandidate} -> {failedEntry.RemoteCandidate}.");
                                 failedEntry.State = ChecklistEntryState.Failed;
                             }
@@ -1116,7 +1117,7 @@ namespace SIPSorcery.Net
 
             IPEndPoint remoteEndPoint = candidatePair.RemoteCandidate.DestinationEndPoint;
 
-            logger.LogDebug(
+            Logger.Logger.Debug(
                 $"Sending ICE connectivity check from {_rtpChannel.RTPLocalEndPoint} to {remoteEndPoint} (use candidate {setUseCandidate}).");
 
             STUNMessage stunRequest = new STUNMessage(STUNMessageTypesEnum.BindingRequest);
@@ -1197,7 +1198,7 @@ namespace SIPSorcery.Net
                             peerRflxCandidate.SetAddressProperties(RTCIceProtocol.udp, remoteEndPoint.Address,
                                 (ushort) remoteEndPoint.Port, RTCIceCandidateType.prflx, null, 0);
                             peerRflxCandidate.SetDestinationEndPoint(remoteEndPoint);
-                            logger.LogDebug($"Adding peer reflex ICE candidate for {remoteEndPoint}.");
+                            Logger.Logger.Debug($"Adding peer reflex ICE candidate for {remoteEndPoint}.");
                             _remoteCandidates.Add(peerRflxCandidate);
 
                             // Add a new entry to the check list for the new peer reflexive candidate.
@@ -1221,7 +1222,7 @@ namespace SIPSorcery.Net
 
                         if (matchingChecklistEntry == null)
                         {
-                            logger.LogWarning(
+                            Logger.Logger.Warn(
                                 "ICE session STUN request matched a remote candidate but NOT a checklist entry.");
                         }
 
@@ -1237,12 +1238,12 @@ namespace SIPSorcery.Net
 
                                 if (matchingChecklistEntry == null)
                                 {
-                                    logger.LogWarning(
+                                    Logger.Logger.Warn(
                                         "ICE session STUN request had UseCandidate set but no matching checklist entry was found.");
                                 }
                                 else
                                 {
-                                    logger.LogDebug(
+                                    Logger.Logger.Debug(
                                         $"ICE session remote peer nominated entry from binding request: {matchingChecklistEntry.RemoteCandidate}");
                                     SetNominatedEntry(matchingChecklistEntry);
                                 }
@@ -1291,7 +1292,7 @@ namespace SIPSorcery.Net
 
                         if (matchingChecklistEntry == null)
                         {
-                            logger.LogWarning(
+                            Logger.Logger.Warn(
                                 "ICE session STUN response transaction ID did not match a checklist entry.");
                         }
                         else
@@ -1300,7 +1301,7 @@ namespace SIPSorcery.Net
 
                             if (matchingChecklistEntry.Nominated)
                             {
-                                logger.LogDebug(
+                                Logger.Logger.Debug(
                                     $"ICE session remote peer nominated entry from binding response: {matchingChecklistEntry.RemoteCandidate}");
 
                                 // This is the response to a connectivity check that had the "UseCandidate" attribute set.
@@ -1327,7 +1328,7 @@ namespace SIPSorcery.Net
                 {
                     #region STUN Binding Error Responses
 
-                    logger.LogWarning($"A STUN binding error response was received from {remoteEndPoint}.");
+                    Logger.Logger.Warn($"A STUN binding error response was received from {remoteEndPoint}.");
 
                     // Attempt to find the checklist entry for this transaction ID.
                     string txID = Encoding.ASCII.GetString(stunMessage.Header.TransactionId);
@@ -1341,12 +1342,12 @@ namespace SIPSorcery.Net
 
                     if (matchingChecklistEntry == null)
                     {
-                        logger.LogWarning(
+                        Logger.Logger.Warn(
                             "ICE session STUN error response transaction ID did not match a checklist entry.");
                     }
                     else
                     {
-                        logger.LogWarning(
+                        Logger.Logger.Warn(
                             $"ICE session check list entry set to failed: {matchingChecklistEntry.RemoteCandidate}");
                         matchingChecklistEntry.State = ChecklistEntryState.Failed;
                     }
@@ -1355,7 +1356,7 @@ namespace SIPSorcery.Net
                 }
                 else
                 {
-                    logger.LogWarning($"An unrecognised STUN request was received from {remoteEndPoint}.");
+                    Logger.Logger.Warn($"An unrecognised STUN request was received from {remoteEndPoint}.");
                 }
             }
         }
@@ -1409,7 +1410,7 @@ namespace SIPSorcery.Net
                 // If the candidate is set then this connection check has already been completed.
                 if (iceServerConnection.Candidate == null)
                 {
-                    logger.LogDebug(
+                    Logger.Logger.Debug(
                         $"STUN binding success response received for ICE server check to {iceServerConnection._uri}.");
 
                     var mappedAddr = stunResponse.Attributes
@@ -1427,7 +1428,7 @@ namespace SIPSorcery.Net
                             RTCIceCandidateType.srflx, NetServices.InternetDefaultAddress,
                             (ushort) _rtpChannel.RTPPort);
                         svrRflxCandidate.IceServerUri = iceServerConnection._uri;
-                        logger.LogDebug(
+                        Logger.Logger.Debug(
                             $"Adding server reflex ICE candidate for ICE server {iceServerConnection._uri}.");
 
                         // Note server reflexive candidates don't update the checklist pairs since it's merely an
@@ -1442,7 +1443,7 @@ namespace SIPSorcery.Net
             }
             else if (stunResponse.Header.MessageType == STUNMessageTypesEnum.BindingErrorResponse)
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"STUN binding error response received for ICE server check to {iceServerConnection._uri}.");
                 // The STUN response is for a check sent to an ICE server.
                 iceServerConnection.LastResponseReceivedAt = DateTime.Now;
@@ -1450,7 +1451,7 @@ namespace SIPSorcery.Net
             }
             else
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"An unrecognised STUN message for an ICE server check was received from {remoteEndPoint}.");
             }
         }

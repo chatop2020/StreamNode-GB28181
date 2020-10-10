@@ -141,8 +141,9 @@ namespace GB28181
                             case SIPProtocolsEnum.tls:
                                 if (sipSocketNode.Attributes.GetNamedItem(CERTIFICATE_PATH_PARAMETER) == null)
                                 {
-                                    Logger.Logger.Warn("Could not create SIPTLSChannel from XML configuration node as no " +
-                                                       CERTIFICATE_PATH_PARAMETER + " attribute was present.");
+                                    Logger.Logger.Warn(
+                                        "Could not create SIPTLSChannel from XML configuration node as no " +
+                                        CERTIFICATE_PATH_PARAMETER + " attribute was present.");
                                 }
                                 else
                                 {
@@ -188,8 +189,9 @@ namespace GB28181
                     }
                     catch (Exception excp)
                     {
-                        Logger.Logger.Error("Exception SIPTransportConfig Adding SIP Channel for " + sipEndPoint + ". ->" +
-                                           excp.Message);
+                        Logger.Logger.Error("Exception SIPTransportConfig Adding SIP Channel for " + sipEndPoint +
+                                            ". ->" +
+                                            excp.Message);
                     }
                 }
             }

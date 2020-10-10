@@ -49,7 +49,7 @@ namespace GB28181.Net
         private const string DEFAULT_TRANSPORT_SPECIFIER = "RTP/AVP/UDP";
         private const string DEFAULT_BROADCAST_TYPE = "unicast";
 
-     //   private static ILog logger = AppState.logger;
+        //   private static ILog logger = AppState.logger;
 
         public string RawHeader;
 
@@ -236,7 +236,7 @@ namespace GB28181.Net
     {
         private static string m_CRLF = RTSPConstants.CRLF;
 
-      //  private static ILog logger = AssemblyStreamState.logger;
+        //  private static ILog logger = AssemblyStreamState.logger;
 
         private static char[] delimiterChars = new char[] {':'};
 
@@ -376,7 +376,8 @@ namespace GB28181.Net
                             if (headerValue == null || headerValue.Trim().Length == 0)
                             {
                                 rtspHeader.CSeqParserError = RTSPHeaderParserError.CSeqEmpty;
-                                Logger.Logger.Warn("Invalid RTSP header, the " + RTSPHeaders.RTSP_HEADER_CSEQ + " was empty.");
+                                Logger.Logger.Warn("Invalid RTSP header, the " + RTSPHeaders.RTSP_HEADER_CSEQ +
+                                                   " was empty.");
                             }
                             else if (!Int32.TryParse(headerValue.Trim(), out rtspHeader.CSeq))
                             {

@@ -40,7 +40,7 @@ namespace SIPSorcery.SIP
             m_sipMessageDelimiter =
                 SIPConstants.CRLF + SIPConstants.CRLF; // The delimiting character sequence for messages in a stream.
 
-        private static ILogger logger = Log.Logger;
+        //  private static ILogger logger = Log.Logger;
 
         public string RawMessage;
         public SIPMessageTypesEnum SIPMessageType = SIPMessageTypesEnum.Unknown;
@@ -102,7 +102,7 @@ namespace SIPSorcery.SIP
             {
                 message = message.Replace("\n", "LF");
                 message = message.Replace("\r", "CR");
-                logger.LogError("Exception ParseSIPMessage. " + excp.Message + "\nSIP Message=" + message + ".");
+                Logger.Logger.Error("Exception ParseSIPMessage. ->" + excp.Message + "->SIP Message=" + message + ".");
                 return null;
             }
         }
@@ -169,14 +169,14 @@ namespace SIPSorcery.SIP
                 }
                 else
                 {
-                    logger.LogWarning(
+                    Logger.Logger.Warn(
                         "Error ParseSIPMessage, there were no end of line characters in the string being parsed.");
                     return null;
                 }
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception ParseSIPMessage. " + excp.Message + "\nSIP Message=" + message + ".");
+                Logger.Logger.Error("Exception ParseSIPMessage. ->" + excp.Message + "->SIP Message=" + message + ".");
                 return null;
             }
         }

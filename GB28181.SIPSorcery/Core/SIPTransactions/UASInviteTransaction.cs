@@ -126,7 +126,8 @@ namespace GB28181
             {
                 if (TransactionState == SIPTransactionStatesEnum.Terminated)
                 {
-                    Logger.Logger.Debug("Request received by UASInviteTransaction for a terminated transaction, ignoring.");
+                    Logger.Logger.Debug(
+                        "Request received by UASInviteTransaction for a terminated transaction, ignoring.");
                 }
                 else if (sipRequest.Method != SIPMethodsEnum.INVITE)
                 {
@@ -221,7 +222,8 @@ namespace GB28181
                 else
                 {
                     Logger.Logger.Warn("A request was made to cancel transaction " + TransactionId +
-                                       " that was not in the calling, trying or proceeding states, state=" + TransactionState +
+                                       " that was not in the calling, trying or proceeding states, state=" +
+                                       TransactionState +
                                        ".");
                 }
 

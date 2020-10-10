@@ -54,7 +54,7 @@ namespace GB28181.Servers
 
     public class SIPUserAgentConfigurationManager
     {
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         private int m_defaultMaxExpiry = SIPUserAgentConfiguration.DEFAULT_MAX_EXPIRY_SECONDS;
         private bool m_defaultContactListSupported = true;
@@ -108,7 +108,8 @@ namespace GB28181.Servers
                             !userAgentConfigs.ContainsKey(userAgentConfig.UserAgentRegex))
                         {
                             Logger.Logger.Debug("Added useragent config, useragent=" + userAgentConfig.UserAgentRegex +
-                                                ", expiry=" + userAgentConfig.MaxAllowedExpiryTime + "s, contact lists=" +
+                                                ", expiry=" + userAgentConfig.MaxAllowedExpiryTime +
+                                                "s, contact lists=" +
                                                 userAgentConfig.ContactListSupported + ".");
                             userAgentConfigs.Add(userAgentConfig.UserAgentRegex, userAgentConfig);
                         }

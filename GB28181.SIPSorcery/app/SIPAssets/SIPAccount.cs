@@ -651,8 +651,8 @@ namespace GB28181.App
                 else
                 {
                     //logger.Warn("The XML supplied to LoadAssetsFromXMLRecordSet for asset type " + (new T()).GetType().ToString() + " did not contain any assets.");
-                   Logger.Logger.Debug("No" + (new SIPAccount()).GetType().ToString() +
-                                       " assets loaded from XML record set.");
+                    Logger.Logger.Debug("No" + (new SIPAccount()).GetType().ToString() +
+                                        " assets loaded from XML record set.");
                     /*logger.Debug("No" + (new SIPAccount()).GetType().ToString() +
                                  " assets loaded from XML record set.");*/
                 }
@@ -688,7 +688,7 @@ namespace GB28181.App
             catch (Exception excp)
             {
                 Logger.Logger.Error("Exception SIPAccount (ctor). ->" + excp);
-              //  logger.Error("Exception SIPAccount (ctor). " + excp);
+                //  logger.Error("Exception SIPAccount (ctor). " + excp);
                 throw excp;
             }
         }

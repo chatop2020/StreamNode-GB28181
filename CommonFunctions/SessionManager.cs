@@ -74,8 +74,7 @@ namespace CommonFunctions
                 }
                 catch (Exception ex)
                 {
-                    Logger.Logger.Error("Session管理线程启动异常...，系统退出->"+ ex.Message + "->" + ex.StackTrace);
-                   // LogWriter.WriteLog("Session管理线程启动异常...，系统退出", ex.Message + "\r\n" + ex.StackTrace);
+                    Logger.Logger.Error("Session管理线程启动异常...，系统退出->" + ex.Message + "->" + ex.StackTrace);
                     Common.KillSelf();
                 }
             })).Start();

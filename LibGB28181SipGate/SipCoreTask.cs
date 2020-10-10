@@ -114,7 +114,7 @@ namespace LibGB28181SipGate
             if (monitor.Value != null)
             {
                 var obj = monitor.Value;
-                var ret = obj.RealVideoReq(stid, out _callId, rtpServerIp, rtpPort,true, tcp);
+                var ret = obj.RealVideoReq(stid, out _callId, rtpServerIp, rtpPort, true, tcp);
                 var timeout = _autoResetEvent.WaitOne(5000);
                 if (!timeout)
                 {

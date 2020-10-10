@@ -39,7 +39,7 @@ namespace GB28181.Net
 
         private const int BANDWIDTH_CALCULATION_SECONDS = 5; // The interval at which to do bandwidth calculations.
 
-     //   private static ILog logger = AssemblyStreamState.logger;
+        //   private static ILog logger = AssemblyStreamState.logger;
 
         private string _url;
         private int _cseq = 1;
@@ -125,7 +125,8 @@ namespace GB28181.Net
                     if (rtspMessage.RTSPMessageType == RTSPMessageTypesEnum.Response)
                     {
                         rtspResponse = RTSPResponse.ParseRTSPResponse(rtspMessage);
-                        Logger.Logger.Debug("RTSP Response received: " + rtspResponse.StatusCode + " " + rtspResponse.Status +
+                        Logger.Logger.Debug("RTSP Response received: " + rtspResponse.StatusCode + " " +
+                                            rtspResponse.Status +
                                             " " + rtspResponse.ReasonPhrase + ".");
                     }
 
@@ -213,7 +214,8 @@ namespace GB28181.Net
                                 setupResponse.Header.Transport.GetServerRTPPort());
                             _rtspSession.Start();
 
-                            Logger.Logger.Debug("RTSP Response received to SETUP: " + setupResponse.Status + ", session ID " +
+                            Logger.Logger.Debug("RTSP Response received to SETUP: " + setupResponse.Status +
+                                                ", session ID " +
                                                 _rtspSession.SessionID + ", server RTP endpoint " +
                                                 _rtspSession.RemoteEndPoint + ".");
 
@@ -320,7 +322,8 @@ namespace GB28181.Net
                 }
                 else
                 {
-                    Logger.Logger.Debug("RTSP client did not send teardown request for " + _url + ", the socket was closed.");
+                    Logger.Logger.Debug("RTSP client did not send teardown request for " + _url +
+                                        ", the socket was closed.");
                 }
             }
             catch (Exception excp)
@@ -472,7 +475,8 @@ namespace GB28181.Net
                                     {
                                         Debug.WriteLine(
                                             "Discarding old frame for timestamp " + oldFrame.Timestamp + ".");
-                                        Logger.Logger.Warn("Discarding old frame for timestamp " + oldFrame.Timestamp + ".");
+                                        Logger.Logger.Warn("Discarding old frame for timestamp " + oldFrame.Timestamp +
+                                                           ".");
                                         _frames.Remove(oldFrame);
                                     }
 
@@ -493,8 +497,9 @@ namespace GB28181.Net
                                         }
                                         catch (Exception frameReadyExcp)
                                         {
-                                            Logger.Logger.Error("Exception RTSPClient.ProcessRTPPackets OnFrameReady. ->" +
-                                                                frameReadyExcp);
+                                            Logger.Logger.Error(
+                                                "Exception RTSPClient.ProcessRTPPackets OnFrameReady. ->" +
+                                                frameReadyExcp);
                                         }
                                     }
                                 }
@@ -504,7 +509,8 @@ namespace GB28181.Net
 
                     if (DateTime.Now.Subtract(_lastRTPReceivedAt).TotalSeconds > RTP_TIMEOUT_SECONDS)
                     {
-                        Logger.Logger.Warn("No RTP packets were received on RTSP session " + _rtspSession.SessionID + " for " +
+                        Logger.Logger.Warn("No RTP packets were received on RTSP session " + _rtspSession.SessionID +
+                                           " for " +
                                            RTP_TIMEOUT_SECONDS + ". The session will now be closed.");
                         Close();
                     }

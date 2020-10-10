@@ -23,7 +23,7 @@ namespace GB28181.Sys
 
     public class StorageTypesConverter
     {
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         public static StorageTypes GetStorageType(string storageType)
         {

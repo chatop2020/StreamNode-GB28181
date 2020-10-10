@@ -94,5 +94,4 @@ namespace CommonFunctions.WebApiStructs.Request
             set => _enablePtz = value;
         }
     }
-    
 }

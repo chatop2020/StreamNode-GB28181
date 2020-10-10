@@ -105,7 +105,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPMonitorMachineEvent ParseEventCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorMachineEvent ParseEventCSV. ->" + excp.Message);
                 return null;
             }
         }
@@ -135,7 +135,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPMonitorMachineEvent ToCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorMachineEvent ToCSV. ->" + excp.Message);
                 return null;
             }
         }
@@ -175,7 +175,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPMonitorMachineEvent ToAnonymousCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorMachineEvent ToAnonymousCSV. ->" + excp.Message);
                 return null;
             }
         }

@@ -34,7 +34,7 @@ namespace CommonFunctions.DBStructs
         private DateTime? _createTime;
         private DateTime? _updateTime;
         private int? _retryTimes;
-        private bool? _activated;//当有sip设备注册时，自动进入到数据库，但activated为false
+        private bool? _activated; //当有sip设备注册时，自动进入到数据库，但activated为false
 
 
         [Column(IsPrimary = true, IsIdentity = true)]
@@ -174,6 +174,5 @@ namespace CommonFunctions.DBStructs
             get => _retryTimes;
             set => _retryTimes = value;
         }
-        
     }
 }

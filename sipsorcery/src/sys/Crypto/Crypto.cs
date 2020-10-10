@@ -31,7 +31,7 @@ namespace SIPSorcery.Sys
         public const int AES_IV_SIZE = 16;
         private const string CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        private static ILogger logger = Log.Logger;
+        //private static ILogger logger = Log.Logger;
 
         private static Random _rng = new Random();
         private static RNGCryptoServiceProvider m_randomProvider = new RNGCryptoServiceProvider();
@@ -51,7 +51,7 @@ namespace SIPSorcery.Sys
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception RSAEncrypt. " + excp.Message);
+                Logger.Logger.Error("Exception RSAEncrypt. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -71,7 +71,7 @@ namespace SIPSorcery.Sys
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception RSADecrypt. " + excp.Message);
+                Logger.Logger.Error("Exception RSADecrypt. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -314,7 +314,7 @@ namespace SIPSorcery.Sys
             // Check that the file exists.
             if (!File.Exists(filepath))
             {
-                logger.LogError("Cannot open a non-existent file for a hash operation, " + filepath + ".");
+                Logger.Logger.Error("Cannot open a non-existent file for a hash operation, " + filepath + ".");
                 throw new IOException("Cannot open a non-existent file for a hash operation, " + filepath + ".");
             }
 
@@ -324,7 +324,7 @@ namespace SIPSorcery.Sys
             if (inputStream.Length == 0)
             {
                 inputStream.Close();
-                logger.LogError("Cannot perform a hash operation on an empty file, " + filepath + ".");
+                Logger.Logger.Error("Cannot perform a hash operation on an empty file, " + filepath + ".");
                 throw new IOException("Cannot perform a hash operation on an empty file, " + filepath + ".");
             }
 
@@ -397,7 +397,7 @@ namespace SIPSorcery.Sys
             bool checkValidity)
         {
             X509Store store = new X509Store(storeLocation);
-            logger.LogDebug("Certificate store " + store.Location + " opened");
+            Logger.Logger.Debug("Certificate store " + store.Location + " opened");
             store.Open(OpenFlags.OpenExistingOnly);
             X509Certificate2Collection collection =
                 store.Certificates.Find(X509FindType.FindBySubjectName, certificateSubject, checkValidity);
@@ -405,14 +405,14 @@ namespace SIPSorcery.Sys
             {
                 X509Certificate2 serverCertificate = collection[0];
                 bool verifyCert = serverCertificate.Verify();
-                logger.LogDebug("X509 certificate loaded from current user store, subject=" +
-                                serverCertificate.Subject + ", valid=" + verifyCert + ".");
+                Logger.Logger.Debug("X509 certificate loaded from current user store, subject=" +
+                                    serverCertificate.Subject + ", valid=" + verifyCert + ".");
                 return serverCertificate;
             }
             else
             {
-                logger.LogWarning("X509 certificate with subject name=" + certificateSubject + ", not found in " +
-                                  store.Location + " store.");
+                Logger.Logger.Warn("X509 certificate with subject name=" + certificateSubject + ", not found in " +
+                                   store.Location + " store.");
                 return null;
             }
         }

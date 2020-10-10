@@ -186,7 +186,7 @@ namespace GB28181.App
         public const string SERIALISATION_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss.ffffff zzz";
         public const string END_MESSAGE_DELIMITER = "##";
 
-       // protected static ILog logger = AppState.logger;
+        // protected static ILog logger = AppState.logger;
 
         protected string
             m_serialisationPrefix = SIPMonitorConsoleEvent.SERIALISATION_PREFIX; // Default to a control client event.
@@ -234,10 +234,11 @@ namespace GB28181.App
             }
             else
             {
-               // logger.Warn("The monitor event prefix of " + eventCSV.Trim().Substring(0, 1) + " was not recognised. " +
+                // logger.Warn("The monitor event prefix of " + eventCSV.Trim().Substring(0, 1) + " was not recognised. " +
                 //            eventCSV);
-                Logger.Logger.Warn("The monitor event prefix of " + eventCSV.Trim().Substring(0, 1) + " was not recognised. " +
-                           eventCSV);
+                Logger.Logger.Warn("The monitor event prefix of " + eventCSV.Trim().Substring(0, 1) +
+                                   " was not recognised. " +
+                                   eventCSV);
                 return null;
             }
         }

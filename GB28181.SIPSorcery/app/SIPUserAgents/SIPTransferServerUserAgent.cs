@@ -23,7 +23,7 @@ namespace GB28181.App
     /// </summary>
     public class SIPTransferServerUserAgent : ISIPServerUserAgent
     {
-     //   private static ILog logger = AppState.logger;
+        //   private static ILog logger = AppState.logger;
 
         public SIPCallDirection CallDirection
         {
@@ -181,7 +181,8 @@ namespace GB28181.App
 
         public void Reject(SIPResponseStatusCodesEnum failureStatus, string reasonPhrase, string[] customHeaders)
         {
-            Logger.Logger.Warn("SIPTransferServerUserAgent Reject called with " + failureStatus + " " + reasonPhrase + ".");
+            Logger.Logger.Warn("SIPTransferServerUserAgent Reject called with " + failureStatus + " " + reasonPhrase +
+                               ".");
 
             UASStateChanged?.Invoke(this, failureStatus, reasonPhrase);
         }

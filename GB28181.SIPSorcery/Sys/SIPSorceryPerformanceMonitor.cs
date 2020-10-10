@@ -78,7 +78,7 @@ namespace GB28181.Sys
         public const string REGISTRATION_AGENT_REGISTRATIONS_PER_SECOND =
             REGISTRATION_AGENT_PREFIX + "RegistrationsPerSecond";
 
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         private static bool m_sipsorceryCategoryReady = false;
 

@@ -44,7 +44,7 @@ namespace GB28181.App
         public const string XML_DOCUMENT_ELEMENT_NAME = "sipdomains";
         public const string XML_ELEMENT_NAME = "sipdomain";
 
-     //   private static ILog logger = AppState.logger;
+        //   private static ILog logger = AppState.logger;
         private static string m_newLine = AppState.NewLine;
 
         [DataMember]

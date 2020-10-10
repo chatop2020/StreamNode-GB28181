@@ -24,7 +24,7 @@ namespace GB28181.Sys
     {
         private const string THREAD_NAME = "udplistener-";
 
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         private IPEndPoint m_localEndPoint;
         private Guid m_socketId = Guid.NewGuid();

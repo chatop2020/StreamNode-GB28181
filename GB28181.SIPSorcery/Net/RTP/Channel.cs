@@ -80,7 +80,7 @@ namespace GB28181.Net.RTP
         protected const int
             RTP_PACKETS_MAX_QUEUE_LENGTH = 5000; // The maximum number of RTP packets that will be queued.
 
-      //  protected static ILog logger = AppState.logger;
+        //  protected static ILog logger = AppState.logger;
 
         protected int _receivePort;
         protected IPEndPoint _remoteEP;

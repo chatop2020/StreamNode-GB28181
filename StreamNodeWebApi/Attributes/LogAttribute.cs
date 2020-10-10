@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using CommonFunctions;
+using LibGB28181SipGate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
@@ -18,18 +19,19 @@ namespace StreamNodeWebApi
         /// <param name="context"></param>
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            string info=$@"StatusCode:{context.HttpContext.Response.StatusCode}";
-            string remoteIpAddr=context.HttpContext.Connection.RemoteIpAddress.ToString();
+            string info = $@"StatusCode:{context.HttpContext.Response.StatusCode}";
+            string remoteIpAddr = context.HttpContext.Connection.RemoteIpAddress.ToString();
             try
             {
-             
                 if (context.HttpContext.Response.StatusCode == (int) HttpStatusCode.OK)
                 {
                     if (!context.HttpContext.Request.Path.Equals("/WebHook/MediaServerRegister"))
                     {
                         info =
-                            $@"{info}  Body: {JsonConvert.SerializeObject(((context.Result as ObjectResult)!).Value)}";
-                        Logger.Logger.Debug($@"OUTPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} ->"+ info);
+                            $@"{info}  Body: {JsonHelper.ToJson(((context.Result as ObjectResult)!).Value)}";
+                        Logger.Logger.Debug(
+                            $@"OUTPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} ->" +
+                            info);
                         /*LogWebApiWriter.WriteWebApiLog(
                            c,
                             info,
@@ -37,9 +39,11 @@ namespace StreamNodeWebApi
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Logger.Logger.Error($@"OUTPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} ->"+info+" -> "+ex.Message+" -> "+ex.StackTrace);
+                Logger.Logger.Error(
+                    $@"OUTPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} ->" +
+                    info + " -> " + ex.Message + " -> " + ex.StackTrace);
             }
         }
 
@@ -56,29 +60,26 @@ namespace StreamNodeWebApi
                 {
                     if (!context.HttpContext.Request.Path.Equals("/WebHook/MediaServerRegister"))
                     {
-                        Logger.Logger.Debug($@"OUTPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} ->"+ $@"{JsonConvert.SerializeObject(context.ActionArguments)}");
-
-                        /*LogWebApiWriter.WriteWebApiLog(
-                            $@"INPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path}",
-                            $@"{JsonConvert.SerializeObject(context.ActionArguments)}", ConsoleColor.Gray);*/
+                        Logger.Logger.Debug(
+                            $@"INPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} ->" +
+                            $@"{JsonHelper.ToJson(context.ActionArguments)}");
                     }
                 }
                 else
                 {
                     if (!context.HttpContext.Request.Path.Equals("/WebHook/MediaServerRegister"))
                     {
-                        Logger.Logger.Debug($@"INPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} -> "+ $@"{JsonConvert.SerializeObject(context.ActionArguments)}");
-
-                        /*LogWebApiWriter.WriteWebApiLog(
-                            $@"INPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path}",
-                            $@"{JsonConvert.SerializeObject(context.ActionArguments)}", ConsoleColor.Gray);*/
+                        Logger.Logger.Debug(
+                            $@"INPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} -> " +
+                            $@"{JsonHelper.ToJson(context.ActionArguments)}");
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Logger.Logger.Error($@"OUTPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} ->"+remoteIpAddr+" -> "+ex.Message+" -> "+ex.StackTrace);
-
+                Logger.Logger.Error(
+                    $@"INPUT    {remoteIpAddr}    {context.HttpContext.Request.Method}    {context.HttpContext.Request.Path} ->" +
+                    remoteIpAddr + " -> " + ex.Message + " -> " + ex.StackTrace);
             }
         }
     }

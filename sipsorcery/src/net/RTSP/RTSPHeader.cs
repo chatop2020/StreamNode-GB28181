@@ -52,7 +52,7 @@ namespace SIPSorcery.Net
         private const string DEFAULT_TRANSPORT_SPECIFIER = "RTP/AVP/UDP";
         private const string DEFAULT_BROADCAST_TYPE = "unicast";
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         public string RawHeader;
 
@@ -107,7 +107,7 @@ namespace SIPSorcery.Net
                             transportHeader.Mode = fieldValue.Trim();
                             break;
                         default:
-                            logger.LogWarning("An RTSP Transport header parameter was not recognised. " + field);
+                            Logger.Logger.Warn("An RTSP Transport header parameter was not recognised. " + field);
                             break;
                     }
                 }
@@ -239,7 +239,7 @@ namespace SIPSorcery.Net
     {
         private static string m_CRLF = RTSPConstants.CRLF;
 
-        private static ILogger logger = Log.Logger;
+        //private static ILogger logger = Log.Logger;
 
         private static char[] delimiterChars = new char[] {':'};
 
@@ -310,12 +310,12 @@ namespace SIPSorcery.Net
 
                         if (headerParts == null || headerParts.Length < 2)
                         {
-                            logger.LogError("Invalid RTSP header, ignoring. header=" + headerLine + ".");
+                            Logger.Logger.Error("Invalid RTSP header, ignoring. header=" + headerLine + ".");
 
                             try
                             {
                                 string errorHeaders = String.Join(m_CRLF, headersCollection);
-                                logger.LogError("Full Invalid Headers: " + errorHeaders);
+                                Logger.Logger.Error("Full Invalid Headers: " + errorHeaders);
                             }
                             catch
                             {
@@ -358,13 +358,13 @@ namespace SIPSorcery.Net
 
                             if (headerValue == null || headerValue.Trim().Length == 0)
                             {
-                                logger.LogWarning("Invalid RTSP header, the " + RTSPHeaders.RTSP_HEADER_CONTENTLENGTH +
-                                                  " was empty.");
+                                Logger.Logger.Warn("Invalid RTSP header, the " + RTSPHeaders.RTSP_HEADER_CONTENTLENGTH +
+                                                   " was empty.");
                             }
                             else if (!Int32.TryParse(headerValue.Trim(), out rtspHeader.ContentLength))
                             {
-                                logger.LogWarning("Invalid RTSP header, the " + RTSPHeaders.RTSP_HEADER_CONTENTLENGTH +
-                                                  " was not a valid 32 bit integer, " + headerValue + ".");
+                                Logger.Logger.Warn("Invalid RTSP header, the " + RTSPHeaders.RTSP_HEADER_CONTENTLENGTH +
+                                                   " was not a valid 32 bit integer, " + headerValue + ".");
                             }
                         }
 
@@ -379,14 +379,14 @@ namespace SIPSorcery.Net
                             if (headerValue == null || headerValue.Trim().Length == 0)
                             {
                                 rtspHeader.CSeqParserError = RTSPHeaderParserError.CSeqEmpty;
-                                logger.LogWarning("Invalid RTSP header, the " + RTSPHeaders.RTSP_HEADER_CSEQ +
-                                                  " was empty.");
+                                Logger.Logger.Warn("Invalid RTSP header, the " + RTSPHeaders.RTSP_HEADER_CSEQ +
+                                                   " was empty.");
                             }
                             else if (!Int32.TryParse(headerValue.Trim(), out rtspHeader.CSeq))
                             {
                                 rtspHeader.CSeqParserError = RTSPHeaderParserError.CSeqNotValidInteger;
-                                logger.LogWarning("Invalid SIP header, the " + RTSPHeaders.RTSP_HEADER_CSEQ +
-                                                  " was not a valid 32 bit integer, " + headerValue + ".");
+                                Logger.Logger.Warn("Invalid SIP header, the " + RTSPHeaders.RTSP_HEADER_CSEQ +
+                                                   " was not a valid 32 bit integer, " + headerValue + ".");
                             }
                         }
 
@@ -419,7 +419,7 @@ namespace SIPSorcery.Net
                     }
                     catch (Exception parseExcp)
                     {
-                        logger.LogError("Error parsing RTSP header " + headerLine + ". " + parseExcp.Message);
+                        Logger.Logger.Error("Error parsing RTSP header " + headerLine + ". ->" + parseExcp.Message);
                         throw parseExcp;
                     }
                 }
@@ -434,7 +434,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception ParseRTSPHeaders. " + excp.Message);
+                Logger.Logger.Error("Exception ParseRTSPHeaders. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -467,7 +467,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception RTSPHeader ToString. " + excp.Message);
+                Logger.Logger.Error("Exception RTSPHeader ToString. ->" + excp.Message);
                 throw excp;
             }
         }

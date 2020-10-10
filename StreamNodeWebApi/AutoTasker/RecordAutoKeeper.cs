@@ -56,8 +56,7 @@ namespace StreamNodeWebApi.AutoTasker
             }
             catch (Exception ex)
             {
-                Logger.Logger.Error(ex.Message+"->"+ex.StackTrace);
-              
+                Logger.Logger.Error(ex.Message + "->" + ex.StackTrace);
             }
         }
 
@@ -107,7 +106,7 @@ namespace StreamNodeWebApi.AutoTasker
             }
             catch (Exception ex)
             {
-                Logger.Logger.Error(ex.Message+"->"+ex.StackTrace);
+                Logger.Logger.Error(ex.Message + "->" + ex.StackTrace);
                 return -1;
             }
         }
@@ -137,8 +136,8 @@ namespace StreamNodeWebApi.AutoTasker
                         .Set(x => x.Deleted, true)
                         .Where(x => x.RecordDate == day).ExecuteAffrows();
                     mediaServer.DeleteFileList(deleteFileList, out _);
-                    Logger.Logger.Info("要删除除一天的文件，数据库标记为删除 -> "+day!);
-                   // LogWriter.WriteLog("要删除除一天的文件，数据库标记为删除", day!);
+                    Logger.Logger.Info("要删除除一天的文件，数据库标记为删除 -> " + day!);
+                    // LogWriter.WriteLog("要删除除一天的文件，数据库标记为删除", day!);
                 }
 
                 Thread.Sleep(100);
@@ -194,8 +193,8 @@ namespace StreamNodeWebApi.AutoTasker
                                     OrmService.Db.Update<RecordFile>().Set(x => x.UpdateTime, DateTime.Now)
                                         .Set(x => x.Deleted, true)
                                         .Where(x => x.Id == ret!.Id).ExecuteAffrows();
-                                    Logger.Logger.Info("删除录制文件 -> "+ret.VideoPath!);
-                                   // LogWriter.WriteLog("删除录制文件", ret.VideoPath!);
+                                    Logger.Logger.Info("删除录制文件 -> " + ret.VideoPath!);
+                                    // LogWriter.WriteLog("删除录制文件", ret.VideoPath!);
                                     Thread.Sleep(20);
                                 }
                             }
@@ -448,20 +447,20 @@ namespace StreamNodeWebApi.AutoTasker
             {
                 if (!getDvrOnorOff(sdp))
                 {
-                    Logger.Logger.Info("录制计划即将启动录制,因为视频流没有达到受限条件，已经进入计划规定时间内并且录制程序处于关闭状态 -> "+
-                        sdp.MediaServerId + "->" +
-                        sdp.CameraId + "->" +
-                        sdp.CameraId +
-                        "\t" + "空间限制：" +
-                        sdp.LimitSpace.ToString() +
-                        "字节::实际空间占用：" +
-                        videoSize.ToString() +
-                        "字节 \t时间限制：" +
-                        sdp.LimitDays.ToString() +
-                        "天::实际录制天数：" +
-                        dateCount.ToString() +
-                        "\t录制计划启用状态:" +
-                        sdp.Enable.ToString());
+                    Logger.Logger.Info("录制计划即将启动录制,因为视频流没有达到受限条件，已经进入计划规定时间内并且录制程序处于关闭状态 -> " +
+                                       sdp.MediaServerId + "->" +
+                                       sdp.CameraId + "->" +
+                                       sdp.CameraId +
+                                       "\t" + "空间限制：" +
+                                       sdp.LimitSpace.ToString() +
+                                       "字节::实际空间占用：" +
+                                       videoSize.ToString() +
+                                       "字节 \t时间限制：" +
+                                       sdp.LimitDays.ToString() +
+                                       "天::实际录制天数：" +
+                                       dateCount.ToString() +
+                                       "\t录制计划启用状态:" +
+                                       sdp.Enable.ToString());
                     /*LogWriter.WriteLog("录制计划即将启动录制,因为视频流没有达到受限条件，已经进入计划规定时间内并且录制程序处于关闭状态",
                         sdp.MediaServerId + "->" +
                         sdp.CameraId + "->" +
@@ -483,19 +482,19 @@ namespace StreamNodeWebApi.AutoTasker
             {
                 if (getDvrOnorOff(sdp))
                 {
-                    Logger.Logger.Info("录制计划即将关闭录制,因为视频流可能达到受限条件或者已经离开计划规定时间内并且录制程序处于启动状态 -> "+
-                        sdp.MediaServerId + "->" +
-                        sdp.CameraId + "->" +
-                        "\t" + "空间限制：" +
-                        sdp.LimitSpace.ToString() +
-                        "字节::实际空间占用：" +
-                        videoSize.ToString() +
-                        "字节 \t时间限制：" +
-                        sdp.LimitDays.ToString() +
-                        "天::实际录制天数：" +
-                        dateCount.ToString() +
-                        "\t录制计划启用状态:" +
-                        sdp.Enable.ToString());
+                    Logger.Logger.Info("录制计划即将关闭录制,因为视频流可能达到受限条件或者已经离开计划规定时间内并且录制程序处于启动状态 -> " +
+                                       sdp.MediaServerId + "->" +
+                                       sdp.CameraId + "->" +
+                                       "\t" + "空间限制：" +
+                                       sdp.LimitSpace.ToString() +
+                                       "字节::实际空间占用：" +
+                                       videoSize.ToString() +
+                                       "字节 \t时间限制：" +
+                                       sdp.LimitDays.ToString() +
+                                       "天::实际录制天数：" +
+                                       dateCount.ToString() +
+                                       "\t录制计划启用状态:" +
+                                       sdp.Enable.ToString());
                     /*LogWriter.WriteLog("录制计划即将关闭录制,因为视频流可能达到受限条件或者已经离开计划规定时间内并且录制程序处于启动状态",
                         sdp.MediaServerId + "->" +
                         sdp.CameraId + "->" +
@@ -606,7 +605,7 @@ namespace StreamNodeWebApi.AutoTasker
                 }
                 catch (Exception ex)
                 {
-                    Logger.Logger.Error("报错了->"+ex.Message+"->"+ex.StackTrace);
+                    Logger.Logger.Error("报错了->" + ex.Message + "->" + ex.StackTrace);
                     continue;
                 }
             }

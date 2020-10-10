@@ -58,7 +58,7 @@ namespace GB28181.App
         //public static readonly string SelectExpiredBindingsQuery = "select * from sipregistrarbindings where expirytime < ?1";
 
         private static string m_newLine = AppState.NewLine;
-     //   private static ILog logger = AppState.GetLogger("sipregistrar");
+        //   private static ILog logger = AppState.GetLogger("sipregistrar");
 
         public static int TimeZoneOffsetMinutes;
 

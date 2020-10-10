@@ -42,7 +42,7 @@ namespace SIPSorcery.SIP.App
         private const int DEFAULT_REGISTER_FAILURE_RETRY_INTERVAL = 300;
         private const int DEFAULT_MAX_REGISTER_ATTEMPTS = 3;
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private static readonly string m_userAgent = SIPConstants.SIP_USERAGENT_STRING;
 
@@ -139,7 +139,7 @@ namespace SIPSorcery.SIP.App
             // Setting the contact to "0.0.0.0" tells the transport layer to populate it at send time.
             m_contactURI = new SIPURI(m_sipAccountAOR.Scheme, IPAddress.Any, 0);
 
-            Log_External = (ev) => logger.LogDebug(ev?.Message);
+            Log_External = (ev) => Logger.Logger.Debug(ev?.Message);
         }
 
         public SIPRegistrationUserAgent(
@@ -180,7 +180,7 @@ namespace SIPSorcery.SIP.App
             }
             else
             {
-                Log_External = (ev) => logger.LogDebug(ev?.Message);
+                Log_External = (ev) => Logger.Logger.Debug(ev?.Message);
             }
         }
 
@@ -194,7 +194,7 @@ namespace SIPSorcery.SIP.App
             m_expiry = m_originalExpiry;
             m_exit = false;
             int callbackPeriod = (m_expiry - REGISTRATION_HEAD_TIME) * 1000;
-            logger.LogDebug(
+            Logger.Logger.Debug(
                 $"Starting SIPRegistrationUserAgent for {m_sipAccountAOR.ToString()}, callback period {callbackPeriod}ms.");
 
             if (callbackPeriod < REGISTER_MINIMUM_EXPIRY * 1000)
@@ -213,7 +213,7 @@ namespace SIPSorcery.SIP.App
             {
                 try
                 {
-                    logger.LogDebug("DoRegistration for " + m_sipAccountAOR.ToString() + ".");
+                    Logger.Logger.Debug("DoRegistration for " + m_sipAccountAOR.ToString() + ".");
 
                     LastRegisterAttemptAt = DateTime.Now;
                     m_waitForRegistrationMRE.Reset();
@@ -237,14 +237,14 @@ namespace SIPSorcery.SIP.App
                     {
                         if (m_isRegistered)
                         {
-                            logger.LogDebug(
+                            Logger.Logger.Debug(
                                 "SIPRegistrationUserAgent was successful, scheduling next registration to " +
                                 m_sipAccountAOR.ToString() + " in " + (m_expiry - REGISTRATION_HEAD_TIME) + "s.");
                             m_registrationTimer.Change((m_expiry - REGISTRATION_HEAD_TIME) * 1000, Timeout.Infinite);
                         }
                         else
                         {
-                            logger.LogDebug(
+                            Logger.Logger.Debug(
                                 "SIPRegistrationUserAgent temporarily failed, scheduling next registration to " +
                                 m_sipAccountAOR.ToString() + " in " + m_registerFailureRetryInterval + "s.");
                             m_registrationTimer.Change((m_expiry - REGISTRATION_HEAD_TIME) * 1000, Timeout.Infinite);
@@ -253,7 +253,7 @@ namespace SIPSorcery.SIP.App
                 }
                 catch (Exception excp)
                 {
-                    logger.LogError("Exception DoRegistration Start. " + excp.Message);
+                    Logger.Logger.Error("Exception DoRegistration Start. ->" + excp.Message);
                 }
                 finally
                 {
@@ -274,7 +274,7 @@ namespace SIPSorcery.SIP.App
 
             if (newExpiry != m_expiry)
             {
-                logger.LogInformation(
+                Logger.Logger.Info(
                     $"Expiry for registration agent for {m_sipAccountAOR.ToString()} updated from {m_expiry} to {newExpiry}.");
 
                 m_expiry = newExpiry;
@@ -290,7 +290,7 @@ namespace SIPSorcery.SIP.App
             {
                 if (!m_exit)
                 {
-                    logger.LogDebug("Stopping SIP registration user agent for " + m_sipAccountAOR.ToString() + ".");
+                    Logger.Logger.Debug("Stopping SIP registration user agent for " + m_sipAccountAOR.ToString() + ".");
 
                     m_exit = true;
                     m_waitForRegistrationMRE.Set();
@@ -308,7 +308,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPRegistrationUserAgent Stop. " + excp.Message);
+                Logger.Logger.Error("Exception SIPRegistrationUserAgent Stop. ->" + excp.Message);
             }
         }
 
@@ -349,7 +349,7 @@ namespace SIPSorcery.SIP.App
 
                     if (registrarSIPEndPoint == null)
                     {
-                        logger.LogWarning("SIPRegistrationAgent could not resolve " + m_registrarHost + ".");
+                        Logger.Logger.Warn("SIPRegistrationAgent could not resolve " + m_registrarHost + ".");
 
                         RegistrationFailed?.Invoke(m_sipAccountAOR, "Could not resolve " + m_registrarHost + ".");
                     }
@@ -380,7 +380,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SendInitialRegister to " + m_registrarHost + ". " + excp.Message);
+                Logger.Logger.Error("Exception SendInitialRegister to " + m_registrarHost + ". ->" + excp.Message);
                 RegistrationFailed?.Invoke(m_sipAccountAOR,
                     "Exception SendInitialRegister to " + m_registrarHost + ". " + excp.Message);
             }
@@ -449,7 +449,7 @@ namespace SIPSorcery.SIP.App
 
                             if (registrarSIPEndPoint == null)
                             {
-                                logger.LogWarning("SIPRegistrationAgent could not resolve " + m_registrarHost + ".");
+                                Logger.Logger.Warn("SIPRegistrationAgent could not resolve " + m_registrarHost + ".");
 
                                 RegistrationFailed?.Invoke(m_sipAccountAOR,
                                     "Could not resolve " + m_registrarHost + ".");
@@ -543,8 +543,9 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPRegistrationUserAgent ServerResponseReceived (" + remoteEndPoint + "). " +
-                                excp.Message);
+                Logger.Logger.Error("Exception SIPRegistrationUserAgent ServerResponseReceived (" + remoteEndPoint +
+                                    "). ->" +
+                                    excp.Message);
             }
         }
 
@@ -633,7 +634,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPRegistrationUserAgent AuthResponseReceived. " + excp.Message);
+                Logger.Logger.Error("Exception SIPRegistrationUserAgent AuthResponseReceived. ->" + excp.Message);
             }
         }
 
@@ -746,7 +747,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception GetRegistrationRequest. " + excp.Message);
+                Logger.Logger.Error("Exception GetRegistrationRequest. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -779,7 +780,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception GetAuthenticatedRegistrationRequest. " + excp.Message);
+                Logger.Logger.Error("Exception GetAuthenticatedRegistrationRequest. ->" + excp.Message);
                 throw excp;
             }
         }

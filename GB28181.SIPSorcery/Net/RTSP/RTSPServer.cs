@@ -55,7 +55,7 @@ namespace GB28181.Net
 
         private static int MaxMessageSize = RTSPConstants.RTSP_MAXIMUM_LENGTH;
 
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         private IPEndPoint m_localIPEndPoint;
         private TcpListener m_tcpServerListener;
@@ -119,7 +119,8 @@ namespace GB28181.Net
             {
                 Thread.CurrentThread.Name = threadName;
 
-                Logger.Logger.Debug("RTSP server socket on " + m_localIPEndPoint + " accept connections thread started.");
+                Logger.Logger.Debug(
+                    "RTSP server socket on " + m_localIPEndPoint + " accept connections thread started.");
 
                 while (!Closed)
                 {
@@ -149,8 +150,9 @@ namespace GB28181.Net
                     catch (Exception acceptExcp)
                     {
                         // This exception gets thrown if the remote end disconnects during the socket accept.
-                        Logger.Logger.Error("Exception RTSPServer  accepting socket (" + acceptExcp.GetType() + "). ->" +
-                                           acceptExcp.Message);
+                        Logger.Logger.Error("Exception RTSPServer  accepting socket (" + acceptExcp.GetType() +
+                                            "). ->" +
+                                            acceptExcp.Message);
                     }
                 }
 
@@ -270,7 +272,7 @@ namespace GB28181.Net
                         catch (SocketException)
                         {
                             Logger.Logger.Error("RTSPServer could not send to TCP socket " + dstEndPoint +
-                                               ", closing and removing.");
+                                                ", closing and removing.");
                             rtspClientConnection.Stream.Close();
                             m_connectedSockets.Remove(dstEndPoint.ToString());
                         }
@@ -284,12 +286,14 @@ namespace GB28181.Net
             }
             catch (ApplicationException appExcp)
             {
-                Logger.Logger.Error("ApplicationException RTSPServer Send (sendto=>" + dstEndPoint + "). ->" + appExcp.Message);
+                Logger.Logger.Error("ApplicationException RTSPServer Send (sendto=>" + dstEndPoint + "). ->" +
+                                    appExcp.Message);
                 throw;
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception (" + excp.GetType().ToString() + ") RTSPServer Send (sendto=>" + dstEndPoint +
+                Logger.Logger.Error("Exception (" + excp.GetType().ToString() + ") RTSPServer Send (sendto=>" +
+                                    dstEndPoint +
                                     "). ->" + excp.Message);
                 throw;
             }
@@ -323,7 +327,8 @@ namespace GB28181.Net
             }
             catch (Exception listenerCloseExcp)
             {
-                Logger.Logger.Error("Exception RTSPServer Close (shutting down listener). ->" + listenerCloseExcp.Message);
+                Logger.Logger.Error("Exception RTSPServer Close (shutting down listener). ->" +
+                                    listenerCloseExcp.Message);
             }
 
             foreach (RTSPConnection rtspConnection in m_connectedSockets.Values)
@@ -455,10 +460,12 @@ namespace GB28181.Net
                                 if (!inactiveSession.IsClosed)
                                 {
                                     Logger.Logger.Debug("Closing inactive RTSP session for session ID " +
-                                                        inactiveSession.SessionID + " established from RTSP client on " +
+                                                        inactiveSession.SessionID +
+                                                        " established from RTSP client on " +
                                                         inactiveSession.RemoteEndPoint + " (started at " +
                                                         inactiveSession.StartedAt + ", RTP last activity at " +
-                                                        inactiveSession.RTPLastActivityAt + ", control last activity at " +
+                                                        inactiveSession.RTPLastActivityAt +
+                                                        ", control last activity at " +
                                                         inactiveSession.ControlLastActivityAt + ", is closed " +
                                                         inactiveSession.IsClosed + ").");
                                     inactiveSession.Close();
@@ -470,13 +477,15 @@ namespace GB28181.Net
                     }
                     catch (Exception rtspSessExcp)
                     {
-                        Logger.Logger.Error("Exception RTSPServer checking for inactive RTSP sessions. ->" + rtspSessExcp);
+                        Logger.Logger.Error("Exception RTSPServer checking for inactive RTSP sessions. ->" +
+                                            rtspSessExcp);
                     }
 
                     Thread.Sleep(PRUNE_CONNECTIONS_INTERVAL * 1000);
                 }
 
-                Logger.Logger.Debug("RTSPServer socket on " + m_localIPEndPoint.ToString() + " pruning connections halted.");
+                Logger.Logger.Debug("RTSPServer socket on " + m_localIPEndPoint.ToString() +
+                                    " pruning connections halted.");
             }
             catch (Exception excp)
             {

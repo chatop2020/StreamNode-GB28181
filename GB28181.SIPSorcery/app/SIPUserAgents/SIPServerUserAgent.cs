@@ -22,7 +22,7 @@ namespace GB28181.App
     /// </remarks>
     public class SIPServerUserAgent : ISIPServerUserAgent
     {
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
         private SIPAuthenticateRequestDelegate SIPAuthenticateRequest_External;
         private SIPAssetGetDelegate<SIPAccount> GetSIPAccount_External;
 

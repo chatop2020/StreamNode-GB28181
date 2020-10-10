@@ -31,7 +31,7 @@ namespace SIPSorcery.Net
     /// </summary>
     public class RTCPCompoundPacket
     {
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         public RTCPSenderReport SenderReport { get; private set; }
         public RTCPReceiverReport ReceiverReport { get; private set; }
@@ -103,9 +103,9 @@ namespace SIPSorcery.Net
                             offset += psfbHeader.Length * 4 + 4;
                             break;
                         default:
-                            logger.LogWarning($"RTCPCompoundPacket did not recognise packet type ID {packetTypeID}.");
+                            Logger.Logger.Warn($"RTCPCompoundPacket did not recognise packet type ID {packetTypeID}.");
                             offset = Int32.MaxValue;
-                            logger.LogWarning(packet.HexStr());
+                            Logger.Logger.Warn(packet.HexStr());
                             break;
                     }
                 }

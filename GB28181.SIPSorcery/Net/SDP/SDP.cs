@@ -108,7 +108,7 @@ namespace GB28181.Net
         public const string ICE_PWD_ATTRIBUTE_PREFIX = "ice-pwd";
         public const string ICE_CANDIDATE_ATTRIBUTE_PREFIX = "candidate";
 
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         public decimal Version = SDP_PROTOCOL_VERSION;
 
@@ -296,7 +296,8 @@ namespace GB28181.Net
                                     }
                                     else
                                     {
-                                        Logger.Logger.Warn("Invalid media format parameter attribute in SDP: " + sdpLine);
+                                        Logger.Logger.Warn(
+                                            "Invalid media format parameter attribute in SDP: " + sdpLine);
                                     }
                                 }
                                 else
@@ -350,7 +351,6 @@ namespace GB28181.Net
 
         public override string ToString()
         {
-           
             string sdp =
                 "v=" + SDP_PROTOCOL_VERSION + CRLF +
                 "o=" + Owner + CRLF +

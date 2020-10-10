@@ -74,7 +74,7 @@ namespace SIPSorcery.SIP
     /// </note>
     public class SIPTransaction
     {
-        protected static ILogger logger = Log.Logger;
+        // protected static ILogger logger = Log.Logger;
 
         protected static readonly int
             m_maxRingTime =
@@ -273,7 +273,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPTransaction (ctor). " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransaction (ctor). ->" + excp.Message);
                 throw excp;
             }
         }
@@ -420,7 +420,7 @@ namespace SIPSorcery.SIP
                     // If reliable provisional responses are supported then need to send this response reliably.
                     if (ReliableProvisionalResponse != null)
                     {
-                        logger.LogWarning(
+                        Logger.Logger.Warn(
                             "A new reliable provisional response is being sent but the previous one was not yet acknowledged.");
                     }
 
@@ -473,7 +473,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception GetInformationalResponse. " + excp.Message);
+                Logger.Logger.Error("Exception GetInformationalResponse. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -512,7 +512,7 @@ namespace SIPSorcery.SIP
         {
             if (m_transactionState == SIPTransactionStatesEnum.Proceeding && RSeq == sipRequest.Header.RAckRSeq)
             {
-                logger.LogDebug(
+                Logger.Logger.Debug(
                     "PRACK request matched the current outstanding provisional response, setting as delivered.");
                 DeliveryPending = false;
             }
@@ -535,13 +535,13 @@ namespace SIPSorcery.SIP
                 }
                 else
                 {
-                    logger.LogWarning("An ACK retransmit was required but there was no stored ACK request to send.");
+                    Logger.Logger.Warn("An ACK retransmit was required but there was no stored ACK request to send.");
                     return Task.FromResult(SocketError.InvalidArgument);
                 }
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception ResendAckRequest. {excp.Message}");
+                Logger.Logger.Error($"Exception ResendAckRequest. {excp.Message}");
                 return Task.FromResult(SocketError.Fault);
             }
         }
@@ -558,13 +558,14 @@ namespace SIPSorcery.SIP
                 }
                 else
                 {
-                    logger.LogWarning("A PRACK retransmit was required but there was no stored PRACK request to send.");
+                    Logger.Logger.Warn(
+                        "A PRACK retransmit was required but there was no stored PRACK request to send.");
                     return Task.FromResult(SocketError.InvalidArgument);
                 }
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception ResendPrackRequest. {excp.Message}");
+                Logger.Logger.Error($"Exception ResendPrackRequest. ->{excp.Message}");
                 return Task.FromResult(SocketError.Fault);
             }
         }
@@ -664,9 +665,9 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception FireTransactionTimedOut (" + TransactionId + " " +
-                                TransactionRequest.URI.ToString() + ", callid=" + TransactionRequest.Header.CallId +
-                                ", " + this.GetType().ToString() + "). " + excp.Message);
+                Logger.Logger.Error("Exception FireTransactionTimedOut (" + TransactionId + " " +
+                                    TransactionRequest.URI.ToString() + ", callid=" + TransactionRequest.Header.CallId +
+                                    ", " + this.GetType().ToString() + "). ->" + excp.Message);
             }
         }
 
@@ -678,7 +679,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception FireTransactionRemoved. " + excp.Message);
+                Logger.Logger.Error("Exception FireTransactionRemoved. ->" + excp.Message);
             }
         }
 
@@ -692,7 +693,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception FireTransactionStateChangedEvent. " + excp.Message);
+                Logger.Logger.Error("Exception FireTransactionStateChangedEvent. ->" + excp.Message);
             }
         }
 
@@ -704,7 +705,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception FireTransactionTraceMessage. " + excp.Message);
+                Logger.Logger.Error("Exception FireTransactionTraceMessage. ->" + excp.Message);
             }
         }
 

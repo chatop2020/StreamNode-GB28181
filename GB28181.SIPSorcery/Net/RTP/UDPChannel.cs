@@ -117,7 +117,8 @@ namespace GB28181.Net
                 _controlSocket.Bind(new IPEndPoint(IPAddress.Any, _controlPort));
             }
 
-            Logger.Logger.Debug("RTPChannel allocated RTP port of " + _rtpPort + " and control port of " + _controlPort + ".");
+            Logger.Logger.Debug("RTPChannel allocated RTP port of " + _rtpPort + " and control port of " +
+                                _controlPort + ".");
         }
 
         /// <summary>
@@ -149,7 +150,8 @@ namespace GB28181.Net
             //}
             else
             {
-                Logger.Logger.Warn("An RTPChannel could not start as either RTP or control sockets were not available.");
+                Logger.Logger.Warn(
+                    "An RTPChannel could not start as either RTP or control sockets were not available.");
             }
         }
 
@@ -191,7 +193,8 @@ namespace GB28181.Net
                     }
                     else
                     {
-                        Logger.Logger.Warn("Zero bytes read from RTPChannel RTP socket connected to " + _remoteEP + ".");
+                        Logger.Logger.Warn("Zero bytes read from RTPChannel RTP socket connected to " + _remoteEP +
+                                           ".");
                     }
                 }
             }
@@ -291,7 +294,8 @@ namespace GB28181.Net
                 }
                 else if (_rtpSocketError != SocketError.Success)
                 {
-                    Logger.Logger.Warn("SendAudioFrame was called for an RTP socket in an error state of " + _rtpSocketError +
+                    Logger.Logger.Warn("SendAudioFrame was called for an RTP socket in an error state of " +
+                                       _rtpSocketError +
                                        ".");
                 }
                 else
@@ -359,7 +363,8 @@ namespace GB28181.Net
                 }
                 else if (_rtpSocketError != SocketError.Success)
                 {
-                    Logger.Logger.Warn("SendJpegFrame was called for an RTP socket in an error state of " + _rtpSocketError +
+                    Logger.Logger.Warn("SendJpegFrame was called for an RTP socket in an error state of " +
+                                       _rtpSocketError +
                                        ".");
                 }
                 else
@@ -417,7 +422,7 @@ namespace GB28181.Net
                 if (IsRunning)
                 {
                     Logger.Logger.Error("Exception RTPChannel.SendJpegFrame attempting to send to the RTP socket at " +
-                                       _remoteEP + ". ->" + excp);
+                                        _remoteEP + ". ->" + excp);
                     //_rtpSocketError = SocketError.SocketError;
 
                     if (OnRTPSocketDisconnected != null)
@@ -444,7 +449,8 @@ namespace GB28181.Net
                 }
                 else if (_rtpSocketError != SocketError.Success)
                 {
-                    Logger.Logger.Warn("SendH264Frame was called for an RTP socket in an error state of " + _rtpSocketError +
+                    Logger.Logger.Warn("SendH264Frame was called for an RTP socket in an error state of " +
+                                       _rtpSocketError +
                                        ".");
                 }
                 else
@@ -518,7 +524,7 @@ namespace GB28181.Net
                 if (IsRunning)
                 {
                     Logger.Logger.Error("Exception RTPChannel.SendH264Frame attempting to send to the RTP socket at " +
-                                       _remoteEP + ". ->" + excp);
+                                        _remoteEP + ". ->" + excp);
 
                     if (OnRTPSocketDisconnected != null)
                     {
@@ -544,7 +550,8 @@ namespace GB28181.Net
                 }
                 else if (_rtpSocketError != SocketError.Success)
                 {
-                    Logger.Logger.Warn("SendVP8Frame was called for an RTP socket in an error state of " + _rtpSocketError +
+                    Logger.Logger.Warn("SendVP8Frame was called for an RTP socket in an error state of " +
+                                       _rtpSocketError +
                                        ".");
                 }
                 else
@@ -610,7 +617,7 @@ namespace GB28181.Net
                 if (IsRunning)
                 {
                     Logger.Logger.Error("Exception RTPChannel.SendVP8Frame attempting to send to the RTP socket at " +
-                                       _remoteEP + ". ->" + excp);
+                                        _remoteEP + ". ->" + excp);
 
                     if (OnRTPSocketDisconnected != null)
                     {
@@ -636,7 +643,8 @@ namespace GB28181.Net
             {
                 if (IsRunning)
                 {
-                    Logger.Logger.Error("Exception RTPChannel.SendRTPRaw attempting to send to " + _remoteEP + ". ->" + excp);
+                    Logger.Logger.Error("Exception RTPChannel.SendRTPRaw attempting to send to " + _remoteEP + ". ->" +
+                                        excp);
 
                     if (OnRTPSocketDisconnected != null)
                     {

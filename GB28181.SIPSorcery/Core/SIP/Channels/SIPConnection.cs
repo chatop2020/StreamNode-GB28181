@@ -31,7 +31,7 @@ namespace GB28181
 
     public class SIPConnection
     {
-      //  private static ILog logger = AssemblyState.logger;
+        //  private static ILog logger = AssemblyState.logger;
 
         public static int MaxSIPTCPMessageSize = SIPConstants.SIP_MAXIMUM_RECEIVE_LENGTH;
         private static string m_sipEOL = SIPConstants.CRLF;

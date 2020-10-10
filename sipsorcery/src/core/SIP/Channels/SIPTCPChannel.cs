@@ -165,11 +165,11 @@ namespace SIPSorcery.SIP
                 Task.Factory.StartNew(AcceptConnections, TaskCreationOptions.LongRunning);
                 Task.Factory.StartNew(PruneConnections, TaskCreationOptions.LongRunning);
 
-                logger.LogInformation($"SIP {ProtDescr} Channel created for {ListeningEndPoint}.");
+                Logger.Logger.Info($"SIP {ProtDescr} Channel created for {ListeningEndPoint}.");
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPTCPChannel Initialise. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTCPChannel Initialise. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -179,7 +179,7 @@ namespace SIPSorcery.SIP
         /// </summary>
         private void AcceptConnections()
         {
-            logger.LogDebug(
+            Logger.Logger.Debug(
                 $"SIP {ProtDescr} Channel socket on {m_tcpServerListener.Server.LocalEndPoint} accept connections thread started.");
 
             while (!Closed)
@@ -190,7 +190,7 @@ namespace SIPSorcery.SIP
 
                     if (!Closed)
                     {
-                        logger.LogDebug(
+                        Logger.Logger.Debug(
                             $"SIP {ProtDescr} Channel connection accepted from {clientSocket.RemoteEndPoint} by {clientSocket.LocalEndPoint}.");
 
                         clientSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
@@ -222,8 +222,8 @@ namespace SIPSorcery.SIP
                 catch (Exception acceptExcp)
                 {
                     // This exception gets thrown if the remote end disconnects during the socket accept.
-                    logger.LogWarning($"Exception SIP {ProtDescr} Channel accepting socket (" + acceptExcp.GetType() +
-                                      "). " + acceptExcp.Message);
+                    Logger.Logger.Error($"Exception SIP {ProtDescr} Channel accepting socket (" + acceptExcp.GetType() +
+                                        "). ->" + acceptExcp.Message);
                 }
             }
         }
@@ -310,8 +310,8 @@ namespace SIPSorcery.SIP
             catch (Exception excp)
             {
                 // There was an error processing the last message received. Remove the disconnected socket.
-                logger.LogError(
-                    $"Exception processing SIP {ProtDescr} stream receive on read from {e.RemoteEndPoint} closing connection. {excp.Message}");
+                Logger.Logger.Error(
+                    $"Exception processing SIP {ProtDescr} stream receive on read from {e.RemoteEndPoint} closing connection. ->{excp.Message}");
                 OnSIPStreamDisconnected(streamConn, SocketError.Fault);
             }
         }
@@ -327,7 +327,7 @@ namespace SIPSorcery.SIP
             if (e.BytesTransferred == 0 || e.SocketError != SocketError.Success)
             {
                 // There was an error processing the last message send. Remove the disconnected socket.
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"SIP {ProtDescr} Channel Socket send to {e.RemoteEndPoint} failed with socket error {e.SocketError}, removing connection.");
                 OnSIPStreamDisconnected(streamConn, e.SocketError);
             }
@@ -353,7 +353,7 @@ namespace SIPSorcery.SIP
 
                 IPEndPoint localEndPoint = new IPEndPoint(localAddress, Port);
 
-                logger.LogDebug(
+                Logger.Logger.Debug(
                     $"ConnectAsync SIP {ProtDescr} Channel local end point of {localEndPoint} selected for connection to {dstEndPoint}.");
 
                 Socket clientSocket = new Socket(dstEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -375,7 +375,7 @@ namespace SIPSorcery.SIP
                 //    connectArgs.SetBuffer(buffer, 0, buffer.Length);
                 //}
 
-                logger.LogDebug($"Attempting TCP connection from {localEndPoint} to {dstEndPoint}.");
+                Logger.Logger.Debug($"Attempting TCP connection from {localEndPoint} to {dstEndPoint}.");
 
                 // Attempt to connect.
                 TaskCompletionSource<SocketError> connectTcs =
@@ -398,12 +398,12 @@ namespace SIPSorcery.SIP
 
                 var connectResult = await connectTcs.Task.ConfigureAwait(false);
 
-                logger.LogDebug(
+                Logger.Logger.Debug(
                     $"ConnectAsync SIP {ProtDescr} Channel connect completed result for {localEndPoint}->{dstEndPoint} {connectResult}.");
 
                 if (connectResult != SocketError.Success)
                 {
-                    logger.LogWarning(
+                    Logger.Logger.Warn(
                         $"SIP {ProtDescr} Channel send to {dstEndPoint} failed. Attempt to create a client socket failed.");
                 }
                 else
@@ -423,7 +423,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception ConnectClientAsync. {excp.Message}");
+                Logger.Logger.Error($"Exception ConnectClientAsync. ->{excp.Message}");
                 return SocketError.Fault;
             }
         }
@@ -484,7 +484,7 @@ namespace SIPSorcery.SIP
                 }
                 else if (DisableLocalTCPSocketsCheck == false && m_localTCPSockets.Contains(dstEndPoint.ToString()))
                 {
-                    logger.LogWarning(
+                    Logger.Logger.Warn(
                         $"SIP {ProtDescr} Channel blocked Send to {dstEndPoint} as it was identified as a locally hosted {ProtDescr} socket.\r\n" +
                         Encoding.UTF8.GetString(buffer));
                     throw new ApplicationException(
@@ -527,7 +527,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception SIPTCPChannel Send (sendto=> {dstSIPEndPoint}. {excp.Message}");
+                Logger.Logger.Error($"Exception SIPTCPChannel Send (sendto=> {dstSIPEndPoint}. ->{excp.Message}");
                 throw;
             }
         }
@@ -561,7 +561,7 @@ namespace SIPSorcery.SIP
             }
             catch (SocketException sockExcp)
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"SocketException SIP {ProtDescr} Channel SendOnConnected {dstEndPoint}. ErrorCode {sockExcp.SocketErrorCode}. {sockExcp}");
                 OnSIPStreamDisconnected(sipStreamConn, sockExcp.SocketErrorCode);
                 throw;
@@ -579,7 +579,7 @@ namespace SIPSorcery.SIP
             {
                 if (connection != null)
                 {
-                    logger.LogWarning(
+                    Logger.Logger.Warn(
                         $"SIP {ProtDescr} stream disconnected {connection.RemoteEndPoint} {socketError}.");
 
                     if (m_connections.TryRemove(connection.ConnectionID, out _))
@@ -610,7 +610,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception OnSIPStreamDisconnected. " + excp.Message);
+                Logger.Logger.Error("Exception OnSIPStreamDisconnected. ->" + excp.Message);
             }
         }
 
@@ -681,7 +681,7 @@ namespace SIPSorcery.SIP
         {
             if (!Closed == true)
             {
-                logger.LogDebug($"Closing SIP {ProtDescr} Channel {ListeningEndPoint}.");
+                Logger.Logger.Debug($"Closing SIP {ProtDescr} Channel {ListeningEndPoint}.");
 
                 Closed = true;
                 m_cts.Cancel();
@@ -697,7 +697,8 @@ namespace SIPSorcery.SIP
                         }
                         catch (Exception closeExcp)
                         {
-                            logger.LogError($"Exception closing SIP connection on {ProtDescr}. {closeExcp.Message}");
+                            Logger.Logger.Error(
+                                $"Exception closing SIP connection on {ProtDescr}. ->{closeExcp.Message}");
                         }
                     }
 
@@ -709,18 +710,18 @@ namespace SIPSorcery.SIP
                 {
                     try
                     {
-                        logger.LogDebug($"Stopping SIP {ProtDescr} Channel listener {ListeningEndPoint}.");
+                        Logger.Logger.Debug($"Stopping SIP {ProtDescr} Channel listener {ListeningEndPoint}.");
 
                         m_tcpServerListener.Stop();
                     }
                     catch (Exception stopExcp)
                     {
-                        logger.LogError(
-                            $"Exception SIP {ProtDescr} Channel Close (shutting down listener). {stopExcp.Message}");
+                        Logger.Logger.Error(
+                            $"Exception SIP {ProtDescr} Channel Close (shutting down listener). ->{stopExcp.Message}");
                     }
                 }
 
-                logger.LogDebug($"Successfully closed SIP {ProtDescr} Channel for {ListeningEndPoint}.");
+                Logger.Logger.Debug($"Successfully closed SIP {ProtDescr} Channel for {ListeningEndPoint}.");
             }
         }
 
@@ -765,7 +766,7 @@ namespace SIPSorcery.SIP
 
                             if (inactiveConnection != null)
                             {
-                                logger.LogDebug(
+                                Logger.Logger.Debug(
                                     $"Pruning inactive connection on {ProtDescr} {ListeningEndPoint} to remote end point {inactiveConnection.RemoteEndPoint}.");
                                 inactiveConnection.StreamSocket.Close();
                             }
@@ -777,12 +778,12 @@ namespace SIPSorcery.SIP
                         catch (SocketException sockExcp)
                         {
                             // Will be thrown if the socket is already closed.
-                            logger.LogWarning(
+                            Logger.Logger.Warn(
                                 $"Socket error in PruneConnections. {sockExcp.Message} ({sockExcp.ErrorCode}).");
                         }
                         catch (Exception pruneExcp)
                         {
-                            logger.LogError("Exception PruneConnections (pruning). " + pruneExcp.Message);
+                            Logger.Logger.Error("Exception PruneConnections (pruning). ->" + pruneExcp.Message);
                             checkComplete = true;
                         }
                     }
@@ -791,7 +792,8 @@ namespace SIPSorcery.SIP
                     checkComplete = false;
                 }
 
-                logger.LogDebug($"SIP {ProtDescr} Channel socket on {ListeningEndPoint} pruning connections halted.");
+                Logger.Logger.Debug(
+                    $"SIP {ProtDescr} Channel socket on {ListeningEndPoint} pruning connections halted.");
             }
             catch (OperationCanceledException)
             {
@@ -801,7 +803,7 @@ namespace SIPSorcery.SIP
             } // This gets thrown if task is cancelled.
             catch (Exception excp)
             {
-                logger.LogError($"Exception SIP {ProtDescr} Channel PruneConnections. " + excp.Message);
+                Logger.Logger.Error($"Exception SIP {ProtDescr} Channel PruneConnections. ->" + excp.Message);
             }
         }
     }

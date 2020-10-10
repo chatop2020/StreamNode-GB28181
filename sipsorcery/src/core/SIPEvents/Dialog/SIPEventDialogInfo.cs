@@ -66,7 +66,7 @@ namespace SIPSorcery.SIP
     /// </remarks>
     public class SIPEventDialogInfo : SIPEvent
     {
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         public static readonly string m_dialogXMLNS = SIPEventConsts.DIALOG_XML_NAMESPACE_URN;
         //private static readonly string m_sipsorceryXMLNS = SIPEventConsts.SIPSORCERY_DIALOG_XML_NAMESPACE_URN;
@@ -108,7 +108,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPEventDialogInfo Ctor. " + excp.Message);
+                Logger.Logger.Error("Exception SIPEventDialogInfo Ctor. ->" + excp.Message);
                 throw;
             }
         }

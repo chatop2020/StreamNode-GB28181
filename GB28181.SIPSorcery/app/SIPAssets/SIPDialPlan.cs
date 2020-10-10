@@ -52,7 +52,7 @@ namespace GB28181.App
 
         private static string m_newLine = AppState.NewLine;
 
-      //  private ILog logger = AppState.logger;
+        //  private ILog logger = AppState.logger;
 
         public static int TimeZoneOffsetMinutes;
 

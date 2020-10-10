@@ -86,7 +86,7 @@ namespace SIPSorcery.SIP
 
             m_recvBuffer = new byte[SIPConstants.SIP_MAXIMUM_UDP_SEND_LENGTH * 2];
 
-            logger.LogInformation($"SIP UDP Channel created for {ListeningEndPoint}.");
+            Logger.Logger.Info($"SIP UDP Channel created for {ListeningEndPoint}.");
 
             Receive();
 
@@ -115,8 +115,8 @@ namespace SIPSorcery.SIP
                 // From https://github.com/dotnet/corefx/blob/e99ec129cfd594d53f4390bf97d1d736cff6f860/src/System.Net.Sockets/src/System/Net/Sockets/Socket.cs#L3056
                 // the BeginReceiveMessageFrom will only throw if there is an problem with the arguments or the socket has been disposed of. In that
                 // case the socket can be considered to be unusable and there's no point trying another receive.
-                logger.LogError($"Exception Receive. {excp.Message}");
-                logger.LogDebug($"SIPUDPChannel socket on {ListeningEndPoint} listening halted.");
+                Logger.Logger.Error($"Exception Receive. ->{excp.Message}");
+                Logger.Logger.Debug($"SIPUDPChannel socket on {ListeningEndPoint} listening halted.");
                 Closed = true;
             }
         }
@@ -151,7 +151,7 @@ namespace SIPSorcery.SIP
             {
                 // This exception can occur as the result of a Send operation. It's caused by an ICMP packet from a remote host
                 // rejecting an incoming UDP packet. If that happens we want to stop further sends to the socket for a short period.
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"SocketException SIPUDPChannel EndReceiveMessageFrom from {remoteEP} ({sockExcp.ErrorCode}). {sockExcp.Message}");
                 if (remoteEP != null)
                 {
@@ -163,7 +163,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception SIPUDPChannel EndReceiveMessageFrom. {excp.Message}");
+                Logger.Logger.Error($"Exception SIPUDPChannel EndReceiveMessageFrom. ->{excp.Message}");
             }
             finally
             {
@@ -212,7 +212,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception SIPUDPChannel.SendAsync. {excp}");
+                Logger.Logger.Error($"Exception SIPUDPChannel.SendAsync. ->{excp}");
                 return Task.FromResult(SocketError.Fault);
             }
         }
@@ -228,7 +228,7 @@ namespace SIPSorcery.SIP
                 // ToDo. Pretty sure these exceptions get thrown when an ICMP message comes back indicating there is no listening
                 // socket on the other end. It would be nice to be able to relate that back to the socket that the data was sent to
                 // so that we know to stop sending.
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"SocketException SIPUDPChannel EndSendTo ({sockExcp.ErrorCode}). {sockExcp.Message}");
             }
             catch (ObjectDisposedException) // Thrown when socket is closed. Can be safely ignored.
@@ -236,7 +236,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception SIPUDPChannel EndSendTo. {excp.Message}");
+                Logger.Logger.Error($"Exception SIPUDPChannel EndSendTo. ->{excp.Message}");
             }
         }
 
@@ -308,7 +308,7 @@ namespace SIPSorcery.SIP
         {
             try
             {
-                logger.LogDebug($"Closing SIP UDP Channel {ListeningEndPoint}.");
+                Logger.Logger.Debug($"Closing SIP UDP Channel {ListeningEndPoint}.");
 
                 Closed = true;
                 m_cts.Cancel();
@@ -316,7 +316,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogWarning("Exception SIPUDPChannel Close. " + excp.Message);
+                Logger.Logger.Error("Exception SIPUDPChannel Close. ->" + excp.Message);
             }
         }
 
@@ -356,7 +356,7 @@ namespace SIPSorcery.SIP
             } // This gets thrown if task is cancelled.
             catch (Exception excp)
             {
-                logger.LogError($"Exception SIPUDPChannel.ExpireFailedSends. {excp.Message}");
+                Logger.Logger.Error($"Exception SIPUDPChannel.ExpireFailedSends. ->{excp.Message}");
             }
         }
     }

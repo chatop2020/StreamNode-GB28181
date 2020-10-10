@@ -481,7 +481,6 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         public static double GetMemoryUsage(Process process)
         {
-           
             long bytes = process.WorkingSet64;
             return BytesToMB(bytes);
         }

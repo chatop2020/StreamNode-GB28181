@@ -29,7 +29,7 @@ namespace GB28181.Sys
         public const string
             LINK_LOCAL_BLOCK_PREFIX = "169.254"; // Used by hosts attempting to acquire a DHCP address. See RFC 3330.
 
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         public static List<IPAddress> GetLocalIPv4Addresses()
         {

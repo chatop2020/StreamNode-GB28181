@@ -14,8 +14,10 @@ namespace GB28181.Config
     {
         private static readonly string m_storageTypeKey = SIPSorceryConfiguration.PERSISTENCE_STORAGETYPE_KEY;
         private static readonly string m_connStrKey = SIPSorceryConfiguration.PERSISTENCE_STORAGECONNSTR_KEY;
+
         private static readonly string m_XMLFilename = "gb28181.xml";
-     //   private static readonly ILog logger = AppState.logger;
+
+        //   private static readonly ILog logger = AppState.logger;
         private static StorageTypes m_storageType;
         private static string m_connStr;
 

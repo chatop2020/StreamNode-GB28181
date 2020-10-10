@@ -53,7 +53,7 @@ namespace SIPSorcery.SIP
             BlackholeAddress =
                 IPAddress.Any; // (IPAddress.Any is 0.0.0.0) Any SIP messages with this IP address will be dropped.
 
-        private static ILogger logger = Log.Logger;
+        //private static ILogger logger = Log.Logger;
 
         /// <summary>
         /// Determines whether the transport later will queue incoming requests for processing on a separate thread of process
@@ -197,7 +197,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception AddSIPChannel. " + excp.Message);
+                Logger.Logger.Error("Exception AddSIPChannel. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -235,7 +235,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPTransport Shutdown. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport Shutdown. ->" + excp.Message);
             }
         }
 
@@ -270,8 +270,8 @@ namespace SIPSorcery.SIP
                     // Keep the queue within size limits 
                     if (m_inMessageQueue.Count >= MAX_INMESSAGE_QUEUECOUNT)
                     {
-                        logger.LogWarning("SIPTransport queue full new message from " + remoteEndPoint +
-                                          " being discarded.");
+                        Logger.Logger.Warn("SIPTransport queue full new message from " + remoteEndPoint +
+                                           " being discarded.");
                     }
                     else
                     {
@@ -285,7 +285,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPTransport ReceiveMessage. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport ReceiveMessage. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -428,7 +428,7 @@ namespace SIPSorcery.SIP
                 }
                 else
                 {
-                    logger.LogWarning(
+                    Logger.Logger.Warn(
                         $"SIP Transport could not send request as end point could not be determined:  {sipRequest.StatusLine}.");
                     return Task.FromResult(SocketError.HostNotFound);
                 }
@@ -686,7 +686,7 @@ namespace SIPSorcery.SIP
             SIPViaHeader topViaHeader = sipResponse.Header.Vias.TopViaHeader;
             if (topViaHeader == null)
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"There was no top Via header on a SIP response from {sipResponse.RemoteSIPEndPoint} in SendResponseAsync, response dropped.");
                 return (SocketError.Fault, null);
             }
@@ -698,7 +698,7 @@ namespace SIPSorcery.SIP
 
                 if (lookupResult.LookupError != null)
                 {
-                    logger.LogWarning("Could not resolve destination for response.\n" + sipResponse.ToString());
+                    Logger.Logger.Warn("Could not resolve destination for response.\n" + sipResponse.ToString());
                     return (SocketError.HostNotFound, null);
                 }
                 else if (lookupResult.Pending)
@@ -744,7 +744,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPTransport ProcessReceiveQueue. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport ProcessReceiveQueue. ->" + excp.Message);
             }
             finally
             {
@@ -875,7 +875,7 @@ namespace SIPSorcery.SIP
                                             {
                                                 if (requestTransaction.TransactionFinalResponse != null)
                                                 {
-                                                    logger.LogWarning(
+                                                    Logger.Logger.Warn(
                                                         "Resending final response for " + sipRequest.Method + ", " +
                                                         sipRequest.URI.ToString() + ", cseq=" + sipRequest.Header.CSeq +
                                                         ".");
@@ -922,7 +922,7 @@ namespace SIPSorcery.SIP
                                             }
                                             else
                                             {
-                                                logger.LogWarning(
+                                                Logger.Logger.Warn(
                                                     "Transaction already exists, ignoring duplicate request, " +
                                                     sipRequest.Method + " " + sipRequest.URI.ToString() + ".");
                                             }
@@ -1025,7 +1025,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                Log.Logger.LogError($"Exception SIPMessageReceived. {excp.Message}");
+                Logger.Logger.Error($"Exception SIPMessageReceived. ->{excp.Message}");
                 SIPBadRequestInTraceEvent?.Invoke(localEndPoint, remoteEndPoint,
                     "Exception SIPTransport. " + excp.Message, SIPValidationFieldsEnum.Unknown, rawSIPMessage);
                 return Task.FromResult(SocketError.Fault);
@@ -1215,7 +1215,7 @@ namespace SIPSorcery.SIP
                     sipChannel = new SIPClientWebSocketChannel();
                     break;
                 default:
-                    logger.LogWarning($"Don't know how to create SIP channel for transport {protocol}.");
+                    Logger.Logger.Warn($"Don't know how to create SIP channel for transport {protocol}.");
                     break;
             }
 

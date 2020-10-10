@@ -12,7 +12,7 @@ namespace GB28181.Sys.XML
     /// <typeparam name="T">泛型</typeparam>
     public abstract class XmlHelper<T> where T : class
     {
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         /// <summary>
         /// 文档路径

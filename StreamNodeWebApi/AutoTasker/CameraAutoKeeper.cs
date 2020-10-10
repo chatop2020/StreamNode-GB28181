@@ -87,7 +87,7 @@ namespace StreamNodeWebApi.AutoTasker
             try
             {
                 ResponseStruct rs = null!;
-                
+
                 var gbRet = CommonApi.LiveVideo(cil.PushMediaServerId,
                     cil.CameraDeviceLable,
                     cil.CameraChannelLable, out rs, (bool) cil.IfGb28181Tcp!);
@@ -95,8 +95,8 @@ namespace StreamNodeWebApi.AutoTasker
                 if (gbRet != null && rs.Code == ErrorNumber.None)
                 {
                     Logger.Logger.Info("GB28181推流成功->" + cil.CameraId + "->" + cil.CameraDeviceLable + "->" +
-                                       cil.CameraChannelLable+"->"+"(TCP:"+cil.IfGb28181Tcp+")");
-                    
+                                       cil.CameraChannelLable + "->" + "(TCP:" + cil.IfGb28181Tcp + ")");
+
                     CameraSession sessionsub = null!;
                     lock (Common.CameraSessionLock)
                     {
@@ -118,8 +118,9 @@ namespace StreamNodeWebApi.AutoTasker
                 else
                 {
                     Logger.Logger.Warn("GB28181推流失败->" + cil.CameraId + "->" + cil.CameraDeviceLable + "->" +
-                                       cil.CameraChannelLable + "->" +"(TCP:"+cil.IfGb28181Tcp+")->"+ JsonHelper.ToJson(rs));
-                      }
+                                       cil.CameraChannelLable + "->" + "(TCP:" + cil.IfGb28181Tcp + ")->" +
+                                       JsonHelper.ToJson(rs));
+                }
             }
             catch (Exception ex)
             {
@@ -189,14 +190,13 @@ namespace StreamNodeWebApi.AutoTasker
                 }
                 else
                 {
-                    Logger.Logger.Warn("Rtsp推流失败->" + cil.CameraId + "->" +cil.IfRtspUrl+"->" + JsonHelper.ToJson(rs));
-                   
+                    Logger.Logger.Warn(
+                        "Rtsp推流失败->" + cil.CameraId + "->" + cil.IfRtspUrl + "->" + JsonHelper.ToJson(rs));
                 }
             }
             catch (Exception ex)
             {
                 Logger.Logger.Error("liveRtsp Except ->" + ex.Message + "->" + ex.StackTrace);
-             
             }
         }
 
@@ -232,12 +232,10 @@ namespace StreamNodeWebApi.AutoTasker
                 if (ret.Code == 0)
                 {
                     Logger.Logger.Info("Rtsp结束成功->" + session.CameraId + "->" + session.CameraEx!.InputUrl);
-                  
                 }
                 else
                 {
                     Logger.Logger.Warn("Rtsp结束失败->" + session.CameraId + "->" + session.CameraEx!.InputUrl);
-                
                 }
             }
             catch (Exception ex)
@@ -252,7 +250,6 @@ namespace StreamNodeWebApi.AutoTasker
         /// <param name="session"></param>
         private static void stopGB28181(CameraSession session)
         {
-           
             try
             {
                 ResponseStruct rs = null!;
@@ -276,7 +273,7 @@ namespace StreamNodeWebApi.AutoTasker
 
                 var ret2 = MediaServerApis.CloseStreams(mediaObj.MediaServerId, req2,
                     out rs);
-              
+
 
                 var req3 = new ReqZLMediaKitCloseRtpPort()
                 {
@@ -286,24 +283,23 @@ namespace StreamNodeWebApi.AutoTasker
 
                 var ret3 = MediaServerApis.CloseRtpPort(mediaObj.MediaServerId, req3,
                     out rs);
-               
+
                 if (ret3.Code == 0)
                 {
-                    Logger.Logger.Info("GB28181结束成功->" + session.CameraId + "->" + session.CameraEx!.Camera.ParentID + "->" +
-                                       session.CameraEx.Camera.DeviceID );
-                    
+                    Logger.Logger.Info("GB28181结束成功->" + session.CameraId + "->" + session.CameraEx!.Camera.ParentID +
+                                       "->" +
+                                       session.CameraEx.Camera.DeviceID);
                 }
                 else
                 {
-                    Logger.Logger.Warn("GB28181结束失败->" +  session.CameraId + "->" + session.CameraEx!.Camera.ParentID + "->" +
-                                       session.CameraEx.Camera.DeviceID+"->"+ JsonHelper.ToJson(rs));
-                   
+                    Logger.Logger.Warn("GB28181结束失败->" + session.CameraId + "->" + session.CameraEx!.Camera.ParentID +
+                                       "->" +
+                                       session.CameraEx.Camera.DeviceID + "->" + JsonHelper.ToJson(rs));
                 }
             }
             catch (Exception ex)
             {
                 Logger.Logger.Error("stopGB28181 Except ->" + ex.Message + "->" + ex.StackTrace);
-                
             }
         }
 
@@ -314,15 +310,14 @@ namespace StreamNodeWebApi.AutoTasker
         /// <param name="cil"></param>
         private static void stopCamera(CameraInstance cil)
         {
-         
             try
             {
                 if (cil != null && cil.EnableLive == false)
                 {
                     CameraSession cameraSession = null!;
                     cameraSession = GetCameraCurrentSession(cil);
-                  
-                    if (cameraSession != null && cameraSession.IsOnline==true)
+
+                    if (cameraSession != null && cameraSession.IsOnline == true)
                     {
                         switch (cil.CameraType)
                         {
@@ -331,12 +326,13 @@ namespace StreamNodeWebApi.AutoTasker
                                 StopRtsp(cameraSession);
                                 break;
                             case CameraType.GB28181:
-                             
+
                                 bool found = false;
                                 lock (Common.SipProcess.SipDeviceLock)
                                 {
-                                    var dev=Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(cil.CameraDeviceLable));
-                                    if (dev != null && dev.CameraExList!=null && dev.CameraExList.Count>0)
+                                    var dev = Common.SipProcess.SipDeviceList.FindLast(x =>
+                                        x.DeviceId.Equals(cil.CameraDeviceLable));
+                                    if (dev != null && dev.CameraExList != null && dev.CameraExList.Count > 0)
                                     {
                                         var camera = dev.CameraExList.FindLast(x =>
                                             x.Camera != null && x.Camera.DeviceID.Equals(cil.CameraChannelLable));
@@ -351,11 +347,9 @@ namespace StreamNodeWebApi.AutoTasker
                                 if (found == true)
                                 {
                                     stopGB28181(cameraSession);
-                                  
                                 }
-                                
+
                                 break;
-                               
                         }
                     }
                 }
@@ -395,8 +389,9 @@ namespace StreamNodeWebApi.AutoTasker
                                 bool found = false;
                                 lock (Common.SipProcess.SipDeviceLock)
                                 {
-                                    var dev=Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(cil.CameraDeviceLable));
-                                    if (dev != null && dev.CameraExList!=null && dev.CameraExList.Count>0)
+                                    var dev = Common.SipProcess.SipDeviceList.FindLast(x =>
+                                        x.DeviceId.Equals(cil.CameraDeviceLable));
+                                    if (dev != null && dev.CameraExList != null && dev.CameraExList.Count > 0)
                                     {
                                         var camera = dev.CameraExList.FindLast(x =>
                                             x.Camera != null && x.Camera.DeviceID.Equals(cil.CameraChannelLable));
@@ -412,8 +407,8 @@ namespace StreamNodeWebApi.AutoTasker
                                 {
                                     LiveGb28181(cil);
                                 }
+
                                 break;
-                              
                         }
                     }
                     else if (cameraSession != null && string.IsNullOrEmpty(cameraSession.CameraId)
@@ -460,13 +455,11 @@ namespace StreamNodeWebApi.AutoTasker
                 {
                     if (i == 1 || i % 2 == 0)
                     {
-                       
                         lock (Common.CameraInstanceListLock)
                         {
                             Common.CameraInstanceList!.Clear();
                             Common.CameraInstanceList.AddRange(OrmService.Db.Select<CameraInstance>().Where("1=1")
                                 .ToList());
-                          
                         }
                     }
 
@@ -481,17 +474,17 @@ namespace StreamNodeWebApi.AutoTasker
                         if (cit.PushMediaServerId.Contains("unknow"))
                         {
                             continue;
-                            
                         }
-                        if (cit != null && cit.EnableLive && cit.Activated==true) //启动摄像头,必须是activated为true时才能启动
+
+                        if (cit != null && cit.EnableLive && cit.Activated == true) //启动摄像头,必须是activated为true时才能启动
                         {
                             liveCamera(cit);
                         }
 
-                        if (cit != null && (cit.EnableLive == false || cit.Activated==false)) //停止摄像头,如果activated为False,就一定要停止
+                        if (cit != null && (cit.EnableLive == false || cit.Activated == false)
+                        ) //停止摄像头,如果activated为False,就一定要停止
                         {
                             stopCamera(cit);
-                           
                         }
                     }
                 }

@@ -11,6 +11,7 @@ namespace StreamNodeWebApi
         /// 
         /// </summary>
         public static CameraAutoKeeper? CameraAutoKeeper;
+
         /// <summary>
         /// 
         /// </summary>

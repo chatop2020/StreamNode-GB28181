@@ -3,11 +3,9 @@ using GB28181.Sys.Model;
 
 namespace LibGB28181SipGate
 {
-  
     [Serializable]
     public class CameraInstanceForSip
     {
-       
         private string _cameraId;
         private string _cameraName;
         private bool? _mobileCamera;
@@ -26,11 +24,8 @@ namespace LibGB28181SipGate
         private bool? _enablePtz;
         private DateTime? _createTime;
         private DateTime? _updateTime;
-        private bool? _activated;//当有sip设备注册时，自动进入到数据库，但activated为false
+        private bool? _activated; //当有sip设备注册时，自动进入到数据库，但activated为false
 
-
-      
-      
 
         public string CameraId
         {
@@ -95,7 +90,7 @@ namespace LibGB28181SipGate
             set => _cameraDeviceLable = value;
         }
 
-   
+
         public CameraType CameraType
         {
             get => _cameraType;
@@ -153,8 +148,5 @@ namespace LibGB28181SipGate
             get => _activated;
             set => _activated = value;
         }
-
-
-       
     }
 }

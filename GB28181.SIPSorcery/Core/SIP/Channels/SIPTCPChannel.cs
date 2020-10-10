@@ -97,7 +97,8 @@ namespace GB28181
             {
                 Thread.CurrentThread.Name = threadName;
 
-                Logger.Logger.Debug("SIPTCPChannel socket on " + m_localSIPEndPoint + " accept connections thread started.");
+                Logger.Logger.Debug("SIPTCPChannel socket on " + m_localSIPEndPoint +
+                                    " accept connections thread started.");
 
                 while (!Closed)
                 {
@@ -137,7 +138,8 @@ namespace GB28181
                     catch (Exception acceptExcp)
                     {
                         // This exception gets thrown if the remote end disconnects during the socket accept.
-                        Logger.Logger.Warn("Exception SIPTCPChannel  accepting socket (" + acceptExcp.GetType() + "). " +
+                        Logger.Logger.Warn("Exception SIPTCPChannel  accepting socket (" + acceptExcp.GetType() +
+                                           "). " +
                                            acceptExcp.Message);
                     }
                 }
@@ -268,7 +270,8 @@ namespace GB28181
                         }
                         catch (SocketException)
                         {
-                            Logger.Logger.Warn("Could not send to TCP socket " + dstEndPoint + ", closing and removing.");
+                            Logger.Logger.Warn(
+                                "Could not send to TCP socket " + dstEndPoint + ", closing and removing.");
                             sipTCPClient.SIPStream.Close();
                             m_connectedSockets.Remove(dstEndPoint.ToString());
                         }
@@ -311,7 +314,7 @@ namespace GB28181
             catch (ApplicationException appExcp)
             {
                 Logger.Logger.Error("ApplicationException SIPTCPChannel Send (sendto=>" + dstEndPoint + "). ->" +
-                                   appExcp.Message);
+                                    appExcp.Message);
                 throw;
             }
             catch (Exception excp)
@@ -432,7 +435,8 @@ namespace GB28181
                 }
                 catch (Exception listenerCloseExcp)
                 {
-                    Logger.Logger.Error("Exception SIPTCPChannel Close (shutting down listener). ->" + listenerCloseExcp.Message);
+                    Logger.Logger.Error("Exception SIPTCPChannel Close (shutting down listener). ->" +
+                                        listenerCloseExcp.Message);
                 }
 
                 lock (m_connectedSockets)

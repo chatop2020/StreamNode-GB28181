@@ -1335,7 +1335,8 @@ namespace StreamNodeCtrlApis.SystemApis
 
             lock (Common.CameraSessionLock)
             {
-                return new List<CameraSession>(Common.CameraSessions.FindAll(x=>x.MediaServerId.Equals(mediaServerId)));
+                return new List<CameraSession>(
+                    Common.CameraSessions.FindAll(x => x.MediaServerId.Equals(mediaServerId)));
             }
         }
 

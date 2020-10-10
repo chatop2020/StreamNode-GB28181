@@ -129,7 +129,7 @@ namespace SIPSorcery.Net
         public const UInt32 MAGIC_COOKIE = 0x2112A442;
         public const int TRANSACTION_ID_LENGTH = 12;
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         public STUNMessageTypesEnum MessageType = STUNMessageTypesEnum.BindingRequest;
         public UInt16 MessageLength;

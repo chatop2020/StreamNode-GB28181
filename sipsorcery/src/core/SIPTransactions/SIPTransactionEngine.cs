@@ -44,7 +44,7 @@ namespace SIPSorcery.SIP
             MAX_RELIABLETRANSMISSIONS_COUNT =
                 5000; // The maximum number of pending transactions that can be outstanding.
 
-        protected static ILogger logger = Log.Logger;
+        // protected static ILogger logger = Log.Logger;
 
         protected static readonly int
             m_maxRingTime = SIPTimings.MAX_RING_TIME; // Max time an INVITE will be left ringing for.    
@@ -251,15 +251,16 @@ namespace SIPSorcery.SIP
 
         public void PrintPendingTransactions()
         {
-            logger.LogDebug("=== Pending Transactions ===");
+            Logger.Logger.Debug("=== Pending Transactions ===");
 
             var now = DateTime.Now;
             foreach (var (_, transaction) in m_pendingTransactions)
             {
-                logger.LogDebug("Pending transaction " + transaction.TransactionRequest.Method + " " +
-                                transaction.TransactionState + " " +
-                                now.Subtract(transaction.Created).TotalSeconds.ToString("0.##") + "s " +
-                                transaction.TransactionRequestURI.ToString() + " (" + transaction.TransactionId + ").");
+                Logger.Logger.Debug("Pending transaction " + transaction.TransactionRequest.Method + " " +
+                                    transaction.TransactionState + " " +
+                                    now.Subtract(transaction.Created).TotalSeconds.ToString("0.##") + "s " +
+                                    transaction.TransactionRequestURI.ToString() + " (" + transaction.TransactionId +
+                                    ").");
             }
         }
 
@@ -401,7 +402,7 @@ namespace SIPSorcery.SIP
                                                         break;
 
                                                     default:
-                                                        logger.LogWarning(
+                                                        Logger.Logger.Warn(
                                                             $"InviteServer Transaction entered an unexpected transaction state {transaction.TransactionState}.");
                                                         transaction.DeliveryFailed = true;
                                                         break;
@@ -437,7 +438,7 @@ namespace SIPSorcery.SIP
                                                         break;
 
                                                     default:
-                                                        logger.LogWarning(
+                                                        Logger.Logger.Warn(
                                                             $"InviteClient Transaction entered an unexpected transaction state {transaction.TransactionState}.");
                                                         transaction.DeliveryFailed = true;
                                                         break;
@@ -477,7 +478,7 @@ namespace SIPSorcery.SIP
                                                         break;
 
                                                     default:
-                                                        logger.LogWarning(
+                                                        Logger.Logger.Warn(
                                                             $"NonInvite Transaction entered an unexpected transaction state {transaction.TransactionState}.");
                                                         transaction.DeliveryFailed = true;
                                                         break;
@@ -486,7 +487,7 @@ namespace SIPSorcery.SIP
                                                 break;
 
                                             default:
-                                                logger.LogWarning(
+                                                Logger.Logger.Warn(
                                                     $"Unrecognised transaction type {transaction.TransactionType}.");
                                                 break;
                                         }
@@ -505,7 +506,7 @@ namespace SIPSorcery.SIP
                             }
                             catch (Exception excp)
                             {
-                                logger.LogError($"Exception processing pending transactions. {excp.Message}");
+                                Logger.Logger.Error($"Exception processing pending transactions. ->{excp.Message}");
                             }
                         }
 
@@ -517,7 +518,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPTransactionEngine ProcessPendingTransactions. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransactionEngine ProcessPendingTransactions. ->" + excp.Message);
             }
         }
 
@@ -720,7 +721,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception RemoveExpiredTransaction. " + excp.Message);
+                Logger.Logger.Error("Exception RemoveExpiredTransaction. ->" + excp.Message);
             }
         }
     }

@@ -25,7 +25,7 @@ namespace GB28181.Net
             RTSP_MESSAGE_IDENTIFIER =
                 "RTSP"; // String that must be in a message buffer to be recognised as an RTSP message and processed.
 
-      //  private static ILog logger = AssemblyStreamState.logger;
+        //  private static ILog logger = AssemblyStreamState.logger;
 
         private static string m_CRLF = RTSPConstants.CRLF;
         private static int m_minFirstLineLength = 7;
@@ -54,7 +54,8 @@ namespace GB28181.Net
                 }
                 else if (buffer.Length > RTSPConstants.RTSP_MAXIMUM_LENGTH)
                 {
-                    Logger.Logger.Error("RTSP message received that exceeded the maximum allowed message length, ignoring.");
+                    Logger.Logger.Error(
+                        "RTSP message received that exceeded the maximum allowed message length, ignoring.");
                     return null;
                 }
                 else if (!ByteBufferInfo.HasString(buffer, 0, buffer.Length, RTSP_MESSAGE_IDENTIFIER, m_CRLF))
@@ -75,7 +76,8 @@ namespace GB28181.Net
             {
                 message = message.Replace("\n", "LF");
                 message = message.Replace("\r", "CR");
-                Logger.Logger.Error("Exception ParseRTSPMessage. ->" + excp.Message + "->RTSP Message=" + message + ".");
+                Logger.Logger.Error("Exception ParseRTSPMessage. ->" + excp.Message + "->RTSP Message=" + message +
+                                    ".");
                 return null;
             }
         }
@@ -136,7 +138,8 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception ParseRTSPMessage. ->" + excp.Message + "->RTSP Message=" + message + ".");
+                Logger.Logger.Error("Exception ParseRTSPMessage. ->" + excp.Message + "->RTSP Message=" + message +
+                                    ".");
                 return null;
             }
         }

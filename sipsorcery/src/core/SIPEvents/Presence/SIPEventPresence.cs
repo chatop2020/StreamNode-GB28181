@@ -27,7 +27,7 @@ namespace SIPSorcery.SIP
 {
     public class SIPEventPresence : SIPEvent
     {
-        private static ILogger logger = Log.Logger;
+        //  private static ILogger logger = Log.Logger;
 
         public static readonly string m_pidfXMLNS = SIPEventConsts.PIDF_XML_NAMESPACE_URN;
 
@@ -60,7 +60,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPEventPresence Load. " + excp.Message);
+                Logger.Logger.Error("Exception SIPEventPresence Load. ->" + excp.Message);
                 throw;
             }
         }

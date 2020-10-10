@@ -331,7 +331,7 @@ namespace SIPSorcery.Net
         public const int DTMF_EVENT_DURATION = 1200; // Default duration for a DTMF event.
         public const int DTMF_EVENT_PAYLOAD_ID = 101;
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private bool
             m_isMediaMultiplexed =
@@ -606,7 +606,7 @@ namespace SIPSorcery.Net
         {
             if (AudioLocalTrack == null && VideoLocalTrack == null)
             {
-                logger.LogWarning("No local media tracks available for create offer.");
+                Logger.Logger.Warn("No local media tracks available for create offer.");
                 return null;
             }
             else
@@ -736,7 +736,7 @@ namespace SIPSorcery.Net
                 }
                 else
                 {
-                    logger.LogWarning(
+                    Logger.Logger.Warn(
                         "RTP session set remote description was supplied an SDP with no connection address.");
                 }
 
@@ -753,11 +753,12 @@ namespace SIPSorcery.Net
                         // If there's an existing remote audio track it needs to be replaced.
                         if (AudioRemoteTrack != null)
                         {
-                            logger.LogDebug($"Removing existing remote audio track for ssrc {AudioRemoteTrack.Ssrc}.");
+                            Logger.Logger.Debug(
+                                $"Removing existing remote audio track for ssrc {AudioRemoteTrack.Ssrc}.");
                             AudioRemoteTrack = null;
                         }
 
-                        logger.LogDebug("Adding remote audio track to session.");
+                        Logger.Logger.Debug("Adding remote audio track to session.");
 
                         var audioAnnounce = announcement;
                         var remoteAudioTrack = new MediaStreamTrack(SDPMediaTypesEnum.audio, true,
@@ -828,7 +829,7 @@ namespace SIPSorcery.Net
                                         // A connection address of 0.0.0.0 or [::], which is unreachable, means the media is inactive.
                                         remoteAudioTrack.StreamStatus = MediaStreamStatusEnum.Inactive;
 
-                                        logger.LogDebug(
+                                        Logger.Logger.Debug(
                                             $"Audio stream status set to inactive based on connection address of {audioAddr} in remote offer.");
                                     }
                                 }
@@ -841,7 +842,7 @@ namespace SIPSorcery.Net
                                     remoteAudioRtpEP = new IPEndPoint(audioAddr, audioAnnounce.Port);
                                     remoteAudioRtcpEP = new IPEndPoint(audioAddr, audioAnnounce.Port + 1);
 
-                                    logger.LogDebug(
+                                    Logger.Logger.Debug(
                                         $"Remote audio end RTP and RTCP points set from remote description to {remoteAudioRtpEP} and {remoteAudioRtcpEP}.");
                                 }
                             }
@@ -854,11 +855,12 @@ namespace SIPSorcery.Net
                         // If there's an existing remote video track it needs to be replaced.
                         if (VideoRemoteTrack != null)
                         {
-                            logger.LogDebug($"Removing existing remote video track for ssrc {VideoRemoteTrack.Ssrc}.");
+                            Logger.Logger.Debug(
+                                $"Removing existing remote video track for ssrc {VideoRemoteTrack.Ssrc}.");
                             VideoRemoteTrack = null;
                         }
 
-                        logger.LogDebug("Adding remote video track to session.");
+                        Logger.Logger.Debug("Adding remote video track to session.");
 
                         var remoteVideoTrack = new MediaStreamTrack(SDPMediaTypesEnum.video, true,
                             videoAnnounce.MediaFormats, videoAnnounce.MediaStreamStatus);
@@ -921,7 +923,7 @@ namespace SIPSorcery.Net
                                         // A connection address of 0.0.0.0 or [::], which is unreachable, means the media is inactive.
                                         remoteVideoTrack.StreamStatus = MediaStreamStatusEnum.Inactive;
 
-                                        logger.LogDebug(
+                                        Logger.Logger.Debug(
                                             $"Video stream status set to inactive based on connection address of {videoAddr} in remote offer.");
                                     }
                                 }
@@ -934,7 +936,7 @@ namespace SIPSorcery.Net
                                     remoteVideoRtpEP = new IPEndPoint(videoAddr, videoAnnounce.Port);
                                     remoteVideoRtcpEP = new IPEndPoint(videoAddr, videoAnnounce.Port + 1);
 
-                                    logger.LogDebug(
+                                    Logger.Logger.Debug(
                                         $"Remote video end RTP and RTCP points set from remote description to {remoteVideoRtpEP} and {remoteVideoRtcpEP}.");
                                 }
                             }
@@ -956,7 +958,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception in RTPSession SetRemoteDescription. {excp.Message}.");
+                Logger.Logger.Error($"Exception in RTPSession SetRemoteDescription. ->{excp.Message}.");
                 return SetDescriptionResultEnum.Error;
             }
         }
@@ -1175,7 +1177,7 @@ namespace SIPSorcery.Net
                     // We both support RTP events. If using different format ID's set ours to match the remote party's.
                     if (remoteEventFormat.FormatID != localEventFormat.FormatID)
                     {
-                        logger.LogDebug(
+                        Logger.Logger.Debug(
                             $"Adjusting the RTP event format ID on the local audio capabilities to match the remote part: {localEventFormat.FormatID} to {remoteEventFormat.FormatID}.");
                         localEventFormat.FormatID = remoteEventFormat.FormatID;
                     }
@@ -1183,7 +1185,7 @@ namespace SIPSorcery.Net
                 else if (localEventFormat != null)
                 {
                     // Remote party does not support RTP events remove our capability.
-                    logger.LogWarning("Remote party does not support RTP events.");
+                    Logger.Logger.Warn("Remote party does not support RTP events.");
                     AudioLocalTrack.Capabilities.Remove(localEventFormat);
                 }
             }
@@ -1386,7 +1388,7 @@ namespace SIPSorcery.Net
 
             IsSecureContextReady = true;
 
-            logger.LogDebug("Secure context successfully set on RTPSession.");
+            Logger.Logger.Debug("Secure context successfully set on RTPSession.");
         }
 
         /// <summary>
@@ -1532,7 +1534,7 @@ namespace SIPSorcery.Net
 
                 if (audioTrack == null)
                 {
-                    logger.LogWarning("SendAudio was called on an RTP session without an audio stream.");
+                    Logger.Logger.Warn("SendAudio was called on an RTP session without an audio stream.");
                 }
                 else if (audioTrack.StreamStatus == MediaStreamStatusEnum.Inactive ||
                          audioTrack.StreamStatus == MediaStreamStatusEnum.RecvOnly)
@@ -1570,7 +1572,7 @@ namespace SIPSorcery.Net
             }
             catch (SocketException sockExcp)
             {
-                logger.LogError("SocketException SendAudioFrame. " + sockExcp.Message);
+                Logger.Logger.Error("SocketException SendAudioFrame. ->" + sockExcp.Message);
             }
         }
 
@@ -1596,7 +1598,7 @@ namespace SIPSorcery.Net
 
                 if (videoTrack == null)
                 {
-                    logger.LogWarning("SendVp8Frame was called on an RTP session without a video stream.");
+                    Logger.Logger.Warn("SendVp8Frame was called on an RTP session without a video stream.");
                 }
                 else if (videoTrack.StreamStatus == MediaStreamStatusEnum.Inactive ||
                          videoTrack.StreamStatus == MediaStreamStatusEnum.RecvOnly)
@@ -1636,7 +1638,7 @@ namespace SIPSorcery.Net
             }
             catch (SocketException sockExcp)
             {
-                logger.LogError("SocketException SendVp8Frame. " + sockExcp.Message);
+                Logger.Logger.Error("SocketException SendVp8Frame. ->" + sockExcp.Message);
             }
         }
 
@@ -1666,7 +1668,7 @@ namespace SIPSorcery.Net
 
                 if (videoTrack == null)
                 {
-                    logger.LogWarning("SendJpegFrame was called on an RTP session without a video stream.");
+                    Logger.Logger.Warn("SendJpegFrame was called on an RTP session without a video stream.");
                 }
                 else if (videoTrack.StreamStatus == MediaStreamStatusEnum.Inactive ||
                          videoTrack.StreamStatus == MediaStreamStatusEnum.RecvOnly)
@@ -1698,7 +1700,7 @@ namespace SIPSorcery.Net
             }
             catch (SocketException sockExcp)
             {
-                logger.LogError("SocketException SendJpegFrame. " + sockExcp.Message);
+                Logger.Logger.Error("SocketException SendJpegFrame. ->" + sockExcp.Message);
             }
         }
 
@@ -1723,7 +1725,7 @@ namespace SIPSorcery.Net
 
                 if (videoTrack == null)
                 {
-                    logger.LogWarning("SendH264Frame was called on an RTP session without a video stream.");
+                    Logger.Logger.Warn("SendH264Frame was called on an RTP session without a video stream.");
                 }
                 else if (videoTrack.StreamStatus == MediaStreamStatusEnum.Inactive ||
                          videoTrack.StreamStatus == MediaStreamStatusEnum.RecvOnly)
@@ -1779,7 +1781,7 @@ namespace SIPSorcery.Net
             }
             catch (SocketException sockExcp)
             {
-                logger.LogError("SocketException SendH264Frame. " + sockExcp.Message);
+                Logger.Logger.Error("SocketException SendH264Frame. ->" + sockExcp.Message);
             }
         }
 
@@ -1815,7 +1817,7 @@ namespace SIPSorcery.Net
 
             if (IsClosed || m_rtpEventInProgress == true || dstEndPoint == null)
             {
-                logger.LogWarning("SendDtmfEvent request ignored as an RTP event is already in progress.");
+                Logger.Logger.Warn("SendDtmfEvent request ignored as an RTP event is already in progress.");
             }
 
             try
@@ -1824,7 +1826,7 @@ namespace SIPSorcery.Net
 
                 if (audioTrack == null)
                 {
-                    logger.LogWarning("SendDtmfEvent was called on an RTP session without an audio stream.");
+                    Logger.Logger.Warn("SendDtmfEvent was called on an RTP session without an audio stream.");
                 }
                 else if (audioTrack.StreamStatus == MediaStreamStatusEnum.Inactive ||
                          audioTrack.StreamStatus == MediaStreamStatusEnum.RecvOnly)
@@ -1899,11 +1901,11 @@ namespace SIPSorcery.Net
             }
             catch (SocketException sockExcp)
             {
-                logger.LogError("SocketException SendDtmfEvent. " + sockExcp.Message);
+                Logger.Logger.Error("SocketException SendDtmfEvent. ->" + sockExcp.Message);
             }
             catch (TaskCanceledException)
             {
-                logger.LogWarning("SendDtmfEvent was cancelled by caller.");
+                Logger.Logger.Warn("SendDtmfEvent was cancelled by caller.");
             }
             finally
             {
@@ -1956,7 +1958,7 @@ namespace SIPSorcery.Net
             {
                 if (IsSecure && !IsSecureContextReady)
                 {
-                    logger.LogWarning("RTP or RTCP packet received before secure context ready.");
+                    Logger.Logger.Warn("RTP or RTCP packet received before secure context ready.");
                 }
                 else if (buffer[1] == 0xC8 /* RTCP SR */ || buffer[1] == 0xC9 /* RTCP RR */)
                 {
@@ -1971,7 +1973,7 @@ namespace SIPSorcery.Net
 
                         if (res != 0)
                         {
-                            logger.LogWarning($"SRTCP unprotect failed, result {res}.");
+                            Logger.Logger.Warn($"SRTCP unprotect failed, result {res}.");
                             return;
                         }
                         else
@@ -1986,7 +1988,7 @@ namespace SIPSorcery.Net
                     {
                         if (rtcpPkt.Bye != null)
                         {
-                            logger.LogDebug(
+                            Logger.Logger.Debug(
                                 $"RTCP BYE received for SSRC {rtcpPkt.Bye.SSRC}, reason {rtcpPkt.Bye.Reason}.");
 
                             OnRtcpBye?.Invoke(rtcpPkt.Bye.Reason);
@@ -2018,7 +2020,7 @@ namespace SIPSorcery.Net
                                          !AudioControlDestinationEndPoint.Address.Equals(remoteEndPoint.Address) ||
                                          AudioControlDestinationEndPoint.Port != remoteEndPoint.Port))
                                     {
-                                        logger.LogDebug(
+                                        Logger.Logger.Debug(
                                             $"Audio control end point switched from {AudioControlDestinationEndPoint} to {remoteEndPoint}.");
                                         AudioControlDestinationEndPoint = remoteEndPoint;
                                     }
@@ -2027,7 +2029,7 @@ namespace SIPSorcery.Net
                                               !VideoControlDestinationEndPoint.Address.Equals(remoteEndPoint.Address) ||
                                               VideoControlDestinationEndPoint.Port != remoteEndPoint.Port))
                                     {
-                                        logger.LogDebug(
+                                        Logger.Logger.Debug(
                                             $"Video control end point switched from {VideoControlDestinationEndPoint} to {remoteEndPoint}.");
                                         VideoControlDestinationEndPoint = remoteEndPoint;
                                     }
@@ -2038,13 +2040,13 @@ namespace SIPSorcery.Net
                             }
                             else
                             {
-                                logger.LogWarning("Could not match an RTCP packet against any SSRC's in the session.");
+                                Logger.Logger.Warn("Could not match an RTCP packet against any SSRC's in the session.");
                             }
                         }
                     }
                     else
                     {
-                        logger.LogWarning("Failed to parse RTCP compound report.");
+                        Logger.Logger.Warn("Failed to parse RTCP compound report.");
                     }
 
                     #endregion
@@ -2062,7 +2064,7 @@ namespace SIPSorcery.Net
 
                             if (res != 0)
                             {
-                                logger.LogWarning($"SRTP unprotect failed, result {res}.");
+                                Logger.Logger.Warn($"SRTP unprotect failed, result {res}.");
                                 return;
                             }
                             else
@@ -2110,7 +2112,8 @@ namespace SIPSorcery.Net
 
                                 if (isValidSource)
                                 {
-                                    logger.LogDebug($"Set remote audio track SSRC to {rtpPacket.Header.SyncSource}.");
+                                    Logger.Logger.Debug(
+                                        $"Set remote audio track SSRC to {rtpPacket.Header.SyncSource}.");
                                     AudioRemoteTrack.Ssrc = rtpPacket.Header.SyncSource;
                                 }
                             }
@@ -2122,7 +2125,8 @@ namespace SIPSorcery.Net
 
                                 if (isValidSource)
                                 {
-                                    logger.LogDebug($"Set remote video track SSRC to {rtpPacket.Header.SyncSource}.");
+                                    Logger.Logger.Debug(
+                                        $"Set remote video track SSRC to {rtpPacket.Header.SyncSource}.");
                                     VideoRemoteTrack.Ssrc = rtpPacket.Header.SyncSource;
                                 }
                             }
@@ -2182,7 +2186,7 @@ namespace SIPSorcery.Net
                 // and only if the SSRV is 0, i.e. this is the first packet.
                 // If the remote end point is a loopback address AND the port matches then it's likely that this is a test/development 
                 // scenario and the source can be trusted.
-                logger.LogDebug(
+                Logger.Logger.Debug(
                     $"{mediaType} end point switched for RTP ssrc {ssrc} from {expectedEndPoint} to {receivedOnEndPoint}.");
 
                 if (mediaType == SDPMediaTypesEnum.audio)
@@ -2198,7 +2202,7 @@ namespace SIPSorcery.Net
             }
             else
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"RTP packet with SSRC {ssrc} received from unrecognised end point {receivedOnEndPoint}.");
             }
 
@@ -2253,7 +2257,7 @@ namespace SIPSorcery.Net
                 return SDPMediaTypesEnum.video;
             }
 
-            logger.LogWarning(
+            Logger.Logger.Warn(
                 $"An RTP packet with payload ID {header.PayloadType} was received that could not be matched to an audio or video stream.");
             return null;
         }
@@ -2332,7 +2336,7 @@ namespace SIPSorcery.Net
         {
             if (IsSecure && !IsSecureContextReady)
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     "SendRtpPacket cannot be called on a secure session before calling SetSecurityContext.");
             }
             else
@@ -2360,7 +2364,7 @@ namespace SIPSorcery.Net
                     int rtperr = m_srtpProtect(rtpBuffer, rtpBuffer.Length - srtpProtectionLength, out outBufLen);
                     if (rtperr != 0)
                     {
-                        logger.LogError("SendRTPPacket protection failed, result " + rtperr + ".");
+                        Logger.Logger.Error("SendRTPPacket protection failed, result " + rtperr + ".");
                     }
                     else
                     {
@@ -2393,7 +2397,7 @@ namespace SIPSorcery.Net
 
             if (IsSecure && !IsSecureContextReady)
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     "SendRtcpReport cannot be called on a secure session before calling SetSecurityContext.");
             }
             else if (controlDstEndPoint != null)
@@ -2420,7 +2424,7 @@ namespace SIPSorcery.Net
                         out outBufLen);
                     if (rtperr != 0)
                     {
-                        logger.LogWarning("SRTP RTCP packet protection failed, result " + rtperr + ".");
+                        Logger.Logger.Warn("SRTP RTCP packet protection failed, result " + rtperr + ".");
                     }
                     else
                     {

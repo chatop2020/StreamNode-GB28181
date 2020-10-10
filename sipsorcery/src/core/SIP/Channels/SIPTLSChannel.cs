@@ -55,12 +55,12 @@ namespace SIPSorcery.SIP
 
             if (m_serverCertificate != null)
             {
-                logger.LogInformation(
+                Logger.Logger.Info(
                     $"SIP TLS Channel ready for {ListeningEndPoint} and certificate {m_serverCertificate.Subject}.");
             }
             else
             {
-                logger.LogInformation($"SIP TLS client only channel ready.");
+                Logger.Logger.Info($"SIP TLS client only channel ready.");
             }
         }
 
@@ -80,7 +80,7 @@ namespace SIPSorcery.SIP
 
             await sslStream.AuthenticateAsServerAsync(m_serverCertificate).ConfigureAwait(false);
 
-            logger.LogDebug(
+            Logger.Logger.Debug(
                 $"SIP TLS Channel successfully upgraded accepted client to SSL stream for {ListeningEndPoint}->{streamConnection.StreamSocket.RemoteEndPoint}.");
 
             //// Display the properties and settings for the authenticated stream.
@@ -117,7 +117,7 @@ namespace SIPSorcery.SIP
             streamConnection.SslStream = sslStream;
             streamConnection.SslStreamBuffer = new byte[2 * SIPStreamConnection.MaxSIPTCPMessageSize];
 
-            logger.LogDebug(
+            Logger.Logger.Debug(
                 $"SIP TLS Channel successfully upgraded client connection to SSL stream for {ListeningEndPoint}->{streamConnection.StreamSocket.RemoteEndPoint}.");
 
             sslStream.BeginRead(streamConnection.SslStreamBuffer, 0, SIPStreamConnection.MaxSIPTCPMessageSize,
@@ -138,7 +138,7 @@ namespace SIPSorcery.SIP
                 if (bytesRead == 0)
                 {
                     // SSL stream was disconnected by the remote end point sending a FIN or RST.
-                    logger.LogDebug($"TLS socket disconnected by {sipStreamConnection.RemoteEndPoint}.");
+                    Logger.Logger.Debug($"TLS socket disconnected by {sipStreamConnection.RemoteEndPoint}.");
                     OnSIPStreamDisconnected(sipStreamConnection, SocketError.ConnectionReset);
                 }
                 else
@@ -168,13 +168,13 @@ namespace SIPSorcery.SIP
                 }
                 else
                 {
-                    logger.LogWarning($"IOException SIPTLSChannel OnReadCallback. {ioExcp.Message}");
+                    Logger.Logger.Warn($"IOException SIPTLSChannel OnReadCallback. {ioExcp.Message}");
                     OnSIPStreamDisconnected(sipStreamConnection, SocketError.Fault);
                 }
             }
             catch (Exception excp)
             {
-                logger.LogWarning($"Exception SIPTLSChannel OnReadCallback. {excp.Message}");
+                Logger.Logger.Warn($"Exception SIPTLSChannel OnReadCallback. {excp.Message}");
                 OnSIPStreamDisconnected(sipStreamConnection, SocketError.Fault);
             }
         }
@@ -194,7 +194,7 @@ namespace SIPSorcery.SIP
             }
             catch (SocketException sockExcp)
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"SocketException SIP TLS Channel sending to {dstEndPoint}. ErrorCode {sockExcp.SocketErrorCode}. {sockExcp}");
                 OnSIPStreamDisconnected(sipStreamConn, sockExcp.SocketErrorCode);
                 throw;
@@ -236,12 +236,12 @@ namespace SIPSorcery.SIP
         {
             if (sslPolicyErrors == SslPolicyErrors.None)
             {
-                logger.LogDebug($"Successfully validated X509 certificate for {certificate.Subject}.");
+                Logger.Logger.Debug($"Successfully validated X509 certificate for {certificate.Subject}.");
                 return true;
             }
             else
             {
-                logger.LogWarning(String.Format("Certificate error: {0}", sslPolicyErrors));
+                Logger.Logger.Warn(String.Format("Certificate error: {0}", sslPolicyErrors));
                 return true;
             }
         }
@@ -261,8 +261,10 @@ namespace SIPSorcery.SIP
             Logger.Logger.Info(string.Format("Chain verification flag: {0}", ch.ChainPolicy.VerificationFlags));
             Logger.Logger.Info(string.Format("Chain verification time: {0}", ch.ChainPolicy.VerificationTime));
             Logger.Logger.Info(string.Format("Chain status length: {0}", ch.ChainStatus.Length));
-            Logger.Logger.Info(string.Format("Chain application policy count: {0}", ch.ChainPolicy.ApplicationPolicy.Count));
-            Logger.Logger.Info(string.Format("Chain certificate policy count: {0} {1}", ch.ChainPolicy.CertificatePolicy.Count,
+            Logger.Logger.Info(string.Format("Chain application policy count: {0}",
+                ch.ChainPolicy.ApplicationPolicy.Count));
+            Logger.Logger.Info(string.Format("Chain certificate policy count: {0} {1}",
+                ch.ChainPolicy.CertificatePolicy.Count,
                 Environment.NewLine));
             //Output chain element information.
             Logger.Logger.Info("Chain Element Information");
@@ -275,9 +277,11 @@ namespace SIPSorcery.SIP
                 Logger.Logger.Info(string.Format("Element issuer name: {0}", element.Certificate.Issuer));
                 Logger.Logger.Info(string.Format("Element certificate valid until: {0}", element.Certificate.NotAfter));
                 Logger.Logger.Info(string.Format("Element certificate is valid: {0}", element.Certificate.Verify()));
-                Logger.Logger.Info(string.Format("Element error status length: {0}", element.ChainElementStatus.Length));
+                Logger.Logger.Info(string.Format("Element error status length: {0}",
+                    element.ChainElementStatus.Length));
                 Logger.Logger.Info(string.Format("Element information: {0}", element.Information));
-                Logger.Logger.Info(string.Format("Number of element extensions: {0}{1}", element.Certificate.Extensions.Count,
+                Logger.Logger.Info(string.Format("Number of element extensions: {0}{1}",
+                    element.Certificate.Extensions.Count,
                     Environment.NewLine));
 
                 if (ch.ChainStatus.Length > 1)
@@ -293,57 +297,58 @@ namespace SIPSorcery.SIP
 
         private void DisplaySecurityLevel(SslStream stream)
         {
-            logger.LogDebug(String.Format("Cipher: {0} strength {1}", stream.CipherAlgorithm, stream.CipherStrength));
-            logger.LogDebug(String.Format("Hash: {0} strength {1}", stream.HashAlgorithm, stream.HashStrength));
-            logger.LogDebug(String.Format("Key exchange: {0} strength {1}", stream.KeyExchangeAlgorithm,
+            Logger.Logger.Debug(
+                String.Format("Cipher: {0} strength {1}", stream.CipherAlgorithm, stream.CipherStrength));
+            Logger.Logger.Debug(String.Format("Hash: {0} strength {1}", stream.HashAlgorithm, stream.HashStrength));
+            Logger.Logger.Debug(String.Format("Key exchange: {0} strength {1}", stream.KeyExchangeAlgorithm,
                 stream.KeyExchangeStrength));
-            logger.LogDebug(String.Format("Protocol: {0}", stream.SslProtocol));
+            Logger.Logger.Debug(String.Format("Protocol: {0}", stream.SslProtocol));
         }
 
         private void DisplaySecurityServices(SslStream stream)
         {
-            logger.LogDebug(String.Format("Is authenticated: {0} as server? {1}", stream.IsAuthenticated,
+            Logger.Logger.Debug(String.Format("Is authenticated: {0} as server? {1}", stream.IsAuthenticated,
                 stream.IsServer));
-            logger.LogDebug(String.Format("IsSigned: {0}", stream.IsSigned));
-            logger.LogDebug(String.Format("Is Encrypted: {0}", stream.IsEncrypted));
+            Logger.Logger.Debug(String.Format("IsSigned: {0}", stream.IsSigned));
+            Logger.Logger.Debug(String.Format("Is Encrypted: {0}", stream.IsEncrypted));
         }
 
         private void DisplayStreamProperties(SslStream stream)
         {
-            logger.LogDebug(String.Format("Can read: {0}, write {1}", stream.CanRead, stream.CanWrite));
-            logger.LogDebug(String.Format("Can timeout: {0}", stream.CanTimeout));
+            Logger.Logger.Debug(String.Format("Can read: {0}, write {1}", stream.CanRead, stream.CanWrite));
+            Logger.Logger.Debug(String.Format("Can timeout: {0}", stream.CanTimeout));
         }
 
         private void DisplayCertificateInformation(SslStream stream)
         {
-            logger.LogDebug(String.Format("Certificate revocation list checked: {0}",
+            Logger.Logger.Debug(String.Format("Certificate revocation list checked: {0}",
                 stream.CheckCertRevocationStatus));
 
             X509Certificate localCertificate = stream.LocalCertificate;
             if (stream.LocalCertificate != null)
             {
-                logger.LogDebug(String.Format("Local cert was issued to {0} and is valid from {1} until {2}.",
+                Logger.Logger.Debug(String.Format("Local cert was issued to {0} and is valid from {1} until {2}.",
                     localCertificate.Subject,
                     localCertificate.GetEffectiveDateString(),
                     localCertificate.GetExpirationDateString()));
             }
             else
             {
-                logger.LogWarning("Local certificate is null.");
+                Logger.Logger.Warn("Local certificate is null.");
             }
 
             // Display the properties of the client's certificate.
             X509Certificate remoteCertificate = stream.RemoteCertificate;
             if (stream.RemoteCertificate != null)
             {
-                logger.LogDebug(String.Format("Remote cert was issued to {0} and is valid from {1} until {2}.",
+                Logger.Logger.Debug(String.Format("Remote cert was issued to {0} and is valid from {1} until {2}.",
                     remoteCertificate.Subject,
                     remoteCertificate.GetEffectiveDateString(),
                     remoteCertificate.GetExpirationDateString()));
             }
             else
             {
-                logger.LogWarning("Remote certificate is null.");
+                Logger.Logger.Warn("Remote certificate is null.");
             }
         }
 

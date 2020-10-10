@@ -43,7 +43,7 @@ namespace GB28181.App
         public const string WILDCARD_DOMAIN_ALIAS = "*";
         public const string DEFAULT_LOCAL_DOMAIN = "local";
 
-      //  private ILog logger = AppState.logger;
+        //  private ILog logger = AppState.logger;
 
         //    private static readonly string m_storageFileName = AssemblyState.XML_DOMAINS_FILENAME;
 
@@ -118,7 +118,8 @@ namespace GB28181.App
                 }
                 else
                 {
-                    Logger.Logger.Warn("SIPDomainManager ignoring duplicate domain entry for " + sipDomain.Domain.ToLower() +
+                    Logger.Logger.Warn("SIPDomainManager ignoring duplicate domain entry for " +
+                                       sipDomain.Domain.ToLower() +
                                        ".");
                 }
             }
@@ -274,7 +275,8 @@ namespace GB28181.App
                     else
                     {
                         sipDomain.Aliases.Add(alias.ToLower());
-                        Logger.Logger.Debug(" SIPDomainManager added alias to " + sipDomain.Domain + " of " + alias.ToLower() +
+                        Logger.Logger.Debug(" SIPDomainManager added alias to " + sipDomain.Domain + " of " +
+                                            alias.ToLower() +
                                             ".");
                     }
                 }

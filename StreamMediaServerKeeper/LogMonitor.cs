@@ -20,7 +20,7 @@ namespace StreamMediaServerKeeper
             fileName = dirPath + "/logbak/back_" + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss") + "_" + fileName;
             File.Copy(filePath, fileName);
             LinuxShell.Run("cat /dev/null >" + filePath);
-            Logger.Logger.Info("转存运行日志,并清空现有日志 -> "+filePath + "->" + fileName);
+            Logger.Logger.Info("转存运行日志,并清空现有日志 -> " + filePath + "->" + fileName);
         }
 
 
@@ -60,7 +60,7 @@ namespace StreamMediaServerKeeper
                 }
                 catch (Exception ex)
                 {
-                    Logger.Logger.Error("启动日志转存服务失败... ->"+ ex.Message + " -> " + ex.StackTrace);
+                    Logger.Logger.Error("启动日志转存服务失败... ->" + ex.Message + " -> " + ex.StackTrace);
                 }
             })).Start();
         }

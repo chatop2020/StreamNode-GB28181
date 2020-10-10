@@ -44,7 +44,7 @@ namespace SIPSorcery.SIP
     {
         private const char PARAM_TAG_DELIMITER = ';';
 
-        private static ILogger logger = Log.Logger;
+        //   private static ILogger logger = Log.Logger;
 
         [DataMember] public string Name;
 
@@ -153,7 +153,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPUserField ToString. " + excp.Message);
+                Logger.Logger.Error("Exception SIPUserField ToString. ->" + excp.Message);
                 throw;
             }
         }
@@ -175,7 +175,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPUserField ToParameterlessString. " + excp.Message);
+                Logger.Logger.Error("Exception SIPUserField ToParameterlessString. ->" + excp.Message);
                 throw;
             }
         }

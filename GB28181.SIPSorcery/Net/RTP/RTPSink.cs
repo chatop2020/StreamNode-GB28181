@@ -118,7 +118,7 @@ namespace GB28181.Net
             }
         }
 
-      //  private static ILog logger = AppState.GetLogger("rtp");
+        //  private static ILog logger = AppState.GetLogger("rtp");
 
         private IPEndPoint m_streamEndPoint;
 
@@ -241,10 +241,11 @@ namespace GB28181.Net
             catch (Exception excp)
             {
                 Logger.Logger.Error("Exception setting IP type of service for RTP packet to " + typeOfService + ". ->" +
-                                   excp.Message);
+                                    excp.Message);
             }
 
-            Logger.Logger.Info("RTPSink established on " + m_localEndPoint.Address.ToString() + ":" + m_localEndPoint.Port +
+            Logger.Logger.Info("RTPSink established on " + m_localEndPoint.Address.ToString() + ":" +
+                               m_localEndPoint.Port +
                                ".");
             //receiveLogger.Info("Send Time,Send Timestamp,Receive Time,Receive Timestamp,Receive Offset(ms),Timestamp Diff,SeqNum,Bytes");
             //sendLogger.Info("Send Time,Send Timestamp,Send Offset(ms),SeqNum,Bytes");
@@ -268,10 +269,11 @@ namespace GB28181.Net
             catch (Exception excp)
             {
                 Logger.Logger.Error("Exception setting IP type of service for RTP packet to " + typeOfService + ". ->" +
-                                   excp.Message);
+                                    excp.Message);
             }
 
-            Logger.Logger.Info("RTPSink established on " + m_localEndPoint.Address.ToString() + ":" + m_localEndPoint.Port +
+            Logger.Logger.Info("RTPSink established on " + m_localEndPoint.Address.ToString() + ":" +
+                               m_localEndPoint.Port +
                                ".");
             //receiveLogger.Info("Receive Time,Receive Offset (ms),SeqNum,Bytes");
             //sendLogger.Info("Send Time,Send Offset (ms),SeqNum,Bytes");
@@ -358,7 +360,8 @@ namespace GB28181.Net
 
                         if (packetType == RTCPHeader.RTCP_PACKET_TYPE)
                         {
-                            Logger.Logger.Debug("RTP Listener received remote RTCP report from " + remoteEndPoint + ".");
+                            Logger.Logger.Debug("RTP Listener received remote RTCP report from " + remoteEndPoint +
+                                                ".");
 
                             try
                             {
@@ -437,7 +440,8 @@ namespace GB28181.Net
                                 if (previousTimestamp > timestamp)
                                 {
                                     Logger.Logger.Error("BUG: Listener previous timestamp (" + previousTimestamp +
-                                                        ") > timestamp (" + timestamp + "), last seq num=" + previousSeqNum +
+                                                        ") > timestamp (" + timestamp + "), last seq num=" +
+                                                        previousSeqNum +
                                                         ", seqnum=" + sequenceNumber + ".");
 
                                     // Cover for this bug until it's nailed down.
@@ -475,10 +479,12 @@ namespace GB28181.Net
 
                                     if (jitter > 75)
                                     {
-                                        Logger.Logger.Debug("seqno=" + rtpPacket.Header.SequenceNumber + ", timestmap=" +
+                                        Logger.Logger.Debug("seqno=" + rtpPacket.Header.SequenceNumber +
+                                                            ", timestmap=" +
                                                             timestamp + ", ts-prev=" + previousTimestamp +
                                                             ", receive spacing=" + interarrivalReceiveTime +
-                                                            ", send spacing=" + senderSpacingMilliseconds + ", jitter=" +
+                                                            ", send spacing=" + senderSpacingMilliseconds +
+                                                            ", jitter=" +
                                                             jitter);
                                     }
                                     else
@@ -516,7 +522,8 @@ namespace GB28181.Net
                             {
                                 Logger.Logger.Debug("Expecting RTP on " + IPSocket.GetSocketString(m_streamEndPoint) +
                                                     " but received on " + IPSocket.GetSocketString(remoteEndPoint) +
-                                                    ", now sending to " + IPSocket.GetSocketString(remoteEndPoint) + ".");
+                                                    ", now sending to " + IPSocket.GetSocketString(remoteEndPoint) +
+                                                    ".");
                                 m_streamEndPoint = remoteEndPoint;
 
                                 if (RemoteEndPointChanged != null)
@@ -535,7 +542,8 @@ namespace GB28181.Net
                         }
                         catch (Exception setSendExcp)
                         {
-                            Logger.Logger.Error("Exception RTPListener setting SendTo Socket. ->" + setSendExcp.Message);
+                            Logger.Logger.Error("Exception RTPListener setting SendTo Socket. ->" +
+                                                setSendExcp.Message);
                         }
 
                         #endregion
@@ -563,7 +571,8 @@ namespace GB28181.Net
                         if ((noRTPRcvdDuration > NO_RTP_TIMEOUT || noRTPSentDuration > NO_RTP_TIMEOUT) && StopIfNoData)
                         {
                             Logger.Logger.Warn("Disconnecting RTP listener on " + m_localEndPoint.ToString() +
-                                               " due to not being able to send or receive any RTP for " + NO_RTP_TIMEOUT +
+                                               " due to not being able to send or receive any RTP for " +
+                                               NO_RTP_TIMEOUT +
                                                "s.");
                             Shutdown();
                         }
@@ -743,15 +752,18 @@ namespace GB28181.Net
 
                             if (lastSendTimestamp > sendTimestamp)
                             {
-                                Logger.Logger.Error("RTP Sender previous timestamp (" + lastSendTimestamp + ") > timestamp (" +
+                                Logger.Logger.Error("RTP Sender previous timestamp (" + lastSendTimestamp +
+                                                    ") > timestamp (" +
                                                     sendTimestamp + ") ms since last send=" + milliSinceLastSend +
-                                                    ", lastseqnum=" + lastSeqNum + ", seqnum=" + rtpHeader.SequenceNumber +
+                                                    ", lastseqnum=" + lastSeqNum + ", seqnum=" +
+                                                    rtpHeader.SequenceNumber +
                                                     ".");
                             }
 
                             if (DateTime.Now.Subtract(m_lastRTPSentTime).TotalMilliseconds > 75)
                             {
-                                Logger.Logger.Debug("delayed send: " + rtpHeader.SequenceNumber + ", time since last send " +
+                                Logger.Logger.Debug("delayed send: " + rtpHeader.SequenceNumber +
+                                                    ", time since last send " +
                                                     DateTime.Now.Subtract(m_lastRTPSentTime).TotalMilliseconds + "ms.");
                             }
                         }
@@ -776,7 +788,8 @@ namespace GB28181.Net
 
                             if (m_packetsSent % 500 == 0)
                             {
-                                Logger.Logger.Debug("Total packets sent to " + dstEndPoint.ToString() + " " + m_packetsSent +
+                                Logger.Logger.Debug("Total packets sent to " + dstEndPoint.ToString() + " " +
+                                                    m_packetsSent +
                                                     ", bytes " + NumberFormatter.ToSIByteFormat(m_bytesSent, 2) + ".");
                             }
 
@@ -814,7 +827,8 @@ namespace GB28181.Net
 
                         if (excp.GetType() == typeof(SocketException))
                         {
-                            Logger.Logger.Error("socket exception errorcode=" + ((SocketException) excp).ErrorCode + ".");
+                            Logger.Logger.Error(
+                                "socket exception errorcode=" + ((SocketException) excp).ErrorCode + ".");
                         }
 
                         Logger.Logger.Warn("Remote socket closed on send. Last RTP recevied " +

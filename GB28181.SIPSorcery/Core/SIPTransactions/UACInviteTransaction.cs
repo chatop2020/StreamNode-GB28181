@@ -108,7 +108,8 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception UACInviteTransaction_TransactionInformationResponseReceived. ->" + excp.Message);
+                Logger.Logger.Error("Exception UACInviteTransaction_TransactionInformationResponseReceived. ->" +
+                                    excp.Message);
             }
         }
 
@@ -146,7 +147,8 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception UACInviteTransaction_TransactionFinalResponseReceived. ->" + excp.Message);
+                Logger.Logger.Error(
+                    "Exception UACInviteTransaction_TransactionFinalResponseReceived. ->" + excp.Message);
             }
         }
 

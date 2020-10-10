@@ -88,7 +88,7 @@ namespace GB28181
     /// </note>
     public class SIPTransaction
     {
-       // protected static ILog logger = AssemblyState.logger;
+        // protected static ILog logger = AssemblyState.logger;
 
         protected static readonly int m_t1 = SIPTimings.T1; // SIP Timer T1 in milliseconds.
         protected static readonly int m_t6 = SIPTimings.T6; // SIP Timer T1 in milliseconds.
@@ -561,7 +561,8 @@ namespace GB28181
             catch (Exception excp)
             {
                 Logger.Logger.Error("Exception FireTransactionTimedOut (" + m_transactionId + " " +
-                                    TransactionRequest.URI.ToString() + ", callid=" + TransactionRequest.Header.CallId + ", " +
+                                    TransactionRequest.URI.ToString() + ", callid=" + TransactionRequest.Header.CallId +
+                                    ", " +
                                     this.GetType().ToString() + "). ->" + excp.Message);
             }
         }

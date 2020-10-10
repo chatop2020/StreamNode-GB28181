@@ -23,7 +23,7 @@ namespace GB28181.App
 {
     public class SilverlightPolicyServer
     {
-      //  private ILog logger = AppState.logger;
+        //  private ILog logger = AppState.logger;
 
         private Socket m_listener;
 

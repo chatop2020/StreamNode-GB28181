@@ -57,7 +57,7 @@ namespace GB28181
             BlackholeAddress =
                 IPAddress.Any; // (IPAddress.Any is 0.0.0.0) Any SIP messages with this IP address will be dropped.
 
-       // private static ILog logger = AssemblyState.logger;
+        // private static ILog logger = AssemblyState.logger;
 
         private bool
             m_queueIncoming =
@@ -233,7 +233,8 @@ namespace GB28181
                     // Keep the queue within size limits 
                     if (m_inMessageQueue.Count >= MAX_INMESSAGE_QUEUECOUNT)
                     {
-                        Logger.Logger.Warn("SIPTransport queue full new message from " + remoteEndPoint + " being discarded.");
+                        Logger.Logger.Warn("SIPTransport queue full new message from " + remoteEndPoint +
+                                           " being discarded.");
                     }
                     else
                     {
@@ -736,7 +737,8 @@ namespace GB28181
             SIPViaHeader topViaHeader = sipResponse.Header.Vias.TopViaHeader;
             if (topViaHeader == null)
             {
-                Logger.Logger.Warn("There was no top Via header on a SIP response from " + sipResponse.RemoteSIPEndPoint +
+                Logger.Logger.Warn("There was no top Via header on a SIP response from " +
+                                   sipResponse.RemoteSIPEndPoint +
                                    " when attempting to send it, response dropped.");
                 //logger.Warn(sipResponse.ToString());
             }
@@ -1416,7 +1418,8 @@ namespace GB28181
                                                 SIPTransactionStatesEnum.Completed &&
                                                 sipRequest.Method != SIPMethodsEnum.ACK)
                                             {
-                                                Logger.Logger.Warn("Resending final response for " + sipRequest.Method + ", " +
+                                                Logger.Logger.Warn("Resending final response for " + sipRequest.Method +
+                                                                   ", " +
                                                                    sipRequest.URI.ToString() + ", cseq=" +
                                                                    sipRequest.Header.CSeq + ".");
                                                 requestTransaction.RetransmitFinalResponse();
@@ -1450,8 +1453,9 @@ namespace GB28181
                                             }
                                             else
                                             {
-                                                Logger.Logger.Warn("Transaction already exists, ignoring duplicate request, " +
-                                                                   sipRequest.Method + " " + sipRequest.URI.ToString() + ".");
+                                                Logger.Logger.Warn(
+                                                    "Transaction already exists, ignoring duplicate request, " +
+                                                    sipRequest.Method + " " + sipRequest.URI.ToString() + ".");
                                                 //FireSIPBadRequestInTraceEvent(sipChannel.SIPChannelEndPoint, remoteEndPoint, "Transaction already exists, ignoring duplicate request, " + sipRequest.Method + " " + sipRequest.URI.ToString() + " from " + remoteEndPoint + ".", SIPValidationFieldsEnum.Request);
                                             }
                                         }
@@ -1540,7 +1544,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("SIPMessageReceived exception ->" + excp.Message+"->"+excp.StackTrace);
+                Logger.Logger.Error("SIPMessageReceived exception ->" + excp.Message + "->" + excp.StackTrace);
                 FireSIPBadRequestInTraceEvent(sipChannel.SIPChannelEndPoint, remoteEndPoint,
                     "Exception SIPTransport. " + excp.Message, SIPValidationFieldsEnum.Unknown, rawSIPMessage);
                 if (PerformanceMonitorPrefix != null)
@@ -1573,7 +1577,8 @@ namespace GB28181
                 }
                 else
                 {
-                    Logger.Logger.Warn("No SIP channel could be found for local SIP end point " + localSIPEndPoint.ToString() +
+                    Logger.Logger.Warn("No SIP channel could be found for local SIP end point " +
+                                       localSIPEndPoint.ToString() +
                                        ".");
                     return null;
                 }

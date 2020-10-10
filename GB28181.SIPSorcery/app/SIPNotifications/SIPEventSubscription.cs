@@ -5,7 +5,7 @@ namespace GB28181.App
 {
     public class SIPEventSubscription
     {
-       // protected static ILog logger = AppState.logger;
+        // protected static ILog logger = AppState.logger;
 
 
         public string SessionID { get; set; }

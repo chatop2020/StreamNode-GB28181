@@ -41,7 +41,7 @@ namespace GB28181.Sys.Net
             MAXIMUM_RTP_PORT_BIND_ATTEMPTS =
                 5; // The maximum number of re-attempts that will be made when trying to bind the RTP port.
 
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         public static PlatformEnum Platform = PlatformEnum.Windows;
 
@@ -76,8 +76,9 @@ namespace GB28181.Sys.Net
                         }
                         catch (Exception excp)
                         {
-                            Logger.Logger.Error("Warning couldn't create UDP end point for " + localAddress + ":" + port + ". ->" +
-                                               excp.Message);
+                            Logger.Logger.Error("Warning couldn't create UDP end point for " + localAddress + ":" +
+                                                port + ". ->" +
+                                                excp.Message);
                         }
 
                         attempts++;
@@ -183,7 +184,8 @@ namespace GB28181.Sys.Net
                             }
                             else
                             {
-                                Logger.Logger.Debug("Successfully bound RTP socket " + localAddress + ":" + rtpPort + ".");
+                                Logger.Logger.Debug("Successfully bound RTP socket " + localAddress + ":" + rtpPort +
+                                                    ".");
                             }
 
                             bindSuccess = true;
@@ -194,13 +196,16 @@ namespace GB28181.Sys.Net
                         {
                             if (controlPort != 0)
                             {
-                                Logger.Logger.Warn("Failed to bind on address " + localAddress + " to RTP port " + rtpPort +
-                                                   " and/or control port of " + controlPort + ", attempt " + bindAttempts +
+                                Logger.Logger.Warn("Failed to bind on address " + localAddress + " to RTP port " +
+                                                   rtpPort +
+                                                   " and/or control port of " + controlPort + ", attempt " +
+                                                   bindAttempts +
                                                    ".");
                             }
                             else
                             {
-                                Logger.Logger.Warn("Failed to bind on address " + localAddress + " to RTP port " + rtpPort +
+                                Logger.Logger.Warn("Failed to bind on address " + localAddress + " to RTP port " +
+                                                   rtpPort +
                                                    ", attempt " + bindAttempts + ".");
                             }
 

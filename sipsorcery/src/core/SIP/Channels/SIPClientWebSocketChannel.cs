@@ -177,7 +177,7 @@ namespace SIPSorcery.SIP
 
                 if (m_egressConnections.TryGetValue(connectionID, out var conn))
                 {
-                    logger.LogDebug(
+                    Logger.Logger.Debug(
                         $"Sending {buffer.Length} bytes on client web socket connection to {conn.ServerUri}.");
 
                     ArraySegment<byte> segmentBuffer = new ArraySegment<byte>(buffer);
@@ -192,7 +192,7 @@ namespace SIPSorcery.SIP
                     ClientWebSocket clientWebSocket = new ClientWebSocket();
                     await clientWebSocket.ConnectAsync(serverUri, m_cts.Token).ConfigureAwait(false);
 
-                    logger.LogDebug($"Successfully connected web socket client to {serverUri}.");
+                    Logger.Logger.Debug($"Successfully connected web socket client to {serverUri}.");
 
                     ArraySegment<byte> segmentBuffer = new ArraySegment<byte>(buffer);
                     await clientWebSocket.SendAsync(segmentBuffer, WebSocketMessageType.Text, true, m_cts.Token)
@@ -224,7 +224,7 @@ namespace SIPSorcery.SIP
 
                     if (!m_egressConnections.TryAdd(connectionID, newConn))
                     {
-                        logger.LogError(
+                        Logger.Logger.Error(
                             $"Could not add web socket client connected to {serverUri} to channel collection, closing.");
                         await Close(connectionID, clientWebSocket).ConfigureAwait(false);
                     }
@@ -323,7 +323,7 @@ namespace SIPSorcery.SIP
         {
             try
             {
-                logger.LogDebug($"Closing SIP Client Web Socket Channel.");
+                Logger.Logger.Debug($"Closing SIP Client Web Socket Channel.");
 
                 Closed = true;
                 m_cts.Cancel();
@@ -335,7 +335,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogWarning("Exception SIPClientWebSocketChannel Close. " + excp.Message);
+                Logger.Logger.Warn("Exception SIPClientWebSocketChannel Close. " + excp.Message);
             }
         }
 
@@ -392,7 +392,7 @@ namespace SIPSorcery.SIP
 
                         if (receiveTask.IsCompleted)
                         {
-                            logger.LogDebug(
+                            Logger.Logger.Debug(
                                 $"Client web socket connection to {conn.ServerUri} received {receiveTask.Result.Count} bytes.");
                             //SIPMessageReceived(this, conn.LocalEndPoint, conn.RemoteEndPoint, conn.ReceiveBuffer.Take(receiveTask.Result.Count).ToArray()).Wait();
                             ExtractSIPMessages(this, conn, conn.ReceiveBuffer, receiveTask.Result.Count);
@@ -400,7 +400,7 @@ namespace SIPSorcery.SIP
                         }
                         else
                         {
-                            logger.LogWarning(
+                            Logger.Logger.Warn(
                                 $"Client web socket connection to {conn.ServerUri} returned without completing, closing.");
                             Close(conn.ConnectionID, conn.Client);
                         }
@@ -413,14 +413,14 @@ namespace SIPSorcery.SIP
                     } // This gets thrown if task is cancelled.
                     catch (Exception excp)
                     {
-                        logger.LogError(
-                            $"Exception SIPClientWebSocketChannel processing receive tasks. {excp.Message}");
+                        Logger.Logger.Error(
+                            $"Exception SIPClientWebSocketChannel processing receive tasks. ->{excp.Message}");
                     }
                 }
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception SIPClientWebSocketChannel.MonitorReceiveTasks. {excp.Message}");
+                Logger.Logger.Error($"Exception SIPClientWebSocketChannel.MonitorReceiveTasks. ->{excp.Message}");
             }
             finally
             {

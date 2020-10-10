@@ -84,8 +84,8 @@ namespace SIPSorcery.SIP
         private Task<SocketError> UACInviteTransaction_TransactionRequestReceived(SIPEndPoint localSIPEndPoint,
             SIPEndPoint remoteEndPoint, SIPTransaction sipTransaction, SIPRequest sipRequest)
         {
-            logger.LogWarning("UACInviteTransaction received unexpected request, " + sipRequest.Method + " from " +
-                              remoteEndPoint.ToString() + ", ignoring.");
+            Logger.Logger.Warn("UACInviteTransaction received unexpected request, " + sipRequest.Method + " from " +
+                               remoteEndPoint.ToString() + ", ignoring.");
             return Task.FromResult(SocketError.Fault);
         }
 
@@ -98,7 +98,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception UACInviteTransaction_TransactionTimedOut. " + excp.Message);
+                Logger.Logger.Error("Exception UACInviteTransaction_TransactionTimedOut. ->" + excp.Message);
                 throw;
             }
         }
@@ -138,8 +138,8 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError(
-                    "Exception UACInviteTransaction_TransactionInformationResponseReceived. " + excp.Message);
+                Logger.Logger.Error(
+                    "Exception UACInviteTransaction_TransactionInformationResponseReceived. ->" + excp.Message);
                 return SocketError.Fault;
             }
         }
@@ -189,7 +189,8 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception UACInviteTransaction_TransactionFinalResponseReceived. {excp.Message}");
+                Logger.Logger.Error(
+                    $"Exception UACInviteTransaction_TransactionFinalResponseReceived. ->{excp.Message}");
                 return SocketError.Fault;
             }
         }
@@ -240,7 +241,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception Get2xxAckRequest. {excp.Message}");
+                Logger.Logger.Error($"Exception Get2xxAckRequest. ->{excp.Message}");
                 throw excp;
             }
         }
@@ -356,7 +357,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception UACInviteTransaction CancelCall. " + excp.Message);
+                Logger.Logger.Error("Exception UACInviteTransaction CancelCall. ->" + excp.Message);
                 throw;
             }
         }

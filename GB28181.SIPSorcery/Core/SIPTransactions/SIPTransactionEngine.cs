@@ -9,7 +9,7 @@ namespace GB28181
 {
     public class SIPTransactionEngine : ISIPTransactionEngine
     {
-       // protected static ILog logger = AssemblyState.logger;
+        // protected static ILog logger = AssemblyState.logger;
 
         private static readonly int m_t6 = SIPTimings.T6;
 
@@ -313,7 +313,8 @@ namespace GB28181
                 Logger.Logger.Debug(" Pending tansaction " + transaction.TransactionRequest.Method + " " +
                                     transaction.TransactionState + " " +
                                     DateTime.Now.Subtract(transaction.Created).TotalSeconds.ToString("0.##") + "s " +
-                                    transaction.TransactionRequestURI.ToString() + " (" + transaction.TransactionId + ").");
+                                    transaction.TransactionRequestURI.ToString() + " (" + transaction.TransactionId +
+                                    ").");
             }
         }
 

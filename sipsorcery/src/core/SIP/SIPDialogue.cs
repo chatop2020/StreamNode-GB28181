@@ -46,7 +46,7 @@ namespace SIPSorcery.SIP
     /// </remarks>
     public class SIPDialogue
     {
-        protected static ILogger logger = Log.Logger;
+        //  protected static ILogger logger = Log.Logger;
 
         protected static string m_CRLF = SIPConstants.CRLF;
         protected static string m_sipVersion = SIPConstants.SIP_VERSION_STRING;
@@ -405,7 +405,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPDialogue Hangup. " + excp.Message);
+                Logger.Logger.Error("Exception SIPDialogue Hangup. ->" + excp.Message);
             }
         }
 

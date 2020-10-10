@@ -145,7 +145,7 @@ namespace GB28181.App
         private readonly static string m_defaultFromURI = SIPConstants.SIP_DEFAULT_FROMURI;
         private static char m_customHeadersSeparator = '|'; // Must match SIPProvider.CUSTOM_HEADERS_SEPARATOR.
 
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         public string
             Username; // The username that will be used in the From header and to authenticate the call unless overridden by AuthUsername.

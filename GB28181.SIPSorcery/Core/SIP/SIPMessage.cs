@@ -41,7 +41,7 @@ namespace GB28181
         private static int m_minFirstLineLength = 7;
         private static string m_CRLF = SIPConstants.CRLF;
 
-       // private static ILog logger = AssemblyState.logger;
+        // private static ILog logger = AssemblyState.logger;
 
         public string RawMessage;
         public SIPMessageTypesEnum SIPMessageType = SIPMessageTypesEnum.Unknown;
@@ -152,14 +152,14 @@ namespace GB28181
                 }
                 else
                 {
-	                Logger.Logger.Warn(
+                    Logger.Logger.Warn(
                         "Error ParseSIPMessage, there were no end of line characters in the string being parsed.");
                     return null;
                 }
             }
             catch (Exception excp)
             {
-	            Logger.Logger.Error("Exception ParseSIPMessage. ->" + excp.Message + "->SIP Message=" + message + ".");
+                Logger.Logger.Error("Exception ParseSIPMessage. ->" + excp.Message + "->SIP Message=" + message + ".");
                 return null;
             }
         }

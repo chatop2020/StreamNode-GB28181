@@ -28,7 +28,7 @@ namespace SIPSorcery.SIP.App
 {
     public class SIPPacketMangler
     {
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         public static string MangleSDP(string sdpBody, string publicIPAddress, out bool wasMangled)
         {
@@ -69,14 +69,14 @@ namespace SIPSorcery.SIP.App
                 }
                 else
                 {
-                    logger.LogWarning("Mangle SDP was called with an empty body or public IP address.");
+                    Logger.Logger.Warn("Mangle SDP was called with an empty body or public IP address.");
                 }
 
                 return sdpBody;
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception MangleSDP. " + excp.Message);
+                Logger.Logger.Error("Exception MangleSDP. ->" + excp.Message);
                 return sdpBody;
             }
         }
@@ -133,7 +133,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception MangleSIPRequest. " + excp.Message);
+                Logger.Logger.Error("Exception MangleSIPRequest. ->" + excp.Message);
             }
         }
 
@@ -185,7 +185,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception MangleSIPResponse. " + excp.Message);
+                Logger.Logger.Error("Exception MangleSIPResponse. ->" + excp.Message);
             }
         }
 

@@ -184,7 +184,7 @@ namespace SIPSorcery.SIP.App
         public const string SERIALISATION_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss.ffffff zzz";
         public const string END_MESSAGE_DELIMITER = "##";
 
-        protected static ILogger logger = Log.Logger;
+        // protected static ILogger logger = Log.Logger;
 
         protected string
             m_serialisationPrefix = SIPMonitorConsoleEvent.SERIALISATION_PREFIX; // Default to a control client event.
@@ -222,8 +222,8 @@ namespace SIPSorcery.SIP.App
             }
             else
             {
-                logger.LogWarning("The monitor event prefix of " + eventCSV.Trim().Substring(0, 1) +
-                                  " was not recognised. " + eventCSV);
+                Logger.Logger.Warn("The monitor event prefix of " + eventCSV.Trim().Substring(0, 1) +
+                                   " was not recognised. " + eventCSV);
                 return null;
             }
         }

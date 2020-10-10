@@ -87,7 +87,7 @@ namespace GB28181.Servers
         private string m_sipRegisterRemoveAll = SIPConstants.SIP_REGISTER_REMOVEALL;
         private string m_sipExpiresParameterKey = SIPContactHeader.EXPIRES_PARAMETER_KEY;
 
-       // private static ILog logger = AppState.GetLogger("sipregistrar");
+        // private static ILog logger = AppState.GetLogger("sipregistrar");
 
         // private SIPMonitorLogDelegate SIPMonitorEventLog_External;
         //private SendNATKeepAliveDelegate SendNATKeepAlive_External;
@@ -201,7 +201,8 @@ namespace GB28181.Servers
                     else
                     {
                         Logger.Logger.Warn("A binding returned from the database as expired wasn't. " +
-                                           binding.SIPAccountName + " and " + binding.MangledContactURI + ", last register " +
+                                           binding.SIPAccountName + " and " + binding.MangledContactURI +
+                                           ", last register " +
                                            binding.LastUpdate.ToString("HH:mm:ss") + ", expiry " + binding.Expiry +
                                            ", expiry time " + binding.ExpiryTime.ToString("HH:mm:ss") +
                                            ", checkedtime " + expiryTime.ToString("HH:mm:ss") + ", now " +
@@ -566,7 +567,8 @@ namespace GB28181.Servers
                             }
                             catch (Exception natJobExcp)
                             {
-                                Logger.Logger.Error("Exception attempting NAT keep-alive send for " + job.RemoteEndPoint +
+                                Logger.Logger.Error("Exception attempting NAT keep-alive send for " +
+                                                    job.RemoteEndPoint +
                                                     ", owner=" + job.Owner + ". ->" + natJobExcp.Message);
                                 if (!jobsToRemove.Contains(job.RemoteEndPoint.ToString()))
                                 {

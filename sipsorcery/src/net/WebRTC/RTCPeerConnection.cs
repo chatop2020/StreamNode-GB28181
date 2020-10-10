@@ -123,7 +123,7 @@ namespace SIPSorcery.Net
 
         private readonly string RTCP_ATTRIBUTE = $"a=rtcp:{SDP.IGNORE_RTP_PORT_NUMBER} IN IP4 0.0.0.0";
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         public string SessionID { get; private set; }
         public string SdpSessionID;
@@ -507,7 +507,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception createOffer. " + excp);
+                Logger.Logger.Error("Exception createOffer. ->" + excp);
                 throw;
             }
         }
@@ -689,12 +689,12 @@ namespace SIPSorcery.Net
                     }
                     else
                     {
-                        logger.LogWarning("Unknown packet type received on RTP channel.");
+                        Logger.Logger.Warn("Unknown packet type received on RTP channel.");
                     }
                 }
                 catch (Exception excp)
                 {
-                    logger.LogError($"Exception RTCPeerConnection.OnRTPDataReceived {excp.Message}");
+                    Logger.Logger.Error($"Exception RTCPeerConnection.OnRTPDataReceived ->{excp.Message}");
                 }
             }
         }
@@ -713,7 +713,7 @@ namespace SIPSorcery.Net
             }
             else
             {
-                logger.LogWarning(
+                Logger.Logger.Warn(
                     $"Remote ICE candidate not added as no available ICE session for component {candidate.component}.");
             }
         }

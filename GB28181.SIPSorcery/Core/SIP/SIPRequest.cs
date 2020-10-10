@@ -37,7 +37,7 @@ namespace GB28181
     /// </bnf>
     public class SIPRequest
     {
-     //  private static ILog logger = AssemblyState.logger;
+        //  private static ILog logger = AssemblyState.logger;
 
         private delegate bool IsLocalSIPSocketDelegate(string socket, SIPProtocolsEnum protocol);
 
@@ -138,7 +138,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception parsing SIP Request. ->" +sipMessage.RawMessage+"->"+ excp.Message);
+                Logger.Logger.Error("Exception parsing SIP Request. ->" + sipMessage.RawMessage + "->" + excp.Message);
 
                 throw new SIPValidationException(SIPValidationFieldsEnum.Request, "Unknown error parsing SIP Request");
             }
@@ -157,7 +157,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception ParseSIPRequest. ->"+sipMessageStr+"->" + excp.Message);
+                Logger.Logger.Error("Exception ParseSIPRequest. ->" + sipMessageStr + "->" + excp.Message);
                 throw new SIPValidationException(SIPValidationFieldsEnum.Request, "Unknown error parsing SIP Request");
             }
         }

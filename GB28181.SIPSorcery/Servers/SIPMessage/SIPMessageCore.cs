@@ -47,7 +47,7 @@ namespace GB28181.Servers.SIPMessage
     {
         #region 私有字段
 
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         private static string _sipServerAgent = SIPConstants.SIP_SERVER_STRING;
         public static int MEDIA_PORT_START = 10000;
@@ -544,7 +544,7 @@ namespace GB28181.Servers.SIPMessage
             }
             catch (Exception ex)
             {
-                Console.WriteLine("InviteHandle:\r\n"+ex.Message+"\r\n"+ex.StackTrace);
+                Console.WriteLine("InviteHandle:\r\n" + ex.Message + "\r\n" + ex.StackTrace);
             }
         }
 

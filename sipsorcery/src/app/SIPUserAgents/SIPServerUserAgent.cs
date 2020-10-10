@@ -29,7 +29,7 @@ namespace SIPSorcery.SIP.App
     /// </summary>
     public class SIPServerUserAgent : ISIPServerUserAgent
     {
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private SIPMonitorLogDelegate Log_External = (e) => { }; //SIPMonitorEvent.DefaultSIPMonitorLogger;
         private SIPAuthenticateRequestDelegate SIPAuthenticateRequest_External;
@@ -261,7 +261,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception LoadSIPAccountForIncomingCall. " + excp.Message);
+                Logger.Logger.Error("Exception LoadSIPAccountForIncomingCall. ->" + excp.Message);
                 Reject(SIPResponseStatusCodesEnum.InternalServerError, null, null);
                 return false;
             }
@@ -346,7 +346,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPServerUserAgent AuthenticateCall. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent AuthenticateCall. ->" + excp.Message);
                 Reject(SIPResponseStatusCodesEnum.InternalServerError, null, null);
             }
 
@@ -416,12 +416,12 @@ namespace SIPSorcery.SIP.App
                 }
                 else
                 {
-                    logger.LogWarning("SIPServerUserAgent Progress fired on already answered call.");
+                    Logger.Logger.Warn("SIPServerUserAgent Progress fired on already answered call.");
                 }
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPServerUserAgent Progress. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent Progress. ->" + excp.Message);
             }
         }
 
@@ -509,7 +509,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPServerUserAgent Answer. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent Answer. ->" + excp.Message);
                 throw;
             }
         }
@@ -575,12 +575,12 @@ namespace SIPSorcery.SIP.App
                 }
                 else
                 {
-                    logger.LogWarning("SIPServerUserAgent Reject fired on already answered call.");
+                    Logger.Logger.Warn("SIPServerUserAgent Reject fired on already answered call.");
                 }
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPServerUserAgent Reject. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent Reject. ->" + excp.Message);
             }
         }
 
@@ -612,7 +612,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPServerUserAgent Redirect. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent Redirect. ->" + excp.Message);
             }
         }
 
@@ -646,7 +646,7 @@ namespace SIPSorcery.SIP.App
                         var inviteContact = m_uasTransaction.TransactionRequest.Header.Contact.FirstOrDefault();
                         if (inviteContact == null)
                         {
-                            logger.LogWarning(
+                            Logger.Logger.Warn(
                                 "The Contact header on the INVITE request was missing, BYE request cannot be generated.");
                         }
                         else
@@ -660,7 +660,7 @@ namespace SIPSorcery.SIP.App
                     }
                     catch (Exception excp)
                     {
-                        logger.LogError("Exception SIPServerUserAgent Hangup. " + excp.Message);
+                        Logger.Logger.Error("Exception SIPServerUserAgent Hangup. ->" + excp.Message);
                         throw;
                     }
                 }
@@ -714,7 +714,7 @@ namespace SIPSorcery.SIP.App
 
         private void UASTransactionCancelled(SIPTransaction sipTransaction)
         {
-            logger.LogDebug("SIPServerUserAgent got cancellation request.");
+            Logger.Logger.Debug("SIPServerUserAgent got cancellation request.");
             m_isCancelled = true;
             CallCancelled?.Invoke(this);
         }
@@ -723,7 +723,7 @@ namespace SIPSorcery.SIP.App
         {
             try
             {
-                logger.LogDebug(
+                Logger.Logger.Debug(
                     $"SIPServerUserAgent client timed out in transaction state {m_uasTransaction.TransactionState}.");
 
                 Log_External(new SIPMonitorConsoleEvent(SIPMonitorServerTypesEnum.UserAgentServer,
@@ -738,7 +738,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception ClientTimedOut. " + excp.Message);
+                Logger.Logger.Error("Exception ClientTimedOut. ->" + excp.Message);
             }
         }
 

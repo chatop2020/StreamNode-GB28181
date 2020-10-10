@@ -118,14 +118,13 @@ namespace GB28181.Servers.SIPMonitor
             callid = callId;
             Logger.Logger.Debug("RealVideoReq: DeviceId=" + DeviceId);
             SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
-          
 
-          
+
             SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), "");
             SIPFromHeader from = new SIPFromHeader(null, localUri, fromTag);
             SIPToHeader to = new SIPToHeader(null, remoteUri, null);
             SIPRequest sipRequest = _sipTransport.GetRequest(SIPMethodsEnum.INVITE, remoteUri);
-          
+
             var contactHeader = new SIPContactHeader(null, localUri);
             sipRequest.Header.Contact.Clear();
             sipRequest.Header.Contact.Add(contactHeader);

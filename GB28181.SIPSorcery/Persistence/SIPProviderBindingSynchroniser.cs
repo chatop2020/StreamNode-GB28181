@@ -5,7 +5,7 @@ namespace GB28181.App
 {
     public class SIPProviderBindingSynchroniser
     {
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         private SIPAssetPersistor<SIPProviderBinding> m_bindingPersistor;
 
@@ -18,7 +18,8 @@ namespace GB28181.App
         {
             try
             {
-                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderAdded for " + sipProvider.Owner + " and " +
+                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderAdded for " + sipProvider.Owner +
+                                    " and " +
                                     sipProvider.ProviderName + ".");
 
                 if (sipProvider.RegisterEnabled)
@@ -37,7 +38,8 @@ namespace GB28181.App
         {
             try
             {
-                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderUpdated for " + sipProvider.Owner + " and " +
+                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderUpdated for " + sipProvider.Owner +
+                                    " and " +
                                     sipProvider.ProviderName + ".");
 
                 SIPProviderBinding existingBinding = m_bindingPersistor.Get(b => b.ProviderId == sipProvider.Id);
@@ -84,7 +86,8 @@ namespace GB28181.App
         {
             try
             {
-                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderDeleted for " + sipProvider.Owner + " and " +
+                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderDeleted for " + sipProvider.Owner +
+                                    " and " +
                                     sipProvider.ProviderName + ".");
 
                 SIPProviderBinding existingBinding = m_bindingPersistor.Get(b => b.ProviderId == sipProvider.Id);

@@ -31,7 +31,7 @@ namespace SIPSorcery.Net
     /// </summary>
     public class RTSPRequest
     {
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private static string m_CRLF = RTSPConstants.CRLF;
         private static string m_rtspFullVersion = RTSPConstants.RTSP_FULLVERSION_STRING;
@@ -77,7 +77,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception RTSPRequest Ctor. " + excp.Message + ".");
+                Logger.Logger.Error("Exception RTSPRequest Ctor. ->" + excp.Message + ".");
             }
         }
 
@@ -113,7 +113,7 @@ namespace SIPSorcery.Net
                 if (rtspRequest.Method == RTSPMethodsEnum.UNKNOWN)
                 {
                     rtspRequest.UnknownMethod = method;
-                    logger.LogWarning("Unknown RTSP method received " + rtspRequest.Method + ".");
+                    Logger.Logger.Warn("Unknown RTSP method received " + rtspRequest.Method + ".");
                 }
 
                 statusLine = statusLine.Substring(firstSpacePosn).Trim();
@@ -140,7 +140,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception parsing RTSP request. URI, " + urlStr + ".");
+                Logger.Logger.Error("Exception parsing RTSP request. URI, " + urlStr + ".");
                 throw new ApplicationException("There was an exception parsing an RTSP request. " + excp.Message);
             }
         }
@@ -167,7 +167,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception RTSPRequest ToString. " + excp.Message);
+                Logger.Logger.Error("Exception RTSPRequest ToString. ->" + excp.Message);
                 throw excp;
             }
         }

@@ -12,7 +12,7 @@ namespace GB28181.Servers
 {
     public class SIPServiceDirector : ISIPServiceDirector
     {
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
         private ISipMessageCore _sipCoreMessageService;
         private Dictionary<string, Catalog> _Catalogs = new Dictionary<string, Catalog>();
         public Dictionary<string, Catalog> Catalogs => _Catalogs;

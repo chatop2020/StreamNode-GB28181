@@ -169,7 +169,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPMonitorConsoleEvent ParseEventCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorConsoleEvent ParseEventCSV. ->" + excp.Message);
                 return null;
             }
         }
@@ -200,7 +200,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPMonitorConsoleEvent ToCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorConsoleEvent ToCSV. ->" + excp.Message);
                 return null;
             }
         }

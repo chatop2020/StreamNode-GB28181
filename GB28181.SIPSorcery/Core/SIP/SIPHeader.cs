@@ -61,7 +61,7 @@ namespace GB28181
     /// </remarks>
     public class SIPViaHeader
     {
-       // private static ILog logger = AssemblyState.logger;
+        // private static ILog logger = AssemblyState.logger;
 
         private static char m_paramDelimChar = ';';
         private static char m_hostDelimChar = ':';
@@ -793,7 +793,7 @@ namespace GB28181
         public const string EXPIRES_PARAMETER_KEY = "expires";
         public const string QVALUE_PARAMETER_KEY = "q";
 
-       // private static ILog logger = AssemblyState.logger;
+        // private static ILog logger = AssemblyState.logger;
 
         //private static char[] m_nonStandardURIDelimChars = new char[] { '\n', '\r', ' ' };	// Characters that can delimit a SIP URI, supposed to be > but it is sometimes missing.
 
@@ -1394,7 +1394,7 @@ namespace GB28181
 
     public class SIPRouteSet
     {
-     //   private static ILog logger = AssemblyState.logger;
+        //   private static ILog logger = AssemblyState.logger;
 
         private List<SIPRoute> m_sipRoutes = new List<SIPRoute>();
 
@@ -1775,7 +1775,8 @@ namespace GB28181
 
 
         public const int DEFAULT_CSEQ = 100;
-      //  private static ILog logger = AssemblyState.logger;
+
+        //  private static ILog logger = AssemblyState.logger;
         private static string m_CRLF = SIPConstants.CRLF;
 
         // RFC SIP headers.
@@ -2035,7 +2036,8 @@ namespace GB28181
                             {
                                 if (!Int32.TryParse(cseqFields[0], out sipHeader.CSeq))
                                 {
-                                    Logger.Logger.Warn(SIPHeaders.SIP_HEADER_CSEQ + " did not contain a valid integer, " +
+                                    Logger.Logger.Warn(SIPHeaders.SIP_HEADER_CSEQ +
+                                                       " did not contain a valid integer, " +
                                                        headerLine + ".");
                                 }
 
@@ -2073,7 +2075,8 @@ namespace GB28181
                         {
                             if (!Int32.TryParse(headerValue, out sipHeader.MinExpires))
                             {
-                                Logger.Logger.Warn("The Min-Expires value was not a valid integer, " + headerLine + ".");
+                                Logger.Logger.Warn("The Min-Expires value was not a valid integer, " + headerLine +
+                                                   ".");
                             }
                         }
 

@@ -204,7 +204,7 @@ namespace LibGB28181SipGate
                     newSip.LastKeepAliveTime = DateTime.Now;
                     newSip.LastUpdateTime = DateTime.Now;
                     SipDeviceList.Add(newSip);
-                    Logger.Logger.Info("设备注册->" + ip + "->\r\n" + newSip.DeviceId);
+                    Logger.Logger.Info("设备注册->" + ip + "->" + newSip.DeviceId);
                 }
                 else if (dev != null && dev.SipDeviceStatus == SipDeviceStatus.UnRegister)
                 {
@@ -230,13 +230,12 @@ namespace LibGB28181SipGate
                     /*尝试修复公网非固定ip设备的重启后无法通讯问题*/
                     lock (SipDeviceLock)
                     {
-                       
-                        var deviceObj = SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(dev.DeviceId));
+                        var deviceObj =
+                            SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(dev.DeviceId));
                         if (!ip.Equals(deviceObj.Value.RemoteEndPoint.Address.ToString())
                             || !port.ToString().Equals(deviceObj.Value.RemoteEndPoint.Port.ToString()))
                         {
-                            
-                            var sipurl=new SIPURI(dev.DeviceId,ip+":"+port, "");
+                            var sipurl = new SIPURI(dev.DeviceId, ip + ":" + port, "");
                             sipurl.Protocol = SIPProtocolsEnum.udp;
                             deviceObj.Value.RemoteEndPoint = new SIPEndPoint(sipurl);
                         }
@@ -248,7 +247,6 @@ namespace LibGB28181SipGate
                             {
                                 if (cex != null && cex.Camera != null && !string.IsNullOrEmpty(cex.Camera.DeviceID))
                                 {
-                                    
                                     var obj = SipMessageCore.NodeMonitorService.FirstOrDefault(x =>
                                         x.Key.Equals(cex.Camera.DeviceID));
                                     if (obj.Value != null)
@@ -257,7 +255,7 @@ namespace LibGB28181SipGate
                                             || !port.ToString()
                                                 .Equals(obj.Value.RemoteEndPoint.Port.ToString()))
                                         {
-                                            var sipurl=new SIPURI(dev.DeviceId,ip+":"+port, "");
+                                            var sipurl = new SIPURI(dev.DeviceId, ip + ":" + port, "");
                                             sipurl.Protocol = SIPProtocolsEnum.udp;
                                             obj.Value.RemoteEndPoint = new SIPEndPoint(sipurl);
                                         }
@@ -481,38 +479,36 @@ namespace LibGB28181SipGate
         {
             lock (SipDeviceLock)
             {
-               
-                    var deviceObj = SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(devId));
-                    if (!remoteEp.Address.ToString().Equals(deviceObj.Value.RemoteEndPoint.Address.ToString())
-                        || !remoteEp.Port.ToString().Equals(deviceObj.Value.RemoteEndPoint.Port.ToString()))
-                    {
-                        deviceObj.Value.RemoteEndPoint = remoteEp;
-                    }
+                var deviceObj = SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(devId));
+                if (!remoteEp.Address.ToString().Equals(deviceObj.Value.RemoteEndPoint.Address.ToString())
+                    || !remoteEp.Port.ToString().Equals(deviceObj.Value.RemoteEndPoint.Port.ToString()))
+                {
+                    deviceObj.Value.RemoteEndPoint = remoteEp;
+                }
 
-                    var camearDev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(devId));
-                    if (camearDev != null && camearDev.CameraExList != null)
+                var camearDev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(devId));
+                if (camearDev != null && camearDev.CameraExList != null)
+                {
+                    foreach (var cex in camearDev.CameraExList)
                     {
-                        foreach (var cex in camearDev.CameraExList)
+                        if (cex != null && cex.Camera != null && !string.IsNullOrEmpty(cex.Camera.DeviceID))
                         {
-                            if (cex != null && cex.Camera != null && !string.IsNullOrEmpty(cex.Camera.DeviceID))
-                            {
-                                var obj = SipMessageCore.NodeMonitorService.FirstOrDefault(x =>
-                                    x.Key.Equals(cex.Camera.DeviceID));
+                            var obj = SipMessageCore.NodeMonitorService.FirstOrDefault(x =>
+                                x.Key.Equals(cex.Camera.DeviceID));
 
-                                if (obj.Value != null)
+                            if (obj.Value != null)
+                            {
+                                if (!remoteEp.Address.ToString()
+                                        .Equals(obj.Value.RemoteEndPoint.Address.ToString())
+                                    || !remoteEp.Port.ToString()
+                                        .Equals(obj.Value.RemoteEndPoint.Port.ToString()))
                                 {
-                                    if (!remoteEp.Address.ToString()
-                                            .Equals(obj.Value.RemoteEndPoint.Address.ToString())
-                                        || !remoteEp.Port.ToString()
-                                            .Equals(obj.Value.RemoteEndPoint.Port.ToString()))
-                                    {
-                                        obj.Value.RemoteEndPoint = remoteEp;
-                                    }
+                                    obj.Value.RemoteEndPoint = remoteEp;
                                 }
                             }
                         }
                     }
-                
+                }
 
 
                 var dev = SipDeviceList.FindLast(x =>

@@ -140,7 +140,8 @@ namespace GB28181
                             if (inactiveConnection != null)
                             {
                                 Logger.Logger.Debug("Pruning inactive connection on " + SIPChannelContactURI +
-                                                    " to remote end point " + inactiveConnection.RemoteEndPoint.ToString() +
+                                                    " to remote end point " +
+                                                    inactiveConnection.RemoteEndPoint.ToString() +
                                                     ".");
                                 inactiveConnection.Close();
                             }
@@ -164,7 +165,8 @@ namespace GB28181
                     checkComplete = false;
                 }
 
-                Logger.Logger.Debug("SIPChannel socket on " + m_localSIPEndPoint.ToString() + " pruning connections halted.");
+                Logger.Logger.Debug("SIPChannel socket on " + m_localSIPEndPoint.ToString() +
+                                    " pruning connections halted.");
             }
             catch (Exception excp)
             {

@@ -27,7 +27,7 @@ namespace GB28181.Net
     /// </summary>
     public class RTSPResponse
     {
-       // private static ILog logger = AssemblyStreamState.logger;
+        // private static ILog logger = AssemblyStreamState.logger;
 
         private static string m_CRLF = RTSPConstants.CRLF;
 

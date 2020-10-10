@@ -78,7 +78,8 @@ namespace GB28181.Persistence.XML
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception loading XML from " + m_xmlAssetFilePath + " (for " + typeof(T).Name + "). ->" +
+                Logger.Logger.Error("Exception loading XML from " + m_xmlAssetFilePath + " (for " + typeof(T).Name +
+                                    "). ->" +
                                     excp.Message);
                 throw;
             }
@@ -112,7 +113,8 @@ namespace GB28181.Persistence.XML
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPAssetXMLPersistor Add (for " + typeof(T).Name + "). ->" + excp.Message);
+                Logger.Logger.Error(
+                    "Exception SIPAssetXMLPersistor Add (for " + typeof(T).Name + "). ->" + excp.Message);
                 throw;
             }
         }
@@ -213,7 +215,8 @@ namespace GB28181.Persistence.XML
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPAssetXMLPersistor IncrementProperty (for " + typeof(T).Name + "). ->" +
+                Logger.Logger.Error("Exception SIPAssetXMLPersistor IncrementProperty (for " + typeof(T).Name +
+                                    "). ->" +
                                     excp.Message);
                 throw;
             }
@@ -246,7 +249,8 @@ namespace GB28181.Persistence.XML
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPAssetXMLPersistor DecrementProperty (for " + typeof(T).Name + "). ->" +
+                Logger.Logger.Error("Exception SIPAssetXMLPersistor DecrementProperty (for " + typeof(T).Name +
+                                    "). ->" +
                                     excp.Message);
                 throw;
             }
@@ -354,7 +358,8 @@ namespace GB28181.Persistence.XML
                 }
                 else
                 {
-                    Logger.Logger.Debug("Could not locate a " + typeof(T).Name + " SIP Asset for id " + id.ToString() + ".");
+                    Logger.Logger.Debug("Could not locate a " + typeof(T).Name + " SIP Asset for id " + id.ToString() +
+                                        ".");
                     return default(T);
                 }
             }
@@ -384,7 +389,8 @@ namespace GB28181.Persistence.XML
                 }
                 else
                 {
-                    Logger.Logger.Debug("Could not locate a " + typeof(T).Name + " SIP Asset for id " + id.ToString() + ".");
+                    Logger.Logger.Debug("Could not locate a " + typeof(T).Name + " SIP Asset for id " + id.ToString() +
+                                        ".");
                     return null;
                 }
             }
@@ -405,7 +411,8 @@ namespace GB28181.Persistence.XML
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPAssetXMLPersistor Count (for " + typeof(T).Name + "). ->" + excp.Message);
+                Logger.Logger.Error("Exception SIPAssetXMLPersistor Count (for " + typeof(T).Name + "). ->" +
+                                    excp.Message);
                 throw excp;
             }
         }
@@ -418,7 +425,8 @@ namespace GB28181.Persistence.XML
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPAssetXMLPersistor Get (for " + typeof(T).Name + "). ->" + excp.Message);
+                Logger.Logger.Error(
+                    "Exception SIPAssetXMLPersistor Get (for " + typeof(T).Name + "). ->" + excp.Message);
                 return default(T);
             }
         }
@@ -461,7 +469,8 @@ namespace GB28181.Persistence.XML
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPAssetXMLPersistor Get (for " + typeof(T).Name + "). ->" + excp.Message);
+                Logger.Logger.Error(
+                    "Exception SIPAssetXMLPersistor Get (for " + typeof(T).Name + "). ->" + excp.Message);
                 return null;
             }
         }

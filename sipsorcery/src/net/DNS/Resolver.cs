@@ -80,7 +80,7 @@ namespace Heijden.DNS
             MIN_CACHE_SECONDS =
                 60; // A record will not be removed from the cache when it has been in less than this number of seconds irrespective of the DNS TTL.
 
-        private static ILogger logger = Log.Logger;
+        //private static ILogger logger = Log.Logger;
 
         private ushort m_Unique;
         private bool m_UseCache;
@@ -376,19 +376,19 @@ namespace Heijden.DNS
                 // The TTL property calculates its actual time to live
                 if (secondsLived > MIN_CACHE_SECONDS && secondsLived >= rr.TTL)
                 {
-                    logger.LogDebug(
+                    Logger.Logger.Debug(
                         $"DNS cache out of date result found for {strKey}. SecondsLived({secondsLived}) is >= remaining TimeToLive({rr.TTL})");
                     return null; // out of date
                 }
 
                 if (rr.TTL == 0)
                 {
-                    logger.LogDebug("DNS cache out of date (TTL==0) result found for " + strKey + ".");
+                    Logger.Logger.Debug("DNS cache out of date (TTL==0) result found for " + strKey + ".");
                     return null; // out of date
                 }
             }
 
-            logger.LogDebug("DNS cache current result found for " + strKey + ".");
+            Logger.Logger.Debug("DNS cache current result found for " + strKey + ".");
             return response;
         }
 
@@ -412,7 +412,8 @@ namespace Heijden.DNS
             if (!response.Error.IsNullOrBlank())
             {
                 // Cache error responses for a short period of time to avoid overloading the server with failing DNS lookups.
-                logger.LogDebug("Caching DNS lookup failure for " + questionKey + " error was " + response.Error + ".");
+                Logger.Logger.Debug("Caching DNS lookup failure for " + questionKey + " error was " + response.Error +
+                                    ".");
                 lock (m_lookupFailures)
                 {
                     if (m_lookupFailures.ContainsKey(questionKey))
@@ -426,7 +427,7 @@ namespace Heijden.DNS
             else if (!response.Timedout && response.Answers.Count > 0)
             {
                 // Cache non-error responses.
-                logger.LogDebug("Caching DNS lookup success for " + questionKey + ".");
+                Logger.Logger.Debug("Caching DNS lookup success for " + questionKey + ".");
                 lock (m_ResponseCache)
                 {
                     if (m_ResponseCache.ContainsKey(questionKey))
@@ -475,14 +476,14 @@ namespace Heijden.DNS
 
                     if (GetTimeoutCount(dnsServers[nDnsServer]) >= SWITCH_ACTIVE_TIMEOUT_COUNT)
                     {
-                        logger.LogDebug("Resolver not sending UDP DNS request to " + dnsServers[nDnsServer] +
-                                        " because of maximum count of request timeouts reached");
+                        Logger.Logger.Debug("Resolver not sending UDP DNS request to " + dnsServers[nDnsServer] +
+                                            " because of maximum count of request timeouts reached");
                         continue;
                     }
 
                     string requestStrWithDns =
                         "for '" + requestStr + "' on dns-server '" + dnsServers[nDnsServer] + "'";
-                    logger.LogDebug("Resolver sending UDP DNS request " + requestStrWithDns);
+                    Logger.Logger.Debug("Resolver sending UDP DNS request " + requestStrWithDns);
 
                     Socket socket = new Socket(dnsServers[nDnsServer].AddressFamily, SocketType.Dgram,
                         ProtocolType.Udp);
@@ -498,27 +499,27 @@ namespace Heijden.DNS
                         DNSResponse response = new DNSResponse(dnsServers[nDnsServer], data);
                         if (response.header.RCODE == RCode.NOERROR)
                         {
-                            logger.LogInformation("Success in UdpRequest " + requestStrWithDns);
+                            Logger.Logger.Info("Success in UdpRequest " + requestStrWithDns);
                             return response;
                         }
                         else
                         {
-                            logger.LogDebug("Error " + response.header.RCODE + " in Resolver UdpRequest " +
-                                            requestStrWithDns);
+                            Logger.Logger.Debug("Error " + response.header.RCODE + " in Resolver UdpRequest " +
+                                                requestStrWithDns);
                         }
                     }
                     catch (SocketException sockExcp)
                     {
                         IncrementTimeoutCount(dnsServers[nDnsServer]);
-                        logger.LogWarning(
+                        Logger.Logger.Warn(
                             "SocketExcpetion(" + sockExcp.ErrorCode +
-                            ") Resolver UdpRequest connection to nameserver " + dnsServers[nDnsServer] + " failed. ",
+                            ") Resolver UdpRequest connection to nameserver " + dnsServers[nDnsServer] + " failed. ->" +
                             sockExcp);
                         continue; // next try
                     }
                     catch (Exception excp)
                     {
-                        logger.LogError("Exception Resolver UdpRequest " + requestStrWithDns + ". ", excp);
+                        Logger.Logger.Error("Exception Resolver UdpRequest " + requestStrWithDns + ". ->" + excp);
                     }
                     finally
                     {
@@ -530,7 +531,7 @@ namespace Heijden.DNS
                 }
             }
 
-            logger.LogWarning("Resolver UDP request timed out for " + requestStr + ".");
+            Logger.Logger.Warn("Resolver UDP request timed out for " + requestStr + ".");
             DNSResponse responseTimeout = new DNSResponse();
             responseTimeout.Timedout = true;
             responseTimeout.Error = "Timeout Error";
@@ -572,14 +573,14 @@ namespace Heijden.DNS
 
                     if (GetTimeoutCount(dnsServers[nDnsServer]) >= SWITCH_ACTIVE_TIMEOUT_COUNT)
                     {
-                        logger.LogDebug("Resolver not sending TCP DNS request to " + dnsServers[nDnsServer] +
-                                        " because of maximum count of request timeouts reached");
+                        Logger.Logger.Debug("Resolver not sending TCP DNS request to " + dnsServers[nDnsServer] +
+                                            " because of maximum count of request timeouts reached");
                         continue;
                     }
 
                     string requestStrWithDns =
                         "for '" + requestStr + "' on dns-server '" + dnsServers[nDnsServer] + "'";
-                    logger.LogDebug("Resolver sending TCP DNS request " + requestStrWithDns);
+                    Logger.Logger.Debug("Resolver sending TCP DNS request " + requestStrWithDns);
 
                     TcpClient tcpClient = new TcpClient();
                     tcpClient.ReceiveTimeout = timeout * 1000;
@@ -630,13 +631,13 @@ namespace Heijden.DNS
 
                             if (response.header.RCODE != RCode.NOERROR)
                             {
-                                logger.LogDebug("Error " + response.header.RCODE + " in Resolver TcpRequest " +
-                                                requestStrWithDns);
+                                Logger.Logger.Debug("Error " + response.header.RCODE + " in Resolver TcpRequest " +
+                                                    requestStrWithDns);
                                 return response;
                             }
                             else
                             {
-                                logger.LogInformation("Success in TcpRequest " + requestStrWithDns);
+                                Logger.Logger.Info("Success in TcpRequest " + requestStrWithDns);
                             }
 
                             if (response.Questions[0].QType != QType.AXFR)
@@ -674,15 +675,15 @@ namespace Heijden.DNS
                     catch (SocketException sockExcp)
                     {
                         IncrementTimeoutCount(dnsServers[nDnsServer]);
-                        logger.LogWarning(
+                        Logger.Logger.Warn(
                             "SocketExcpetion(" + sockExcp.ErrorCode +
-                            ") Resolver TcpRequest connection to nameserver " + dnsServers[nDnsServer] + " failed. ",
+                            ") Resolver TcpRequest connection to nameserver " + dnsServers[nDnsServer] + " failed. ->" +
                             sockExcp);
                         continue; // next try
                     }
                     catch (Exception excp)
                     {
-                        logger.LogError("Exception Resolver UdpRequest " + requestStrWithDns + ". ", excp);
+                        Logger.Logger.Error("Exception Resolver UdpRequest " + requestStrWithDns + ". ->" + excp);
                     }
                     finally
                     {
@@ -694,7 +695,7 @@ namespace Heijden.DNS
                 }
             }
 
-            logger.LogWarning("Resolver TCP request timed out for " + requestStr + ".");
+            Logger.Logger.Warn("Resolver TCP request timed out for " + requestStr + ".");
             DNSResponse responseTimeout = new DNSResponse();
             responseTimeout.Timedout = true;
             responseTimeout.Error = "Timeout Error";
@@ -1077,8 +1078,8 @@ namespace Heijden.DNS
                         {
                             if (dnsServer != m_activeDNSServer)
                             {
-                                logger.LogDebug("Switching active DNS server from " + m_activeDNSServer + " to " +
-                                                dnsServer + ".");
+                                Logger.Logger.Debug("Switching active DNS server from " + m_activeDNSServer + " to " +
+                                                    dnsServer + ".");
                                 m_activeDNSServer = dnsServer;
                                 ResetTimeoutCount(m_activeDNSServer);
                             }

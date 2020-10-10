@@ -33,7 +33,7 @@ namespace SIPSorcery.SIP.App
             OUTBOUNDPROXY_AS_ROUTESET_CHAR =
                 '<'; // If this character exists in the call descriptor OutboundProxy setting it gets treated as a Route set.
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private static string m_userAgent = SIPConstants.SIP_USERAGENT_STRING;
 
@@ -126,7 +126,7 @@ namespace SIPSorcery.SIP.App
         public SIPClientUserAgent(SIPTransport sipTransport)
         {
             m_sipTransport = sipTransport;
-            Log_External = Log_External = (ev) => logger.LogDebug(ev?.Message);
+            Log_External = Log_External = (ev) => Logger.Logger.Debug(ev?.Message);
         }
 
         public SIPClientUserAgent(
@@ -335,7 +335,7 @@ namespace SIPSorcery.SIP.App
                                         SIPMonitorEventTypesEnum.DialPlan,
                                         "A billable call could not proceed as no account exists for account code or number " +
                                         m_sipCallDescriptor.AccountCode + ".", Owner));
-                                    logger.LogDebug(
+                                    Logger.Logger.Debug(
                                         "A billable call could not proceed as no account exists for account code or number " +
                                         m_sipCallDescriptor.AccountCode + " and owner " + Owner + ".");
                                     rtccError = "Real-time call control invalid account code";
@@ -360,7 +360,7 @@ namespace SIPSorcery.SIP.App
                                             SIPMonitorEventTypesEnum.DialPlan,
                                             "A billable call could not proceed as no rate could be determined for destination " +
                                             rateDestination + ".", Owner));
-                                        logger.LogDebug(
+                                        Logger.Logger.Debug(
                                             "A billable call could not proceed as no rate could be determined for destination " +
                                             rateDestination + " and owner " + Owner + ".");
                                         rtccError = "Real-time call control no rate";
@@ -390,7 +390,7 @@ namespace SIPSorcery.SIP.App
                                                     "A billable call could not proceed as the available credit for " +
                                                     AccountCode + " was not sufficient for 60 seconds to destination " +
                                                     rateDestination + ".", Owner));
-                                                logger.LogDebug(
+                                                Logger.Logger.Debug(
                                                     "A billable call could not proceed as the available credit for " +
                                                     AccountCode + " was not sufficient for 60 seconds to destination " +
                                                     rateDestination + " and owner " + Owner + ".");
@@ -410,7 +410,7 @@ namespace SIPSorcery.SIP.App
                                                         SIPMonitorEventTypesEnum.DialPlan,
                                                         "Call will not proceed as the initial real-time call control credit reservation failed.",
                                                         Owner));
-                                                    logger.LogDebug(
+                                                    Logger.Logger.Debug(
                                                         "Call will not proceed as the initial real-time call control credit reservation failed for owner " +
                                                         Owner + ".");
                                                     rtccError = "Real-time call control initial reservation failed";
@@ -594,7 +594,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPClientUserAgent Update. " + excp.Message);
+                Logger.Logger.Error("Exception SIPClientUserAgent Update. " + excp.Message);
             }
         }
 
@@ -614,12 +614,12 @@ namespace SIPSorcery.SIP.App
                     new SIPNonInviteTransaction(m_sipTransport, byeRequest, m_outboundProxy);
                 byeTransaction.NonInviteTransactionFinalResponseReceived += ByeServerFinalResponseReceived;
                 byeTransaction.NonInviteTransactionTimedOut += (tx) =>
-                    logger.LogDebug($"Bye request for {m_sipCallDescriptor.Uri} timed out.");
+                    Logger.Logger.Debug($"Bye request for {m_sipCallDescriptor.Uri} timed out.");
                 byeTransaction.SendRequest();
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPClientUserAgent Hangup. " + excp.Message);
+                Logger.Logger.Error("Exception SIPClientUserAgent Hangup. " + excp.Message);
             }
         }
 
@@ -736,9 +736,9 @@ namespace SIPSorcery.SIP.App
                                         m_serverTransaction.CDR);
                                 }
 
-                                logger.LogDebug("RTCC reservation was reallocated from CDR " +
-                                                originalCallTransaction.CDR?.CDRId + " to " +
-                                                m_serverTransaction.CDR?.CDRId + " for owner " + Owner + ".");
+                                Logger.Logger.Debug("RTCC reservation was reallocated from CDR " +
+                                                    originalCallTransaction.CDR?.CDRId + " to " +
+                                                    m_serverTransaction.CDR?.CDRId + " for owner " + Owner + ".");
                             }
 
                             m_serverTransaction.UACInviteTransactionInformationResponseReceived +=
@@ -859,7 +859,7 @@ namespace SIPSorcery.SIP.App
                     SIPNonInviteTransaction authByeTransaction =
                         new SIPNonInviteTransaction(m_sipTransport, authRequest, m_outboundProxy);
                     authByeTransaction.NonInviteTransactionTimedOut += (tx) =>
-                        logger.LogDebug($"Authenticated Bye request for {m_sipCallDescriptor.Uri} timed out.");
+                        Logger.Logger.Debug($"Authenticated Bye request for {m_sipCallDescriptor.Uri} timed out.");
                     authByeTransaction.SendRequest();
                 }
 
@@ -948,8 +948,8 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception Parsing CustomHeader for GetInviteRequest. " + excp.Message +
-                                sipCallDescriptor.CustomHeaders);
+                Logger.Logger.Error("Exception Parsing CustomHeader for GetInviteRequest. " + excp.Message +
+                                    sipCallDescriptor.CustomHeaders);
             }
 
             if (AdjustInvite != null)

@@ -31,7 +31,7 @@ namespace SIPSorcery.Net
     /// </summary>
     public class RTSPResponse
     {
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private static string m_CRLF = RTSPConstants.CRLF;
         private static string m_rtspVersion = RTSPConstants.RTSP_VERSION_STRING;
@@ -97,7 +97,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception parsing RTSP response. " + excp.Message);
+                Logger.Logger.Error("Exception parsing RTSP response. ->" + excp.Message);
                 throw new ApplicationException("There was an exception parsing an RTSP response. " + excp.Message);
             }
         }
@@ -126,7 +126,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception RTSPResponse ToString. " + excp.Message);
+                Logger.Logger.Error("Exception RTSPResponse ToString. ->" + excp.Message);
                 throw excp;
             }
         }

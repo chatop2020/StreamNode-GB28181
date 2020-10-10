@@ -107,7 +107,8 @@ namespace GB28181.Sys
             {
                 int smtpPort = (m_smtpServerPort.IsNullOrBlank()) ? 25 : Convert.ToInt32(m_smtpServerPort);
 
-                Logger.Logger.Debug("RelayMail attempting to send " + email.Subject + " via " + m_smtpServer + ":" + smtpPort +
+                Logger.Logger.Debug("RelayMail attempting to send " + email.Subject + " via " + m_smtpServer + ":" +
+                                    smtpPort +
                                     " to " + email.To);
 
                 using SmtpClient smtpClient = new SmtpClient(m_smtpServer, smtpPort);

@@ -63,7 +63,7 @@ namespace SIPSorcery.Net
         private const int NO_ACTIVITY_TIMEOUT_MILLISECONDS =
             NO_ACTIVITY_TIMEOUT_FACTOR * RTCP_MINIMUM_REPORT_PERIOD_MILLISECONDS;
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private static DateTime UtcEpoch2036 = new DateTime(2036, 2, 7, 6, 28, 16, DateTimeKind.Utc);
         private static DateTime UtcEpoch1900 = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -239,7 +239,7 @@ namespace SIPSorcery.Net
         {
             if (m_receptionReport != null && m_receptionReport.SSRC == ssrc)
             {
-                logger.LogDebug($"RTCP session removing reception report for remote ssrc {ssrc}.");
+                Logger.Logger.Debug($"RTCP session removing reception report for remote ssrc {ssrc}.");
                 m_receptionReport = null;
             }
         }
@@ -297,7 +297,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError($"Exception RTCPSession.ReportReceived. {excp.Message}");
+                Logger.Logger.Error($"Exception RTCPSession.ReportReceived. ->{excp.Message}");
             }
         }
 
@@ -321,7 +321,7 @@ namespace SIPSorcery.Net
                         {
                             if (!IsTimedOut)
                             {
-                                logger.LogWarning(
+                                Logger.Logger.Warn(
                                     $"RTCP session for local ssrc {Ssrc} has not had any activity for over {NO_ACTIVITY_TIMEOUT_MILLISECONDS / 1000} seconds.");
                                 IsTimedOut = true;
 
@@ -356,7 +356,7 @@ namespace SIPSorcery.Net
             catch (Exception excp)
             {
                 // RTCP reports are not critical enough to bubble the exception up to the application.
-                logger.LogError($"Exception SendReportTimerCallback. {excp.Message}");
+                Logger.Logger.Error($"Exception SendReportTimerCallback. ->{excp.Message}");
                 m_rtcpReportTimer?.Dispose();
             }
         }

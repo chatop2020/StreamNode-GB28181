@@ -31,7 +31,7 @@ namespace GB28181.Persistence
 
     public class SIPAssetPersistor<T>
     {
-       // protected static ILog logger = AppState.logger;
+        // protected static ILog logger = AppState.logger;
 
         protected DbProviderFactory m_dbProviderFactory;
         protected string m_dbConnectionStr;
@@ -227,7 +227,7 @@ namespace GB28181.Persistence
             catch (Exception excp)
             {
                 Logger.Logger.Error("Exception SIPAssetPersistor ExecuteCommand (for " + typeof(T).Name + "). ->" +
-                             excp.Message);
+                                    excp.Message);
                 throw;
             }
         }

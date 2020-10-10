@@ -73,7 +73,7 @@ namespace GB28181.Net
         private static DateTime UtcEpoch1900 = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         private static DateTime UtcEpoch1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         private static int _nextMediaPort = MEDIA_PORT_START;
         private static Mutex _allocatePortsMutex = new Mutex();
@@ -312,9 +312,11 @@ namespace GB28181.Net
                         }
                         catch (SocketException sockExcp)
                         {
-                            Logger.Logger.Error("RTSP session " + _sessionID + " failed to bind to RTP port " + _rtpPort +
-                                               " and/or control port of " + _controlPort + ", attempt " + bindAttempts + ". " +
-                                               sockExcp);
+                            Logger.Logger.Error("RTSP session " + _sessionID + " failed to bind to RTP port " +
+                                                _rtpPort +
+                                                " and/or control port of " + _controlPort + ", attempt " +
+                                                bindAttempts + ". " +
+                                                sockExcp);
 
                             // Jump up the port range in case there is an OS/network issue closing/cleaning up already used ports.
                             _rtpPort += 100;
@@ -355,7 +357,8 @@ namespace GB28181.Net
             }
             else
             {
-                Logger.Logger.Warn("An RTSP session could not start as either RTP or control sockets were not available.");
+                Logger.Logger.Warn(
+                    "An RTSP session could not start as either RTP or control sockets were not available.");
             }
         }
 
@@ -553,7 +556,8 @@ namespace GB28181.Net
                                             {
                                                 /*Debug.WriteLine(
                                                     "RTSPSession.RTPReceive packets queue full, clearing.");*/
-                                                Logger.Logger.Warn("RTSPSession.RTPReceive packets queue full, clearing.");
+                                                Logger.Logger.Warn(
+                                                    "RTSPSession.RTPReceive packets queue full, clearing.");
 
                                                 _packets.Clear();
 
@@ -579,7 +583,8 @@ namespace GB28181.Net
                         }
                         else
                         {
-                            Logger.Logger.Warn("Zero bytes read from RTSPSession RTP socket for session ID " + SessionID +
+                            Logger.Logger.Warn("Zero bytes read from RTSPSession RTP socket for session ID " +
+                                               SessionID +
                                                " and " + remoteIPEndPoint + ".");
                             break;
                         }
@@ -655,7 +660,8 @@ namespace GB28181.Net
                     if (!_closed)
                     {
                         Logger.Logger.Warn("A " + _controlSocketError +
-                                           " occurred receiving on Control socket for RTSP session " + _sessionID + ".");
+                                           " occurred receiving on Control socket for RTSP session " + _sessionID +
+                                           ".");
 
                         if (OnControlSocketDisconnected != null)
                         {
@@ -697,7 +703,8 @@ namespace GB28181.Net
                 }
                 else if (_rtpSocketError != SocketError.Success)
                 {
-                    Logger.Logger.Warn("SendJpegFrame was called for an RTP socket in an error state of " + _rtpSocketError +
+                    Logger.Logger.Warn("SendJpegFrame was called for an RTP socket in an error state of " +
+                                       _rtpSocketError +
                                        ".");
                 }
                 else if (_remoteEndPoint == null)
@@ -791,7 +798,8 @@ namespace GB28181.Net
                 }
                 else if (_rtpSocketError != SocketError.Success)
                 {
-                    Logger.Logger.Warn("SendH264Frame was called for an RTP socket in an error state of " + _rtpSocketError +
+                    Logger.Logger.Warn("SendH264Frame was called for an RTP socket in an error state of " +
+                                       _rtpSocketError +
                                        ".");
                 }
                 else if (_remoteEndPoint == null)
@@ -917,7 +925,8 @@ namespace GB28181.Net
                 }
                 else if (_rtpSocketError != SocketError.Success)
                 {
-                    Logger.Logger.Warn("SendVP8Frame was called for an RTP socket in an error state of " + _rtpSocketError +
+                    Logger.Logger.Warn("SendVP8Frame was called for an RTP socket in an error state of " +
+                                       _rtpSocketError +
                                        ".");
                 }
                 else if (_remoteEndPoint == null)
@@ -993,7 +1002,7 @@ namespace GB28181.Net
                 if (!_closed)
                 {
                     Logger.Logger.Error("Exception RTSPSession.SendVP8Frame attempting to send to the RTP socket at " +
-                                       _remoteEndPoint + ". ->" + excp);
+                                        _remoteEndPoint + ". ->" + excp);
 
                     if (OnRTPSocketDisconnected != null)
                     {
@@ -1027,7 +1036,8 @@ namespace GB28181.Net
             {
                 if (!_closed)
                 {
-                    Logger.Logger.Error("Exception RTSPSession.SendRTPRaw attempting to send to " + _remoteEndPoint + ". ->" +
+                    Logger.Logger.Error("Exception RTSPSession.SendRTPRaw attempting to send to " + _remoteEndPoint +
+                                        ". ->" +
                                         excp);
 
                     if (OnRTPSocketDisconnected != null)
@@ -1070,7 +1080,8 @@ namespace GB28181.Net
             {
                 if (!_closed)
                 {
-                    Logger.Logger.Error("Exception RTSPSession.SendRtpCallback attempting to send to " + _remoteEndPoint +
+                    Logger.Logger.Error("Exception RTSPSession.SendRtpCallback attempting to send to " +
+                                        _remoteEndPoint +
                                         ". ->" + excp);
 
                     if (OnRTPSocketDisconnected != null)
@@ -1091,7 +1102,8 @@ namespace GB28181.Net
             {
                 if (!_closed)
                 {
-                    Logger.Logger.Error("Exception RTSPSession.SendRtcpCallback attempting to send to " + _rtcpRemoteEndPoint +
+                    Logger.Logger.Error("Exception RTSPSession.SendRtcpCallback attempting to send to " +
+                                        _rtcpRemoteEndPoint +
                                         ". ->" + excp);
 
                     //if (OnRTPSocketDisconnected != null)

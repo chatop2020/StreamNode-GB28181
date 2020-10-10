@@ -27,7 +27,7 @@ namespace GB28181.App
                 '<'; // If this character exists in the call descriptor OutboundProxy setting it gets treated as a Route set.
 
         //private static ILog logger = AppState.logger;
-       // private static ILog rtccLogger = AppState.GetLogger("rtcc");
+        // private static ILog rtccLogger = AppState.GetLogger("rtcc");
 
         private static string m_userAgent = SIPConstants.SIP_USERAGENT_STRING;
         private static readonly int m_defaultSIPPort = SIPConstants.DEFAULT_SIP_PORT;

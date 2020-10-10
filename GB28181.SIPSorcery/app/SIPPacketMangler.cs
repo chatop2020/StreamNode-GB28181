@@ -25,7 +25,7 @@ namespace GB28181.App
 {
     public class SIPPacketMangler
     {
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         public static string MangleSDP(string sdpBody, string publicIPAddress, out bool wasMangled)
         {

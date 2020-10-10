@@ -102,7 +102,7 @@ namespace SIPSorcery.Net
     {
         public const short STUNATTRIBUTE_HEADER_LENGTH = 4;
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         public STUNAttributeTypesEnum AttributeType = STUNAttributeTypesEnum.Unknown;
         public byte[] Value;
@@ -181,7 +181,7 @@ namespace SIPSorcery.Net
                     {
                         if (stunAttributeLength + startIndex + 4 > endIndex)
                         {
-                            logger.LogWarning(
+                            Logger.Logger.Warn(
                                 "The attribute length on a STUN parameter was greater than the available number of bytes.");
                         }
                         else

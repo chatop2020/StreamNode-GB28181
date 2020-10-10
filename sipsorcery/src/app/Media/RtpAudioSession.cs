@@ -112,7 +112,7 @@ namespace SIPSorcery.Media
         private static readonly byte PCMA_SILENCE_BYTE_ZERO = 0x55;
         private static readonly byte PCMA_SILENCE_BYTE_ONE = 0xD5;
 
-        private static ILogger Log = Sys.Log.Logger;
+        //private static ILogger Log = Sys.Log.Logger;
 
         private StreamReader _audioStreamReader;
         private SignalGenerator _signalGenerator;
@@ -251,7 +251,8 @@ namespace SIPSorcery.Media
                     _sendingAudioSampleRate = SDPMediaFormatInfo.GetClockRate(_sendingFormat.FormatCodec);
                     _sendingAudioRtpRate = SDPMediaFormatInfo.GetRtpClockRate(_sendingFormat.FormatCodec);
 
-                    Log.LogDebug($"RTP audio session selected sending codec {_sendingFormat.FormatCodec}.");
+
+                    Logger.Logger.Debug($"RTP audio session selected sending codec {_sendingFormat.FormatCodec}.");
 
                     if (_sendingFormat.FormatCodec == SDPMediaFormatsEnum.G722)
                     {
@@ -296,7 +297,7 @@ namespace SIPSorcery.Media
                             if (_audioOpts.SourceFiles == null ||
                                 !_audioOpts.SourceFiles.ContainsKey(_sendingFormat.FormatCodec))
                             {
-                                Log.LogWarning($"Source file not set for codec {_sendingFormat.FormatCodec}.");
+                                Logger.Logger.Warn($"Source file not set for codec {_sendingFormat.FormatCodec}.");
                             }
                             else
                             {
@@ -304,7 +305,7 @@ namespace SIPSorcery.Media
 
                                 if (String.IsNullOrEmpty(sourceFile) || !File.Exists(sourceFile))
                                 {
-                                    Log.LogWarning(
+                                    Logger.Logger.Warn(
                                         "Could not start audio music source as the source file does not exist.");
                                 }
                                 else
@@ -359,7 +360,7 @@ namespace SIPSorcery.Media
 
                 lock (_audioPcmStreamTimer)
                 {
-                    Log.LogDebug($"Sending audio stream length {audioStream.Length}.");
+                    Logger.Logger.Debug($"Sending audio stream length {audioStream.Length}.");
 
                     _streamSendInProgress = true;
 
@@ -729,13 +730,13 @@ namespace SIPSorcery.Media
                     if (_audioPcmStreamReader.EndOfStream || _audioPcmStreamReader.BaseStream.Position >=
                         _audioPcmStreamReader.BaseStream.Length)
                     {
-                        Log.LogDebug("Send audio from stream completed.");
+                        Logger.Logger.Debug("Send audio from stream completed.");
                         StopSendFromAudioStream();
                     }
                 }
                 else
                 {
-                    Log.LogWarning("Failed to read from audio stream.");
+                    Logger.Logger.Warn("Failed to read from audio stream.");
                     StopSendFromAudioStream();
                 }
             }

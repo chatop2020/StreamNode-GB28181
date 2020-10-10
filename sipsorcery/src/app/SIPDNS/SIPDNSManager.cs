@@ -57,7 +57,7 @@ namespace SIPSorcery.SIP.App
         private const int DNS_LOOKUP_TIMEOUT = 5; // 2 second timeout for DNS lookups.
         private const int DNS_A_RECORD_LOOKUP_TIMEOUT = 15; // 5 second timeout for critical A record DNS lookups.
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private static int m_defaultSIPPort = SIPConstants.DEFAULT_SIP_PORT;
         private static int m_defaultSIPSPort = SIPConstants.DEFAULT_SIP_TLS_PORT;
@@ -97,7 +97,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPDNSManager ResolveSIPService (" + host + "). " + excp.Message);
+                Logger.Logger.Error("Exception SIPDNSManager ResolveSIPService (" + host + "). ->" + excp.Message);
                 throw;
             }
         }
@@ -289,7 +289,7 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError(
+                Logger.Logger.Error(
                     "Exception SIPDNSManager ResolveSIPService (" + sipURI.ToString() + "). " + excp.Message);
                 m_inProgressSIPServiceLookups.Remove(sipURI.ToString());
                 return new SIPDNSLookupResult(sipURI, excp.Message);
@@ -486,8 +486,8 @@ namespace SIPSorcery.SIP.App
             }
             catch (Exception excp)
             {
-                logger.LogError(
-                    "Exception SIPDNSManager ResolveSIPService (" + sipURI.ToString() + "). " + excp.Message);
+                Logger.Logger.Error(
+                    "Exception SIPDNSManager ResolveSIPService (" + sipURI.ToString() + "). ->" + excp.Message);
                 m_inProgressSIPServiceLookups.Remove(sipURI.ToString());
                 return new SIPDNSLookupResult(sipURI, excp.Message);
             }

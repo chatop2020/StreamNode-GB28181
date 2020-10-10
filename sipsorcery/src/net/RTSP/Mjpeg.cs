@@ -56,7 +56,7 @@ namespace SIPSorcery.Net
 {
     public class Mjpeg
     {
-        private static ILogger logger = Log.Logger;
+        //private static ILogger logger = Log.Logger;
 
         public sealed class Tags
         {
@@ -530,9 +530,10 @@ namespace SIPSorcery.Net
 
                     if (Width == 0 || Height == 0)
                     {
-                        logger.LogWarning(
-                            "ProcessMjpegFrame could not determine either the width or height of the jpeg frame (width={0}, height={1}).",
-                            Width, Height);
+                        Logger.Logger.Warn(
+                            string.Format(
+                                "ProcessMjpegFrame could not determine either the width or height of the jpeg frame (width={0}, height={1}).",
+                                Width, Height));
                     }
 
                     //Restart Interval 64 - 127

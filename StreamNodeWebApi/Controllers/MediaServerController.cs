@@ -724,8 +724,8 @@ namespace StreamNodeWebApi.Controllers
 
             return ret;
         }
-        
-        
+
+
         /// <summary>
         /// 激活sip网关自动添加的摄像头
         /// </summary>
@@ -747,7 +747,7 @@ namespace StreamNodeWebApi.Controllers
 
             return ret;
         }
-        
+
 
         /// <summary>
         /// 启动流媒体服务

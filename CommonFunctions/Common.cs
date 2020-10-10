@@ -432,7 +432,7 @@ namespace CommonFunctions
         /// </summary>
         public static void KillSelf()
         {
-          //  LogWriter.WriteLog("因异常结束进程...");
+            //  LogWriter.WriteLog("因异常结束进程...");
             Logger.Logger.Fatal("因异常结束进程...");
             string fileName = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
             var ret = GetProcessPid(fileName);

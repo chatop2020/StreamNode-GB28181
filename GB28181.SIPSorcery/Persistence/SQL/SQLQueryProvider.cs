@@ -12,7 +12,7 @@ namespace GB28181.Persistence
 {
     public class SQLQueryProvider : QueryProvider
     {
-     //   private static ILog logger = AppState.logger;
+        //   private static ILog logger = AppState.logger;
 
         private DbProviderFactory m_dbFactory;
         private string m_dbConnStr;
@@ -133,7 +133,8 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SQLQueryProvider Execute. " + expression.ToString() + ". ->" + excp.Message);
+                Logger.Logger.Error("Exception SQLQueryProvider Execute. " + expression.ToString() + ". ->" +
+                                    excp.Message);
                 throw;
             }
         }

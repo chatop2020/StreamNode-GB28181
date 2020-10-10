@@ -52,7 +52,7 @@ namespace StreamNodeWebApi.Controllers
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
             }
 
-            return ret;  
+            return ret;
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace StreamNodeWebApi.Controllers
                     str += tmpstr + "\r\n";
                 }
             }
-            
+
             var tmpObj = JsonHelper.FromJson<ZLMediaKitConfigForResponse>(str);
 
 

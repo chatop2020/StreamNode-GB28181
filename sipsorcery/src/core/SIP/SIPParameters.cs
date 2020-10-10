@@ -49,7 +49,7 @@ namespace SIPSorcery.SIP
         private const char BACK_SLASH = '\\';
         private const char DEFAULT_PARAMETER_DELIMITER = ';';
 
-        private static ILogger logger = Log.Logger;
+        //private static ILogger logger = Log.Logger;
 
         [DataMember] public char TagDelimiter = DEFAULT_PARAMETER_DELIMITER;
 
@@ -182,7 +182,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception GetKeyValuePairsFromQuoted. " + excp.Message);
+                Logger.Logger.Error("Exception GetKeyValuePairsFromQuoted. ->" + excp.Message);
                 throw excp;
             }
         }

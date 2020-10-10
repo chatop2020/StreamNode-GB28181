@@ -51,7 +51,7 @@ namespace SIPSorcery.Net
     {
         public const string MDNS_TLD = "local"; // Top Level Domain name for multicast lookups as per RFC6762.
 
-        private static readonly ILogger logger = Log.Logger;
+        //private static readonly ILogger logger = Log.Logger;
 
         private static LookupClient _lookupClient;
 
@@ -129,7 +129,7 @@ namespace SIPSorcery.Net
 
                         if (addressList?.Length == 0)
                         {
-                            logger.LogWarning($"Operating System DNS lookup failed for {uri.Host}.");
+                            Logger.Logger.Warn($"Operating System DNS lookup failed for {uri.Host}.");
                             return Task.FromResult<IPEndPoint>(null);
                         }
                         else

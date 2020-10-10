@@ -37,7 +37,7 @@ namespace SIPSorcery.Sys
 
     public class StorageTypesConverter
     {
-        private static ILogger logger = Log.Logger;
+        //  private static ILogger logger = Log.Logger;
 
         public static StorageTypes GetStorageType(string storageType)
         {
@@ -47,7 +47,7 @@ namespace SIPSorcery.Sys
             }
             catch
             {
-                logger.LogError("StorageTypesConverter " + storageType + " unknown.");
+                Logger.Logger.Error("StorageTypesConverter " + storageType + " unknown.");
                 return StorageTypes.Unknown;
             }
         }

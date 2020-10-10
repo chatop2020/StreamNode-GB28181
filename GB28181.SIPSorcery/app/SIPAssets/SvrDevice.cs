@@ -15,7 +15,7 @@ namespace GB28181.App
     [DataContract]
     public class SvrDevice : INotifyPropertyChanged, ISIPAsset
     {
-       // private ILog logger = AppState.logger;
+        // private ILog logger = AppState.logger;
 
         public const string XML_DOCUMENT_ELEMENT_NAME = "Device";
         public const string XML_ELEMENT_NAME = "svrDevice";

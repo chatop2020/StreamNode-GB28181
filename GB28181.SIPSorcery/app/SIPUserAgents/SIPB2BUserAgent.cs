@@ -28,7 +28,7 @@ namespace GB28181.App
     /// </summary>
     public class SIPB2BUserAgent : ISIPServerUserAgent, ISIPClientUserAgent
     {
-     //   private static ILog logger = AppState.logger;
+        //   private static ILog logger = AppState.logger;
 
         private static readonly SIPEndPoint m_blackhole =
             new SIPEndPoint(new IPEndPoint(SIPTransport.BlackholeAddress, 0));

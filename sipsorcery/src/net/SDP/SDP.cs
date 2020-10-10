@@ -130,7 +130,7 @@ namespace SIPSorcery.Net
         public const string END_ICE_CANDIDATES_ATTRIBUTE = "end-of-candidates";
         public const string ICE_OPTIONS = "ice-options";
 
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         public decimal Version = SDP_PROTOCOL_VERSION;
 
@@ -227,7 +227,7 @@ namespace SIPSorcery.Net
                         {
                             if (!Decimal.TryParse(sdpLineTrimmed.Substring(2), out sdp.Version))
                             {
-                                logger.LogWarning(
+                                Logger.Logger.Warn(
                                     "The Version value in an SDP description could not be parsed as a decimal: " +
                                     sdpLine + ".");
                             }
@@ -291,8 +291,8 @@ namespace SIPSorcery.Net
                             }
                             else
                             {
-                                logger.LogWarning("A media line in SDP was invalid: " + sdpLineTrimmed.Substring(2) +
-                                                  ".");
+                                Logger.Logger.Warn("A media line in SDP was invalid: " + sdpLineTrimmed.Substring(2) +
+                                                   ".");
                             }
                         }
                         else if (sdpLineTrimmed.StartsWith("a=" + GROUP_ATRIBUTE_PREFIX))
@@ -354,7 +354,7 @@ namespace SIPSorcery.Net
                                     }
                                     else
                                     {
-                                        logger.LogWarning("Invalid media format attribute in SDP: " + sdpLine);
+                                        Logger.Logger.Warn("Invalid media format attribute in SDP: " + sdpLine);
                                     }
                                 }
                                 else
@@ -364,7 +364,7 @@ namespace SIPSorcery.Net
                             }
                             else
                             {
-                                logger.LogWarning(
+                                Logger.Logger.Warn(
                                     "There was no active media announcement for a media format attribute, ignoring.");
                             }
                         }
@@ -386,8 +386,8 @@ namespace SIPSorcery.Net
                                     }
                                     else
                                     {
-                                        logger.LogWarning("Invalid media format parameter attribute in SDP: " +
-                                                          sdpLine);
+                                        Logger.Logger.Warn("Invalid media format parameter attribute in SDP: " +
+                                                           sdpLine);
                                     }
                                 }
                                 else
@@ -397,7 +397,7 @@ namespace SIPSorcery.Net
                             }
                             else
                             {
-                                logger.LogWarning(
+                                Logger.Logger.Warn(
                                     "There was no active media announcement for a media format parameter attribute, ignoring.");
                             }
                         }
@@ -434,7 +434,7 @@ namespace SIPSorcery.Net
                                 }
                                 catch (FormatException fex)
                                 {
-                                    logger.LogWarning("Error Parsing SDP-Line(a=crypto) " + fex);
+                                    Logger.Logger.Warn("Error Parsing SDP-Line(a=crypto) " + fex);
                                 }
                             }
                         }
@@ -458,7 +458,7 @@ namespace SIPSorcery.Net
                             }
                             else
                             {
-                                logger.LogWarning("A media ID can only be set on a media announcement.");
+                                Logger.Logger.Warn("A media ID can only be set on a media announcement.");
                             }
                         }
                         else if (sdpLineTrimmed.StartsWith(SDPMediaAnnouncement.MEDIA_FORMAT_SSRC_GROUP_ATTRIBUE_PREFIX)
@@ -486,7 +486,7 @@ namespace SIPSorcery.Net
                             }
                             else
                             {
-                                logger.LogWarning("A ssrc-group ID can only be set on a media announcement.");
+                                Logger.Logger.Warn("A ssrc-group ID can only be set on a media announcement.");
                             }
                         }
                         else if (sdpLineTrimmed.StartsWith(SDPMediaAnnouncement.MEDIA_FORMAT_SSRC_ATTRIBUE_PREFIX))
@@ -518,7 +518,7 @@ namespace SIPSorcery.Net
                             }
                             else
                             {
-                                logger.LogWarning("A ssrc attribute can only be set on a media announcement.");
+                                Logger.Logger.Warn("A ssrc attribute can only be set on a media announcement.");
                             }
                         }
                         else
@@ -543,7 +543,7 @@ namespace SIPSorcery.Net
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception ParseSDPDescription. " + excp.Message);
+                Logger.Logger.Error("Exception ParseSDPDescription. ->" + excp.Message);
                 throw excp;
             }
         }

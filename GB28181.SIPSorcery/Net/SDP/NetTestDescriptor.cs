@@ -35,7 +35,7 @@ namespace GB28181.Net
 
         private string m_CRLF = AppState.CRLF;
 
-     //   protected static ILog logger = AppState.logger;
+        //   protected static ILog logger = AppState.logger;
 
         public int NumberChannels = 1;
 

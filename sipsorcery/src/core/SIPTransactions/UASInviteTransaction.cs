@@ -116,8 +116,8 @@ namespace SIPSorcery.SIP
         private Task<SocketError> UASInviteTransaction_TransactionResponseReceived(SIPEndPoint localSIPEndPoint,
             SIPEndPoint remoteEndPoint, SIPTransaction sipTransaction, SIPResponse sipResponse)
         {
-            logger.LogWarning("UASInviteTransaction received unexpected response, " + sipResponse.ReasonPhrase +
-                              " from " + remoteEndPoint.ToString() + ", ignoring.");
+            Logger.Logger.Warn("UASInviteTransaction received unexpected response, " + sipResponse.ReasonPhrase +
+                               " from " + remoteEndPoint.ToString() + ", ignoring.");
             return Task.FromResult(SocketError.Fault);
         }
 
@@ -128,11 +128,12 @@ namespace SIPSorcery.SIP
             {
                 if (TransactionState == SIPTransactionStatesEnum.Terminated)
                 {
-                    logger.LogDebug("Request received by UASInviteTransaction for a terminated transaction, ignoring.");
+                    Logger.Logger.Debug(
+                        "Request received by UASInviteTransaction for a terminated transaction, ignoring.");
                 }
                 else if (sipRequest.Method != SIPMethodsEnum.INVITE)
                 {
-                    logger.LogWarning("Unexpected " + sipRequest.Method + " passed to UASInviteTransaction.");
+                    Logger.Logger.Warn("Unexpected " + sipRequest.Method + " passed to UASInviteTransaction.");
                 }
                 else
                 {
@@ -161,7 +162,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception UASInviteTransaction GotRequest. " + excp.Message);
+                Logger.Logger.Error("Exception UASInviteTransaction GotRequest. ->" + excp.Message);
                 return Task.FromResult(SocketError.Fault);
             }
         }
@@ -175,7 +176,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception UASInviteTransaction SendProvisionalResponse. " + excp.Message);
+                Logger.Logger.Error("Exception UASInviteTransaction SendProvisionalResponse. ->" + excp.Message);
                 throw;
             }
         }
@@ -189,7 +190,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception UASInviteTransaction SendFinalResponse. " + excp.Message);
+                Logger.Logger.Error("Exception UASInviteTransaction SendFinalResponse. ->" + excp.Message);
                 throw;
             }
         }
@@ -217,14 +218,14 @@ namespace SIPSorcery.SIP
                 }
                 else
                 {
-                    logger.LogWarning("A request was made to cancel transaction " + TransactionId +
-                                      " that was not in the calling, trying or proceeding states, state=" +
-                                      TransactionState + ".");
+                    Logger.Logger.Warn("A request was made to cancel transaction " + TransactionId +
+                                       " that was not in the calling, trying or proceeding states, state=" +
+                                       TransactionState + ".");
                 }
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception UASInviteTransaction CancelCall. " + excp.Message);
+                Logger.Logger.Error("Exception UASInviteTransaction CancelCall. ->" + excp.Message);
                 throw;
             }
         }
@@ -256,7 +257,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception GetOkResponse. " + excp.Message);
+                Logger.Logger.Error("Exception GetOkResponse. ->" + excp.Message);
                 throw excp;
             }
         }

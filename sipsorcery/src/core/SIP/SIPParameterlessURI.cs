@@ -24,7 +24,7 @@ namespace SIPSorcery.SIP
     [DataContract]
     public class SIPParameterlessURI
     {
-        private static ILogger logger = Log.Logger;
+        // private static ILogger logger = Log.Logger;
 
         private SIPURI m_uri;
 
@@ -94,7 +94,7 @@ namespace SIPSorcery.SIP
             }
             catch (Exception excp)
             {
-                logger.LogError("Exception SIPParameterlessURI ToString. " + excp.Message);
+                Logger.Logger.Error("Exception SIPParameterlessURI ToString. ->" + excp.Message);
                 throw excp;
             }
         }

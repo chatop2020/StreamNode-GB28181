@@ -40,7 +40,7 @@ namespace GB28181.Sys
         public const string EMAIL_VALIDATION_REGEX =
             @"^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-zA-Z0-9]{1}[a-zA-Z0-9\-]{0,62}[a-zA-Z0-9]{1})|[a-zA-Z])\.)+[a-zA-Z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$";
 
-     //   public static ILog logger; // Used to provide logging functionality for the application.
+        //   public static ILog logger; // Used to provide logging functionality for the application.
 
         private static StringDictionary m_appConfigSettings; // Contains application configuration key, value pairs.
         private static X509Certificate2 m_encryptedSettingsCertificate;
@@ -81,28 +81,28 @@ namespace GB28181.Sys
                 {
                     try
                     {
-                       // logger = LogManager.GetLogger(APP_LOGGING_ID);
-                       Logger.Logger.Debug("Target framework: .Net Core 3.1");
-                       Logger.Logger.Debug("EnvironmentVariables.MICRO_REGISTRY_ADDRESS: " +
-                                           EnvironmentVariables.MicroRegistryAddress);
-                       Logger.Logger.Debug("EnvironmentVariables.GB_NATS_CHANNEL_ADDRESS: " +
-                                           EnvironmentVariables.GBNatsChannelAddress);
-                       Logger.Logger.Debug("EnvironmentVariables.DEVICE_MANAGEMENT_SERVICE_ADDRESS: " +
-                                           EnvironmentVariables.DeviceManagementServiceAddress);
-                       Logger.Logger.Debug("EnvironmentVariables.SYSTEM_CONFIGURATION_SERVICE_ADDRESS: " +
-                                           EnvironmentVariables.SystemConfigurationServiceAddress);
-                       Logger.Logger.Debug("EnvironmentVariables.GB_SERVICE_LOCAL_IP: " +
-                                           EnvironmentVariables.GbServiceLocalIp);
+                        // logger = LogManager.GetLogger(APP_LOGGING_ID);
+                        Logger.Logger.Debug("Target framework: .Net Core 3.1");
+                        Logger.Logger.Debug("EnvironmentVariables.MICRO_REGISTRY_ADDRESS: " +
+                                            EnvironmentVariables.MicroRegistryAddress);
+                        Logger.Logger.Debug("EnvironmentVariables.GB_NATS_CHANNEL_ADDRESS: " +
+                                            EnvironmentVariables.GBNatsChannelAddress);
+                        Logger.Logger.Debug("EnvironmentVariables.DEVICE_MANAGEMENT_SERVICE_ADDRESS: " +
+                                            EnvironmentVariables.DeviceManagementServiceAddress);
+                        Logger.Logger.Debug("EnvironmentVariables.SYSTEM_CONFIGURATION_SERVICE_ADDRESS: " +
+                                            EnvironmentVariables.SystemConfigurationServiceAddress);
+                        Logger.Logger.Debug("EnvironmentVariables.GB_SERVICE_LOCAL_IP: " +
+                                            EnvironmentVariables.GbServiceLocalIp);
                         //logger.Debug("EnvironmentVariables.GbServiceLocalPort: " + EnvironmentVariables.GbServiceLocalPort);
                         Logger.Logger.Debug("EnvironmentVariables.GB_SERVICE_LOCAL_ID: " +
                                             EnvironmentVariables.GbServiceLocalId);
-                        Logger.Logger.Debug("EnvironmentVariables.GBServerGrpcPort: " + EnvironmentVariables.GBServerGrpcPort);
+                        Logger.Logger.Debug("EnvironmentVariables.GBServerGrpcPort: " +
+                                            EnvironmentVariables.GBServerGrpcPort);
                         Logger.Logger.Debug("Notes: if EnvironmentVariables have no value, it gets from xml config.");
                     }
                     catch (Exception excp)
                     {
-                        
-                        Logger.Logger.Error("Exception Initialising AppState Logging. ->"+excp.Message);
+                        Logger.Logger.Error("Exception Initialising AppState Logging. ->" + excp.Message);
                         /*var errorLog = new StreamWriter(DEFAULT_ERRRORLOG_FILE, true);
                         errorLog.WriteLine(DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") +
                                            " Exception Initialising AppState Logging. " + excp.Message);
@@ -259,7 +259,8 @@ namespace GB28181.Sys
             {
                 X509Certificate2 serverCertificate = collection[0];
                 bool verifyCert = serverCertificate.Verify();
-                Logger.Logger.Debug("X509 certificate loaded from current user store, subject=" + serverCertificate.Subject +
+                Logger.Logger.Debug("X509 certificate loaded from current user store, subject=" +
+                                    serverCertificate.Subject +
                                     ", valid=" + verifyCert + ".");
                 return serverCertificate;
             }

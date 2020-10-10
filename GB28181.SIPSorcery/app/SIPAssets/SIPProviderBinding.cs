@@ -43,7 +43,7 @@ namespace GB28181.App
         //public static readonly string SelectNextScheduledBinding = "select * from sipproviderbindings where nextregistrationtime <= ?1 order by nextregistrationtime asc limit 1";
 
         private static string m_newLine = AppState.NewLine;
-      //  private static ILog logger = AppState.logger;
+        //  private static ILog logger = AppState.logger;
 
         public static int TimeZoneOffsetMinutes;
 

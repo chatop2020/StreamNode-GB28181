@@ -54,7 +54,7 @@ namespace GB28181.Net
 {
     public class Mjpeg
     {
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         public sealed class Tags
         {
@@ -506,7 +506,8 @@ namespace GB28181.Net
                     if (Width == 0 || Height == 0)
                     {
                         //, Width, Height
-                        Logger.Logger.Warn("ProcessMjpegFrame could not determine either the width:" + Width + " or height: " +
+                        Logger.Logger.Warn("ProcessMjpegFrame could not determine either the width:" + Width +
+                                           " or height: " +
                                            Height + "of the jpeg frame");
                     }
 

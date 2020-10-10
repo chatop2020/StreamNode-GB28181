@@ -22,7 +22,7 @@ namespace GB28181.App
 {
     public class SIPNonInviteClientUserAgent
     {
-       // private static ILog logger = AppState.logger;
+        // private static ILog logger = AppState.logger;
 
         private static readonly string m_userAgent = SIPConstants.SIP_USERAGENT_STRING;
 
@@ -66,7 +66,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPNonInviteClientUserAgent SendRequest to " + m_callDescriptor.Uri + ". ->" +
+                Logger.Logger.Error("Exception SIPNonInviteClientUserAgent SendRequest to " + m_callDescriptor.Uri +
+                                    ". ->" +
                                     excp.Message);
                 throw;
             }
@@ -74,7 +75,8 @@ namespace GB28181.App
 
         private void RequestTimedOut(SIPTransaction sipTransaction)
         {
-            Logger.Logger.Error("Exception SIPNonInviteClientUserAgent ReqeustTimeOut (" + sipTransaction.RemoteEndPoint +
+            Logger.Logger.Error("Exception SIPNonInviteClientUserAgent ReqeustTimeOut (" +
+                                sipTransaction.RemoteEndPoint +
                                 "). ");
         }
 
@@ -130,7 +132,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                Logger.Logger.Error("Exception SIPNonInviteClientUserAgent ServerResponseReceived (" + remoteEndPoint + "). ->" +
+                Logger.Logger.Error("Exception SIPNonInviteClientUserAgent ServerResponseReceived (" + remoteEndPoint +
+                                    "). ->" +
                                     excp.Message);
             }
         }

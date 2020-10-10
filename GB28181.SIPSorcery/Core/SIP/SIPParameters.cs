@@ -50,7 +50,7 @@ namespace GB28181
         private const char BACK_SLASH = '\\';
         private const char DEFAULT_PARAMETER_DELIMITER = ';';
 
-      //  private static ILog logger = AssemblyState.logger;
+        //  private static ILog logger = AssemblyState.logger;
 
         [DataMember] public char TagDelimiter = DEFAULT_PARAMETER_DELIMITER;
 
