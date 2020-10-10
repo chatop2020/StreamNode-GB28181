@@ -18,14 +18,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 
 namespace GB28181.App
 {
     public class SilverlightPolicyServer
     {
-        private ILog logger = AppState.logger;
+      //  private ILog logger = AppState.logger;
 
         private Socket m_listener;
 
@@ -60,7 +58,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SilverlightPolicyServer. " + excp.Message);
+                Logger.Logger.Error("Exception SilverlightPolicyServer. ->" + excp.Message);
             }
         }
 
@@ -81,7 +79,7 @@ namespace GB28181.App
             while (!m_exit)
             {
                 Socket clientSocket = m_listener.Accept();
-                logger.Debug("SilverlightPolicyServer connection from " + clientSocket.RemoteEndPoint + ".");
+                Logger.Logger.Debug("SilverlightPolicyServer connection from " + clientSocket.RemoteEndPoint + ".");
                 PolicyConnection pc = new PolicyConnection(clientSocket, Encoding.UTF8.GetBytes(m_policy));
             }
         }

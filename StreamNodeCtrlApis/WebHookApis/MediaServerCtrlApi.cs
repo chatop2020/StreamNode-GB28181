@@ -21,7 +21,7 @@ namespace StreamNodeCtrlApis.WebHookApis
         /// </summary>
         /// <param name="session"></param>
         /// <returns></returns>
-        private static CameraInstance getCameraFromCameraInstance(CameraSession session)
+        private static CameraInstance GetCameraFromCameraInstance(CameraSession session)
         {
             lock (Common.CameraInstanceListLock)
             {
@@ -29,10 +29,9 @@ namespace StreamNodeCtrlApis.WebHookApis
                 {
                     foreach (var camera in Common.CameraInstanceList)
                     {
-                        if (camera != null && camera.CameraChannelLable.Equals(session.CameraEx.Camera.DeviceID)
-                                           && camera.CameraDeviceLable.Equals(session.CameraEx.Camera.ParentID))
+                        if (camera != null && camera.CameraChannelLable!.Equals(session.CameraEx!.Camera.DeviceID)
+                                           && camera.CameraDeviceLable!.Equals(session.CameraEx!.Camera.ParentID))
                         {
-                            CameraInstance tmp = null;
                             return JsonHelper.FromJson<CameraInstance>(JsonHelper.ToJson(camera));
                         }
                     }
@@ -85,7 +84,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 session.CameraType = CameraType.GB28181;
                 session.CameraEx = cameraEx;
                 //获取cameraId
-                var cameraInstance = getCameraFromCameraInstance(session);
+                var cameraInstance = GetCameraFromCameraInstance(session);
                 if (cameraInstance != null)
                 {
                     session.CameraId = cameraInstance.CameraId;

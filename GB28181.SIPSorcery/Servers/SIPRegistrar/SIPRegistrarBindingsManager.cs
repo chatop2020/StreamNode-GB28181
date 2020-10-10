@@ -21,7 +21,6 @@ using System.Linq;
 using System.Threading;
 using System.Transactions;
 using GB28181.App;
-using GB28181.Logger4Net;
 using GB28181.Persistence;
 using GB28181.Sys;
 using SIPSorcery.SIP;
@@ -88,7 +87,7 @@ namespace GB28181.Servers
         private string m_sipRegisterRemoveAll = SIPConstants.SIP_REGISTER_REMOVEALL;
         private string m_sipExpiresParameterKey = SIPContactHeader.EXPIRES_PARAMETER_KEY;
 
-        private static ILog logger = AppState.GetLogger("sipregistrar");
+       // private static ILog logger = AppState.GetLogger("sipregistrar");
 
         // private SIPMonitorLogDelegate SIPMonitorEventLog_External;
         //private SendNATKeepAliveDelegate SendNATKeepAlive_External;
@@ -171,7 +170,7 @@ namespace GB28181.Servers
                     }
                     catch (Exception expireExcp)
                     {
-                        logger.Error("Exception ExpireBindings Delete. " + expireExcp.Message);
+                        Logger.Logger.Error("Exception ExpireBindings Delete. ->" + expireExcp.Message);
                     }
 
                     Thread.Sleep(REMOVE_EXPIRED_BINDINGS_INTERVAL);
@@ -179,11 +178,11 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ExpireBindings. " + excp.Message);
+                Logger.Logger.Error("Exception ExpireBindings. ->" + excp.Message);
             }
             finally
             {
-                logger.Warn("Thread " + EXPIRE_BINDINGS_THREAD_NAME + " stopped!");
+                Logger.Logger.Warn("Thread " + EXPIRE_BINDINGS_THREAD_NAME + " stopped!");
             }
         }
 
@@ -201,12 +200,12 @@ namespace GB28181.Servers
                     }
                     else
                     {
-                        logger.Warn("A binding returned from the database as expired wasn't. " +
-                                    binding.SIPAccountName + " and " + binding.MangledContactURI + ", last register " +
-                                    binding.LastUpdate.ToString("HH:mm:ss") + ", expiry " + binding.Expiry +
-                                    ", expiry time " + binding.ExpiryTime.ToString("HH:mm:ss") +
-                                    ", checkedtime " + expiryTime.ToString("HH:mm:ss") + ", now " +
-                                    DateTimeOffset.UtcNow.ToString("HH:mm:ss") + ".");
+                        Logger.Logger.Warn("A binding returned from the database as expired wasn't. " +
+                                           binding.SIPAccountName + " and " + binding.MangledContactURI + ", last register " +
+                                           binding.LastUpdate.ToString("HH:mm:ss") + ", expiry " + binding.Expiry +
+                                           ", expiry time " + binding.ExpiryTime.ToString("HH:mm:ss") +
+                                           ", checkedtime " + expiryTime.ToString("HH:mm:ss") + ", now " +
+                                           DateTimeOffset.UtcNow.ToString("HH:mm:ss") + ".");
 
                         binding = null;
                     }
@@ -451,7 +450,7 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UpdateBinding. " + excp.Message);
+                Logger.Logger.Error("Exception UpdateBinding. ->" + excp.Message);
                 FireSIPMonitorLogEvent(new SIPMonitorConsoleEvent(SIPMonitorServerTypesEnum.Registrar,
                     SIPMonitorEventTypesEnum.Error,
                     "Registrar error updating binding: " + excp.Message + " Binding not updated.",
@@ -485,8 +484,8 @@ namespace GB28181.Servers
             }
             catch (Exception natAddExcp)
             {
-                logger.Error("Exception AddNATKeepAliveJob for SIP account " + sipAccount.SIPUsername + ". " +
-                             natAddExcp.Message);
+                Logger.Logger.Error("Exception AddNATKeepAliveJob for SIP account " + sipAccount.SIPUsername + ". ->" +
+                                    natAddExcp.Message);
             }
         }
 
@@ -544,8 +543,8 @@ namespace GB28181.Servers
                                 {
                                     if (!jobsToRemove.Contains(job.RemoteEndPoint.ToString()))
                                     {
-                                        logger.Debug("Removing NAT keep-alive job for binding socket " +
-                                                     job.RemoteEndPoint.ToString() + ".");
+                                        Logger.Logger.Debug("Removing NAT keep-alive job for binding socket " +
+                                                            job.RemoteEndPoint.ToString() + ".");
                                         jobsToRemove.Add(job.RemoteEndPoint.ToString());
                                     }
                                 }
@@ -567,8 +566,8 @@ namespace GB28181.Servers
                             }
                             catch (Exception natJobExcp)
                             {
-                                logger.Error("Exception attempting NAT keep-alive send for " + job.RemoteEndPoint +
-                                             ", owner=" + job.Owner + ". " + natJobExcp.Message);
+                                Logger.Logger.Error("Exception attempting NAT keep-alive send for " + job.RemoteEndPoint +
+                                                    ", owner=" + job.Owner + ". ->" + natJobExcp.Message);
                                 if (!jobsToRemove.Contains(job.RemoteEndPoint.ToString()))
                                 {
                                     jobsToRemove.Add(job.RemoteEndPoint.ToString());
@@ -587,7 +586,7 @@ namespace GB28181.Servers
                     }
                     catch (Exception sendExcp)
                     {
-                        logger.Error("Exception SendNATKeepAlives Send. " + sendExcp.Message);
+                        Logger.Logger.Error("Exception SendNATKeepAlives Send. ->" + sendExcp.Message);
                     }
 
                     Thread.Sleep(SEND_NATKEEPALIVES_INTERVAL);
@@ -595,7 +594,7 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SendNATKeepAlives. " + excp.Message);
+                Logger.Logger.Error("Exception SendNATKeepAlives. ->" + excp.Message);
             }
         }
 

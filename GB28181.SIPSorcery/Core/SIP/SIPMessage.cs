@@ -13,7 +13,6 @@
 
 using System;
 using System.Text;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -42,7 +41,7 @@ namespace GB28181
         private static int m_minFirstLineLength = 7;
         private static string m_CRLF = SIPConstants.CRLF;
 
-        private static ILog logger = AssemblyState.logger;
+       // private static ILog logger = AssemblyState.logger;
 
         public string RawMessage;
         public SIPMessageTypesEnum SIPMessageType = SIPMessageTypesEnum.Unknown;
@@ -97,7 +96,7 @@ namespace GB28181
             {
                 message = message.Replace("\n", "LF");
                 message = message.Replace("\r", "CR");
-                logger.Error("Exception ParseSIPMessage. " + excp.Message + "\nSIP Message=" + message + ".");
+                Logger.Logger.Error("Exception ParseSIPMessage. ->" + excp.Message + "->SIP Message=" + message + ".");
                 return null;
             }
         }
@@ -153,14 +152,14 @@ namespace GB28181
                 }
                 else
                 {
-                    logger.Warn(
+	                Logger.Logger.Warn(
                         "Error ParseSIPMessage, there were no end of line characters in the string being parsed.");
                     return null;
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseSIPMessage. " + excp.Message + "\nSIP Message=" + message + ".");
+	            Logger.Logger.Error("Exception ParseSIPMessage. ->" + excp.Message + "->SIP Message=" + message + ".");
                 return null;
             }
         }

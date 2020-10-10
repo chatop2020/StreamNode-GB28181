@@ -18,8 +18,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 
 #if UNITTEST
@@ -36,7 +34,7 @@ namespace GB28181
     /// </remarks>
     public class SIPEventPresence : SIPEvent
     {
-        private static ILog logger = AppState.logger;
+        //private static ILog logger = AppState.logger;
 
         private static readonly string m_pidfXMLNS = SIPEventConsts.PIDF_XML_NAMESPACE_URN;
 
@@ -69,7 +67,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPEventPresence Load. " + excp.Message);
+                Logger.Logger.Error("Exception SIPEventPresence Load. ->" + excp.Message);
                 throw;
             }
         }

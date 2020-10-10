@@ -15,7 +15,6 @@
 
 
 using System;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 
 #if UNITTEST
@@ -38,7 +37,7 @@ namespace GB28181
     /// </bnf>
     public class SIPRequest
     {
-        private static ILog logger = AssemblyState.logger;
+     //  private static ILog logger = AssemblyState.logger;
 
         private delegate bool IsLocalSIPSocketDelegate(string socket, SIPProtocolsEnum protocol);
 
@@ -78,7 +77,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPRequest ctor. " + excp.Message);
+                Logger.Logger.Error("Exception SIPRequest ctor. ->" + excp.Message);
                 throw;
             }
         }
@@ -110,7 +109,7 @@ namespace GB28181
                 if (sipRequest.Method == SIPMethodsEnum.UNKNOWN)
                 {
                     sipRequest.UnknownMethod = method;
-                    logger.Warn("Unknown SIP method received " + sipRequest.UnknownMethod + ".");
+                    Logger.Logger.Warn("Unknown SIP method received " + sipRequest.UnknownMethod + ".");
                 }
 
                 statusLine = statusLine.Substring(firstSpacePosn).Trim();
@@ -139,8 +138,8 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception parsing SIP Request. " + excp.Message);
-                logger.Error(sipMessage.RawMessage);
+                Logger.Logger.Error("Exception parsing SIP Request. ->" +sipMessage.RawMessage+"->"+ excp.Message);
+
                 throw new SIPValidationException(SIPValidationFieldsEnum.Request, "Unknown error parsing SIP Request");
             }
         }
@@ -158,8 +157,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseSIPRequest. " + excp.Message);
-                logger.Error(sipMessageStr);
+                Logger.Logger.Error("Exception ParseSIPRequest. ->"+sipMessageStr+"->" + excp.Message);
                 throw new SIPValidationException(SIPValidationFieldsEnum.Request, "Unknown error parsing SIP Request");
             }
         }
@@ -185,7 +183,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPRequest ToString. " + excp.Message);
+                Logger.Logger.Error("Exception SIPRequest ToString. ->" + excp.Message);
                 //throw excp;
                 return "";
             }

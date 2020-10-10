@@ -21,7 +21,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using GB28181.Logger4Net;
 using GB28181.Persistence;
 using GB28181.Sys;
 using SIPSorcery.Sys;
@@ -44,7 +43,7 @@ namespace GB28181.App
         public const string WILDCARD_DOMAIN_ALIAS = "*";
         public const string DEFAULT_LOCAL_DOMAIN = "local";
 
-        private ILog logger = AppState.logger;
+      //  private ILog logger = AppState.logger;
 
         //    private static readonly string m_storageFileName = AssemblyState.XML_DOMAINS_FILENAME;
 
@@ -88,7 +87,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception LoadSIPDomains. " + excp.Message);
+                Logger.Logger.Error("Exception LoadSIPDomains. ->" + excp.Message);
                 throw;
             }
         }
@@ -98,14 +97,14 @@ namespace GB28181.App
             if (sipDomain == null)
             {
                 //throw new ArgumentException("The SIPDomainManager cannot add a null SIPDomain object.");
-                logger.Error("The SIPDomainManager cannot add a null SIPDomain object.");
+                Logger.Logger.Error("The SIPDomainManager cannot add a null SIPDomain object.");
             }
             else
             {
                 if (!m_domains.ContainsKey(sipDomain.Domain.ToLower()))
                 {
-                    logger.Debug(" SIPDomainManager added domain: " + sipDomain.Domain + ".");
-                    sipDomain.Aliases.ForEach(a => logger.Debug(" added domain alias " + a + "."));
+                    Logger.Logger.Debug(" SIPDomainManager added domain: " + sipDomain.Domain + ".");
+                    sipDomain.Aliases.ForEach(a => Logger.Logger.Debug(" added domain alias " + a + "."));
                     m_domains.Add(sipDomain.Domain.ToLower(), sipDomain);
 
                     sipDomain.Aliases.ForEach(aliasItem =>
@@ -113,14 +112,14 @@ namespace GB28181.App
                         if (aliasItem == WILDCARD_DOMAIN_ALIAS && m_wildCardDomain == null)
                         {
                             m_wildCardDomain = sipDomain;
-                            logger.Debug(" SIPDomainManager wildcard domain set to " + sipDomain.Domain + ".");
+                            Logger.Logger.Debug(" SIPDomainManager wildcard domain set to " + sipDomain.Domain + ".");
                         }
                     });
                 }
                 else
                 {
-                    logger.Warn("SIPDomainManager ignoring duplicate domain entry for " + sipDomain.Domain.ToLower() +
-                                ".");
+                    Logger.Logger.Warn("SIPDomainManager ignoring duplicate domain entry for " + sipDomain.Domain.ToLower() +
+                                       ".");
                 }
             }
         }
@@ -248,7 +247,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPDomainManager Get. " + excp.Message);
+                Logger.Logger.Error("Exception SIPDomainManager Get. ->" + excp.Message);
                 return null;
             }
         }
@@ -259,7 +258,7 @@ namespace GB28181.App
             {
                 if (domain.IsNullOrBlank() || alias.IsNullOrBlank())
                 {
-                    logger.Warn("AddAlias was passed a null alias or domain.");
+                    Logger.Logger.Warn("AddAlias was passed a null alias or domain.");
                 }
                 else if (!HasDomain(alias.ToLower(), false) && HasDomain(domain.ToLower(), false))
                 {
@@ -269,24 +268,24 @@ namespace GB28181.App
                         if (m_wildCardDomain != null)
                         {
                             m_wildCardDomain = sipDomain;
-                            logger.Debug(" SIPDomainManager wildcard domain set to " + sipDomain.Domain + ".");
+                            Logger.Logger.Debug(" SIPDomainManager wildcard domain set to " + sipDomain.Domain + ".");
                         }
                     }
                     else
                     {
                         sipDomain.Aliases.Add(alias.ToLower());
-                        logger.Debug(" SIPDomainManager added alias to " + sipDomain.Domain + " of " + alias.ToLower() +
-                                     ".");
+                        Logger.Logger.Debug(" SIPDomainManager added alias to " + sipDomain.Domain + " of " + alias.ToLower() +
+                                            ".");
                     }
                 }
                 else
                 {
-                    logger.Warn("Could not add alias " + alias + " to domain " + domain + ".");
+                    Logger.Logger.Warn("Could not add alias " + alias + " to domain " + domain + ".");
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPDomainManager AddAlias. " + excp.Message);
+                Logger.Logger.Error("Exception SIPDomainManager AddAlias. ->" + excp.Message);
             }
         }
 
@@ -296,7 +295,7 @@ namespace GB28181.App
             {
                 if (alias.IsNullOrBlank())
                 {
-                    logger.Warn("RemoveAlias was passed a null alias.");
+                    Logger.Logger.Warn("RemoveAlias was passed a null alias.");
                 }
                 else if (HasDomain(alias.ToLower(), false))
                 {
@@ -305,12 +304,12 @@ namespace GB28181.App
                 }
                 else
                 {
-                    logger.Warn("Could not remove alias " + alias + ".");
+                    Logger.Logger.Warn("Could not remove alias " + alias + ".");
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPDomainManager RemoveAlias. " + excp.Message);
+                Logger.Logger.Error("Exception SIPDomainManager RemoveAlias. ->" + excp.Message);
             }
         }
     }

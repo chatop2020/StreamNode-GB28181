@@ -12,7 +12,6 @@
 
 
 using System;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -47,7 +46,7 @@ namespace GB28181
     /// </summary>
     public class SIPResponse
     {
-        private static ILog logger = AssemblyState.logger;
+    //    private static ILog logger = AssemblyState.logger;
 
         private static string m_CRLF = SIPConstants.CRLF;
         private static string m_sipVersion = SIPConstants.SIP_FULLVERSION_STRING;
@@ -105,8 +104,8 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseSIPResponse. " + excp.Message);
-                logger.Error(sipMessage.RawMessage);
+	            Logger.Logger.Error("Exception ParseSIPResponse. ->"+sipMessage.RawMessage+"->" + excp.Message);
+              
                 throw new SIPValidationException(SIPValidationFieldsEnum.Response, "Error parsing SIP Response");
             }
         }
@@ -124,9 +123,8 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseSIPResponse. " + excp.Message);
-                logger.Error(sipMessageStr);
-                throw new SIPValidationException(SIPValidationFieldsEnum.Response, "Error parsing SIP Response");
+	            Logger.Logger.Error("Exception ParseSIPResponse. ->"+sipMessageStr+"->" + excp.Message);
+	            throw new SIPValidationException(SIPValidationFieldsEnum.Response, "Error parsing SIP Response");
             }
         }
 

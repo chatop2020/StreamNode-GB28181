@@ -2,6 +2,9 @@ using System;
 
 namespace StreamMediaServerKeeper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class ReqCutOrMergeVideoFile
     {
@@ -13,42 +16,63 @@ namespace StreamMediaServerKeeper
         private string? _streamId;
         private string? _callbackUrl;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime StartTime
         {
             get => _startTime;
             set => _startTime = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime EndTime
         {
             get => _endTime;
             set => _endTime = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? MediaServerId
         {
             get => _mediaServerId;
             set => _mediaServerId = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? App
         {
             get => _app;
             set => _app = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? Vhost
         {
             get => _vhost;
             set => _vhost = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? StreamId
         {
             get => _streamId;
             set => _streamId = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? CallbackUrl
         {
             get => _callbackUrl;

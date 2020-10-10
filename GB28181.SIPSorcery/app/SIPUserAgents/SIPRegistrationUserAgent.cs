@@ -14,7 +14,6 @@
 
 using System;
 using System.Threading;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
@@ -41,7 +40,7 @@ namespace GB28181.App
             MAX_REGISTER_ATTEMPTS =
                 3; // The maximum number of registration attempts that will be made without a failure condition before incurring a temporary failure.
 
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         private static readonly string m_userAgent = SIPConstants.SIP_USERAGENT_STRING;
 
@@ -116,7 +115,7 @@ namespace GB28181.App
         {
             try
             {
-                logger.Debug("Starting SIPRegistrationUserAgent for " + m_sipAccountAOR.ToString() + ".");
+                Logger.Logger.Debug("Starting SIPRegistrationUserAgent for " + m_sipAccountAOR.ToString() + ".");
 
                 while (!m_exit)
                 {
@@ -139,23 +138,23 @@ namespace GB28181.App
 
                     if (!m_exit && m_isRegistered)
                     {
-                        logger.Debug("SIPRegistrationUserAgent was successful, scheduling next registration to " +
-                                     m_sipAccountAOR.ToString() + " in " + (m_expiry - REGISTRATION_HEAD_TIME) + "s.");
+                        Logger.Logger.Debug("SIPRegistrationUserAgent was successful, scheduling next registration to " +
+                                            m_sipAccountAOR.ToString() + " in " + (m_expiry - REGISTRATION_HEAD_TIME) + "s.");
                         Thread.Sleep((m_expiry - REGISTRATION_HEAD_TIME) * 1000);
                     }
                     else
                     {
-                        logger.Debug("SIPRegistrationUserAgent temporarily failed, scheduling next registration to " +
-                                     m_sipAccountAOR.ToString() + " in " + REGISTER_FAILURERETRY_INTERVAL + "s.");
+                        Logger.Logger.Debug("SIPRegistrationUserAgent temporarily failed, scheduling next registration to " +
+                                            m_sipAccountAOR.ToString() + " in " + REGISTER_FAILURERETRY_INTERVAL + "s.");
                         Thread.Sleep(REGISTER_FAILURERETRY_INTERVAL * 1000);
                     }
                 }
 
-                logger.Debug("SIPRegistrationUserAgent for " + m_sipAccountAOR.ToString() + " stopping.");
+                Logger.Logger.Debug("SIPRegistrationUserAgent for " + m_sipAccountAOR.ToString() + " stopping.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPRegistrationUserAgent Start. " + excp.Message);
+                Logger.Logger.Error("Exception SIPRegistrationUserAgent Start. ->" + excp.Message);
             }
         }
 
@@ -165,7 +164,7 @@ namespace GB28181.App
             {
                 if (!m_exit)
                 {
-                    logger.Debug("Stopping SIP registration user agent for " + m_sipAccountAOR.ToString() + ".");
+                    Logger.Logger.Debug("Stopping SIP registration user agent for " + m_sipAccountAOR.ToString() + ".");
 
                     m_exit = true;
                     m_waitForRegistrationMRE.Set();
@@ -180,7 +179,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPRegistrationUserAgent Stop. " + excp.Message);
+                Logger.Logger.Error("Exception SIPRegistrationUserAgent Stop. ->" + excp.Message);
             }
         }
 
@@ -242,7 +241,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SendInitialRegister to " + m_registrarHost + ". " + excp.Message);
+                Logger.Logger.Error("Exception SendInitialRegister to " + m_registrarHost + ". ->" + excp.Message);
                 if (RegistrationFailed != null)
                 {
                     RegistrationFailed(m_sipAccountAOR,
@@ -378,8 +377,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPRegistrationUserAgent ServerResponseReceived (" + remoteEndPoint + "). " +
-                             excp.Message);
+                Logger.Logger.Error("Exception SIPRegistrationUserAgent ServerResponseReceived (" + remoteEndPoint + "). ->" +
+                                    excp.Message);
             }
         }
 
@@ -471,7 +470,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPRegistrationUserAgent AuthResponseReceived. " + excp.Message);
+                Logger.Logger.Error("Exception SIPRegistrationUserAgent AuthResponseReceived. ->" + excp.Message);
             }
         }
 
@@ -574,7 +573,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetRegistrationRequest. " + excp.Message);
+                Logger.Logger.Error("Exception GetRegistrationRequest. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -608,7 +607,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetAuthenticatedRegistrationRequest. " + excp.Message);
+                Logger.Logger.Error("Exception GetAuthenticatedRegistrationRequest. ->" + excp.Message);
                 throw excp;
             }
         }

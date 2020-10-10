@@ -15,14 +15,13 @@ using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using GB28181.Logger4Net;
 using SIPSorcery.Sys;
 
 namespace GB28181.Sys
 {
     public class SIPSorcerySMTP
     {
-        private static readonly ILog logger = AppState.logger;
+        //private static readonly ILog logger = AppState.logger;
 
         // 以下，如果用到须要对应的配置
         private static readonly string m_smtpServer = AppState.GetConfigSetting("SMTPServer");
@@ -92,12 +91,12 @@ namespace GB28181.Sys
                             DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis
                         };
                         smtpClient.Send(email);
-                        logger.Debug("Email sent to " + toAddress);
+                        Logger.Logger.Debug("Email sent to " + toAddress);
                     }
                 }
                 catch (Exception excp)
                 {
-                    logger.Error("Exception SendEmailAsync (To=" + toAddress + "). " + excp.Message);
+                    Logger.Logger.Error("Exception SendEmailAsync (To=" + toAddress + "). ->" + excp.Message);
                 }
             }
         }
@@ -108,8 +107,8 @@ namespace GB28181.Sys
             {
                 int smtpPort = (m_smtpServerPort.IsNullOrBlank()) ? 25 : Convert.ToInt32(m_smtpServerPort);
 
-                logger.Debug("RelayMail attempting to send " + email.Subject + " via " + m_smtpServer + ":" + smtpPort +
-                             " to " + email.To);
+                Logger.Logger.Debug("RelayMail attempting to send " + email.Subject + " via " + m_smtpServer + ":" + smtpPort +
+                                    " to " + email.To);
 
                 using SmtpClient smtpClient = new SmtpClient(m_smtpServer, smtpPort);
                 smtpClient.UseDefaultCredentials = false;
@@ -126,11 +125,11 @@ namespace GB28181.Sys
                 }
 
                 smtpClient.Send(email);
-                logger.Debug("RelayMail " + email.Subject + " relayed via " + m_smtpServer + " to " + email.To);
+                Logger.Logger.Debug("RelayMail " + email.Subject + " relayed via " + m_smtpServer + " to " + email.To);
             }
             catch (Exception ex)
             {
-                logger.Error("Exception RelayMail. " + ex.Message);
+                Logger.Logger.Error("Exception RelayMail. ->" + ex.Message);
                 throw;
             }
         }

@@ -188,7 +188,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPMonitorConsoleEvent ParseEventCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorConsoleEvent ParseEventCSV. ->" + excp.Message);
+                //logger.Error("Exception SIPMonitorConsoleEvent ParseEventCSV. " + excp.Message);
                 return null;
             }
         }
@@ -219,7 +220,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPMonitorConsoleEvent ToCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorConsoleEvent ToCSV. ->" + excp.Message);
+               // logger.Error("Exception SIPMonitorConsoleEvent ToCSV. " + excp.Message);
                 return null;
             }
         }

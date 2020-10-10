@@ -38,14 +38,19 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.getCameraCurrentSession(CommonFunctions.DBStructs.CameraInstance)">
+        <member name="T:StreamNodeWebApi.AutoTasker.CameraAutoKeeper">
+            <summary>
+            摄像头控制
+            </summary>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.GetCameraCurrentSession(CommonFunctions.DBStructs.CameraInstance)">
             <summary>
             获取摄像头session
             </summary>
             <param name="cil"></param>
             <returns></returns>
         </member>
-        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.liveGB28181(CommonFunctions.DBStructs.CameraInstance)">
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.LiveGb28181(CommonFunctions.DBStructs.CameraInstance)">
             <summary>
             启动gb28181摄像头
             </summary>
@@ -57,7 +62,7 @@
             </summary>
             <param name="cil"></param>
         </member>
-        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.stopRtsp(CommonFunction.ManageStructs.CameraSession)">
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.StopRtsp(CommonFunction.ManageStructs.CameraSession)">
             <summary>
             停止rtsp摄像头
             </summary>
@@ -86,6 +91,16 @@
             监控摄像头状态，启动或停止
             </summary>
         </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.CameraAutoKeeper.#ctor">
+            <summary>
+            摄像头控制
+            </summary>
+        </member>
+        <member name="T:StreamNodeWebApi.AutoTasker.RecordAutoKeeper">
+            <summary>
+            录制计划控制
+            </summary>
+        </member>
         <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.doDeleteFor24HourAgo(CommonFunctions.DBStructs.StreamDvrPlan)">
             <summary>
             清除24小时前软删除的文件
@@ -111,6 +126,7 @@
             一天一天删除文件
             </summary>
             <param name="days"></param>
+            <param name="sdp"></param>
         </member>
         <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.deleteFileOneByOne(System.Decimal,CommonFunctions.DBStructs.StreamDvrPlan)">
             <summary>
@@ -157,7 +173,12 @@
             <summary>
             执行启动和关闭指令
             </summary>
-            <param name="dvrPlan"></param>
+            <param name="sdp">参数</param>
+        </member>
+        <member name="M:StreamNodeWebApi.AutoTasker.RecordAutoKeeper.#ctor">
+            <summary>
+            录制计划的自动化
+            </summary>
         </member>
         <member name="T:StreamNodeWebApi.Controllers.DvrPlanController">
             <summary>
@@ -600,6 +621,45 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnPublish(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPublish)">
+            <summary>
+            当有流被发布时
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnStreamChange(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnStreamChange)">
+            <summary>
+            当流状态改变时
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnStreamNoneReader(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnStreamNoneReader)">
+            <summary>
+            当有流无播放者时
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnStop(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnStop)">
+            <summary>
+            当有停止事件时
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
+        <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnPlay(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay)">
+            <summary>
+            当有播放事件时
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
         <member name="M:StreamNodeWebApi.Controllers.WebHookController.OnMediaServerStart(System.Object)">
             <summary>
             流媒体服务启动事件
@@ -637,6 +697,16 @@
             <param name="writer"></param>
             <param name="value"></param>
             <param name="options"></param>
+        </member>
+        <member name="F:StreamNodeWebApi.Program.CameraAutoKeeper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StreamNodeWebApi.Program.RecordAutoKeeper">
+            <summary>
+            
+            </summary>
         </member>
     </members>
 </doc>

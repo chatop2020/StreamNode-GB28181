@@ -48,15 +48,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.Sys;
 
 namespace GB28181.Net
 {
     public class Mjpeg
     {
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         public sealed class Tags
         {
@@ -508,8 +506,8 @@ namespace GB28181.Net
                     if (Width == 0 || Height == 0)
                     {
                         //, Width, Height
-                        logger.Warn("ProcessMjpegFrame could not determine either the width:" + Width + " or height: " +
-                                    Height + "of the jpeg frame");
+                        Logger.Logger.Warn("ProcessMjpegFrame could not determine either the width:" + Width + " or height: " +
+                                           Height + "of the jpeg frame");
                     }
 
                     //Restart Interval 64 - 127

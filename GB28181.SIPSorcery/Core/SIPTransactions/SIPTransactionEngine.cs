@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GB28181.Logger4Net;
 
 #if UNITTEST
 using NUnit.Framework;
@@ -10,7 +9,7 @@ namespace GB28181
 {
     public class SIPTransactionEngine : ISIPTransactionEngine
     {
-        protected static ILog logger = AssemblyState.logger;
+       // protected static ILog logger = AssemblyState.logger;
 
         private static readonly int m_t6 = SIPTimings.T6;
 
@@ -102,8 +101,8 @@ namespace GB28181
                     // No normal match found so look fo a 2xx INVITE response waiting for an ACK.
                     if (sipRequest.Method == SIPMethodsEnum.ACK)
                     {
-                        logger.Debug("Looking for ACK transaction, branchid=" +
-                                     sipRequest.Header.Vias.TopViaHeader.Branch + ".");
+                        Logger.Logger.Debug("Looking for ACK transaction, branchid=" +
+                                            sipRequest.Header.Vias.TopViaHeader.Branch + ".");
 
                         foreach (SIPTransaction transaction in m_transactions.Values)
                         {
@@ -151,8 +150,8 @@ namespace GB28181
                             }
                         }
 
-                        logger.Info("ACK for contact=" + contactAddress + ", cseq=" + sipRequest.Header.CSeq +
-                                    " was not matched.");
+                        Logger.Logger.Info("ACK for contact=" + contactAddress + ", cseq=" + sipRequest.Header.CSeq +
+                                           " was not matched.");
                     }
 
                     return null;
@@ -301,20 +300,20 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RemoveExpiredTransaction. " + excp.Message);
+                Logger.Logger.Error("Exception RemoveExpiredTransaction. ->" + excp.Message);
             }
         }
 
         public void PrintPendingTransactions()
         {
-            logger.Debug("=== Pending Transactions ===");
+            Logger.Logger.Debug("=== Pending Transactions ===");
 
             foreach (SIPTransaction transaction in m_transactions.Values)
             {
-                logger.Debug(" Pending tansaction " + transaction.TransactionRequest.Method + " " +
-                             transaction.TransactionState + " " +
-                             DateTime.Now.Subtract(transaction.Created).TotalSeconds.ToString("0.##") + "s " +
-                             transaction.TransactionRequestURI.ToString() + " (" + transaction.TransactionId + ").");
+                Logger.Logger.Debug(" Pending tansaction " + transaction.TransactionRequest.Method + " " +
+                                    transaction.TransactionState + " " +
+                                    DateTime.Now.Subtract(transaction.Created).TotalSeconds.ToString("0.##") + "s " +
+                                    transaction.TransactionRequestURI.ToString() + " (" + transaction.TransactionId + ").");
             }
         }
 

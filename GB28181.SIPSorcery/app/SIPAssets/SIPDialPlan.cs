@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 #if !SILVERLIGHT
 using System.Data;
@@ -53,7 +52,7 @@ namespace GB28181.App
 
         private static string m_newLine = AppState.NewLine;
 
-        private ILog logger = AppState.logger;
+      //  private ILog logger = AppState.logger;
 
         public static int TimeZoneOffsetMinutes;
 
@@ -362,7 +361,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception DialPlan Load. " + excp);
+                Logger.Logger.Error("Exception DialPlan Load. ->" + excp);
                 throw excp;
             }
         }

@@ -12,7 +12,6 @@
 
 using System;
 using System.Runtime.Serialization;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
 
@@ -37,7 +36,7 @@ namespace GB28181
     [DataContract]
     public class SIPCDR
     {
-        private static ILog logger = AppState.logger;
+        //private static ILog logger = AppState.logger;
         private static string m_newLine = AppState.NewLine;
 
         public static event CDRReadyDelegate CDRCreated = c => { };
@@ -218,7 +217,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPCDR Answered. " + excp);
+                Logger.Logger.Error("Exception SIPCDR Answered. ->" + excp);
             }
         }
 
@@ -231,7 +230,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPCDR Cancelled. " + excp);
+                Logger.Logger.Error("Exception SIPCDR Cancelled. ->" + excp);
             }
         }
 
@@ -244,7 +243,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPCDR TimedOut. " + excp);
+                Logger.Logger.Error("Exception SIPCDR TimedOut. ->" + excp);
             }
         }
 
@@ -260,7 +259,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPCDR Hungup. " + excp);
+                Logger.Logger.Error("Exception SIPCDR Hungup. ->" + excp);
             }
         }
 
@@ -286,7 +285,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPCDR Updated. " + excp);
+                Logger.Logger.Error("Exception SIPCDR Updated. ->" + excp);
             }
         }
     }

@@ -22,7 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 
 #if UNITTEST
@@ -55,7 +54,7 @@ namespace GB28181.Servers
 
     public class SIPUserAgentConfigurationManager
     {
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         private int m_defaultMaxExpiry = SIPUserAgentConfiguration.DEFAULT_MAX_EXPIRY_SECONDS;
         private bool m_defaultContactListSupported = true;
@@ -108,9 +107,9 @@ namespace GB28181.Servers
                             userAgentConfig.UserAgentRegex.Trim().Length > 0 &&
                             !userAgentConfigs.ContainsKey(userAgentConfig.UserAgentRegex))
                         {
-                            logger.Debug("Added useragent config, useragent=" + userAgentConfig.UserAgentRegex +
-                                         ", expiry=" + userAgentConfig.MaxAllowedExpiryTime + "s, contact lists=" +
-                                         userAgentConfig.ContactListSupported + ".");
+                            Logger.Logger.Debug("Added useragent config, useragent=" + userAgentConfig.UserAgentRegex +
+                                                ", expiry=" + userAgentConfig.MaxAllowedExpiryTime + "s, contact lists=" +
+                                                userAgentConfig.ContactListSupported + ".");
                             userAgentConfigs.Add(userAgentConfig.UserAgentRegex, userAgentConfig);
                         }
 
@@ -122,7 +121,7 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseSIPUserAgentConfigurations. " + excp.Message);
+                Logger.Logger.Error("Exception ParseSIPUserAgentConfigurations. ->" + excp.Message);
                 return null;
             }
         }
@@ -159,7 +158,7 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetUserAgentConfig. " + excp);
+                Logger.Logger.Error("Exception GetUserAgentConfig. ->" + excp);
                 return null;
             }
         }

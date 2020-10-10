@@ -2,6 +2,9 @@ using System;
 
 namespace StreamMediaServerKeeper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class ReqMediaServerReg
     {
@@ -13,18 +16,27 @@ namespace StreamMediaServerKeeper
         private string? _recordFilePath;
         private ResGetSystemInfo? _systemInfo;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ushort? MediaServerHttpPort
         {
             get => _mediaServerHttpPort;
             set => _mediaServerHttpPort = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ushort? WebApiServerhttpPort
         {
             get => _webApiServerhttpPort;
             set => _webApiServerhttpPort = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? Ipaddress
         {
             get => _ipaddress;
@@ -32,24 +44,36 @@ namespace StreamMediaServerKeeper
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? MediaServerId
         {
             get => _mediaServerId;
             set => _mediaServerId = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? Secret
         {
             get => _secret;
             set => _secret = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? RecordFilePath
         {
             get => _recordFilePath;
             set => _recordFilePath = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ResGetSystemInfo? SystemInfo
         {
             get => _systemInfo;

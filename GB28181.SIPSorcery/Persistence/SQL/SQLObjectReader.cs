@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using GB28181.App;
-using GB28181.Logger4Net;
-using GB28181.Sys;
+
 
 namespace GB28181.Persistence
 {
     public class SQLObjectReader<T> : IEnumerable<T>, IEnumerable where T : class, ISIPAsset, new()
     {
-        private static ILog logger = AppState.logger;
+        //private static ILog logger = AppState.logger;
 
         Enumerator enumerator;
         private DataSet m_selectResult;

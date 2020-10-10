@@ -13,9 +13,12 @@ using StreamNodeCtrlApis.SystemApis;
 
 namespace StreamNodeWebApi.AutoTasker
 {
+    /// <summary>
+    /// 摄像头控制
+    /// </summary>
     public class CameraAutoKeeper
     {
-        public static bool Init = false;
+        //public static bool Init = false;
 
 
         /// <summary>
@@ -23,11 +26,11 @@ namespace StreamNodeWebApi.AutoTasker
         /// </summary>
         /// <param name="cil"></param>
         /// <returns></returns>
-        private static CameraSession getCameraCurrentSession(CameraInstance cil)
+        private static CameraSession GetCameraCurrentSession(CameraInstance cil)
         {
             try
             {
-                CameraSession session = null;
+                CameraSession session = null!;
                 if (cil.CameraType == CameraType.GB28181)
                 {
                     lock (Common.CameraSessionLock)
@@ -37,17 +40,17 @@ namespace StreamNodeWebApi.AutoTasker
                             session = Common.CameraSessions.FindLast(x =>
                                 x.ClientType == ClientType.Camera
                                 && x.CameraType == CameraType.GB28181 &&
-                                x.CameraEx.Camera.DeviceID.Equals(cil.CameraChannelLable) &&
-                                x.CameraEx.Camera.ParentID.Equals(cil.CameraDeviceLable));
+                                x.CameraEx!.Camera.DeviceID.Equals(cil.CameraChannelLable) &&
+                                x.CameraEx.Camera.ParentID.Equals(cil.CameraDeviceLable))!;
                         }
                         else
                         {
                             session = Common.CameraSessions.FindLast(x =>
                                 x.ClientType == ClientType.Camera
                                 && x.CameraType == CameraType.GB28181 &&
-                                x.CameraEx.Camera.IPAddress.Equals(cil.CameraIpAddress) //为支持公网远程设备的ip不固定性，取消ip 地址校验
+                                x.CameraEx!.Camera.IPAddress.Equals(cil.CameraIpAddress) //为支持公网远程设备的ip不固定性，取消ip 地址校验
                                 && x.CameraEx.Camera.DeviceID.Equals(cil.CameraChannelLable) &&
-                                x.CameraEx.Camera.ParentID.Equals(cil.CameraDeviceLable));
+                                x.CameraEx.Camera.ParentID.Equals(cil.CameraDeviceLable))!;
                         }
                     }
                 }
@@ -60,17 +63,17 @@ namespace StreamNodeWebApi.AutoTasker
                         session = Common.CameraSessions.FindLast(x =>
                             x.ClientType == ClientType.Camera
                             && x.CameraType == CameraType.Rtsp &&
-                            x.CameraIpAddress.Equals(cil.CameraIpAddress)
-                            && x.CameraEx.InputUrl.Equals(cil.IfRtspUrl));
+                            x.CameraIpAddress!.Equals(cil.CameraIpAddress)
+                            && x.CameraEx!.InputUrl!.Equals(cil.IfRtspUrl))!;
                     }
                 }
 
-                return session;
+                return session!;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("getCameraCurrentSession Except:\r\n" + ex.Message + "\r\n" + ex.StackTrace);
-                return null;
+                Logger.Logger.Error("getCameraCurrentSession Except -> " + ex.Message + "->" + ex.StackTrace);
+                return null!;
             }
         }
 
@@ -79,11 +82,11 @@ namespace StreamNodeWebApi.AutoTasker
         /// 启动gb28181摄像头
         /// </summary>
         /// <param name="cil"></param>
-        private static void liveGB28181(CameraInstance cil)
+        private static void LiveGb28181(CameraInstance cil)
         {
             try
             {
-                ResponseStruct rs = null;
+                ResponseStruct rs = null!;
                 
                 var gbRet = CommonApi.LiveVideo(cil.PushMediaServerId,
                     cil.CameraDeviceLable,
@@ -91,15 +94,16 @@ namespace StreamNodeWebApi.AutoTasker
 
                 if (gbRet != null && rs.Code == ErrorNumber.None)
                 {
-                    Console.WriteLine("GB28181推流成功->" + cil.CameraId + "->" + cil.CameraDeviceLable + "->" +
-                                      cil.CameraChannelLable+"->"+"(TCP:"+cil.IfGb28181Tcp+")");
-                    CameraSession sessionsub = null;
+                    Logger.Logger.Info("GB28181推流成功->" + cil.CameraId + "->" + cil.CameraDeviceLable + "->" +
+                                       cil.CameraChannelLable+"->"+"(TCP:"+cil.IfGb28181Tcp+")");
+                    
+                    CameraSession sessionsub = null!;
                     lock (Common.CameraSessionLock)
                     {
                         sessionsub = Common.CameraSessions.FindLast(x =>
                             x.App!.Equals(gbRet.App)
                             && x.Vhost!.Equals(gbRet.Vhost) &&
-                            x.StreamId!.Equals(gbRet.MediaId));
+                            x.StreamId!.Equals(gbRet.MediaId))!;
                     }
 
 
@@ -113,13 +117,13 @@ namespace StreamNodeWebApi.AutoTasker
                 }
                 else
                 {
-                    Console.WriteLine("GB28181推流失败->" + cil.CameraId + "->" + cil.CameraDeviceLable + "->" +
-                                      cil.CameraChannelLable + "->" +"(TCP:"+cil.IfGb28181Tcp+")->"+ JsonHelper.ToJson(rs));
-                }
+                    Logger.Logger.Warn("GB28181推流失败->" + cil.CameraId + "->" + cil.CameraDeviceLable + "->" +
+                                       cil.CameraChannelLable + "->" +"(TCP:"+cil.IfGb28181Tcp+")->"+ JsonHelper.ToJson(rs));
+                      }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("liveGB28181 Except:\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                Logger.Logger.Error("liveGB28181 Except -> " + ex.Message + "->" + ex.StackTrace);
             }
         }
 
@@ -131,7 +135,7 @@ namespace StreamNodeWebApi.AutoTasker
         {
             try
             {
-                ResponseStruct rs = null;
+                ResponseStruct rs = null!;
                 var mediaObj =
                     Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(cil.PushMediaServerId));
 
@@ -150,7 +154,7 @@ namespace StreamNodeWebApi.AutoTasker
                 }
 
                 cil.RetryTimes = 0;
-                ResZLMediaKitAddFFmpegProxy ret = null;
+                ResZLMediaKitAddFFmpegProxy ret = null!;
                 if (useFFmpeg)
                 {
                     ret = MediaServerApis.AddFFmpegProxy(
@@ -165,14 +169,14 @@ namespace StreamNodeWebApi.AutoTasker
 
                 if (ret != null && rs.Code == ErrorNumber.None)
                 {
-                 Console.WriteLine("Rtsp推流成功->" + cil.CameraId + "->" + cil.IfRtspUrl);
-                    CameraSession sessionsub = null;
+                    Logger.Logger.Info("Rtsp推流成功->" + cil.CameraId + "->" + cil.IfRtspUrl);
+                    CameraSession sessionsub = null!;
                     lock (Common.CameraSessionLock)
                     {
                         sessionsub = Common.CameraSessions.FindLast(x =>
                             x.App!.Equals(ret.App)
                             && x.Vhost!.Equals(ret.Vhost) &&
-                            x.StreamId!.Equals(ret.StreamId));
+                            x.StreamId!.Equals(ret.StreamId))!;
                     }
 
                     if (sessionsub != null)
@@ -185,12 +189,14 @@ namespace StreamNodeWebApi.AutoTasker
                 }
                 else
                 {
-                    Console.WriteLine("Rtsp推流失败->" + cil.CameraId + "->" +cil.IfRtspUrl+"->" + JsonHelper.ToJson(rs));
+                    Logger.Logger.Warn("Rtsp推流失败->" + cil.CameraId + "->" +cil.IfRtspUrl+"->" + JsonHelper.ToJson(rs));
+                   
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("liveRtsp Except:\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                Logger.Logger.Error("liveRtsp Except ->" + ex.Message + "->" + ex.StackTrace);
+             
             }
         }
 
@@ -198,11 +204,11 @@ namespace StreamNodeWebApi.AutoTasker
         /// 停止rtsp摄像头
         /// </summary>
         /// <param name="session"></param>
-        private static void stopRtsp(CameraSession session)
+        private static void StopRtsp(CameraSession session)
         {
             try
             {
-                ResponseStruct rs = null;
+                ResponseStruct rs = null!;
                 var mediaObj =
                     Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(session.MediaServerId));
 
@@ -225,16 +231,18 @@ namespace StreamNodeWebApi.AutoTasker
                     out rs);
                 if (ret.Code == 0)
                 {
-                    Console.WriteLine("Rtsp结束成功->" + session.CameraId + "->" + session.CameraEx.InputUrl);
+                    Logger.Logger.Info("Rtsp结束成功->" + session.CameraId + "->" + session.CameraEx!.InputUrl);
+                  
                 }
                 else
                 {
-                    Console.WriteLine("Rtsp结束失败->" + session.CameraId + "->" + session.CameraEx.InputUrl);
+                    Logger.Logger.Warn("Rtsp结束失败->" + session.CameraId + "->" + session.CameraEx!.InputUrl);
+                
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("stopRtsp Except:\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                Logger.Logger.Error("stopRtsp Except->" + ex.Message + "->" + ex.StackTrace);
             }
         }
 
@@ -247,7 +255,7 @@ namespace StreamNodeWebApi.AutoTasker
            
             try
             {
-                ResponseStruct rs = null;
+                ResponseStruct rs = null!;
                 var mediaObj =
                     Common.MediaServerList.FindLast(x => x.MediaServerId.Equals(session.MediaServerId));
 
@@ -281,18 +289,21 @@ namespace StreamNodeWebApi.AutoTasker
                
                 if (ret3.Code == 0)
                 {
-                    Console.WriteLine("GB28181结束成功->" + session.CameraId + "->" + session.CameraEx.Camera.ParentID + "->" +
-                                      session.CameraEx.Camera.DeviceID );
+                    Logger.Logger.Info("GB28181结束成功->" + session.CameraId + "->" + session.CameraEx!.Camera.ParentID + "->" +
+                                       session.CameraEx.Camera.DeviceID );
+                    
                 }
                 else
                 {
-                    Console.WriteLine("GB28181结束失败->" +  session.CameraId + "->" + session.CameraEx.Camera.ParentID + "->" +
-                                      session.CameraEx.Camera.DeviceID+"->"+ JsonHelper.ToJson(rs));
+                    Logger.Logger.Warn("GB28181结束失败->" +  session.CameraId + "->" + session.CameraEx!.Camera.ParentID + "->" +
+                                       session.CameraEx.Camera.DeviceID+"->"+ JsonHelper.ToJson(rs));
+                   
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("stopGB28181 Except:\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                Logger.Logger.Error("stopGB28181 Except ->" + ex.Message + "->" + ex.StackTrace);
+                
             }
         }
 
@@ -308,8 +319,8 @@ namespace StreamNodeWebApi.AutoTasker
             {
                 if (cil != null && cil.EnableLive == false)
                 {
-                    CameraSession cameraSession = null;
-                    cameraSession = getCameraCurrentSession(cil);
+                    CameraSession cameraSession = null!;
+                    cameraSession = GetCameraCurrentSession(cil);
                   
                     if (cameraSession != null && cameraSession.IsOnline==true)
                     {
@@ -317,7 +328,7 @@ namespace StreamNodeWebApi.AutoTasker
                         {
                             case CameraType.Rtsp:
 
-                                stopRtsp(cameraSession);
+                                StopRtsp(cameraSession);
                                 break;
                             case CameraType.GB28181:
                              
@@ -351,7 +362,7 @@ namespace StreamNodeWebApi.AutoTasker
             }
             catch (Exception ex)
             {
-                Console.WriteLine("stopCamera Except:\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                Logger.Logger.Error("stopCamera Except ->" + ex.Message + "->" + ex.StackTrace);
             }
         }
 
@@ -363,10 +374,10 @@ namespace StreamNodeWebApi.AutoTasker
         {
             try
             {
-                CameraSession cameraSession = null;
+                CameraSession cameraSession = null!;
                 if (cil != null && cil.EnableLive)
                 {
-                    cameraSession = getCameraCurrentSession(cil);
+                    cameraSession = GetCameraCurrentSession(cil);
 
                     if (cameraSession == null || (cameraSession != null && cameraSession.IsOnline == false)
                     ) //camera没有，或者isonline是false要推流
@@ -399,7 +410,7 @@ namespace StreamNodeWebApi.AutoTasker
 
                                 if (found == true)
                                 {
-                                    liveGB28181(cil);
+                                    LiveGb28181(cil);
                                 }
                                 break;
                               
@@ -409,13 +420,13 @@ namespace StreamNodeWebApi.AutoTasker
                                                    && cameraSession.IsOnline == true
                     ) //当camera不为空，但camera.cameraid为空时，不需要重新推，但要补全这个id
                     {
-                        CameraSession sessionsub = null;
+                        CameraSession sessionsub = null!;
                         lock (Common.CameraSessionLock)
                         {
                             sessionsub = Common.CameraSessions.FindLast(x =>
                                 x.App!.Equals(cameraSession.App)
                                 && x.Vhost!.Equals(cameraSession.Vhost) &&
-                                x.StreamId!.Equals(cameraSession.StreamId));
+                                x.StreamId!.Equals(cameraSession.StreamId))!;
                         }
 
 
@@ -431,7 +442,7 @@ namespace StreamNodeWebApi.AutoTasker
             }
             catch (Exception ex)
             {
-                Console.WriteLine("liveCamera Except:\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                Logger.Logger.Error("liveCamera Except -> " + ex.Message + "->" + ex.StackTrace);
             }
         }
 
@@ -449,11 +460,13 @@ namespace StreamNodeWebApi.AutoTasker
                 {
                     if (i == 1 || i % 2 == 0)
                     {
+                       
                         lock (Common.CameraInstanceListLock)
                         {
-                            Common.CameraInstanceList.Clear();
+                            Common.CameraInstanceList!.Clear();
                             Common.CameraInstanceList.AddRange(OrmService.Db.Select<CameraInstance>().Where("1=1")
                                 .ToList());
+                          
                         }
                     }
 
@@ -484,7 +497,7 @@ namespace StreamNodeWebApi.AutoTasker
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("报错了：\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                    Logger.Logger.Error("报错了 ->" + ex.Message + "->" + ex.StackTrace);
                     continue; //
                 }
 
@@ -493,6 +506,9 @@ namespace StreamNodeWebApi.AutoTasker
         }
 
 
+        /// <summary>
+        /// 摄像头控制
+        /// </summary>
         public CameraAutoKeeper()
         {
             new Thread(new ThreadStart(delegate
@@ -501,7 +517,7 @@ namespace StreamNodeWebApi.AutoTasker
                 {
                     keeperCamera();
                 }
-                catch (Exception ex)
+                catch
                 {
                     //
                 }

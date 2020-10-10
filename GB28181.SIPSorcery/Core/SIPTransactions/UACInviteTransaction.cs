@@ -69,8 +69,8 @@ namespace GB28181
         private void UACInviteTransaction_TransactionRequestReceived(SIPEndPoint localSIPEndPoint,
             SIPEndPoint remoteEndPoint, SIPTransaction sipTransaction, SIPRequest sipRequest)
         {
-            logger.Warn("UACInviteTransaction received unexpected request, " + sipRequest.Method + " from " +
-                        remoteEndPoint.ToString() + ", ignoring.");
+            Logger.Logger.Warn("UACInviteTransaction received unexpected request, " + sipRequest.Method + " from " +
+                               remoteEndPoint.ToString() + ", ignoring.");
         }
 
         private void UACInviteTransaction_TransactionTimedOut(SIPTransaction sipTransaction)
@@ -86,7 +86,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UACInviteTransaction_TransactionTimedOut. " + excp.Message);
+                Logger.Logger.Error("Exception UACInviteTransaction_TransactionTimedOut. ->" + excp.Message);
                 throw;
             }
         }
@@ -108,7 +108,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UACInviteTransaction_TransactionInformationResponseReceived. " + excp.Message);
+                Logger.Logger.Error("Exception UACInviteTransaction_TransactionInformationResponseReceived. ->" + excp.Message);
             }
         }
 
@@ -146,7 +146,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UACInviteTransaction_TransactionFinalResponseReceived. " + excp.Message);
+                Logger.Logger.Error("Exception UACInviteTransaction_TransactionFinalResponseReceived. ->" + excp.Message);
             }
         }
 
@@ -306,7 +306,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UACInviteTransaction CancelCall. " + excp.Message);
+                Logger.Logger.Error("Exception UACInviteTransaction CancelCall. ->" + excp.Message);
                 throw;
             }
         }

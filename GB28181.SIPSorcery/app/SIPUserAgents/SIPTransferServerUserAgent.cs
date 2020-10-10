@@ -13,8 +13,6 @@
 
 using System;
 using System.Net;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 
 namespace GB28181.App
@@ -25,7 +23,7 @@ namespace GB28181.App
     /// </summary>
     public class SIPTransferServerUserAgent : ISIPServerUserAgent
     {
-        private static ILog logger = AppState.logger;
+     //   private static ILog logger = AppState.logger;
 
         public SIPCallDirection CallDirection
         {
@@ -170,7 +168,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransferServerUserAgent Answer. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransferServerUserAgent Answer. ->" + excp.Message);
                 throw;
             }
         }
@@ -183,7 +181,7 @@ namespace GB28181.App
 
         public void Reject(SIPResponseStatusCodesEnum failureStatus, string reasonPhrase, string[] customHeaders)
         {
-            logger.Warn("SIPTransferServerUserAgent Reject called with " + failureStatus + " " + reasonPhrase + ".");
+            Logger.Logger.Warn("SIPTransferServerUserAgent Reject called with " + failureStatus + " " + reasonPhrase + ".");
 
             UASStateChanged?.Invoke(this, failureStatus, reasonPhrase);
         }
@@ -254,7 +252,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception PendingLegHungup. " + excp);
+                Logger.Logger.Error("Exception PendingLegHungup. ->" + excp);
             }
         }
     }

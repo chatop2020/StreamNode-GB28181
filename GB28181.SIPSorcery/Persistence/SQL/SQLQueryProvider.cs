@@ -6,15 +6,13 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Transactions;
 using GB28181.App;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.Sys;
 
 namespace GB28181.Persistence
 {
     public class SQLQueryProvider : QueryProvider
     {
-        private static ILog logger = AppState.logger;
+     //   private static ILog logger = AppState.logger;
 
         private DbProviderFactory m_dbFactory;
         private string m_dbConnStr;
@@ -135,7 +133,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SQLQueryProvider Execute. " + expression.ToString() + ". " + excp.Message);
+                Logger.Logger.Error("Exception SQLQueryProvider Execute. " + expression.ToString() + ". ->" + excp.Message);
                 throw;
             }
         }

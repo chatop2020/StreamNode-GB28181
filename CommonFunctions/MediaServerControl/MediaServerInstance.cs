@@ -176,7 +176,7 @@ namespace CommonFunctions.MediaServerControl
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("报错了：\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                    Logger.Logger.Error("报错了 ->" + ex.Message + "->" + ex.StackTrace);
                 }
 
                 Thread.Sleep(5000);

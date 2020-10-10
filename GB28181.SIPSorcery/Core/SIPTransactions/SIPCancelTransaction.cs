@@ -47,8 +47,8 @@ namespace GB28181
         {
             if (sipResponse.StatusCode < 200)
             {
-                logger.Warn("A SIP CANCEL transaction received an unexpected SIP information response " +
-                            sipResponse.ReasonPhrase + ".");
+                Logger.Logger.Warn("A SIP CANCEL transaction received an unexpected SIP information response " +
+                                   sipResponse.ReasonPhrase + ".");
             }
             else
             {
@@ -88,7 +88,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPCancelTransaction GotRequest. " + excp.Message);
+                Logger.Logger.Error("Exception SIPCancelTransaction GotRequest. ->" + excp.Message);
             }
         }
 
@@ -109,7 +109,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetCancelResponse. " + excp.Message);
+                Logger.Logger.Error("Exception GetCancelResponse. ->" + excp.Message);
                 throw excp;
             }
         }

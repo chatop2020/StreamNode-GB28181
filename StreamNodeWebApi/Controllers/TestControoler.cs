@@ -37,7 +37,8 @@ namespace StreamNodeWebApi.Controllers
         {
             if (response != null)
             {
-                Console.WriteLine("收到task参数：\r\n" + JsonHelper.ToJson(response));
+                Logger.Logger.Debug("收到task参数 ->" + JsonHelper.ToJson(response));
+              
             }
         }
 

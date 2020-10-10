@@ -255,37 +255,37 @@ namespace SIPSorcery.SIP
             ch.ChainPolicy.RevocationMode = X509RevocationMode.Offline;
             ch.ChainPolicy.VerificationFlags = X509VerificationFlags.NoFlag;
             ch.Build(certificate);
-            Console.WriteLine("Chain Information");
-            Console.WriteLine("Chain revocation flag: {0}", ch.ChainPolicy.RevocationFlag);
-            Console.WriteLine("Chain revocation mode: {0}", ch.ChainPolicy.RevocationMode);
-            Console.WriteLine("Chain verification flag: {0}", ch.ChainPolicy.VerificationFlags);
-            Console.WriteLine("Chain verification time: {0}", ch.ChainPolicy.VerificationTime);
-            Console.WriteLine("Chain status length: {0}", ch.ChainStatus.Length);
-            Console.WriteLine("Chain application policy count: {0}", ch.ChainPolicy.ApplicationPolicy.Count);
-            Console.WriteLine("Chain certificate policy count: {0} {1}", ch.ChainPolicy.CertificatePolicy.Count,
-                Environment.NewLine);
+            Logger.Logger.Info("Chain Information");
+            Logger.Logger.Info(string.Format("Chain revocation flag: {0}", ch.ChainPolicy.RevocationFlag));
+            Logger.Logger.Info(string.Format("Chain revocation mode: {0}", ch.ChainPolicy.RevocationMode));
+            Logger.Logger.Info(string.Format("Chain verification flag: {0}", ch.ChainPolicy.VerificationFlags));
+            Logger.Logger.Info(string.Format("Chain verification time: {0}", ch.ChainPolicy.VerificationTime));
+            Logger.Logger.Info(string.Format("Chain status length: {0}", ch.ChainStatus.Length));
+            Logger.Logger.Info(string.Format("Chain application policy count: {0}", ch.ChainPolicy.ApplicationPolicy.Count));
+            Logger.Logger.Info(string.Format("Chain certificate policy count: {0} {1}", ch.ChainPolicy.CertificatePolicy.Count,
+                Environment.NewLine));
             //Output chain element information.
-            Console.WriteLine("Chain Element Information");
-            Console.WriteLine("Number of chain elements: {0}", ch.ChainElements.Count);
-            Console.WriteLine("Chain elements synchronized? {0} {1}", ch.ChainElements.IsSynchronized,
-                Environment.NewLine);
+            Logger.Logger.Info("Chain Element Information");
+            Logger.Logger.Info(string.Format("Number of chain elements: {0}", ch.ChainElements.Count));
+            Logger.Logger.Info(string.Format("Chain elements synchronized? {0} {1}", ch.ChainElements.IsSynchronized,
+                Environment.NewLine));
 
             foreach (X509ChainElement element in ch.ChainElements)
             {
-                Console.WriteLine("Element issuer name: {0}", element.Certificate.Issuer);
-                Console.WriteLine("Element certificate valid until: {0}", element.Certificate.NotAfter);
-                Console.WriteLine("Element certificate is valid: {0}", element.Certificate.Verify());
-                Console.WriteLine("Element error status length: {0}", element.ChainElementStatus.Length);
-                Console.WriteLine("Element information: {0}", element.Information);
-                Console.WriteLine("Number of element extensions: {0}{1}", element.Certificate.Extensions.Count,
-                    Environment.NewLine);
+                Logger.Logger.Info(string.Format("Element issuer name: {0}", element.Certificate.Issuer));
+                Logger.Logger.Info(string.Format("Element certificate valid until: {0}", element.Certificate.NotAfter));
+                Logger.Logger.Info(string.Format("Element certificate is valid: {0}", element.Certificate.Verify()));
+                Logger.Logger.Info(string.Format("Element error status length: {0}", element.ChainElementStatus.Length));
+                Logger.Logger.Info(string.Format("Element information: {0}", element.Information));
+                Logger.Logger.Info(string.Format("Number of element extensions: {0}{1}", element.Certificate.Extensions.Count,
+                    Environment.NewLine));
 
                 if (ch.ChainStatus.Length > 1)
                 {
                     for (int index = 0; index < element.ChainElementStatus.Length; index++)
                     {
-                        Console.WriteLine(element.ChainElementStatus[index].Status);
-                        Console.WriteLine(element.ChainElementStatus[index].StatusInformation);
+                        Logger.Logger.Info(element.ChainElementStatus[index].Status.ToString());
+                        Logger.Logger.Info(element.ChainElementStatus[index].StatusInformation);
                     }
                 }
             }

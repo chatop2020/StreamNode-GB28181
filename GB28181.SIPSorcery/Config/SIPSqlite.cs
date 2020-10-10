@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using GB28181.App;
-using GB28181.Logger4Net;
 using GB28181.Persistence;
 using GB28181.Sys;
 using SIPSorcery.Sys;
@@ -16,7 +15,7 @@ namespace GB28181.Config
         private static readonly string m_storageTypeKey = SIPSorceryConfiguration.PERSISTENCE_STORAGETYPE_KEY;
         private static readonly string m_connStrKey = SIPSorceryConfiguration.PERSISTENCE_STORAGECONNSTR_KEY;
         private static readonly string m_XMLFilename = "gb28181.xml";
-        private static readonly ILog logger = AppState.logger;
+     //   private static readonly ILog logger = AppState.logger;
         private static StorageTypes m_storageType;
         private static string m_connStr;
 
@@ -64,7 +63,7 @@ namespace GB28181.Config
 
             if (m_storageType == StorageTypes.Unknown || m_connStr.IsNullOrBlank())
             {
-                logger.Error(
+                Logger.Logger.Error(
                     $"The SIP Registrar cannot start with no persistence settings:m_storageType: {m_storageType},m_connStr :{m_connStr}.");
                 //  throw new ApplicationException("The SIP Registrar cannot start with no persistence settings.");
             }

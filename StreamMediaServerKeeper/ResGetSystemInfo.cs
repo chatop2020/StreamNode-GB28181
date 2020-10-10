@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace StreamMediaServerKeeper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class LoadAverage
     {
@@ -11,18 +14,27 @@ namespace StreamMediaServerKeeper
         private float? _loadAverageMin5;
         private float? _loadAverageMin15;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float? LoadAverageMin1
         {
             get => _loadAverageMin1;
             set => _loadAverageMin1 = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float? LoadAverageMin5
         {
             get => _loadAverageMin5;
             set => _loadAverageMin5 = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float? LoadAverageMin15
         {
             get => _loadAverageMin15;
@@ -30,6 +42,9 @@ namespace StreamMediaServerKeeper
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public enum OStype
     {
@@ -44,6 +59,9 @@ namespace StreamMediaServerKeeper
         Unknow,
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class CPUInfo
     {
@@ -51,18 +69,27 @@ namespace StreamMediaServerKeeper
         private float _cpuIdle = 100f;
         private int _cpuCores = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float CpuUsed
         {
             get => _cpuUsed;
             set => _cpuUsed = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float CpuIdle
         {
             get => _cpuIdle;
             set => _cpuIdle = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int CpuCores
         {
             get => _cpuCores;
@@ -70,14 +97,23 @@ namespace StreamMediaServerKeeper
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class ResGetSystemInfo
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime? UpdateTime
         {
             get { return DateTime.Now; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public OStype? OStype
         {
             get
@@ -136,16 +172,25 @@ namespace StreamMediaServerKeeper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? AssemblyPath
         {
             get { return SystemHelper.GetAssemblyPath(); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? AssemblyFolderPath
         {
             get { return SystemHelper.GetAssemblyFolderPath(); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public long? TotalProcessRunningTime
         {
             get
@@ -155,6 +200,9 @@ namespace StreamMediaServerKeeper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? TotalProcessRunningTimeText
         {
             get
@@ -164,17 +212,26 @@ namespace StreamMediaServerKeeper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public long? TatolSystemRunningTime
         {
             get { return SystemHelper.GetSystemRunningTime(); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string? TatolSystemRunningTimeText
         {
             get { return SystemHelper.GetSystemRunningTimeText(SystemHelper.GetSystemRunningTime()); }
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         public CPUInfo? LinuxCpuInfo
         {
             get
@@ -197,6 +254,9 @@ namespace StreamMediaServerKeeper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public LoadAverage? LinuxLoadAverage
         {
             get
@@ -212,6 +272,9 @@ namespace StreamMediaServerKeeper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public MemoryMetrics? LinuxMemoryUsage
         {
             get
@@ -228,6 +291,9 @@ namespace StreamMediaServerKeeper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public List<DriveMetrics>? HddListInfo
         {
             get { return SystemHelper.GetDriveMetrics(); }

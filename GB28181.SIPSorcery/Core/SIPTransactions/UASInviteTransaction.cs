@@ -126,11 +126,11 @@ namespace GB28181
             {
                 if (TransactionState == SIPTransactionStatesEnum.Terminated)
                 {
-                    logger.Debug("Request received by UASInviteTransaction for a terminated transaction, ignoring.");
+                    Logger.Logger.Debug("Request received by UASInviteTransaction for a terminated transaction, ignoring.");
                 }
                 else if (sipRequest.Method != SIPMethodsEnum.INVITE)
                 {
-                    logger.Warn("Unexpected " + sipRequest.Method + " passed to UASInviteTransaction.");
+                    Logger.Logger.Warn("Unexpected " + sipRequest.Method + " passed to UASInviteTransaction.");
                 }
                 else
                 {
@@ -157,7 +157,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UASInviteTransaction GotRequest. " + excp.Message);
+                Logger.Logger.Error("Exception UASInviteTransaction GotRequest. " + excp.Message);
             }
         }
 
@@ -179,7 +179,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UASInviteTransaction SendInformationalResponse. " + excp.Message);
+                Logger.Logger.Error("Exception UASInviteTransaction SendInformationalResponse. ->" + excp.Message);
                 throw;
             }
         }
@@ -197,7 +197,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UASInviteTransaction SendFinalResponse. " + excp.Message);
+                Logger.Logger.Error("Exception UASInviteTransaction SendFinalResponse. ->" + excp.Message);
                 throw;
             }
         }
@@ -220,9 +220,9 @@ namespace GB28181
                 }
                 else
                 {
-                    logger.Warn("A request was made to cancel transaction " + TransactionId +
-                                " that was not in the calling, trying or proceeding states, state=" + TransactionState +
-                                ".");
+                    Logger.Logger.Warn("A request was made to cancel transaction " + TransactionId +
+                                       " that was not in the calling, trying or proceeding states, state=" + TransactionState +
+                                       ".");
                 }
 
                 //if (CDR != null) {
@@ -231,7 +231,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UASInviteTransaction CancelCall. " + excp.Message);
+                Logger.Logger.Error("Exception UASInviteTransaction CancelCall. ->" + excp.Message);
                 throw;
             }
         }
@@ -270,7 +270,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetOkResponse. " + excp.Message);
+                Logger.Logger.Error("Exception GetOkResponse. ->" + excp.Message);
                 throw excp;
             }
         }

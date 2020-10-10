@@ -14,8 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -30,7 +28,7 @@ namespace GB28181.App
     /// </summary>
     public class SIPB2BUserAgent : ISIPServerUserAgent, ISIPClientUserAgent
     {
-        private static ILog logger = AppState.logger;
+     //   private static ILog logger = AppState.logger;
 
         private static readonly SIPEndPoint m_blackhole =
             new SIPEndPoint(new IPEndPoint(SIPTransport.BlackholeAddress, 0));
@@ -216,7 +214,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPB2BUserAgent Call. " + excp.Message);
+                Logger.Logger.Error("Exception SIPB2BUserAgent Call. ->" + excp.Message);
             }
         }
 
@@ -224,7 +222,7 @@ namespace GB28181.App
         {
             try
             {
-                logger.Debug("SIPB2BUserAgent Cancel.");
+                Logger.Logger.Debug("SIPB2BUserAgent Cancel.");
                 m_uasTransaction.CancelCall();
                 m_uacTransaction.CancelCall();
 
@@ -232,7 +230,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPB2BUserAgent Cancel. " + excp.Message);
+                Logger.Logger.Error("Exception SIPB2BUserAgent Cancel. ->" + excp.Message);
             }
         }
 
@@ -308,12 +306,12 @@ namespace GB28181.App
                 }
                 else
                 {
-                    logger.Warn("B2BUserAgent Progress fired on already answered call.");
+                    Logger.Logger.Warn("B2BUserAgent Progress fired on already answered call.");
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception B2BUserAgent Progress. " + excp.Message);
+                Logger.Logger.Error("Exception B2BUserAgent Progress. ->" + excp.Message);
             }
         }
 
@@ -328,7 +326,7 @@ namespace GB28181.App
         {
             try
             {
-                logger.Debug("SIPB2BUserAgent Answer.");
+                Logger.Logger.Debug("SIPB2BUserAgent Answer.");
                 m_sipDialogue = answeredDialogue;
 
                 UASStateChanged?.Invoke(this, SIPResponseStatusCodesEnum.Ok, null);
@@ -355,7 +353,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPB2BUSerAgent Answer. " + excp.Message);
+                Logger.Logger.Error("Exception SIPB2BUSerAgent Answer. ->" + excp.Message);
                 throw;
             }
         }
@@ -369,7 +367,7 @@ namespace GB28181.App
 
         public void Reject(SIPResponseStatusCodesEnum rejectCode, string rejectReason, string[] customHeaders)
         {
-            logger.Debug("SIPB2BUserAgent Reject.");
+            Logger.Logger.Debug("SIPB2BUserAgent Reject.");
 
             UASStateChanged?.Invoke(this, rejectCode, rejectReason);
 
@@ -395,7 +393,7 @@ namespace GB28181.App
         public void Redirect(SIPResponseStatusCodesEnum redirectCode, SIPURI redirectURI)
         {
             NoRingTimeout.Invoke(this);
-            logger.Debug("SIPB2BUserAgent Redirect.");
+            Logger.Logger.Debug("SIPB2BUserAgent Redirect.");
             //m_uas.Redirect(redirectCode, redirectURI);
         }
 
@@ -478,8 +476,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Parsing CustomHeader for GetInviteRequest. " + excp.Message +
-                             sipCallDescriptor.CustomHeaders);
+                Logger.Logger.Error("Exception Parsing CustomHeader for GetInviteRequest. ->" + excp.Message +
+                                    sipCallDescriptor.CustomHeaders);
             }
 
             return inviteRequest;

@@ -296,6 +296,11 @@ namespace StreamMediaServerKeeper
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
         public static string GetSystemRunningTimeText(long d)
         {
             if (d == 0)
@@ -317,6 +322,10 @@ namespace StreamMediaServerKeeper
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static long GetSystemRunningTime()
         {
             if (File.Exists("/proc/uptime"))
@@ -472,8 +481,7 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         public static double GetMemoryUsage(Process process)
         {
-            //Console.WriteLine(process.WorkingSet64);
-            //Console.WriteLine(Environment.WorkingSet);
+           
             long bytes = process.WorkingSet64;
             return BytesToMB(bytes);
         }
@@ -918,10 +926,10 @@ Linux 3.10.0-1062.12.1.el7.x86_64 (localhost.localdomain) 	2020年07月20日 	_x
         public double? FreePercent { get; set; }
     }
 
-    [Serializable]
     /// <summary>
-    /// 系统硬盘情况
+    /// 
     /// </summary>
+    [Serializable]
     public class DriveMetrics
     {
         /// <summary>
@@ -978,6 +986,9 @@ Linux 3.10.0-1062.12.1.el7.x86_64 (localhost.localdomain) 	2020年07月20日 	_x
         [JsonProperty("write")]
         public double Write { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DiskIO()
         {
             Read = 0;
@@ -1002,6 +1013,9 @@ Linux 3.10.0-1062.12.1.el7.x86_64 (localhost.localdomain) 	2020年07月20日 	_x
         [JsonProperty("transmit")]
         public double Transmit { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public NetIO()
         {
             Receive = 0;

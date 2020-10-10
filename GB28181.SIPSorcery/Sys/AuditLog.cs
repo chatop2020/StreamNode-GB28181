@@ -9,7 +9,6 @@
 // License: 
 // Public Domain
 
-using GB28181.Logger4Net;
 using GB28181.Persistence;
 using GB28181.Sys;
 
@@ -21,7 +20,7 @@ namespace Aza.Configuration
 {
     public class AuditLog_other
     {
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         private StorageLayer m_storageLayer = null;
         private string m_dbConnStr = null;

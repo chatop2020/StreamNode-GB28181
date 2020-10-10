@@ -15,8 +15,6 @@
 
 using System;
 using System.Threading;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -24,7 +22,7 @@ namespace GB28181.App
 {
     public class SIPNonInviteClientUserAgent
     {
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         private static readonly string m_userAgent = SIPConstants.SIP_USERAGENT_STRING;
 
@@ -68,16 +66,16 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPNonInviteClientUserAgent SendRequest to " + m_callDescriptor.Uri + ". " +
-                             excp.Message);
+                Logger.Logger.Error("Exception SIPNonInviteClientUserAgent SendRequest to " + m_callDescriptor.Uri + ". ->" +
+                                    excp.Message);
                 throw;
             }
         }
 
         private void RequestTimedOut(SIPTransaction sipTransaction)
         {
-            logger.Error("Exception SIPNonInviteClientUserAgent ReqeustTimeOut (" + sipTransaction.RemoteEndPoint +
-                         "). ");
+            Logger.Logger.Error("Exception SIPNonInviteClientUserAgent ReqeustTimeOut (" + sipTransaction.RemoteEndPoint +
+                                "). ");
         }
 
         private void ServerResponseReceived(SIPEndPoint localSIPEndPoint, SIPEndPoint remoteEndPoint,
@@ -132,8 +130,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPNonInviteClientUserAgent ServerResponseReceived (" + remoteEndPoint + "). " +
-                             excp.Message);
+                Logger.Logger.Error("Exception SIPNonInviteClientUserAgent ServerResponseReceived (" + remoteEndPoint + "). ->" +
+                                    excp.Message);
             }
         }
 
@@ -197,8 +195,8 @@ namespace GB28181.App
                 }
                 catch (Exception excp)
                 {
-                    logger.Error("Exception Parsing CustomHeader for SIPNonInviteClientUserAgent GetRequest. " +
-                                 excp.Message + m_callDescriptor.CustomHeaders);
+                    Logger.Logger.Error("Exception Parsing CustomHeader for SIPNonInviteClientUserAgent GetRequest. " +
+                                        excp.Message + m_callDescriptor.CustomHeaders);
                 }
 
                 if (!m_callDescriptor.Content.IsNullOrBlank())
@@ -212,7 +210,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPNonInviteClientUserAgent GetRequest. " + excp.Message);
+                Logger.Logger.Error("Exception SIPNonInviteClientUserAgent GetRequest. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -244,7 +242,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPNonInviteClientUserAgent GetAuthenticatedRequest. " + excp.Message);
+                Logger.Logger.Error("Exception SIPNonInviteClientUserAgent GetAuthenticatedRequest. ->" + excp.Message);
                 throw excp;
             }
         }

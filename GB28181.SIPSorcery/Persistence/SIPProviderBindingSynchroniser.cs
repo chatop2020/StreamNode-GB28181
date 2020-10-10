@@ -1,13 +1,11 @@
 ﻿using System;
-using GB28181.Logger4Net;
 using GB28181.Persistence;
-using GB28181.Sys;
 
 namespace GB28181.App
 {
     public class SIPProviderBindingSynchroniser
     {
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         private SIPAssetPersistor<SIPProviderBinding> m_bindingPersistor;
 
@@ -20,8 +18,8 @@ namespace GB28181.App
         {
             try
             {
-                logger.Debug("SIPProviderBindingSynchroniser SIPProviderAdded for " + sipProvider.Owner + " and " +
-                             sipProvider.ProviderName + ".");
+                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderAdded for " + sipProvider.Owner + " and " +
+                                    sipProvider.ProviderName + ".");
 
                 if (sipProvider.RegisterEnabled)
                 {
@@ -31,7 +29,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPProviderBindingSynchroniser SIPProviderAdded. " + excp.Message);
+                Logger.Logger.Error("Exception SIPProviderBindingSynchroniser SIPProviderAdded. ->" + excp.Message);
             }
         }
 
@@ -39,8 +37,8 @@ namespace GB28181.App
         {
             try
             {
-                logger.Debug("SIPProviderBindingSynchroniser SIPProviderUpdated for " + sipProvider.Owner + " and " +
-                             sipProvider.ProviderName + ".");
+                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderUpdated for " + sipProvider.Owner + " and " +
+                                    sipProvider.ProviderName + ".");
 
                 SIPProviderBinding existingBinding = m_bindingPersistor.Get(b => b.ProviderId == sipProvider.Id);
 
@@ -78,7 +76,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPProviderBindingSynchroniser SIPProviderUpdated. " + excp.Message);
+                Logger.Logger.Error("Exception SIPProviderBindingSynchroniser SIPProviderUpdated. ->" + excp.Message);
             }
         }
 
@@ -86,8 +84,8 @@ namespace GB28181.App
         {
             try
             {
-                logger.Debug("SIPProviderBindingSynchroniser SIPProviderDeleted for " + sipProvider.Owner + " and " +
-                             sipProvider.ProviderName + ".");
+                Logger.Logger.Debug("SIPProviderBindingSynchroniser SIPProviderDeleted for " + sipProvider.Owner + " and " +
+                                    sipProvider.ProviderName + ".");
 
                 SIPProviderBinding existingBinding = m_bindingPersistor.Get(b => b.ProviderId == sipProvider.Id);
                 if (existingBinding != null)
@@ -107,7 +105,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPProviderBindingSynchroniser SIPProviderDeleted. " + excp.Message);
+                Logger.Logger.Error("Exception SIPProviderBindingSynchroniser SIPProviderDeleted. ->" + excp.Message);
             }
         }
     }

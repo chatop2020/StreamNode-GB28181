@@ -16,7 +16,6 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -32,7 +31,7 @@ namespace GB28181
 
     public class SIPConnection
     {
-        private static ILog logger = AssemblyState.logger;
+      //  private static ILog logger = AssemblyState.logger;
 
         public static int MaxSIPTCPMessageSize = SIPConstants.SIP_MAXIMUM_RECEIVE_LENGTH;
         private static string m_sipEOL = SIPConstants.CRLF;
@@ -150,7 +149,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPConnection SocketReadCompleted. " + excp.Message);
+                Logger.Logger.Error("Exception SIPConnection SocketReadCompleted. ->" + excp.Message);
                 throw;
             }
         }
@@ -336,7 +335,7 @@ namespace GB28181
             }
             catch (Exception closeExcp)
             {
-                logger.Warn("Exception closing socket in SIPConnection Close. " + closeExcp.Message);
+                Logger.Logger.Error("Exception closing socket in SIPConnection Close. ->" + closeExcp.Message);
             }
         }
     }

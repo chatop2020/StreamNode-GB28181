@@ -13,7 +13,6 @@
 
 using System;
 using System.Runtime.Serialization;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 
 namespace GB28181
@@ -21,7 +20,7 @@ namespace GB28181
     [DataContract]
     public class SIPParameterlessURI
     {
-        private static ILog logger = AssemblyState.logger;
+        //private static ILog logger = AssemblyState.logger;
 
         private SIPURI m_uri;
 
@@ -91,7 +90,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPParameterlessURI ToString. " + excp.Message);
+                Logger.Logger.Error("Exception SIPParameterlessURI ToString. ->" + excp.Message);
                 throw excp;
             }
         }

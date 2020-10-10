@@ -20,7 +20,6 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Xml;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
@@ -67,7 +66,7 @@ namespace GB28181.App
             DisallowedServerPatterns; // If set will be used as a regex pattern to prevent certain strings being used in the Provider Server and RegisterServer fields.
 
         private static string m_newLine = AppState.NewLine;
-        private static ILog logger = AppState.logger;
+        //private static ILog logger = AppState.logger;
 
         private ProviderTypes m_providerType; // Identifies whether the provider entry is a SIP or Google Voice entry.
 
@@ -734,13 +733,13 @@ namespace GB28181.App
                 {
                     m_registerEnabled = false;
                     m_registerDisabledReason = "No Contact URI was specified for the registration.";
-                    logger.Warn("Registrations for provider " + m_providerName + " owned by " + m_owner +
-                                " have been disabled due to an empty or invalid Contact URI.");
+                    Logger.Logger.Warn("Registrations for provider " + m_providerName + " owned by " + m_owner +
+                                       " have been disabled due to an empty or invalid Contact URI.");
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPProvider Load. " + excp.Message);
+                Logger.Logger.Error("Exception SIPProvider Load. ->" + excp.Message);
                 throw;
             }
         }

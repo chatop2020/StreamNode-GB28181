@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using GB28181.Logger4Net;
 using GB28181.Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
@@ -27,8 +26,8 @@ namespace GB28181.App
             OUTBOUNDPROXY_AS_ROUTESET_CHAR =
                 '<'; // If this character exists in the call descriptor OutboundProxy setting it gets treated as a Route set.
 
-        private static ILog logger = AppState.logger;
-        private static ILog rtccLogger = AppState.GetLogger("rtcc");
+        //private static ILog logger = AppState.logger;
+       // private static ILog rtccLogger = AppState.GetLogger("rtcc");
 
         private static string m_userAgent = SIPConstants.SIP_USERAGENT_STRING;
         private static readonly int m_defaultSIPPort = SIPConstants.DEFAULT_SIP_PORT;
@@ -296,7 +295,7 @@ namespace GB28181.App
 
                                 if (customerAccount == null)
                                 {
-                                    rtccLogger.Debug(
+                                    Logger.Logger.Debug(
                                         "A billable call could not proceed as no account exists for account code or number " +
                                         m_sipCallDescriptor.AccountCode + " and owner " + Owner + ".");
                                     rtccError = "Real-time call control invalid account code";
@@ -318,7 +317,7 @@ namespace GB28181.App
 
                                     if (rate == null)
                                     {
-                                        rtccLogger.Debug(
+                                        Logger.Logger.Debug(
                                             "A billable call could not proceed as no rate could be determined for destination " +
                                             rateDestination + " and owner " + Owner + ".");
                                         rtccError = "Real-time call control no rate";
@@ -337,7 +336,7 @@ namespace GB28181.App
 
                                             if (balance < Rate)
                                             {
-                                                rtccLogger.Debug(
+                                                Logger.Logger.Debug(
                                                     "A billable call could not proceed as the available credit for " +
                                                     AccountCode + " was not sufficient for 60 seconds to destination " +
                                                     rateDestination + " and owner " + Owner + ".");
@@ -352,7 +351,7 @@ namespace GB28181.App
 
                                                 if (reservationCost == Decimal.MinusOne)
                                                 {
-                                                    rtccLogger.Debug(
+                                                    Logger.Logger.Debug(
                                                         "Call will not proceed as the intial real-time call control credit reservation failed for owner " +
                                                         Owner + ".");
                                                     rtccError = "Real-time call control initial reservation failed";
@@ -653,9 +652,9 @@ namespace GB28181.App
                                     //originalCallTransaction.CDR.IsHangingUp = true;
                                 }
 
-                                logger.Debug("RTCC reservation was reallocated from CDR " +
-                                             originalCallTransaction.CDR.CDRId + " to " +
-                                             m_serverTransaction.CDR.CDRId + " for owner " + Owner + ".");
+                                Logger.Logger.Debug("RTCC reservation was reallocated from CDR " +
+                                                    originalCallTransaction.CDR.CDRId + " to " +
+                                                    m_serverTransaction.CDR.CDRId + " for owner " + Owner + ".");
                             }
 
                             m_serverTransaction.UACInviteTransactionInformationResponseReceived +=
@@ -902,8 +901,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Parsing CustomHeader for GetInviteRequest. " + excp.Message +
-                             sipCallDescriptor.CustomHeaders);
+                Logger.Logger.Error("Exception Parsing CustomHeader for GetInviteRequest. ->" + excp.Message +
+                                    sipCallDescriptor.CustomHeaders);
             }
 
             return inviteRequest;

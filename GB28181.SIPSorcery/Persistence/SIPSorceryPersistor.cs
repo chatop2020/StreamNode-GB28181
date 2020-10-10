@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using GB28181.App;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 
 namespace GB28181.Persistence
@@ -28,7 +27,7 @@ namespace GB28181.Persistence
     {
         private const string WRITE_CDRS_THREAD_NAME = "sipappsvr-writecdrs";
 
-        private ILog logger = AppState.logger;
+        //private ILog logger = AppState.logger;
 
         private static readonly string m_sipAccountsXMLFilename = AssemblyState.XML_SIPACCOUNTS_FILENAME;
         private static readonly string m_sipProvidersXMLFilename = AssemblyState.XML_SIPPROVIDERS_FILENAME;
@@ -147,7 +146,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception QueueCDR. " + excp.Message);
+                Logger.Logger.Error("Exception QueueCDR. ->" + excp.Message);
             }
         }
 

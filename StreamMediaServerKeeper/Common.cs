@@ -303,7 +303,7 @@ namespace StreamMediaServerKeeper
         /// </summary>
         public static void KillSelf(string message = "")
         {
-            Console.WriteLine("异常情况，结束自己进程..." + " " + message);
+            Logger.Logger.Fatal("异常情况，结束自己进程..." + "-> " + message);
             string fileName = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
             var ret = GetProcessPid(fileName);
             if (ret > 0)
@@ -433,7 +433,7 @@ namespace StreamMediaServerKeeper
                 catch (Exception ex)
                 {
                     MySystemInfo = null;
-                    Console.WriteLine("报错了：\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                    Logger.Logger.Error("报错了-> " + ex.Message + " -> " + ex.StackTrace);
                     continue;
                 }
             }

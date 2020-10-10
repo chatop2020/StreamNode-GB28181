@@ -16,8 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -44,7 +42,7 @@ namespace GB28181.App
 
         private static readonly string m_filterTextType = SIPMIMETypes.MWI_TEXT_TYPE;
 
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         private SIPTransport m_sipTransport;
         private SIPEndPoint m_outboundProxy;
@@ -114,8 +112,8 @@ namespace GB28181.App
             {
                 if (!m_exit)
                 {
-                    logger.Debug("Stopping SIP notifier user agent for user " + m_authUsername + " and resource URI " +
-                                 m_resourceURI.ToString() + ".");
+                    Logger.Logger.Debug("Stopping SIP notifier user agent for user " + m_authUsername + " and resource URI " +
+                                        m_resourceURI.ToString() + ".");
 
                     m_exit = true;
                     m_attempts = 0;
@@ -127,7 +125,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPNotifierClient Stop. " + excp.Message);
+                Logger.Logger.Error("Exception SIPNotifierClient Stop. ->" + excp.Message);
             }
         }
 
@@ -136,8 +134,8 @@ namespace GB28181.App
         {
             try
             {
-                logger.Debug("SIPNotifierClient GotNotificationRequest for " + sipRequest.Method + " " +
-                             sipRequest.URI.ToString() + " " + sipRequest.Header.CSeq + ".");
+                Logger.Logger.Debug("SIPNotifierClient GotNotificationRequest for " + sipRequest.Method + " " +
+                                    sipRequest.URI.ToString() + " " + sipRequest.Header.CSeq + ".");
 
                 SIPResponse okResponse = SIPTransport.GetResponse(sipRequest, SIPResponseStatusCodesEnum.Ok, null);
                 m_sipTransport.SendResponse(okResponse);
@@ -149,7 +147,7 @@ namespace GB28181.App
                 {
                     if (sipRequest.Header.CSeq <= m_remoteCSeq)
                     {
-                        logger.Warn(
+                        Logger.Logger.Warn(
                             "A duplicate NOTIFY request received by SIPNotifierClient for subscription Call-ID " +
                             m_subscribeCallID + ".");
                     }
@@ -164,15 +162,15 @@ namespace GB28181.App
                 }
                 else
                 {
-                    logger.Warn(
+                    Logger.Logger.Warn(
                         "A request received by SIPNotifierClient did not match the subscription details, request Call-ID=" +
                         sipRequest.Header.CallId + ", subscribed Call-ID=" + m_subscribeCallID + ".");
-                    logger.Debug(sipRequest.ToString());
+                    Logger.Logger.Debug(sipRequest.ToString());
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GotNotificationRequest. " + excp.Message);
+                Logger.Logger.Error("Exception GotNotificationRequest. ->" + excp.Message);
             }
         }
 
@@ -190,8 +188,8 @@ namespace GB28181.App
         {
             try
             {
-                logger.Debug("SIPNotifierClient starting for " + m_resourceURI.ToString() + " and event package " +
-                             m_sipEventPackage.ToString() + ".");
+                Logger.Logger.Debug("SIPNotifierClient starting for " + m_resourceURI.ToString() + " and event package " +
+                                    m_sipEventPackage.ToString() + ".");
 
                 while (!m_exit)
                 {
@@ -223,7 +221,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPNotifierClient StartSubscription. " + excp.Message);
+                Logger.Logger.Error("Exception SIPNotifierClient StartSubscription. ->" + excp.Message);
             }
         }
 
@@ -302,7 +300,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPNotifierClient Subscribe. " + excp.Message);
+                Logger.Logger.Error("Exception SIPNotifierClient Subscribe. ->" + excp.Message);
                 SubscriptionFailed(m_resourceURI, SIPResponseStatusCodesEnum.InternalServerError,
                     "Exception Subscribing. " + excp.Message);
                 m_waitForSubscribeResponse.Set();
@@ -435,9 +433,9 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SubscribeTransactionFinalResponseReceived. " + excp.Message);
+                Logger.Logger.Error("Exception SubscribeTransactionFinalResponseReceived. " + excp.Message);
                 SubscriptionFailed(m_resourceURI, SIPResponseStatusCodesEnum.InternalServerError,
-                    "Exception processing subscribe response. " + excp.Message);
+                    "Exception processing subscribe response. ->" + excp.Message);
                 m_waitForSubscribeResponse.Set();
             }
         }

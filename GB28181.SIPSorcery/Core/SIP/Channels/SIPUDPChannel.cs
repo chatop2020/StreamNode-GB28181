@@ -64,7 +64,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPUDPChannel Initialise. " + excp.Message);
+                Logger.Logger.Error("Exception SIPUDPChannel Initialise. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -77,7 +77,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Disposing SIPUDPChannel. " + excp.Message);
+                Logger.Logger.Error("Exception Disposing SIPUDPChannel. ->" + excp.Message);
             }
         }
 
@@ -87,8 +87,8 @@ namespace GB28181
             {
                 byte[] buffer = null;
 
-                logger.Debug("SIPUDPChannel socket on 0.0.0.0:" + m_localSIPEndPoint.GetIPEndPoint().Port +
-                             " listening started.");
+                Logger.Logger.Debug("SIPUDPChannel socket on 0.0.0.0:" + m_localSIPEndPoint.GetIPEndPoint().Port +
+                                    " listening started.");
 
                 while (!Closed)
                 {
@@ -107,13 +107,13 @@ namespace GB28181
 
                         //inEndPoint = new SIPEndPoint(new IPEndPoint(IPAddress.Any, 0));
 
-                        logger.Error("SocketException listening on SIPUDPChannel. " + sockex.Message);
+                        Logger.Logger.Error("SocketException listening on SIPUDPChannel. ->" + sockex.Message);
                         continue;
                     }
                     catch (Exception listenExcp)
                     {
                         // There is no point logging this as without processing the ICMP message it's not possible to know which socket the rejection came from.
-                        logger.Error("Exception listening on SIPUDPChannel. " + listenExcp.Message);
+                        Logger.Logger.Error("Exception listening on SIPUDPChannel. ->" + listenExcp.Message);
 
                         inEndPoint = new IPEndPoint(IPAddress.Any, 0);
                         continue;
@@ -134,11 +134,11 @@ namespace GB28181
                     //logger.Debug("SIPUDPChannel socket message handled.");
                 }
 
-                logger.Debug("SIPUDPChannel socket on " + m_localSIPEndPoint + " listening halted.");
+                Logger.Logger.Debug("SIPUDPChannel socket on " + m_localSIPEndPoint + " listening halted.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPUDPChannel Listen. " + excp.Message);
+                Logger.Logger.Error("Exception SIPUDPChannel Listen. ->" + excp.Message);
                 //throw excp;
             }
         }
@@ -165,8 +165,8 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception (" + excp.GetType().ToString() + ") SIPUDPChannel Send (sendto=>" +
-                             IPSocket.GetSocketString(destinationEndPoint) + "). " + excp.Message);
+                Logger.Logger.Error("Exception (" + excp.GetType().ToString() + ") SIPUDPChannel Send (sendto=>" +
+                                    IPSocket.GetSocketString(destinationEndPoint) + "). ->" + excp.Message);
                 throw excp;
             }
         }
@@ -192,14 +192,14 @@ namespace GB28181
         {
             try
             {
-                logger.Debug("Closing SIP UDP Channel " + SIPChannelEndPoint + ".");
+                Logger.Logger.Debug("Closing SIP UDP Channel " + SIPChannelEndPoint + ".");
 
                 Closed = true;
                 m_sipConn.Close();
             }
             catch (Exception excp)
             {
-                logger.Warn("Exception SIPUDPChannel Close. " + excp.Message);
+                Logger.Logger.Error("Exception SIPUDPChannel Close. ->" + excp.Message);
             }
         }
     }

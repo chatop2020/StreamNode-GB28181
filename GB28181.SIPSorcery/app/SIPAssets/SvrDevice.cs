@@ -4,8 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Runtime.Serialization;
 using System.Xml;
-using GB28181.Logger4Net;
-using GB28181.Sys;
+
 
 namespace GB28181.App
 {
@@ -16,7 +15,7 @@ namespace GB28181.App
     [DataContract]
     public class SvrDevice : INotifyPropertyChanged, ISIPAsset
     {
-        private ILog logger = AppState.logger;
+       // private ILog logger = AppState.logger;
 
         public const string XML_DOCUMENT_ELEMENT_NAME = "Device";
         public const string XML_ELEMENT_NAME = "svrDevice";
@@ -554,7 +553,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Device Load. " + excp);
+                Logger.Logger.Error("Exception Device Load. ->" + excp);
                 throw excp;
             }
         }

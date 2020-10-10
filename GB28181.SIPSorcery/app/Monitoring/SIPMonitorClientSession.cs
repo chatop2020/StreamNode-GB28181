@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.Sys;
 
 namespace GB28181.App
@@ -11,7 +9,7 @@ namespace GB28181.App
         private static readonly string m_topLevelAdminId = "*";
         private static readonly string m_filterWildcard = SIPMonitorFilter.WILDCARD;
 
-        private static ILog logger = AppState.logger;
+     //   private static ILog logger = AppState.logger;
 
         public string Address { get; private set; }
         public string SessionID { get; private set; }
@@ -87,7 +85,8 @@ namespace GB28181.App
 
         public void Close()
         {
-            logger.Debug("Closing session " + SessionID + " for " + CustomerUsername + ".");
+            Logger.Logger.Debug("Closing session->" + SessionID + " for " + CustomerUsername + ".");
+            //logger.Debug("Closing session " + SessionID + " for " + CustomerUsername + ".");
             Events.Clear();
         }
     }

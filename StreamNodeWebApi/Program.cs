@@ -7,8 +7,14 @@ namespace StreamNodeWebApi
 {
     public class Program
     {
-        public static CameraAutoKeeper CameraAutoKeeper;
-        public static RecordAutoKeeper RecordAutoKeeper;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CameraAutoKeeper? CameraAutoKeeper;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static RecordAutoKeeper? RecordAutoKeeper;
 
         public static void Main(string[] args)
         {

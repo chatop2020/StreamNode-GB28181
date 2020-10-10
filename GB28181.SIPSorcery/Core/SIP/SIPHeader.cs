@@ -16,7 +16,6 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -62,7 +61,7 @@ namespace GB28181
     /// </remarks>
     public class SIPViaHeader
     {
-        private static ILog logger = AssemblyState.logger;
+       // private static ILog logger = AssemblyState.logger;
 
         private static char m_paramDelimChar = ';';
         private static char m_hostDelimChar = ':';
@@ -794,7 +793,7 @@ namespace GB28181
         public const string EXPIRES_PARAMETER_KEY = "expires";
         public const string QVALUE_PARAMETER_KEY = "q";
 
-        private static ILog logger = AssemblyState.logger;
+       // private static ILog logger = AssemblyState.logger;
 
         //private static char[] m_nonStandardURIDelimChars = new char[] { '\n', '\r', ' ' };	// Characters that can delimit a SIP URI, supposed to be > but it is sometimes missing.
 
@@ -912,7 +911,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseContactHeader. " + excp.Message);
+                Logger.Logger.Error("Exception ParseContactHeader. ->" + excp.Message);
                 throw new SIPValidationException(SIPValidationFieldsEnum.ContactHeader, "Contact header invalid.");
             }
         }
@@ -1395,7 +1394,7 @@ namespace GB28181
 
     public class SIPRouteSet
     {
-        private static ILog logger = AssemblyState.logger;
+     //   private static ILog logger = AssemblyState.logger;
 
         private List<SIPRoute> m_sipRoutes = new List<SIPRoute>();
 
@@ -1776,7 +1775,7 @@ namespace GB28181
 
 
         public const int DEFAULT_CSEQ = 100;
-        private static ILog logger = AssemblyState.logger;
+      //  private static ILog logger = AssemblyState.logger;
         private static string m_CRLF = SIPConstants.CRLF;
 
         // RFC SIP headers.
@@ -1979,7 +1978,7 @@ namespace GB28181
 
                         if (delimiterIndex == -1)
                         {
-                            logger.Warn("Invalid SIP header, ignoring, " + headerLine + ".");
+                            Logger.Logger.Warn("Invalid SIP header, ignoring, " + headerLine + ".");
                             continue;
                         }
 
@@ -2030,14 +2029,14 @@ namespace GB28181
                             string[] cseqFields = headerValue.Split(' ');
                             if (cseqFields == null || cseqFields.Length == 0)
                             {
-                                logger.Warn("The " + SIPHeaders.SIP_HEADER_CSEQ + " was empty.");
+                                Logger.Logger.Warn("The " + SIPHeaders.SIP_HEADER_CSEQ + " was empty.");
                             }
                             else
                             {
                                 if (!Int32.TryParse(cseqFields[0], out sipHeader.CSeq))
                                 {
-                                    logger.Warn(SIPHeaders.SIP_HEADER_CSEQ + " did not contain a valid integer, " +
-                                                headerLine + ".");
+                                    Logger.Logger.Warn(SIPHeaders.SIP_HEADER_CSEQ + " did not contain a valid integer, " +
+                                                       headerLine + ".");
                                 }
 
                                 if (cseqFields != null && cseqFields.Length > 1)
@@ -2046,8 +2045,8 @@ namespace GB28181
                                 }
                                 else
                                 {
-                                    logger.Warn("There was no " + SIPHeaders.SIP_HEADER_CSEQ + " method, " +
-                                                headerLine + ".");
+                                    Logger.Logger.Warn("There was no " + SIPHeaders.SIP_HEADER_CSEQ + " method, " +
+                                                       headerLine + ".");
                                 }
                             }
                         }
@@ -2062,7 +2061,7 @@ namespace GB28181
 
                             if (!Int32.TryParse(headerValue, out sipHeader.Expires))
                             {
-                                logger.Warn("The Expires value was not a valid integer, " + headerLine + ".");
+                                Logger.Logger.Warn("The Expires value was not a valid integer, " + headerLine + ".");
                             }
                         }
 
@@ -2074,7 +2073,7 @@ namespace GB28181
                         {
                             if (!Int32.TryParse(headerValue, out sipHeader.MinExpires))
                             {
-                                logger.Warn("The Min-Expires value was not a valid integer, " + headerLine + ".");
+                                Logger.Logger.Warn("The Min-Expires value was not a valid integer, " + headerLine + ".");
                             }
                         }
 
@@ -2178,8 +2177,8 @@ namespace GB28181
                         {
                             if (!Int32.TryParse(headerValue, out sipHeader.MaxForwards))
                             {
-                                logger.Warn("The " + SIPHeaders.SIP_HEADER_MAXFORWARDS +
-                                            " could not be parsed as a valid integer, " + headerLine + ".");
+                                Logger.Logger.Warn("The " + SIPHeaders.SIP_HEADER_MAXFORWARDS +
+                                                   " could not be parsed as a valid integer, " + headerLine + ".");
                             }
                         }
 
@@ -2192,8 +2191,8 @@ namespace GB28181
                         {
                             if (!Int32.TryParse(headerValue, out sipHeader.ContentLength))
                             {
-                                logger.Warn("The " + SIPHeaders.SIP_HEADER_CONTENTLENGTH +
-                                            " could not be parsed as a valid integer.");
+                                Logger.Logger.Warn("The " + SIPHeaders.SIP_HEADER_CONTENTLENGTH +
+                                                   " could not be parsed as a valid integer.");
                             }
                         }
 
@@ -2700,7 +2699,7 @@ namespace GB28181
                     }
                     catch (Exception parseExcp)
                     {
-                        logger.Error("Error parsing SIP header " + headerLine + ". " + parseExcp.Message);
+                        Logger.Logger.Error("Error parsing SIP header " + headerLine + ". ->" + parseExcp.Message);
                         throw new SIPValidationException(SIPValidationFieldsEnum.Headers,
                             "Unknown error parsing Header.");
                     }
@@ -2716,7 +2715,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseSIPHeaders. " + excp.Message);
+                Logger.Logger.Error("Exception ParseSIPHeaders. ->" + excp.Message);
                 throw new SIPValidationException(SIPValidationFieldsEnum.Headers, "Unknown error parsing Headers.");
             }
         }
@@ -2947,7 +2946,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPHeader ToString. " + excp.Message);
+                Logger.Logger.Error("Exception SIPHeader ToString. ->" + excp.Message);
                 return "";
                 //throw excp;
             }
@@ -2993,7 +2992,7 @@ namespace GB28181
 
                     if (delimiterIndex == -1)
                     {
-                        logger.Warn("Invalid SIP header, ignoring, " + unknonwHeader + ".");
+                        Logger.Logger.Warn("Invalid SIP header, ignoring, " + unknonwHeader + ".");
                         continue;
                     }
 

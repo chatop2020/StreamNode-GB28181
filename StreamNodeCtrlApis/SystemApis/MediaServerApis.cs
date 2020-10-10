@@ -403,6 +403,7 @@ namespace StreamNodeCtrlApis.SystemApis
         /// 获取裁剪合并任务状态
         /// </summary>
         /// <param name="mediaServerId"></param>
+        /// <param name="taskId"></param>
         /// <param name="rs"></param>
         /// <returns></returns>
         public static CutMergeTaskStatusResponse GetMergeTaskStatus(string mediaServerId, string taskId,

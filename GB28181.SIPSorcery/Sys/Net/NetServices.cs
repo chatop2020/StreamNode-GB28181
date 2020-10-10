@@ -20,7 +20,6 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
-using GB28181.Logger4Net;
 using SIPSorcery.Sys;
 
 namespace GB28181.Sys.Net
@@ -42,7 +41,7 @@ namespace GB28181.Sys.Net
             MAXIMUM_RTP_PORT_BIND_ATTEMPTS =
                 5; // The maximum number of re-attempts that will be made when trying to bind the RTP port.
 
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         public static PlatformEnum Platform = PlatformEnum.Windows;
 
@@ -77,16 +76,16 @@ namespace GB28181.Sys.Net
                         }
                         catch (Exception excp)
                         {
-                            logger.Warn("Warning couldn't create UDP end point for " + localAddress + ":" + port + "." +
-                                        excp.Message);
+                            Logger.Logger.Error("Warning couldn't create UDP end point for " + localAddress + ":" + port + ". ->" +
+                                               excp.Message);
                         }
 
                         attempts++;
                     }
                 }
 
-                logger.Debug("Attempts to create UDP end point for " + localAddress + " by randam port was " +
-                             attempts);
+                Logger.Logger.Debug("Attempts to create UDP end point for " + localAddress + " by randam port was " +
+                                    attempts);
 
                 return randomClient;
             }
@@ -179,12 +178,12 @@ namespace GB28181.Sys.Net
                                     ProtocolType.Udp);
                                 controlSocket.Bind(new IPEndPoint(localAddress, controlPort));
 
-                                logger.Debug("Successfully bound RTP socket " + localAddress + ":" + rtpPort +
-                                             " and control socket " + localAddress + ":" + controlPort + ".");
+                                Logger.Logger.Debug("Successfully bound RTP socket " + localAddress + ":" + rtpPort +
+                                                    " and control socket " + localAddress + ":" + controlPort + ".");
                             }
                             else
                             {
-                                logger.Debug("Successfully bound RTP socket " + localAddress + ":" + rtpPort + ".");
+                                Logger.Logger.Debug("Successfully bound RTP socket " + localAddress + ":" + rtpPort + ".");
                             }
 
                             bindSuccess = true;
@@ -195,14 +194,14 @@ namespace GB28181.Sys.Net
                         {
                             if (controlPort != 0)
                             {
-                                logger.Warn("Failed to bind on address " + localAddress + " to RTP port " + rtpPort +
-                                            " and/or control port of " + controlPort + ", attempt " + bindAttempts +
-                                            ".");
+                                Logger.Logger.Warn("Failed to bind on address " + localAddress + " to RTP port " + rtpPort +
+                                                   " and/or control port of " + controlPort + ", attempt " + bindAttempts +
+                                                   ".");
                             }
                             else
                             {
-                                logger.Warn("Failed to bind on address " + localAddress + " to RTP port " + rtpPort +
-                                            ", attempt " + bindAttempts + ".");
+                                Logger.Logger.Warn("Failed to bind on address " + localAddress + " to RTP port " + rtpPort +
+                                                   ", attempt " + bindAttempts + ".");
                             }
 
                             // Increment the port range in case there is an OS/network issue closing/cleaning up already used ports.

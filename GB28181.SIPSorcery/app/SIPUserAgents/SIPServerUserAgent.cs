@@ -12,8 +12,6 @@
 
 
 using System;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -24,7 +22,7 @@ namespace GB28181.App
     /// </remarks>
     public class SIPServerUserAgent : ISIPServerUserAgent
     {
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
         private SIPAuthenticateRequestDelegate SIPAuthenticateRequest_External;
         private SIPAssetGetDelegate<SIPAccount> GetSIPAccount_External;
 
@@ -202,7 +200,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception LoadSIPAccountForIncomingCall. " + excp.Message);
+                Logger.Logger.Error("Exception LoadSIPAccountForIncomingCall. ->" + excp.Message);
                 Reject(SIPResponseStatusCodesEnum.InternalServerError, null, null);
                 return false;
             }
@@ -271,7 +269,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPServerUserAgent AuthenticateCall. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent AuthenticateCall. ->" + excp.Message);
                 Reject(SIPResponseStatusCodesEnum.InternalServerError, null, null);
             }
 
@@ -333,12 +331,12 @@ namespace GB28181.App
                 }
                 else
                 {
-                    logger.Warn("SIPServerUserAgent Progress fired on already answered call.");
+                    Logger.Logger.Warn("SIPServerUserAgent Progress fired on already answered call.");
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPServerUserAgent Progress. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent Progress. ->" + excp.Message);
             }
         }
 
@@ -389,7 +387,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPServerUserAgent Answer. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent Answer. ->" + excp.Message);
                 throw;
             }
         }
@@ -434,12 +432,12 @@ namespace GB28181.App
                 }
                 else
                 {
-                    logger.Warn("SIPServerUserAgent Reject fired on already answered call.");
+                    Logger.Logger.Warn("SIPServerUserAgent Reject fired on already answered call.");
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPServerUserAgent Reject. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent Reject. ->" + excp.Message);
             }
         }
 
@@ -457,7 +455,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPServerUserAgent Redirect. " + excp.Message);
+                Logger.Logger.Error("Exception SIPServerUserAgent Redirect. ->" + excp.Message);
             }
         }
 
@@ -468,7 +466,7 @@ namespace GB28181.App
 
         private void UASTransactionCancelled(SIPTransaction sipTransaction)
         {
-            logger.Debug("SIPServerUserAgent got cancellation request.");
+            Logger.Logger.Debug("SIPServerUserAgent got cancellation request.");
             m_isCancelled = true;
             if (CallCancelled != null)
             {
@@ -490,7 +488,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ClientTimedOut. " + excp.Message);
+                Logger.Logger.Error("Exception ClientTimedOut. ->" + excp.Message);
             }
         }
 

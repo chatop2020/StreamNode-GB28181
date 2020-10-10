@@ -21,7 +21,6 @@ using System.Data;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Xml;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
@@ -59,7 +58,7 @@ namespace GB28181.App
         //public static readonly string SelectExpiredBindingsQuery = "select * from sipregistrarbindings where expirytime < ?1";
 
         private static string m_newLine = AppState.NewLine;
-        private static ILog logger = AppState.GetLogger("sipregistrar");
+     //   private static ILog logger = AppState.GetLogger("sipregistrar");
 
         public static int TimeZoneOffsetMinutes;
 
@@ -366,7 +365,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPRegistrarBinding Load. " + excp.Message);
+                Logger.Logger.Error("Exception SIPRegistrarBinding Load. ->" + excp.Message);
                 throw;
             }
         }

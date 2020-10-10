@@ -1,13 +1,11 @@
 ﻿using System;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 
 namespace GB28181.App
 {
     public class SIPEventSubscription
     {
-        protected static ILog logger = AppState.logger;
+       // protected static ILog logger = AppState.logger;
 
 
         public string SessionID { get; set; }

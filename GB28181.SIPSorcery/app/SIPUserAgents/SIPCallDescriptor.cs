@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.Sys;
 
@@ -146,7 +145,7 @@ namespace GB28181.App
         private readonly static string m_defaultFromURI = SIPConstants.SIP_DEFAULT_FROMURI;
         private static char m_customHeadersSeparator = '|'; // Must match SIPProvider.CUSTOM_HEADERS_SEPARATOR.
 
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         public string
             Username; // The username that will be used in the From header and to authenticate the call unless overridden by AuthUsername.
@@ -527,8 +526,8 @@ namespace GB28181.App
                             }
                             else if (customHeader.IndexOf(':') == -1)
                             {
-                                logger.Warn("ParseCustomHeaders skipping custom header due to missing colon, " +
-                                            customHeader + ".");
+                                Logger.Logger.Warn("ParseCustomHeaders skipping custom header due to missing colon, " +
+                                                   customHeader + ".");
                                 continue;
                             }
                             else
@@ -541,7 +540,7 @@ namespace GB28181.App
                                     "^(Via|From|To|Contact|CSeq|Call-ID|Max-Forwards|Content-Length)$",
                                     RegexOptions.IgnoreCase).Success)
                                 {
-                                    logger.Warn(
+                                    Logger.Logger.Warn(
                                         "ParseCustomHeaders skipping custom header due to an non-permitted string in header name, " +
                                         customHeader + ".");
                                     continue;
@@ -557,7 +556,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseCustomHeaders (" + customHeaders + "). " + excp.Message);
+                Logger.Logger.Error("Exception ParseCustomHeaders (" + customHeaders + "). ->" + excp.Message);
             }
 
             return customHeaderList;

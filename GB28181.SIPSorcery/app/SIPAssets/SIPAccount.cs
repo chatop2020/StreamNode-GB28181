@@ -25,7 +25,6 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Xml;
-using GB28181.Logger4Net;
 using GB28181.Net.RTP;
 using GB28181.Servers.SIPMessage;
 using GB28181.Sys;
@@ -61,7 +60,7 @@ namespace GB28181.App
 
         public static readonly string USERNAME_ALLOWED_CHARS = @"a-zA-Z0-9_\-\.";
 
-        private static ILog logger = AppState.logger;
+        //private static ILog logger = AppState.logger;
         private static string m_newLine = AppState.NewLine;
 
         public static int TimeZoneOffsetMinutes;
@@ -598,7 +597,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPAccount Load. " + excp);
+                Logger.Logger.Error("Exception SIPAccount Load. ->" + excp);
+                //logger.Error("Exception SIPAccount Load. " + excp);
                 throw excp;
             }
         }
@@ -624,8 +624,10 @@ namespace GB28181.App
                         foreach (DataRow row in sipAssetSet.Tables[0].Rows)
                         {
                             var sipAsset = new SIPAccount();
-                            logger.Debug("Load assets from xml with local ip&port is " + row["LocalIp"] + ":" +
-                                         row["LocalPort"]);
+                            Logger.Logger.Debug("Load assets from xml with local ip&port is " + row["LocalIp"] + ":" +
+                                                row["LocalPort"]);
+                            /*logger.Debug("Load assets from xml with local ip&port is " + row["LocalIp"] + ":" +
+                                         row["LocalPort"]);*/
                             row["LocalId"] = EnvironmentVariables.GbServiceLocalId ?? row["LocalId"];
                             row["LocalIp"] = EnvironmentVariables.GbServiceLocalIp ?? row["LocalIp"];
                             //row["LocalPort"] = EnvironmentVariables.GbServiceLocalPort;
@@ -635,18 +637,24 @@ namespace GB28181.App
                     }
                     catch (Exception excp)
                     {
-                        logger.Error("Exception loading SIP asset record in LoadAssetsFromXMLRecordSet (" +
-                                     (new SIPAccount()).GetType().ToString() + "). " + excp.Message);
+                        Logger.Logger.Error("Exception loading SIP asset record in LoadAssetsFromXMLRecordSet (" +
+                                            (new SIPAccount()).GetType().ToString() + "). " + excp.Message);
+                        /*logger.Error("Exception loading SIP asset record in LoadAssetsFromXMLRecordSet (" +
+                                     (new SIPAccount()).GetType().ToString() + "). " + excp.Message);*/
                     }
 
-                    logger.Debug(assets.Count + " " + (new SIPAccount()).GetType().ToString() +
-                                 " assets loaded from XML record set.");
+                    Logger.Logger.Debug(assets.Count + " " + (new SIPAccount()).GetType().ToString() +
+                                        " assets loaded from XML record set.");
+                    /*logger.Debug(assets.Count + " " + (new SIPAccount()).GetType().ToString() +
+                                 " assets loaded from XML record set.");*/
                 }
                 else
                 {
                     //logger.Warn("The XML supplied to LoadAssetsFromXMLRecordSet for asset type " + (new T()).GetType().ToString() + " did not contain any assets.");
-                    logger.Debug("No" + (new SIPAccount()).GetType().ToString() +
-                                 " assets loaded from XML record set.");
+                   Logger.Logger.Debug("No" + (new SIPAccount()).GetType().ToString() +
+                                       " assets loaded from XML record set.");
+                    /*logger.Debug("No" + (new SIPAccount()).GetType().ToString() +
+                                 " assets loaded from XML record set.");*/
                 }
 
                 xmlReader.Close();
@@ -655,7 +663,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception LoadAssetsFromXMLRecordSet. " + excp.Message);
+                Logger.Logger.Error("Exception LoadAssetsFromXMLRecordSet. ->" + excp.Message);
+                //logger.Error("Exception LoadAssetsFromXMLRecordSet. " + excp.Message);
                 throw;
             }
         }
@@ -678,7 +687,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPAccount (ctor). " + excp);
+                Logger.Logger.Error("Exception SIPAccount (ctor). ->" + excp);
+              //  logger.Error("Exception SIPAccount (ctor). " + excp);
                 throw excp;
             }
         }

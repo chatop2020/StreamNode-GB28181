@@ -110,7 +110,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPMonitorMachineEvent ParseEventCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorMachineEvent ParseEventCSV. ->" + excp.Message);
                 return null;
             }
         }
@@ -140,7 +140,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPMonitorMachineEvent ToCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorMachineEvent ToCSV. ->" + excp.Message);
                 return null;
             }
         }
@@ -180,7 +180,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPMonitorMachineEvent ToAnonymousCSV. " + excp.Message);
+                Logger.Logger.Error("Exception SIPMonitorMachineEvent ToAnonymousCSV. ->" + excp.Message);
                 return null;
             }
         }

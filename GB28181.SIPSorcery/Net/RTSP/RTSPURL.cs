@@ -11,7 +11,6 @@
 //
 
 using System;
-using GB28181.Logger4Net;
 
 #if UNITTEST
 using NUnit.Framework;
@@ -47,7 +46,7 @@ namespace GB28181.Net
         //private static int m_defaultRTSPPort = RTSPConstants.DEFAULT_RTSP_PORT;
         private static string m_rtspTransport = RTSPConstants.RTSP_RELIABLE_TRANSPORTID;
 
-        private static ILog logger = AssemblyStreamState.logger;
+        //private static ILog logger = AssemblyStreamState.logger;
 
         public string URLTransport = m_rtspTransport;
         public string Host;
@@ -126,7 +125,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPURL ToString. " + excp.Message);
+                Logger.Logger.Error("Exception RTSPURL ToString. ->" + excp.Message);
                 throw excp;
             }
         }

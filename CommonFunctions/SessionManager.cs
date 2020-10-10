@@ -74,7 +74,8 @@ namespace CommonFunctions
                 }
                 catch (Exception ex)
                 {
-                    LogWriter.WriteLog("Session管理线程启动异常...，系统退出", ex.Message + "\r\n" + ex.StackTrace);
+                    Logger.Logger.Error("Session管理线程启动异常...，系统退出->"+ ex.Message + "->" + ex.StackTrace);
+                   // LogWriter.WriteLog("Session管理线程启动异常...，系统退出", ex.Message + "\r\n" + ex.StackTrace);
                     Common.KillSelf();
                 }
             })).Start();
@@ -113,7 +114,7 @@ namespace CommonFunctions
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("报错了：\r\n" + ex.Message + "\r\n" + ex.StackTrace);
+                    Logger.Logger.Error("报错了->" + ex.Message + "->" + ex.StackTrace);
                     continue;
                 }
             }

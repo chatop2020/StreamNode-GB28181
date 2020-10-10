@@ -13,7 +13,6 @@
 using System;
 using System.Net;
 using System.Text;
-using GB28181.Logger4Net;
 using SIPSorcery.Sys;
 
 namespace GB28181.Net
@@ -26,7 +25,7 @@ namespace GB28181.Net
             RTSP_MESSAGE_IDENTIFIER =
                 "RTSP"; // String that must be in a message buffer to be recognised as an RTSP message and processed.
 
-        private static ILog logger = AssemblyStreamState.logger;
+      //  private static ILog logger = AssemblyStreamState.logger;
 
         private static string m_CRLF = RTSPConstants.CRLF;
         private static int m_minFirstLineLength = 7;
@@ -55,7 +54,7 @@ namespace GB28181.Net
                 }
                 else if (buffer.Length > RTSPConstants.RTSP_MAXIMUM_LENGTH)
                 {
-                    logger.Error("RTSP message received that exceeded the maximum allowed message length, ignoring.");
+                    Logger.Logger.Error("RTSP message received that exceeded the maximum allowed message length, ignoring.");
                     return null;
                 }
                 else if (!ByteBufferInfo.HasString(buffer, 0, buffer.Length, RTSP_MESSAGE_IDENTIFIER, m_CRLF))
@@ -76,7 +75,7 @@ namespace GB28181.Net
             {
                 message = message.Replace("\n", "LF");
                 message = message.Replace("\r", "CR");
-                logger.Error("Exception ParseRTSPMessage. " + excp.Message + "\nRTSP Message=" + message + ".");
+                Logger.Logger.Error("Exception ParseRTSPMessage. ->" + excp.Message + "->RTSP Message=" + message + ".");
                 return null;
             }
         }
@@ -130,14 +129,14 @@ namespace GB28181.Net
                 }
                 else
                 {
-                    logger.Error(
+                    Logger.Logger.Error(
                         "Error ParseRTSPMessage, there were no end of line characters in the string being parsed.");
                     return null;
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseRTSPMessage. " + excp.Message + "\nRTSP Message=" + message + ".");
+                Logger.Logger.Error("Exception ParseRTSPMessage. ->" + excp.Message + "->RTSP Message=" + message + ".");
                 return null;
             }
         }

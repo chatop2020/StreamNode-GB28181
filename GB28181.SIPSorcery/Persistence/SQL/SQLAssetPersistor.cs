@@ -91,7 +91,7 @@ namespace GB28181.Persistence
                 catch (Exception excp)
                 {
                     trans.Rollback();
-                    logger.Error("Exception SQLAssetPersistor Add (for " + typeof(T).Name + "). " + excp.Message);
+                    Logger.Logger.Error("Exception SQLAssetPersistor Add (for " + typeof(T).Name + "). ->" + excp.Message);
                     throw;
                 }
             }
@@ -144,7 +144,7 @@ namespace GB28181.Persistence
                     catch (Exception excp)
                     {
                         trans.Rollback();
-                        logger.Error("Exception SQLAssetPersistor Add (for " + typeof(T).Name + "). " + excp.Message);
+                        Logger.Logger.Error("Exception SQLAssetPersistor Add (for " + typeof(T).Name + "). ->" + excp.Message);
                         throw;
                     }
                 }
@@ -201,7 +201,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SQLAssetPersistor Update (for " + typeof(T).Name + "). " + excp.Message);
+                Logger.Logger.Error("Exception SQLAssetPersistor Update (for " + typeof(T).Name + "). ->" + excp.Message);
                 throw;
             }
 
@@ -229,8 +229,8 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SQLAssetPersistor UpdateProperty (for " + typeof(T).Name + "). " +
-                             excp.Message);
+                Logger.Logger.Error("Exception SQLAssetPersistor UpdateProperty (for " + typeof(T).Name + "). ->" +
+                                    excp.Message);
                 throw;
             }
         }
@@ -264,8 +264,8 @@ namespace GB28181.Persistence
                     catch (Exception excp)
                     {
                         trans.Rollback();
-                        logger.Error("Exception SQLAssetPersistor Delete (for " + typeof(T).Name + "). " +
-                                     excp.Message);
+                        Logger.Logger.Error("Exception SQLAssetPersistor Delete (for " + typeof(T).Name + "). ->" +
+                                            excp.Message);
                         throw;
                     }
                 }
@@ -293,8 +293,8 @@ namespace GB28181.Persistence
                     catch (Exception excp)
                     {
                         trans.Rollback();
-                        logger.Error("Exception SQLAssetPersistor Delete (for " + typeof(T).Name + "). " +
-                                     excp.Message);
+                        Logger.Logger.Error("Exception SQLAssetPersistor Delete (for " + typeof(T).Name + "). ->" +
+                                            excp.Message);
                         throw;
                     }
                 }
@@ -324,8 +324,8 @@ namespace GB28181.Persistence
                     catch (Exception excp)
                     {
                         trans.Rollback();
-                        logger.Error("Exception SQLAssetPersistor Delete (for " + typeof(T).Name + "). " +
-                                     excp.Message);
+                        Logger.Logger.Error("Exception SQLAssetPersistor Delete (for " + typeof(T).Name + "). ->" +
+                                            excp.Message);
                         throw;
                     }
                 }
@@ -366,7 +366,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SQLAssetPersistor Get (id) (for " + typeof(T).Name + "). " + excp.Message);
+                Logger.Logger.Error("Exception SQLAssetPersistor Get (id) (for " + typeof(T).Name + "). ->" + excp.Message);
                 throw;
             }
         }
@@ -389,7 +389,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SQLAssetPersistor GetProperty (for " + typeof(T).Name + "). " + excp.Message);
+                Logger.Logger.Error("Exception SQLAssetPersistor GetProperty (for " + typeof(T).Name + "). ->" + excp.Message);
                 throw;
             }
         }
@@ -412,7 +412,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SQLAssetPersistor Count (for " + typeof(T).Name + "). " + excp.Message);
+                Logger.Logger.Error("Exception SQLAssetPersistor Count (for " + typeof(T).Name + "). ->" + excp.Message);
                 throw;
             }
         }
@@ -439,8 +439,8 @@ namespace GB28181.Persistence
             catch (Exception excp)
             {
                 string whereClauseStr = (whereClause != null) ? whereClause.ToString() + ". " : null;
-                logger.Error("Exception SQLAssetPersistor Get (where) (for " + typeof(T).Name + "). " + whereClauseStr +
-                             excp);
+                Logger.Logger.Error("Exception SQLAssetPersistor Get (where) (for " + typeof(T).Name + "). ->" + whereClauseStr +
+                                    excp);
                 throw;
             }
         }
@@ -483,8 +483,8 @@ namespace GB28181.Persistence
             catch (Exception excp)
             {
                 string whereClauseStr = (whereClause != null) ? whereClause.ToString() + ". " : null;
-                logger.Error("Exception SQLAssetPersistor Get (list) (for " + typeof(T).Name + "). " + whereClauseStr +
-                             excp.Message);
+                Logger.Logger.Error("Exception SQLAssetPersistor Get (list) (for " + typeof(T).Name + "). ->" + whereClauseStr +
+                                    excp.Message);
                 throw;
             }
         }
@@ -505,7 +505,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SQLAssetPersistor Get (list) (for " + excp.Message);
+                Logger.Logger.Error("Exception SQLAssetPersistor Get (list) for ->" + excp.Message);
                 throw;
             }
         }

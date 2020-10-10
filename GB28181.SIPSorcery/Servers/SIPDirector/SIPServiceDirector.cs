@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using GB28181.Logger4Net;
 using GB28181.Net;
 using GB28181.Servers.SIPMessage;
 using GB28181.Servers.SIPMonitor;
-using GB28181.Sys;
 using GB28181.Sys.XML;
 using SIPSorcery.SIP;
 
@@ -14,7 +12,7 @@ namespace GB28181.Servers
 {
     public class SIPServiceDirector : ISIPServiceDirector
     {
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
         private ISipMessageCore _sipCoreMessageService;
         private Dictionary<string, Catalog> _Catalogs = new Dictionary<string, Catalog>();
         public Dictionary<string, Catalog> Catalogs => _Catalogs;
@@ -81,7 +79,7 @@ namespace GB28181.Servers
         async public Task<Tuple<string, int, SIPHeader, ProtocolType>> RealVideoReq(string gbid,
             int[] mediaPort, string receiveIP)
         {
-            logger.Debug("Make video request started.");
+            Logger.Logger.Debug("Make video request started.");
             var target = GetTargetMonitorService(gbid);
             if (target == null)
             {
@@ -112,7 +110,7 @@ namespace GB28181.Servers
         async public Task<Tuple<string, int, SIPHeader, ProtocolType>> BackVideoReq(string gbid,
             int[] mediaPort, string receiveIP, ulong beginTime, ulong endTime)
         {
-            logger.Debug("BackVideoReq started.");
+            Logger.Logger.Debug("BackVideoReq started.");
             var target = GetTargetMonitorService(gbid);
             if (target == null)
             {
@@ -146,7 +144,7 @@ namespace GB28181.Servers
             }
 
             target.ByeVideoReq(sessionid);
-            logger.Debug("Video request stopped.");
+            Logger.Logger.Debug("Video request stopped.");
             return true;
         }
 
@@ -172,7 +170,7 @@ namespace GB28181.Servers
         /// <param name="deviceId"></param>
         public void DeviceCatalogQuery(string deviceId)
         {
-            logger.Debug("Device Catalog Query started.");
+            Logger.Logger.Debug("Device Catalog Query started.");
             _sipCoreMessageService.DeviceCatalogQuery(deviceId, out string _);
         }
 
@@ -182,7 +180,7 @@ namespace GB28181.Servers
         /// <param name="deviceId"></param>
         public void DeviceCatalogSubscribe(string deviceId)
         {
-            logger.Debug("Device Catalog Subscribe started.");
+            Logger.Logger.Debug("Device Catalog Subscribe started.");
             _sipCoreMessageService.DeviceCatalogSubscribe(deviceId);
         }
 
@@ -280,7 +278,7 @@ namespace GB28181.Servers
         async public Task<Tuple<string, int, SIPHeader, ProtocolType>> VideoDownloadReq(DateTime beginTime,
             DateTime endTime, string gbid, int[] mediaPort, string receiveIP)
         {
-            logger.Debug("Video Download Request started.");
+            Logger.Logger.Debug("Video Download Request started.");
             var target = GetTargetMonitorService(gbid);
             if (target == null)
             {
@@ -315,7 +313,7 @@ namespace GB28181.Servers
             }
 
             target.BackVideoStopPlayingControlReq(sessionid);
-            logger.Debug("BackVideoStopPlayingControlReq stopped.");
+            Logger.Logger.Debug("BackVideoStopPlayingControlReq stopped.");
             return true;
         }
 
@@ -336,7 +334,7 @@ namespace GB28181.Servers
             }
 
             target.BackVideoPlaySpeedControlReq(sessionid, scale);
-            logger.Debug("BackVideoPlaySpeedControlReq stopped.");
+            Logger.Logger.Debug("BackVideoPlaySpeedControlReq stopped.");
             return true;
         }
 
@@ -356,7 +354,7 @@ namespace GB28181.Servers
             }
 
             target.BackVideoPauseControlReq(sessionid);
-            logger.Debug("BackVideoPauseControlReq stopped.");
+            Logger.Logger.Debug("BackVideoPauseControlReq stopped.");
             return true;
         }
 
@@ -376,7 +374,7 @@ namespace GB28181.Servers
             }
 
             target.BackVideoContinuePlayingControlReq(sessionid);
-            logger.Debug("BackVideoContinuePlayingControlReq stopped.");
+            Logger.Logger.Debug("BackVideoContinuePlayingControlReq stopped.");
             return true;
         }
 
@@ -397,7 +395,7 @@ namespace GB28181.Servers
             }
 
             target.BackVideoPlayPositionControlReq(sessionid, time);
-            logger.Debug("BackVideoPlayPositionControlReq stopped.");
+            Logger.Logger.Debug("BackVideoPlayPositionControlReq stopped.");
             return true;
         }
 

@@ -15,7 +15,6 @@
 using System;
 using System.Net;
 using System.Text.RegularExpressions;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.Sys;
 
@@ -36,7 +35,7 @@ namespace GB28181.Net
 
         private string m_CRLF = AppState.CRLF;
 
-        protected static ILog logger = AppState.logger;
+     //   protected static ILog logger = AppState.logger;
 
         public int NumberChannels = 1;
 
@@ -64,7 +63,7 @@ namespace GB28181.Net
             {
                 if (description == null || description.Trim().Length == 0)
                 {
-                    logger.Error("Cannot parse NetTestDescriptor from an empty string.");
+                    Logger.Logger.Error("Cannot parse NetTestDescriptor from an empty string.");
                     return null;
                 }
                 else
@@ -85,7 +84,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseNetTestDescriptor. " + excp.Message);
+                Logger.Logger.Error("Exception ParseNetTestDescriptor. ->" + excp.Message);
                 throw excp;
             }
         }

@@ -16,7 +16,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
-using GB28181.Logger4Net;
 
 #if UNITTEST
 using NUnit.Framework;
@@ -51,7 +50,7 @@ namespace GB28181
         private const char BACK_SLASH = '\\';
         private const char DEFAULT_PARAMETER_DELIMITER = ';';
 
-        private static ILog logger = AssemblyState.logger;
+      //  private static ILog logger = AssemblyState.logger;
 
         [DataMember] public char TagDelimiter = DEFAULT_PARAMETER_DELIMITER;
 
@@ -178,7 +177,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetKeyValuePairsFromQuoted. " + excp.Message);
+                Logger.Logger.Error("Exception GetKeyValuePairsFromQuoted. ->" + excp.Message);
                 throw excp;
             }
         }

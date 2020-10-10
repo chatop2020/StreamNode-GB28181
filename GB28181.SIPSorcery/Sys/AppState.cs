@@ -24,7 +24,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using GB28181.Logger4Net;
 using SIPSorcery.Sys;
 
 namespace GB28181.Sys
@@ -41,7 +40,7 @@ namespace GB28181.Sys
         public const string EMAIL_VALIDATION_REGEX =
             @"^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-zA-Z0-9]{1}[a-zA-Z0-9\-]{0,62}[a-zA-Z0-9]{1})|[a-zA-Z])\.)+[a-zA-Z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$";
 
-        public static ILog logger; // Used to provide logging functionality for the application.
+     //   public static ILog logger; // Used to provide logging functionality for the application.
 
         private static StringDictionary m_appConfigSettings; // Contains application configuration key, value pairs.
         private static X509Certificate2 m_encryptedSettingsCertificate;
@@ -82,30 +81,32 @@ namespace GB28181.Sys
                 {
                     try
                     {
-                        logger = LogManager.GetLogger(APP_LOGGING_ID);
-                        logger.Debug("Target framework: .Net Core 3.1");
-                        logger.Debug("EnvironmentVariables.MICRO_REGISTRY_ADDRESS: " +
-                                     EnvironmentVariables.MicroRegistryAddress);
-                        logger.Debug("EnvironmentVariables.GB_NATS_CHANNEL_ADDRESS: " +
-                                     EnvironmentVariables.GBNatsChannelAddress);
-                        logger.Debug("EnvironmentVariables.DEVICE_MANAGEMENT_SERVICE_ADDRESS: " +
-                                     EnvironmentVariables.DeviceManagementServiceAddress);
-                        logger.Debug("EnvironmentVariables.SYSTEM_CONFIGURATION_SERVICE_ADDRESS: " +
-                                     EnvironmentVariables.SystemConfigurationServiceAddress);
-                        logger.Debug("EnvironmentVariables.GB_SERVICE_LOCAL_IP: " +
-                                     EnvironmentVariables.GbServiceLocalIp);
+                       // logger = LogManager.GetLogger(APP_LOGGING_ID);
+                       Logger.Logger.Debug("Target framework: .Net Core 3.1");
+                       Logger.Logger.Debug("EnvironmentVariables.MICRO_REGISTRY_ADDRESS: " +
+                                           EnvironmentVariables.MicroRegistryAddress);
+                       Logger.Logger.Debug("EnvironmentVariables.GB_NATS_CHANNEL_ADDRESS: " +
+                                           EnvironmentVariables.GBNatsChannelAddress);
+                       Logger.Logger.Debug("EnvironmentVariables.DEVICE_MANAGEMENT_SERVICE_ADDRESS: " +
+                                           EnvironmentVariables.DeviceManagementServiceAddress);
+                       Logger.Logger.Debug("EnvironmentVariables.SYSTEM_CONFIGURATION_SERVICE_ADDRESS: " +
+                                           EnvironmentVariables.SystemConfigurationServiceAddress);
+                       Logger.Logger.Debug("EnvironmentVariables.GB_SERVICE_LOCAL_IP: " +
+                                           EnvironmentVariables.GbServiceLocalIp);
                         //logger.Debug("EnvironmentVariables.GbServiceLocalPort: " + EnvironmentVariables.GbServiceLocalPort);
-                        logger.Debug("EnvironmentVariables.GB_SERVICE_LOCAL_ID: " +
-                                     EnvironmentVariables.GbServiceLocalId);
-                        logger.Debug("EnvironmentVariables.GBServerGrpcPort: " + EnvironmentVariables.GBServerGrpcPort);
-                        logger.Debug("Notes: if EnvironmentVariables have no value, it gets from xml config.");
+                        Logger.Logger.Debug("EnvironmentVariables.GB_SERVICE_LOCAL_ID: " +
+                                            EnvironmentVariables.GbServiceLocalId);
+                        Logger.Logger.Debug("EnvironmentVariables.GBServerGrpcPort: " + EnvironmentVariables.GBServerGrpcPort);
+                        Logger.Logger.Debug("Notes: if EnvironmentVariables have no value, it gets from xml config.");
                     }
                     catch (Exception excp)
                     {
-                        var errorLog = new StreamWriter(DEFAULT_ERRRORLOG_FILE, true);
+                        
+                        Logger.Logger.Error("Exception Initialising AppState Logging. ->"+excp.Message);
+                        /*var errorLog = new StreamWriter(DEFAULT_ERRRORLOG_FILE, true);
                         errorLog.WriteLine(DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") +
                                            " Exception Initialising AppState Logging. " + excp.Message);
-                        errorLog.Close();
+                        errorLog.Close();*/
                     }
                 }
 
@@ -124,10 +125,10 @@ namespace GB28181.Sys
             }
         }
 
-        public static ILog GetLogger(string logName)
+        /*public static ILog GetLogger(string logName)
         {
             return LogManager.GetLogger(logName);
-        }
+        }*/
 
         /// <summary>
         /// Configures the logging object to use a console logger. This would normally be used
@@ -136,9 +137,9 @@ namespace GB28181.Sys
         /// </summary>
         public static void ConfigureConsoleLogger()
         {
-            var appender = new Appender.ConsoleAppender();
+            /*var appender = new Appender.ConsoleAppender();
             var fallbackLayout = new Layout.PatternLayout("%m%n");
-            appender.Layout = fallbackLayout;
+            appender.Layout = fallbackLayout;*/
 
             // GB28181.Logger4Net.Config.BasicConfigurator.Configure(appender);
         }
@@ -165,14 +166,14 @@ namespace GB28181.Sys
                     {
                         if (setting.StartsWith(ENCRYPTED_SETTING_PREFIX))
                         {
-                            logger.Debug("Decrypting appSetting " + key + ".");
+                            Logger.Logger.Debug("Decrypting appSetting " + key + ".");
 
                             X509Certificate2 encryptedSettingsCertificate = GetEncryptedSettingsCertificate();
                             if (encryptedSettingsCertificate != null)
                             {
                                 if (encryptedSettingsCertificate.HasPrivateKey)
                                 {
-                                    logger.Debug("Private key on encrypted settings certificate is available.");
+                                    Logger.Logger.Debug("Private key on encrypted settings certificate is available.");
 
                                     setting = setting.Substring(2);
                                     byte[] encryptedBytes = Convert.FromBase64String(setting);
@@ -181,7 +182,7 @@ namespace GB28181.Sys
                                     byte[] plainTextBytes = rsa.Decrypt(encryptedBytes, false);
                                     setting = Encoding.ASCII.GetString(plainTextBytes);
 
-                                    logger.Debug("Successfully decrypted appSetting " + key + ".");
+                                    Logger.Logger.Debug("Successfully decrypted appSetting " + key + ".");
                                 }
                                 else
                                 {
@@ -208,7 +209,7 @@ namespace GB28181.Sys
             }
             catch (Exception excp)
             {
-                logger.Error("Exception AppState.GetSetting. " + excp.Message);
+                Logger.Logger.Error("Exception AppState.GetSetting. ->" + excp.Message);
                 throw;
             }
         }
@@ -250,7 +251,7 @@ namespace GB28181.Sys
             bool checkValidity)
         {
             X509Store store = new X509Store(storeLocation);
-            logger.Debug("Certificate store " + store.Location + " opened");
+            Logger.Logger.Debug("Certificate store " + store.Location + " opened");
             store.Open(OpenFlags.OpenExistingOnly);
             X509Certificate2Collection collection =
                 store.Certificates.Find(X509FindType.FindBySubjectName, certificateSubject, checkValidity);
@@ -258,14 +259,14 @@ namespace GB28181.Sys
             {
                 X509Certificate2 serverCertificate = collection[0];
                 bool verifyCert = serverCertificate.Verify();
-                logger.Debug("X509 certificate loaded from current user store, subject=" + serverCertificate.Subject +
-                             ", valid=" + verifyCert + ".");
+                Logger.Logger.Debug("X509 certificate loaded from current user store, subject=" + serverCertificate.Subject +
+                                    ", valid=" + verifyCert + ".");
                 return serverCertificate;
             }
             else
             {
-                logger.Warn("X509 certificate with subject name=" + certificateSubject + ", not found in " +
-                            store.Location + " store.");
+                Logger.Logger.Warn("X509 certificate with subject name=" + certificateSubject + ", not found in " +
+                                   store.Location + " store.");
                 return null;
             }
         }
@@ -284,20 +285,20 @@ namespace GB28181.Sys
                             encryptedSettingsCertName, false);
                         if (encryptedSettingsCertificate != null)
                         {
-                            logger.Debug("Encrypted settings certificate successfully loaded for " +
-                                         encryptedSettingsCertName + ".");
+                            Logger.Logger.Debug("Encrypted settings certificate successfully loaded for " +
+                                                encryptedSettingsCertName + ".");
                             m_encryptedSettingsCertificate = encryptedSettingsCertificate;
                         }
                         else
                         {
-                            logger.Error("Could not load the encrypted settings certificate for " +
-                                         encryptedSettingsCertName + ".");
+                            Logger.Logger.Error("Could not load the encrypted settings certificate for " +
+                                                encryptedSettingsCertName + ".");
                         }
                     }
                     else
                     {
-                        logger.Error("Could not load the encrypted settings certificate, no " +
-                                     ENCRYPTED_SETTINGS_CERTIFICATE_NAME + " setting found.");
+                        Logger.Logger.Error("Could not load the encrypted settings certificate, no " +
+                                            ENCRYPTED_SETTINGS_CERTIFICATE_NAME + " setting found.");
                     }
                 }
 
@@ -305,7 +306,7 @@ namespace GB28181.Sys
             }
             catch (Exception excp)
             {
-                logger.Error("Exception AppState.GetEncryptedSettingsCertificate. " + excp.Message);
+                Logger.Logger.Error("Exception AppState.GetEncryptedSettingsCertificate. ->" + excp.Message);
                 return null;
             }
         }

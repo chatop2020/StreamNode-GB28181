@@ -14,8 +14,6 @@
 
 
 using System;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -23,7 +21,7 @@ namespace GB28181.App
 {
     public class SIPNonInviteServerUserAgent : ISIPServerUserAgent
     {
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         private SIPAuthenticateRequestDelegate SIPAuthenticateRequest_External;
         private SIPAssetGetDelegate<SIPAccount> GetSIPAccount_External;
@@ -178,7 +176,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception LoadSIPAccountForIncomingCall. " + excp.Message);
+                Logger.Logger.Error("Exception LoadSIPAccountForIncomingCall. ->" + excp.Message);
                 Reject(SIPResponseStatusCodesEnum.InternalServerError, null, null);
                 return false;
             }
@@ -247,7 +245,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPNonInviteUserAgent AuthenticateCall. " + excp.Message);
+                Logger.Logger.Error("Exception SIPNonInviteUserAgent AuthenticateCall. ->" + excp.Message);
                 Reject(SIPResponseStatusCodesEnum.InternalServerError, null, null);
             }
 

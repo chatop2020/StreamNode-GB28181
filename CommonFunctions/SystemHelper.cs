@@ -466,8 +466,6 @@ namespace CommonFunctions
         /// <returns></returns>
         public static double GetMemoryUsage(Process process)
         {
-            //Console.WriteLine(process.WorkingSet64);
-            //Console.WriteLine(Environment.WorkingSet);
             long bytes = process.WorkingSet64;
             return BytesToMB(bytes);
         }

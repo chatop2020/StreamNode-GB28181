@@ -76,6 +76,12 @@ namespace StreamNodeWebApi.Controllers
         }
 
 
+        /// <summary>
+        /// 当有流被发布时
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
         [Route("OnPublish")]
         [HttpPost]
         [Log]
@@ -93,6 +99,12 @@ namespace StreamNodeWebApi.Controllers
         }
 
 
+        /// <summary>
+        /// 当流状态改变时
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
         [Route("OnStreamChange")]
         [HttpPost]
         [Log]
@@ -110,6 +122,11 @@ namespace StreamNodeWebApi.Controllers
         }
 
 
+        /// <summary>
+        /// 当有流无播放者时
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [Route("OnStreamNoneReader")]
         [HttpPost]
         [Log]
@@ -123,6 +140,12 @@ namespace StreamNodeWebApi.Controllers
             };
         }
 
+        /// <summary>
+        /// 当有停止事件时
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
         [Route("OnStop")]
         [HttpPost]
         [Log]
@@ -140,6 +163,12 @@ namespace StreamNodeWebApi.Controllers
         }
 
 
+        /// <summary>
+        /// 当有播放事件时
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
         [Route("OnPlay")]
         [HttpPost]
         [Log]
@@ -170,7 +199,7 @@ namespace StreamNodeWebApi.Controllers
         public ResToWebHookOnStreamChange OnMediaServerStart(Object req)
         {
             var str = Convert.ToString(req);
-            string[] tmpStrArr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            string[] tmpStrArr = str!.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             str = "";
             foreach (var tmpstr in tmpStrArr)
             {

@@ -18,7 +18,6 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using GB28181.App;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
@@ -58,7 +57,7 @@ namespace GB28181
             BlackholeAddress =
                 IPAddress.Any; // (IPAddress.Any is 0.0.0.0) Any SIP messages with this IP address will be dropped.
 
-        private static ILog logger = AssemblyState.logger;
+       // private static ILog logger = AssemblyState.logger;
 
         private bool
             m_queueIncoming =
@@ -178,7 +177,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception AddSIPChannel. " + excp.Message);
+                Logger.Logger.Error("Exception AddSIPChannel. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -234,7 +233,7 @@ namespace GB28181
                     // Keep the queue within size limits 
                     if (m_inMessageQueue.Count >= MAX_INMESSAGE_QUEUECOUNT)
                     {
-                        logger.Warn("SIPTransport queue full new message from " + remoteEndPoint + " being discarded.");
+                        Logger.Logger.Warn("SIPTransport queue full new message from " + remoteEndPoint + " being discarded.");
                     }
                     else
                     {
@@ -249,7 +248,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransport ReceiveMessage. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport ReceiveMessage. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -268,11 +267,11 @@ namespace GB28181
                 m_inMessageArrived.Set();
                 m_inMessageArrived.Set();
 
-                logger.Debug("SIPTransport Shutdown Complete.");
+                Logger.Logger.Debug("SIPTransport Shutdown Complete.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransport Shutdown. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport Shutdown. ->" + excp.Message);
             }
         }
 
@@ -435,8 +434,8 @@ namespace GB28181
             }
             else
             {
-                logger.Warn("No SIPChannel could be found for " + localSIPEndPoint +
-                            " in SIPTransport.SendRaw, sending to " + destinationEndPoint.ToString() + ".");
+                Logger.Logger.Warn("No SIPChannel could be found for " + localSIPEndPoint +
+                                   " in SIPTransport.SendRaw, sending to " + destinationEndPoint.ToString() + ".");
                 //logger.Warn(Encoding.UTF8.GetString(buffer));
             }
         }
@@ -582,7 +581,7 @@ namespace GB28181
             }
             catch (ApplicationException appExcp)
             {
-                logger.Warn("ApplicationException SIPTransport SendRequest. " + appExcp.Message);
+                Logger.Logger.Error("ApplicationException SIPTransport SendRequest. ->" + appExcp.Message);
 
                 SIPResponse errorResponse = GetResponse(sipRequest, SIPResponseStatusCodesEnum.InternalServerError,
                     appExcp.Message);
@@ -603,8 +602,8 @@ namespace GB28181
 
                 if (errorResponse.Header.Vias.Length == 0)
                 {
-                    logger.Warn("Could not send error response for " + appExcp.Message +
-                                " as no non-local Via headers were available.");
+                    Logger.Logger.Warn("Could not send error response for " + appExcp.Message +
+                                       " as no non-local Via headers were available.");
                 }
                 else
                 {
@@ -714,7 +713,7 @@ namespace GB28181
                 }
                 else
                 {
-                    logger.Warn("Could not find channel to send SIP Response in SendResponse.");
+                    Logger.Logger.Warn("Could not find channel to send SIP Response in SendResponse.");
                 }
             }
         }
@@ -737,8 +736,8 @@ namespace GB28181
             SIPViaHeader topViaHeader = sipResponse.Header.Vias.TopViaHeader;
             if (topViaHeader == null)
             {
-                logger.Warn("There was no top Via header on a SIP response from " + sipResponse.RemoteSIPEndPoint +
-                            " when attempting to send it, response dropped.");
+                Logger.Logger.Warn("There was no top Via header on a SIP response from " + sipResponse.RemoteSIPEndPoint +
+                                   " when attempting to send it, response dropped.");
                 //logger.Warn(sipResponse.ToString());
             }
             else
@@ -830,7 +829,7 @@ namespace GB28181
             }
             catch (ApplicationException appExcp)
             {
-                logger.Warn("ApplicationException SIPTransport SendResponse. " + appExcp.Message);
+                Logger.Logger.Error("ApplicationException SIPTransport SendResponse. ->" + appExcp.Message);
             }
         }
 
@@ -863,11 +862,11 @@ namespace GB28181
                     m_inMessageArrived.WaitOne(MAX_QUEUEWAIT_PERIOD);
                 }
 
-                logger.Warn("SIPTransport process received messsages thread stopped.");
+                Logger.Logger.Warn("SIPTransport process received messsages thread stopped.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransport ProcessInMessage. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport ProcessInMessage. ->" + excp.Message);
             }
         }
 
@@ -1212,8 +1211,8 @@ namespace GB28181
                     }
                     catch (Exception excp)
                     {
-                        logger.Error("Exception SIPTransport ProcessPendingRequests checking pendings. " +
-                                     excp.Message);
+                        Logger.Logger.Error("Exception SIPTransport ProcessPendingRequests checking pendings. ->" +
+                                            excp.Message);
                     }
 
                     Thread.Sleep(PENDINGREQUESTS_CHECK_PERIOD);
@@ -1223,7 +1222,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransport ProcessPendingRequests. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport ProcessPendingRequests. ->" + excp.Message);
             }
             finally
             {
@@ -1417,9 +1416,9 @@ namespace GB28181
                                                 SIPTransactionStatesEnum.Completed &&
                                                 sipRequest.Method != SIPMethodsEnum.ACK)
                                             {
-                                                logger.Warn("Resending final response for " + sipRequest.Method + ", " +
-                                                            sipRequest.URI.ToString() + ", cseq=" +
-                                                            sipRequest.Header.CSeq + ".");
+                                                Logger.Logger.Warn("Resending final response for " + sipRequest.Method + ", " +
+                                                                   sipRequest.URI.ToString() + ", cseq=" +
+                                                                   sipRequest.Header.CSeq + ".");
                                                 requestTransaction.RetransmitFinalResponse();
                                             }
                                             else if (sipRequest.Method == SIPMethodsEnum.ACK)
@@ -1451,8 +1450,8 @@ namespace GB28181
                                             }
                                             else
                                             {
-                                                logger.Warn("Transaction already exists, ignoring duplicate request, " +
-                                                            sipRequest.Method + " " + sipRequest.URI.ToString() + ".");
+                                                Logger.Logger.Warn("Transaction already exists, ignoring duplicate request, " +
+                                                                   sipRequest.Method + " " + sipRequest.URI.ToString() + ".");
                                                 //FireSIPBadRequestInTraceEvent(sipChannel.SIPChannelEndPoint, remoteEndPoint, "Transaction already exists, ignoring duplicate request, " + sipRequest.Method + " " + sipRequest.URI.ToString() + " from " + remoteEndPoint + ".", SIPValidationFieldsEnum.Request);
                                             }
                                         }
@@ -1541,7 +1540,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Warn("SIPMessageReceived exception : \r\n" + excp.Message+"\r\n"+excp.StackTrace);
+                Logger.Logger.Error("SIPMessageReceived exception ->" + excp.Message+"->"+excp.StackTrace);
                 FireSIPBadRequestInTraceEvent(sipChannel.SIPChannelEndPoint, remoteEndPoint,
                     "Exception SIPTransport. " + excp.Message, SIPValidationFieldsEnum.Unknown, rawSIPMessage);
                 if (PerformanceMonitorPrefix != null)
@@ -1574,8 +1573,8 @@ namespace GB28181
                 }
                 else
                 {
-                    logger.Warn("No SIP channel could be found for local SIP end point " + localSIPEndPoint.ToString() +
-                                ".");
+                    Logger.Logger.Warn("No SIP channel could be found for local SIP end point " + localSIPEndPoint.ToString() +
+                                       ".");
                     return null;
                 }
             }
@@ -1606,7 +1605,7 @@ namespace GB28181
                 }
             }
 
-            logger.Warn("No default SIP channel could be found for " + protocol + ".");
+            Logger.Logger.Warn("No default SIP channel could be found for " + protocol + ".");
             return null;
         }
 
@@ -1646,7 +1645,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetListeningSIPEndPoints. " + excp.Message);
+                Logger.Logger.Error("Exception GetListeningSIPEndPoints. ->" + excp.Message);
                 throw;
             }
         }
@@ -1662,7 +1661,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception FireSIPRequestInTraceEvent. " + excp.Message);
+                Logger.Logger.Error("Exception FireSIPRequestInTraceEvent. ->" + excp.Message);
             }
         }
 
@@ -1675,7 +1674,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception FireSIPRequestOutTraceEvent. " + excp.Message);
+                Logger.Logger.Error("Exception FireSIPRequestOutTraceEvent. ->" + excp.Message);
             }
         }
 
@@ -1688,7 +1687,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception FireSIPResponseInTraceEvent. " + excp.Message);
+                Logger.Logger.Error("Exception FireSIPResponseInTraceEvent. ->" + excp.Message);
             }
         }
 
@@ -1701,7 +1700,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception FireSIPResponseOutTraceEvent. " + excp.Message);
+                Logger.Logger.Error("Exception FireSIPResponseOutTraceEvent. ->" + excp.Message);
             }
         }
 
@@ -1716,7 +1715,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception FireSIPBadRequestInTraceEvent. " + excp.Message);
+                Logger.Logger.Error("Exception FireSIPBadRequestInTraceEvent. ->" + excp.Message);
             }
         }
 
@@ -1730,7 +1729,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception FireSIPBadResponseInTraceEvent. " + excp.Message);
+                Logger.Logger.Error("Exception FireSIPBadResponseInTraceEvent. ->" + excp.Message);
             }
         }
 
@@ -1784,7 +1783,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransport GetResponse. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport GetResponse. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -1824,7 +1823,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransport GetResponse. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport GetResponse. ->" + excp.Message);
                 throw;
             }
         }
@@ -1864,7 +1863,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransport GetRequest. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport GetRequest. ->" + excp.Message);
                 throw;
             }
         }
@@ -1899,7 +1898,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception CreateNonInviteTransaction. " + excp.Message);
+                Logger.Logger.Error("Exception CreateNonInviteTransaction. ->" + excp.Message);
                 throw;
             }
         }
@@ -1922,7 +1921,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception CreateUACTransaction. " + excp.Message);
+                Logger.Logger.Error("Exception CreateUACTransaction. ->" + excp.Message);
                 throw;
             }
         }
@@ -1952,7 +1951,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception CreateUASTransaction. " + excp);
+                Logger.Logger.Error("Exception CreateUASTransaction. ->" + excp);
                 throw;
             }
         }
@@ -1975,7 +1974,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception CreateCancelTransaction. " + excp);
+                Logger.Logger.Error("Exception CreateCancelTransaction. ->" + excp);
                 throw;
             }
         }

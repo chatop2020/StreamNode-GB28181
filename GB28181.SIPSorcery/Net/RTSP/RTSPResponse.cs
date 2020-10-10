@@ -12,7 +12,6 @@
 
 using System;
 using System.Net;
-using GB28181.Logger4Net;
 using SIPSorcery.Sys;
 
 namespace GB28181.Net
@@ -28,7 +27,7 @@ namespace GB28181.Net
     /// </summary>
     public class RTSPResponse
     {
-        private static ILog logger = AssemblyStreamState.logger;
+       // private static ILog logger = AssemblyStreamState.logger;
 
         private static string m_CRLF = RTSPConstants.CRLF;
 
@@ -98,7 +97,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception parsing RTSP reqsponse. " + excp.Message);
+                Logger.Logger.Error("Exception parsing RTSP reqsponse. ->" + excp.Message);
                 throw new ApplicationException("There was an exception parsing an RTSP response. " + excp.Message);
             }
         }
@@ -127,7 +126,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPResponse ToString. " + excp.Message);
+                Logger.Logger.Error("Exception RTSPResponse ToString. ->" + excp.Message);
                 throw excp;
             }
         }

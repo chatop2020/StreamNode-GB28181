@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using GB28181.App;
 using GB28181.Cache;
 using GB28181.Config;
-using GB28181.Logger4Net;
 using GB28181.Net;
 using GB28181.Net.RTP;
 using GB28181.Servers.SIPMonitor;
@@ -48,7 +47,7 @@ namespace GB28181.Servers.SIPMessage
     {
         #region 私有字段
 
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         private static string _sipServerAgent = SIPConstants.SIP_SERVER_STRING;
         public static int MEDIA_PORT_START = 10000;
@@ -316,7 +315,7 @@ namespace GB28181.Servers.SIPMessage
             }
             catch (Exception ex)
             {
-                logger.Debug("Exception _cameraCache_OnItemAdded: " + ex.Message);
+                Logger.Logger.Error("Exception _cameraCache_OnItemAdded: ->" + ex.Message);
             }
         }
 
@@ -332,7 +331,7 @@ namespace GB28181.Servers.SIPMessage
 
             try
             {
-                logger.Debug("SIPMessageCore is runing at " + LocalEP.ToString());
+                Logger.Logger.Debug("SIPMessageCore is runing at " + LocalEP.ToString());
                 var sipChannels = SIPTransportConfig.ParseSIPChannelsNode(_LocalSipAccount);
                 _transport.PerformanceMonitorPrefix = SIPSorceryPerformanceMonitor.REGISTRAR_PREFIX;
                 _transport.MsgEncode = _LocalSipAccount.MsgEncode;
@@ -340,7 +339,7 @@ namespace GB28181.Servers.SIPMessage
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Start: " + excp.Message);
+                Logger.Logger.Error("Exception Start. ->" + excp.Message);
             }
         }
 
@@ -364,18 +363,18 @@ namespace GB28181.Servers.SIPMessage
 
             try
             {
-                logger.Debug("SIP Registrar daemon stopping...");
-                logger.Debug("Shutting down SIP Transport.");
+                Logger.Logger.Debug("SIP Registrar daemon stopping...");
+                Logger.Logger.Debug("Shutting down SIP Transport.");
 
                 _transport.Shutdown();
                 _transport = null;
 
-                logger.Debug("sip message service stopped.");
-                logger.Debug("SIP Registrar daemon stopped.");
+                Logger.Logger.Debug("sip message service stopped.");
+                Logger.Logger.Debug("SIP Registrar daemon stopped.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Stop: " + excp.Message);
+                Logger.Logger.Error("Exception Stop. ->" + excp.Message);
             }
         }
 
@@ -395,7 +394,7 @@ namespace GB28181.Servers.SIPMessage
             }
             catch (Exception excp)
             {
-                logger.Error("Exception PtzControl: " + excp.Message);
+                Logger.Logger.Error("Exception PtzControl. ->" + excp.Message);
             }
         }
 
@@ -413,7 +412,7 @@ namespace GB28181.Servers.SIPMessage
             }
             catch (Exception excp)
             {
-                logger.Error("Exception DeviceStateQuery: " + excp.Message);
+                Logger.Logger.Error("Exception DeviceStateQuery. ->" + excp.Message);
             }
         }
 
@@ -430,11 +429,11 @@ namespace GB28181.Servers.SIPMessage
                     }
                 }
 
-                logger.Debug("RecordFileQuery halted.");
+                Logger.Logger.Debug("RecordFileQuery halted.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RecordFileQuery: " + excp.Message);
+                Logger.Logger.Error("Exception RecordFileQuery. ->" + excp.Message);
             }
 
             return RecordTotal;
@@ -704,7 +703,7 @@ namespace GB28181.Servers.SIPMessage
         {
             if (response == null)
             {
-                logger.Error("对方回复为空(response == null)");
+                Logger.Logger.Error("对方回复为空(response == null)");
                 return;
             }
 
@@ -851,7 +850,7 @@ namespace GB28181.Servers.SIPMessage
             }
             catch (Exception ex)
             {
-                logger.Warn("CatalogHandle Exception: " + ex.Message);
+                Logger.Logger.Error("CatalogHandle Exception. ->" + ex.Message);
             }
         }
 
@@ -1228,7 +1227,7 @@ namespace GB28181.Servers.SIPMessage
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransport GetResponse. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransport GetResponse. ->" + excp.Message);
                 throw;
             }
         }

@@ -43,10 +43,12 @@ namespace StreamNodeWebApi
             string info = $@"StatusCode:{context.Response.StatusCode}";
             string remoteIpAddr = context.Connection.RemoteIpAddress.ToString();
             info = $@"{info}  Body: {error}";
-            LogWebApiWriter.WriteWebApiLog(
+            Logger.Logger.Error($@"OUTPUT    {remoteIpAddr}    {context.Request.Method}    {context.Request.Path} -> "+
+                info);
+            /*LogWebApiWriter.WriteWebApiLog(
                 $@"OUTPUT    {remoteIpAddr}    {context.Request.Method}    {context.Request.Path}",
                 info,
-                ConsoleColor.Yellow);
+                ConsoleColor.Yellow);*/
 
             await context.Response.WriteAsync(error);
         }
@@ -66,10 +68,12 @@ namespace StreamNodeWebApi
             string info = $@"StatusCode:{context.Response.StatusCode}";
             string remoteIpAddr = context.Connection.RemoteIpAddress.ToString();
             info = $@"{info}  Body: {error}";
-            LogWebApiWriter.WriteWebApiLog(
+            Logger.Logger.Error($@"OUTPUT    {remoteIpAddr}    {context.Request.Method}    {context.Request.Path} -> "+
+                info);
+            /*LogWebApiWriter.WriteWebApiLog(
                 $@"OUTPUT    {remoteIpAddr}    {context.Request.Method}    {context.Request.Path}",
                 info,
-                ConsoleColor.Yellow);
+                ConsoleColor.Yellow);*/
 
             await context.Response.WriteAsync(error);
         }

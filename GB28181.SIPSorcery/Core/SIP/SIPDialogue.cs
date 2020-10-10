@@ -13,7 +13,6 @@
 
 using System;
 using System.Net;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -45,7 +44,7 @@ namespace GB28181
     /// </remarks>
     public class SIPDialogue
     {
-        protected static ILog logger = AssemblyState.logger;
+        //protected static ILog logger = AssemblyState.logger;
 
         protected static string m_CRLF = SIPConstants.CRLF;
         protected static string m_sipVersion = SIPConstants.SIP_VERSION_STRING;
@@ -408,7 +407,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPDialogue Hangup. " + excp.Message);
+                Logger.Logger.Error("Exception SIPDialogue Hangup. ->" + excp.Message);
                 throw;
             }
         }

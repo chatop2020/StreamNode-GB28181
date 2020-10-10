@@ -65,7 +65,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPDialogEventSubscription GetFullState. " + excp.Message);
+                Logger.Logger.Error("Exception SIPDialogEventSubscription GetFullState. ->" + excp.Message);
             }
         }
 
@@ -130,7 +130,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPDialogEventSubscription AddMonitorEvent. " + excp.Message);
+                Logger.Logger.Error("Exception SIPDialogEventSubscription AddMonitorEvent. ->" + excp.Message);
                 throw;
             }
         }

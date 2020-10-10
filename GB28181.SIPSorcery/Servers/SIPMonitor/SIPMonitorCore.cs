@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using GB28181.App;
 using GB28181.Config;
-using GB28181.Logger4Net;
 using GB28181.Net;
 using GB28181.Servers.SIPMessage;
 using GB28181.Sys;
@@ -24,7 +23,7 @@ namespace GB28181.Servers.SIPMonitor
     {
         #region 私有字段
 
-        private static ILog logger = AppState.logger;
+        //private static ILog logger = AppState.logger;
         private AutoResetEvent _autoResetEventForRpc = new AutoResetEvent(false);
 
         //concurent requet/reply
@@ -117,7 +116,7 @@ namespace GB28181.Servers.SIPMonitor
             int cSeq = CallHelpers.CreateNewCSeq();
             string callId = CallProperties.CreateNewCallId();
             callid = callId;
-            logger.Debug("RealVideoReq: DeviceId=" + DeviceId);
+            Logger.Logger.Debug("RealVideoReq: DeviceId=" + DeviceId);
             SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
           
 
@@ -161,7 +160,7 @@ namespace GB28181.Servers.SIPMonitor
             int cSeq = CallHelpers.CreateNewCSeq();
             string callId = CallProperties.CreateNewCallId();
             callid = callId;
-            logger.Debug("RealVideoReq: DeviceId=" + DeviceId);
+            Logger.Logger.Debug("RealVideoReq: DeviceId=" + DeviceId);
             SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
 
             SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), "");
@@ -206,7 +205,7 @@ namespace GB28181.Servers.SIPMonitor
             string fromTag = CallProperties.CreateNewTag();
             int cSeq = CallHelpers.CreateNewCSeq();
             string callId = CallProperties.CreateNewCallId();
-            logger.Debug("RealVideoReq: DeviceId=" + DeviceId);
+            Logger.Logger.Debug("RealVideoReq: DeviceId=" + DeviceId);
             SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
             SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), "");
             SIPFromHeader from = new SIPFromHeader(null, localUri, fromTag);
@@ -336,7 +335,7 @@ namespace GB28181.Servers.SIPMonitor
             }
             catch (Exception ex)
             {
-                logger.Error("ByeVideoReq: " + ex.Message);
+                Logger.Logger.Error("ByeVideoReq. ->" + ex.Message);
             }
         }
 
@@ -555,7 +554,7 @@ namespace GB28181.Servers.SIPMonitor
                 Thread.Sleep(50);
                 if (DateTime.Now.Subtract(recordQueryTime).TotalSeconds > 2)
                 {
-                    logger.Debug("[" + DeviceId + "] 等待录像查询超时");
+                    Logger.Logger.Debug("[" + DeviceId + "] 等待录像查询超时");
                     _recordTotal = 0;
                     break;
                 }
@@ -580,7 +579,7 @@ namespace GB28181.Servers.SIPMonitor
             string fromTag = CallProperties.CreateNewTag();
             int cSeq = CallHelpers.CreateNewCSeq();
             string callId = CallProperties.CreateNewCallId();
-            logger.Debug("BackVideoReq: DeviceId=" + DeviceId);
+            Logger.Logger.Debug("BackVideoReq: DeviceId=" + DeviceId);
             SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
             SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), "");
             SIPFromHeader from = new SIPFromHeader(null, localUri, fromTag);
@@ -939,7 +938,7 @@ namespace GB28181.Servers.SIPMonitor
             }
             catch (Exception ex)
             {
-                logger.Error("BackVideoStopPlayingControlReq: " + ex.Message);
+                Logger.Logger.Error("BackVideoStopPlayingControlReq. ->" + ex.Message);
                 return false;
             }
         }
@@ -989,7 +988,7 @@ namespace GB28181.Servers.SIPMonitor
             }
             catch (Exception ex)
             {
-                logger.Error("BackVideoPlaySpeedControlReq: " + ex.Message);
+                Logger.Logger.Error("BackVideoPlaySpeedControlReq. ->" + ex.Message);
                 return false;
             }
         }
@@ -1161,7 +1160,7 @@ namespace GB28181.Servers.SIPMonitor
             }
             catch (Exception ex)
             {
-                logger.Error("BackVideoContinuePlayingControlReq: " + ex.Message);
+                Logger.Logger.Error("BackVideoContinuePlayingControlReq. ->" + ex.Message);
                 return true;
             }
         }
@@ -1291,7 +1290,7 @@ namespace GB28181.Servers.SIPMonitor
             }
             catch (Exception ex)
             {
-                logger.Error("BackVideoPauseControlReq: " + ex.Message);
+                Logger.Logger.Error("BackVideoPauseControlReq. ->" + ex.Message);
                 return false;
             }
         }
@@ -1443,7 +1442,7 @@ namespace GB28181.Servers.SIPMonitor
             }
             catch (Exception ex)
             {
-                logger.Error("BackVideoPlayPositionControlReq: " + ex.Message);
+                Logger.Logger.Error("BackVideoPlayPositionControlReq. ->" + ex.Message);
                 return false;
             }
         }
@@ -1556,7 +1555,7 @@ namespace GB28181.Servers.SIPMonitor
             int cSeq = CallHelpers.CreateNewCSeq();
             string callId = CallProperties.CreateNewCallId();
             _callid = callId;
-            logger.Debug("PtzContrl() start to PTZRequest.");
+            Logger.Logger.Debug("PtzContrl() start to PTZRequest.");
             SIPRequest ptzReq = PTZRequest(fromTag, toTag, cSeq, callId);
             string cmdStr = GetPtzCmd(ucommand, dwSpeed);
 

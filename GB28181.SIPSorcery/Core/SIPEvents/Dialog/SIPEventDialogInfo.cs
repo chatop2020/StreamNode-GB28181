@@ -18,8 +18,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.SIP;
 
 #if UNITTEST
@@ -57,7 +55,7 @@ namespace GB28181
     /// </remarks>
     public class SIPEventDialogInfo : SIPEvent
     {
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         private static readonly string m_dialogXMLNS = SIPEventConsts.DIALOG_XML_NAMESPACE_URN;
         //private static readonly string m_sipsorceryXMLNS = SIPEventConsts.SIPSORCERY_DIALOG_XML_NAMESPACE_URN;
@@ -99,7 +97,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPEventDialogInfo Ctor. " + excp.Message);
+                Logger.Logger.Error("Exception SIPEventDialogInfo Ctor. ->" + excp.Message);
                 throw;
             }
         }

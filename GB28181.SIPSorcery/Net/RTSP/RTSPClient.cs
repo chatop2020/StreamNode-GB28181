@@ -20,7 +20,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using GB28181.Logger4Net;
 using SIPSorcery.Sys;
 
 namespace GB28181.Net
@@ -40,7 +39,7 @@ namespace GB28181.Net
 
         private const int BANDWIDTH_CALCULATION_SECONDS = 5; // The interval at which to do bandwidth calculations.
 
-        private static ILog logger = AssemblyStreamState.logger;
+     //   private static ILog logger = AssemblyStreamState.logger;
 
         private string _url;
         private int _cseq = 1;
@@ -97,7 +96,7 @@ namespace GB28181.Net
                 string hostname = Regex.Match(url, @"rtsp://(?<hostname>\S+?)/").Result("${hostname}");
                 //IPEndPoint rtspEndPoint = DNSResolver.R(hostname, DNS_RESOLUTION_TIMEOUT);
 
-                logger.Debug("RTSP Client Connecting to " + hostname + ".");
+                Logger.Logger.Debug("RTSP Client Connecting to " + hostname + ".");
                 TcpClient rtspSocket = new TcpClient(hostname, RTSP_PORT);
                 NetworkStream rtspStream = rtspSocket.GetStream();
 
@@ -118,7 +117,7 @@ namespace GB28181.Net
 
                 if (bytesRead > 0)
                 {
-                    logger.Debug(Encoding.UTF8.GetString(buffer, 0, bytesRead));
+                    Logger.Logger.Debug(Encoding.UTF8.GetString(buffer, 0, bytesRead));
                     byte[] msgBuffer = new byte[bytesRead];
                     Buffer.BlockCopy(buffer, 0, msgBuffer, 0, bytesRead);
                     rtspMessage = RTSPMessage.ParseRTSPMessage(msgBuffer, null, null);
@@ -126,15 +125,15 @@ namespace GB28181.Net
                     if (rtspMessage.RTSPMessageType == RTSPMessageTypesEnum.Response)
                     {
                         rtspResponse = RTSPResponse.ParseRTSPResponse(rtspMessage);
-                        logger.Debug("RTSP Response received: " + rtspResponse.StatusCode + " " + rtspResponse.Status +
-                                     " " + rtspResponse.ReasonPhrase + ".");
+                        Logger.Logger.Debug("RTSP Response received: " + rtspResponse.StatusCode + " " + rtspResponse.Status +
+                                            " " + rtspResponse.ReasonPhrase + ".");
                     }
 
                     rtspSDP = rtspResponse.Body;
                 }
                 else
                 {
-                    logger.Warn("Socket closed prematurely in GetStreamDescription for " + url + ".");
+                    Logger.Logger.Warn("Socket closed prematurely in GetStreamDescription for " + url + ".");
                 }
 
                 rtspSocket.Close();
@@ -143,7 +142,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetStreamDescription. " + excp.Message);
+                Logger.Logger.Error("Exception GetStreamDescription. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -169,7 +168,7 @@ namespace GB28181.Net
                     hostname = IPSocket.ParseHostFromSocket(hostname);
                 }
 
-                logger.Debug("RTSP client connecting to " + hostname + ", port " + port + ".");
+                Logger.Logger.Debug("RTSP client connecting to " + hostname + ", port " + port + ".");
 
                 _rtspConnection = new TcpClient(hostname, port);
                 _rtspStream = _rtspConnection.GetStream();
@@ -214,9 +213,9 @@ namespace GB28181.Net
                                 setupResponse.Header.Transport.GetServerRTPPort());
                             _rtspSession.Start();
 
-                            logger.Debug("RTSP Response received to SETUP: " + setupResponse.Status + ", session ID " +
-                                         _rtspSession.SessionID + ", server RTP endpoint " +
-                                         _rtspSession.RemoteEndPoint + ".");
+                            Logger.Logger.Debug("RTSP Response received to SETUP: " + setupResponse.Status + ", session ID " +
+                                                _rtspSession.SessionID + ", server RTP endpoint " +
+                                                _rtspSession.RemoteEndPoint + ".");
 
                             if (OnSetupSuccess != null)
                             {
@@ -225,7 +224,7 @@ namespace GB28181.Net
                         }
                         else
                         {
-                            logger.Warn("RTSP Response received to SETUP: " + setupResponse.Status + ".");
+                            Logger.Logger.Warn("RTSP Response received to SETUP: " + setupResponse.Status + ".");
                             throw new ApplicationException("An error response of " + setupResponse.Status +
                                                            " was received for an RTSP setup request.");
                         }
@@ -243,7 +242,7 @@ namespace GB28181.Net
         {
             try
             {
-                logger.Warn("RTSPCient.RTPQueueFull purging frames list.");
+                Logger.Logger.Warn("RTSPCient.RTPQueueFull purging frames list.");
                 Debug.WriteLine("RTSPCient.RTPQueueFull purging frames list.");
 
                 lock (_frames)
@@ -255,7 +254,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPClient.RTPQueueFull. " + excp);
+                Logger.Logger.Error("Exception RTSPClient.RTPQueueFull. ->" + excp);
             }
         }
 
@@ -288,8 +287,8 @@ namespace GB28181.Net
                 if (rtspMessage.RTSPMessageType == RTSPMessageTypesEnum.Response)
                 {
                     var playResponse = RTSPResponse.ParseRTSPResponse(rtspMessage);
-                    logger.Debug("RTSP Response received to PLAY: " + playResponse.StatusCode + " " +
-                                 playResponse.Status + " " + playResponse.ReasonPhrase + ".");
+                    Logger.Logger.Debug("RTSP Response received to PLAY: " + playResponse.StatusCode + " " +
+                                        playResponse.Status + " " + playResponse.ReasonPhrase + ".");
                 }
             }
             else
@@ -308,7 +307,7 @@ namespace GB28181.Net
             {
                 if (_rtspStream != null && _rtspConnection.Connected)
                 {
-                    logger.Debug("RTSP client sending teardown request for " + _url + ".");
+                    Logger.Logger.Debug("RTSP client sending teardown request for " + _url + ".");
 
                     RTSPRequest teardownRequest = new RTSPRequest(RTSPMethodsEnum.TEARDOWN, _url);
                     RTSPHeader teardownHeader = new RTSPHeader(_cseq++, _rtspSession.SessionID);
@@ -321,12 +320,12 @@ namespace GB28181.Net
                 }
                 else
                 {
-                    logger.Debug("RTSP client did not send teardown request for " + _url + ", the socket was closed.");
+                    Logger.Logger.Debug("RTSP client did not send teardown request for " + _url + ", the socket was closed.");
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPClient.Teardown. " + excp);
+                Logger.Logger.Error("Exception RTSPClient.Teardown. ->" + excp);
             }
         }
 
@@ -339,7 +338,7 @@ namespace GB28181.Net
             {
                 if (!_isClosed)
                 {
-                    logger.Debug("RTSP client, closing connection for " + _url + ".");
+                    Logger.Logger.Debug("RTSP client, closing connection for " + _url + ".");
 
                     _isClosed = true;
                     _sendKeepAlivesMRE.Set();
@@ -359,7 +358,7 @@ namespace GB28181.Net
                         }
                         catch (Exception rtpStreamExcp)
                         {
-                            logger.Error("Exception RTSPClient.Close closing RTP stream. " + rtpStreamExcp);
+                            Logger.Logger.Error("Exception RTSPClient.Close closing RTP stream. ->" + rtpStreamExcp);
                         }
                     }
 
@@ -371,7 +370,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPClient.Close. " + excp);
+                Logger.Logger.Error("Exception RTSPClient.Close. ->" + excp);
             }
         }
 
@@ -473,7 +472,7 @@ namespace GB28181.Net
                                     {
                                         Debug.WriteLine(
                                             "Discarding old frame for timestamp " + oldFrame.Timestamp + ".");
-                                        logger.Warn("Discarding old frame for timestamp " + oldFrame.Timestamp + ".");
+                                        Logger.Logger.Warn("Discarding old frame for timestamp " + oldFrame.Timestamp + ".");
                                         _frames.Remove(oldFrame);
                                     }
 
@@ -494,8 +493,8 @@ namespace GB28181.Net
                                         }
                                         catch (Exception frameReadyExcp)
                                         {
-                                            logger.Error("Exception RTSPClient.ProcessRTPPackets OnFrameReady. " +
-                                                         frameReadyExcp);
+                                            Logger.Logger.Error("Exception RTSPClient.ProcessRTPPackets OnFrameReady. ->" +
+                                                                frameReadyExcp);
                                         }
                                     }
                                 }
@@ -505,8 +504,8 @@ namespace GB28181.Net
 
                     if (DateTime.Now.Subtract(_lastRTPReceivedAt).TotalSeconds > RTP_TIMEOUT_SECONDS)
                     {
-                        logger.Warn("No RTP packets were received on RTSP session " + _rtspSession.SessionID + " for " +
-                                    RTP_TIMEOUT_SECONDS + ". The session will now be closed.");
+                        Logger.Logger.Warn("No RTP packets were received on RTSP session " + _rtspSession.SessionID + " for " +
+                                           RTP_TIMEOUT_SECONDS + ". The session will now be closed.");
                         Close();
                     }
                     else
@@ -517,7 +516,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPClient.ProcessRTPPackets. " + excp);
+                Logger.Logger.Error("Exception RTSPClient.ProcessRTPPackets. ->" + excp);
             }
         }
 
@@ -564,7 +563,7 @@ namespace GB28181.Net
                     }
                     else
                     {
-                        logger.Warn(
+                        Logger.Logger.Warn(
                             "Zero bytes were read from the RTSP client socket in response to an OPTIONS keep-alive request.");
                     }
 
@@ -574,7 +573,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPClient.SendKeepAlives. " + excp);
+                Logger.Logger.Error("Exception RTSPClient.SendKeepAlives. ->" + excp);
             }
         }
     }

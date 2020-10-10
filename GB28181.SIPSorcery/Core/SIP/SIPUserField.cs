@@ -16,7 +16,6 @@
 
 using System;
 using System.Runtime.Serialization;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -43,7 +42,7 @@ namespace GB28181
     {
         private const char PARAM_TAG_DELIMITER = ';';
 
-        private static ILog logger = AssemblyState.logger;
+        //private static ILog logger = AssemblyState.logger;
 
         [DataMember] public string Name;
 
@@ -152,7 +151,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPUserField ToString. " + excp.Message);
+                Logger.Logger.Error("Exception SIPUserField ToString. ->" + excp.Message);
                 throw;
             }
         }
@@ -174,7 +173,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPUserField ToParameterlessString. " + excp.Message);
+                Logger.Logger.Error("Exception SIPUserField ToParameterlessString. ->" + excp.Message);
                 throw;
             }
         }

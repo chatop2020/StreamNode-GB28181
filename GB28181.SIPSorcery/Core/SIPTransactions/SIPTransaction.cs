@@ -11,7 +11,6 @@
 //
 
 using System;
-using GB28181.Logger4Net;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
 
@@ -89,7 +88,7 @@ namespace GB28181
     /// </note>
     public class SIPTransaction
     {
-        protected static ILog logger = AssemblyState.logger;
+       // protected static ILog logger = AssemblyState.logger;
 
         protected static readonly int m_t1 = SIPTimings.T1; // SIP Timer T1 in milliseconds.
         protected static readonly int m_t6 = SIPTimings.T6; // SIP Timer T1 in milliseconds.
@@ -255,7 +254,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTransaction (ctor). " + excp.Message);
+                Logger.Logger.Error("Exception SIPTransaction (ctor). ->" + excp.Message);
                 throw excp;
             }
         }
@@ -396,7 +395,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RetransmitFinalResponse. " + excp.Message);
+                Logger.Logger.Error("Exception RetransmitFinalResponse. ->" + excp.Message);
             }
         }
 
@@ -477,7 +476,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetInformationalResponse. " + excp.Message);
+                Logger.Logger.Error("Exception GetInformationalResponse. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -507,7 +506,7 @@ namespace GB28181
                 }
                 catch (Exception excp)
                 {
-                    logger.Error("Exception TransactionRequestRetransmit. " + excp.Message);
+                    Logger.Logger.Error("Exception TransactionRequestRetransmit. ->" + excp.Message);
                 }
             }
 
@@ -525,7 +524,7 @@ namespace GB28181
                 }
                 catch (Exception excp)
                 {
-                    logger.Error("Exception TransactionResponseRetransmit. " + excp.Message);
+                    Logger.Logger.Error("Exception TransactionResponseRetransmit. ->" + excp.Message);
                 }
             }
 
@@ -549,7 +548,7 @@ namespace GB28181
             }
             else
             {
-                logger.Warn("An ACK retransmit was required but there was no stored ACK request to send.");
+                Logger.Logger.Warn("An ACK retransmit was required but there was no stored ACK request to send.");
             }
         }
 
@@ -561,9 +560,9 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception FireTransactionTimedOut (" + m_transactionId + " " +
-                             TransactionRequest.URI.ToString() + ", callid=" + TransactionRequest.Header.CallId + ", " +
-                             this.GetType().ToString() + "). " + excp.Message);
+                Logger.Logger.Error("Exception FireTransactionTimedOut (" + m_transactionId + " " +
+                                    TransactionRequest.URI.ToString() + ", callid=" + TransactionRequest.Header.CallId + ", " +
+                                    this.GetType().ToString() + "). ->" + excp.Message);
             }
         }
 
@@ -575,7 +574,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception FireTransactionRemoved. " + excp.Message);
+                Logger.Logger.Error("Exception FireTransactionRemoved. ->" + excp.Message);
             }
         }
 

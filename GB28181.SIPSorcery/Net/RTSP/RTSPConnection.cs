@@ -15,8 +15,6 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using GB28181.Logger4Net;
-using GB28181.Sys;
 using SIPSorcery.Sys;
 
 namespace GB28181.Net
@@ -27,7 +25,7 @@ namespace GB28181.Net
         private static string m_rtspEOL = RTSPConstants.CRLF;
         private static string m_rtspMessageDelimiter = RTSPConstants.CRLF + RTSPConstants.CRLF;
 
-        private static ILog logger = AppState.logger;
+        //private static ILog logger = AppState.logger;
 
         public RTSPServer Server { get; private set; }
         public NetworkStream Stream { get; private set; }
@@ -58,7 +56,7 @@ namespace GB28181.Net
             }
             catch (Exception closeExcp)
             {
-                logger.Warn("Exception closing socket in RTSPConnection Close. " + closeExcp.Message);
+                Logger.Logger.Error("Exception closing socket in RTSPConnection Close. ->" + closeExcp.Message);
             }
         }
 
@@ -129,7 +127,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPConnection SocketReadCompleted. " + excp.Message);
+                Logger.Logger.Error("Exception RTSPConnection SocketReadCompleted. ->" + excp.Message);
                 throw;
             }
         }

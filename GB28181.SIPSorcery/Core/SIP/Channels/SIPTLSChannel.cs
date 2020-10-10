@@ -18,7 +18,6 @@ using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
@@ -47,7 +46,7 @@ namespace GB28181
         //private string m_certificatePath;
         private X509Certificate2 m_serverCertificate;
 
-        private new ILog logger = AppState.GetLogger("siptls-channel");
+      //  private new ILog logger = AppState.GetLogger("siptls-channel");
 
         public SIPTLSChannel(X509Certificate2 serverCertificate, IPEndPoint endPoint)
         {
@@ -89,11 +88,11 @@ namespace GB28181
                 ThreadPool.QueueUserWorkItem(
                     delegate { PruneConnections(PRUNE_THREAD_NAME + m_localSIPEndPoint.Port); });
 
-                logger.Debug("SIP TLS Channel listener created " + m_localSIPEndPoint.GetIPEndPoint() + ".");
+                Logger.Logger.Debug("SIP TLS Channel listener created " + m_localSIPEndPoint.GetIPEndPoint() + ".");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTLSChannel Initialise. " + excp);
+                Logger.Logger.Error("Exception SIPTLSChannel Initialise. ->" + excp);
                 throw;
             }
         }
@@ -104,7 +103,7 @@ namespace GB28181
             {
                 Thread.CurrentThread.Name = threadName;
 
-                logger.Debug("SIPTLSChannel socket on " + m_localSIPEndPoint + " accept connections thread started.");
+                Logger.Logger.Debug("SIPTLSChannel socket on " + m_localSIPEndPoint + " accept connections thread started.");
 
                 while (!Closed)
                 {
@@ -114,7 +113,7 @@ namespace GB28181
                         tcpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 
                         IPEndPoint remoteEndPoint = (IPEndPoint) tcpClient.Client.RemoteEndPoint;
-                        logger.Debug("SIP TLS Channel connection accepted from " + remoteEndPoint + ".");
+                        Logger.Logger.Debug("SIP TLS Channel connection accepted from " + remoteEndPoint + ".");
 
                         SslStream sslStream = new SslStream(tcpClient.GetStream(), false);
 
@@ -124,39 +123,19 @@ namespace GB28181
                         sslStream.BeginAuthenticateAsServer(m_serverCertificate, EndAuthenticateAsServer,
                             sipTLSConnection);
 
-                        //sslStream.AuthenticateAsServer(m_serverCertificate, false, SslProtocols.Tls, false);
-                        //// Display the properties and settings for the authenticated stream.
-                        ////DisplaySecurityLevel(sslStream);
-                        ////DisplaySecurityServices(sslStream);
-                        ////DisplayCertificateInformation(sslStream);
-                        ////DisplayStreamProperties(sslStream);
-
-                        //// Set timeouts for the read and write to 5 seconds.
-                        //sslStream.ReadTimeout = 5000;
-                        //sslStream.WriteTimeout = 5000;
-
-                        ////SIPConnection sipTLSConnection = new SIPConnection(this, sslStream, remoteEndPoint, SIPProtocolsEnum.tls, SIPConnectionsEnum.Listener);
-                        //m_connectedSockets.Add(remoteEndPoint.ToString(), sipTLSConnection);
-
-                        //sipTLSConnection.SIPSocketDisconnected += SIPTLSSocketDisconnected;
-                        //sipTLSConnection.SIPMessageReceived += SIPTLSMessageReceived;
-                        ////byte[] receiveBuffer = new byte[MaxSIPTCPMessageSize];
-                        //sipTLSConnection.SIPStream.BeginRead(sipTLSConnection.SocketBuffer, 0, MaxSIPTCPMessageSize, new AsyncCallback(ReceiveCallback), sipTLSConnection);
-                    }
+                      }
                     catch (Exception e)
                     {
-                        logger.Error("SIPTLSChannel Accept Connection Exception. " + e);
-                        //sslStream.Close();
-                        //tcpClient.Close();
+                        Logger.Logger.Error("SIPTLSChannel Accept Connection Exception. ->" + e);
+                        
                     }
                 }
 
-                logger.Debug("SIPTLSChannel socket on " + m_localSIPEndPoint + " listening halted.");
+                Logger.Logger.Debug("SIPTLSChannel socket on " + m_localSIPEndPoint + " listening halted.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTLSChannel Listen. " + excp);
-                //throw excp;
+                Logger.Logger.Error("Exception SIPTLSChannel Listen. ->" + excp);
             }
         }
 
@@ -183,7 +162,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTLSChannel EndAuthenticateAsServer. " + excp);
+                Logger.Logger.Error("Exception SIPTLSChannel EndAuthenticateAsServer. ->" + excp);
                 //throw excp;
             }
         }
@@ -207,11 +186,11 @@ namespace GB28181
                 }
                 catch (SocketException sockExcp) // Occurs if the remote end gets disconnected.
                 {
-                    logger.Warn("SocketException SIPTLSChannel ReceiveCallback. " + sockExcp);
+                    Logger.Logger.Error("SocketException SIPTLSChannel ReceiveCallback. ->" + sockExcp);
                 }
                 catch (Exception excp)
                 {
-                    logger.Warn("Exception SIPTLSChannel ReceiveCallback. " + excp);
+                    Logger.Logger.Error("Exception SIPTLSChannel ReceiveCallback. ->" + excp);
                     SIPTLSSocketDisconnected(sipTLSConnection.RemoteEndPoint);
                 }
             }
@@ -238,9 +217,9 @@ namespace GB28181
                 }
                 else if (LocalTCPSockets.Contains(dstEndPoint.ToString()))
                 {
-                    logger.Error("SIPTLSChannel blocked Send to " + dstEndPoint.ToString() +
-                                 " as it was identified as a locally hosted TCP socket.\r\n" +
-                                 Encoding.UTF8.GetString(buffer));
+                    Logger.Logger.Error("SIPTLSChannel blocked Send to " + dstEndPoint.ToString() +
+                                        " as it was identified as a locally hosted TCP socket.->" +
+                                        Encoding.UTF8.GetString(buffer));
                     throw new ApplicationException(
                         "A Send call was made in SIPTLSChannel to send to another local TCP socket.");
                 }
@@ -267,13 +246,13 @@ namespace GB28181
                             }
                             else
                             {
-                                logger.Warn("A SIPTLSChannel write operation to " + dstEndPoint +
-                                            " was dropped as the stream was null or could not be written to.");
+                                Logger.Logger.Warn("A SIPTLSChannel write operation to " + dstEndPoint +
+                                                   " was dropped as the stream was null or could not be written to.");
                             }
                         }
                         catch (SocketException)
                         {
-                            logger.Warn("Could not send to TLS socket " + dstEndPoint + ", closing and removing.");
+                            Logger.Logger.Error("Could not send to TLS socket " + dstEndPoint + ", closing and removing.");
                             sipTLSClient.SIPStream.Close();
                             m_connectedSockets.Remove(dstEndPoint.ToString());
                         }
@@ -289,7 +268,7 @@ namespace GB28181
 
                         if (!m_connectingSockets.Contains(dstEndPoint.ToString()))
                         {
-                            logger.Debug("Attempting to establish TLS connection to " + dstEndPoint + ".");
+                            Logger.Logger.Debug("Attempting to establish TLS connection to " + dstEndPoint + ".");
                             TcpClient tcpClient = new TcpClient();
                             tcpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress,
                                 true);
@@ -301,16 +280,16 @@ namespace GB28181
                         }
                         else
                         {
-                            logger.Warn("Could not send SIP packet to TLS " + dstEndPoint +
-                                        " and another connection was already in progress so dropping message.");
+                            Logger.Logger.Warn("Could not send SIP packet to TLS " + dstEndPoint +
+                                               " and another connection was already in progress so dropping message.");
                         }
                     }
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception (" + excp.GetType().ToString() + ") SIPTLSChannel Send (sendto=>" +
-                             dstEndPoint + "). " + excp);
+                Logger.Logger.Error("Exception (" + excp.GetType().ToString() + ") SIPTLSChannel Send (sendto=>" +
+                                    dstEndPoint + "). ->" + excp);
                 throw excp;
             }
         }
@@ -324,7 +303,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception EndSend. " + excp);
+                Logger.Logger.Error("Exception EndSend. ->" + excp);
             }
         }
 
@@ -350,30 +329,11 @@ namespace GB28181
                     SIPProtocolsEnum.tls, SIPConnectionsEnum.Caller);
                 sslStream.BeginAuthenticateAsClient(serverCN, EndAuthenticateAsClient,
                     new object[] {tcpClient, dstEndPoint, buffer, callerConnection});
-                //sslStream.AuthenticateAsClient(serverCN);
-
-                //if (tcpClient != null && tcpClient.Connected)
-                //{
-                //    SIPConnection callerConnection = new SIPConnection(this, sslStream, dstEndPoint, SIPProtocolsEnum.tls, SIPConnectionsEnum.Caller);
-                //    m_connectedSockets.Add(dstEndPoint.ToString(), callerConnection);
-
-                //    callerConnection.SIPSocketDisconnected += SIPTLSSocketDisconnected;
-                //    callerConnection.SIPMessageReceived += SIPTLSMessageReceived;
-                //    //byte[] receiveBuffer = new byte[MaxSIPTCPMessageSize];
-                //    callerConnection.SIPStream.BeginRead(callerConnection.SocketBuffer, 0, MaxSIPTCPMessageSize, new AsyncCallback(ReceiveCallback), callerConnection);
-
-                //    logger.Debug("Established TLS connection to " + dstEndPoint + ".");
-
-                //    callerConnection.SIPStream.BeginWrite(buffer, 0, buffer.Length, EndSend, callerConnection);
-                //}
-                //else
-                //{
-                //    logger.Warn("Could not establish TLS connection to " + dstEndPoint + ".");
-                //}
+                
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTLSChannel EndConnect. " + excp);
+                Logger.Logger.Error("Exception SIPTLSChannel EndConnect. ->" + excp);
 
                 if (tcpClient != null)
                 {
@@ -383,7 +343,7 @@ namespace GB28181
                     }
                     catch (Exception closeExcp)
                     {
-                        logger.Warn("Exception SIPTLSChannel EndConnect Close TCP Client. " + closeExcp);
+                        Logger.Logger.Error("Exception SIPTLSChannel EndConnect Close TCP Client. ->" + closeExcp);
                     }
                 }
             }
@@ -414,18 +374,18 @@ namespace GB28181
                     callerConnection.SIPStream.BeginRead(callerConnection.SocketBuffer, 0, MaxSIPTCPMessageSize,
                         new AsyncCallback(ReceiveCallback), callerConnection);
 
-                    logger.Debug("Established TLS connection to " + callerConnection.RemoteEndPoint + ".");
+                    Logger.Logger.Debug("Established TLS connection to " + callerConnection.RemoteEndPoint + ".");
 
                     callerConnection.SIPStream.BeginWrite(buffer, 0, buffer.Length, EndSend, callerConnection);
                 }
                 else
                 {
-                    logger.Warn("Could not establish TLS connection to " + callerConnection.RemoteEndPoint + ".");
+                    Logger.Logger.Warn("Could not establish TLS connection to " + callerConnection.RemoteEndPoint + ".");
                 }
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTLSChannel EndAuthenticateAsClient. " + excp);
+                Logger.Logger.Error("Exception SIPTLSChannel EndAuthenticateAsClient. ->" + excp);
             }
         }
 
@@ -446,7 +406,7 @@ namespace GB28181
         {
             try
             {
-                logger.Debug("TLS socket from " + remoteEndPoint + " disconnected.");
+                Logger.Logger.Debug("TLS socket from " + remoteEndPoint + " disconnected.");
 
                 lock (m_connectedSockets)
                 {
@@ -457,7 +417,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTLSClientDisconnected. " + excp);
+                Logger.Logger.Error("Exception SIPTLSClientDisconnected. ->" + excp);
             }
         }
 
@@ -521,56 +481,56 @@ namespace GB28181
 
         private void DisplaySecurityLevel(SslStream stream)
         {
-            logger.Debug(string.Format("Cipher: {0} strength {1}", stream.CipherAlgorithm, stream.CipherStrength));
-            logger.Debug(string.Format("Hash: {0} strength {1}", stream.HashAlgorithm, stream.HashStrength));
-            logger.Debug(string.Format("Key exchange: {0} strength {1}", stream.KeyExchangeAlgorithm,
+            Logger.Logger.Debug(string.Format("Cipher: {0} strength {1}", stream.CipherAlgorithm, stream.CipherStrength));
+            Logger.Logger.Debug(string.Format("Hash: {0} strength {1}", stream.HashAlgorithm, stream.HashStrength));
+            Logger.Logger.Debug(string.Format("Key exchange: {0} strength {1}", stream.KeyExchangeAlgorithm,
                 stream.KeyExchangeStrength));
-            logger.Debug(string.Format("Protocol: {0}", stream.SslProtocol));
+            Logger.Logger.Debug(string.Format("Protocol: {0}", stream.SslProtocol));
         }
 
         private void DisplaySecurityServices(SslStream stream)
         {
-            logger.Debug(string.Format("Is authenticated: {0} as server? {1}", stream.IsAuthenticated,
+            Logger.Logger.Debug(string.Format("Is authenticated: {0} as server? {1}", stream.IsAuthenticated,
                 stream.IsServer));
-            logger.Debug(string.Format("IsSigned: {0}", stream.IsSigned));
-            logger.Debug(string.Format("Is Encrypted: {0}", stream.IsEncrypted));
+            Logger.Logger.Debug(string.Format("IsSigned: {0}", stream.IsSigned));
+            Logger.Logger.Debug(string.Format("Is Encrypted: {0}", stream.IsEncrypted));
         }
 
         private void DisplayStreamProperties(SslStream stream)
         {
-            logger.Debug(string.Format("Can read: {0}, write {1}", stream.CanRead, stream.CanWrite));
-            logger.Debug(string.Format("Can timeout: {0}", stream.CanTimeout));
+            Logger.Logger.Debug(string.Format("Can read: {0}, write {1}", stream.CanRead, stream.CanWrite));
+            Logger.Logger.Debug(string.Format("Can timeout: {0}", stream.CanTimeout));
         }
 
         private void DisplayCertificateInformation(SslStream stream)
         {
-            logger.Debug(string.Format("Certificate revocation list checked: {0}", stream.CheckCertRevocationStatus));
+            Logger.Logger.Debug(string.Format("Certificate revocation list checked: {0}", stream.CheckCertRevocationStatus));
 
             X509Certificate localCertificate = stream.LocalCertificate;
             if (stream.LocalCertificate != null)
             {
-                logger.Debug(String.Format("Local cert was issued to {0} and is valid from {1} until {2}.",
+                Logger.Logger.Debug(String.Format("Local cert was issued to {0} and is valid from {1} until {2}.",
                     localCertificate.Subject,
                     localCertificate.GetEffectiveDateString(),
                     localCertificate.GetExpirationDateString()));
             }
             else
             {
-                logger.Warn("Local certificate is null.");
+                Logger.Logger.Warn("Local certificate is null.");
             }
 
             // Display the properties of the client's certificate.
             X509Certificate remoteCertificate = stream.RemoteCertificate;
             if (stream.RemoteCertificate != null)
             {
-                logger.Debug(String.Format("Remote cert was issued to {0} and is valid from {1} until {2}.",
+                Logger.Logger.Debug(String.Format("Remote cert was issued to {0} and is valid from {1} until {2}.",
                     remoteCertificate.Subject,
                     remoteCertificate.GetEffectiveDateString(),
                     remoteCertificate.GetExpirationDateString()));
             }
             else
             {
-                logger.Warn("Remote certificate is null.");
+                Logger.Logger.Warn("Remote certificate is null.");
             }
         }
 
@@ -586,7 +546,7 @@ namespace GB28181
             }
             else
             {
-                logger.Warn(string.Format("Certificate error: {0}", sslPolicyErrors));
+                Logger.Logger.Warn(string.Format("Certificate error: {0}", sslPolicyErrors));
                 return true;
             }
         }
@@ -595,7 +555,7 @@ namespace GB28181
         {
             if (!Closed == true)
             {
-                logger.Debug("Closing SIP TLS Channel " + SIPChannelEndPoint + ".");
+                Logger.Logger.Debug("Closing SIP TLS Channel " + SIPChannelEndPoint + ".");
 
                 Closed = true;
 
@@ -605,7 +565,7 @@ namespace GB28181
                 }
                 catch (Exception listenerCloseExcp)
                 {
-                    logger.Warn("Exception SIPTLSChannel Close (shutting down listener). " + listenerCloseExcp.Message);
+                    Logger.Logger.Error("Exception SIPTLSChannel Close (shutting down listener). ->" + listenerCloseExcp.Message);
                 }
 
                 lock (m_connectedSockets)
@@ -618,8 +578,8 @@ namespace GB28181
                         }
                         catch (Exception connectionCloseExcp)
                         {
-                            logger.Warn("Exception SIPTLSChannel Close (shutting down connection to " +
-                                        tcpConnection.RemoteEndPoint + "). " + connectionCloseExcp.Message);
+                            Logger.Logger.Error("Exception SIPTLSChannel Close (shutting down connection to " +
+                                               tcpConnection.RemoteEndPoint + "). ->" + connectionCloseExcp.Message);
                         }
                     }
                 }
@@ -634,7 +594,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Disposing SIPTLSChannel. " + excp.Message);
+                Logger.Logger.Error("Exception Disposing SIPTLSChannel. ->" + excp.Message);
             }
         }
     }

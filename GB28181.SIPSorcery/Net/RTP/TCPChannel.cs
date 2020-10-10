@@ -324,8 +324,8 @@ namespace GB28181.Net.RTP
                     return;
                 }
 
-                logger.Debug("Seq:" + item.Header.SequenceNumber + "----Timestamp:" + item.Header.Timestamp +
-                             "-----Length:" + item.Payload.Length);
+                Logger.Logger.Debug("Seq:" + item.Header.SequenceNumber + "----Timestamp:" + item.Header.Timestamp +
+                                    "-----Length:" + item.Payload.Length);
                 //if (this.m_fs == null)
                 //{
                 //    this.m_fs = new FileStream("D:\\test.h264", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, 8 * 1024);
@@ -342,7 +342,7 @@ namespace GB28181.Net.RTP
                         }
                         else
                         {
-                            logger.Warn("RTPChannel.RTPReceive packets queue full, clearing.");
+                            Logger.Logger.Warn("RTPChannel.RTPReceive packets queue full, clearing.");
                             _packets.Clear();
                         }
                     }

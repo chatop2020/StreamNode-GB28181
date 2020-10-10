@@ -3,7 +3,6 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using GB28181.Logger4Net;
 
 namespace GB28181.Sys.XML
 {
@@ -13,7 +12,7 @@ namespace GB28181.Sys.XML
     /// <typeparam name="T">泛型</typeparam>
     public abstract class XmlHelper<T> where T : class
     {
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         /// <summary>
         /// 文档路径
@@ -92,7 +91,7 @@ namespace GB28181.Sys.XML
             }
             catch (Exception ex)
             {
-                logger.Error("序列化对象为xml字符串出错" + ex);
+                Logger.Logger.Error("序列化对象为xml字符串出错" + ex);
             }
             //XmlSerializer xs = new XmlSerializer(typeof(T));
             //MemoryStream stream = new MemoryStream();

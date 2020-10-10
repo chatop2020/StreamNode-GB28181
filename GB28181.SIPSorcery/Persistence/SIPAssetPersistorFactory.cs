@@ -19,7 +19,6 @@
 
 using System;
 using GB28181.App;
-using GB28181.Logger4Net;
 using GB28181.Persistence.XML;
 using GB28181.Sys;
 
@@ -27,7 +26,7 @@ namespace GB28181.Persistence
 {
     public static class SIPAssetPersistorFactory<T> where T : class, ISIPAsset, new()
     {
-        private static ILog logger = AppState.logger;
+        //private static ILog logger = AppState.logger;
 
         public static SIPAssetPersistor<T> CreateSIPAssetPersistor(StorageTypes storageType,
             string storageConnectionStr, string filename)
@@ -71,7 +70,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception CreateSIPAssetPersistor for " + storageType + ". " + excp.Message);
+                Logger.Logger.Error("Exception CreateSIPAssetPersistor for " + storageType + ". ->" + excp.Message);
                 throw;
             }
         }

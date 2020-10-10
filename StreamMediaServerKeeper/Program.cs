@@ -4,14 +4,25 @@ using Microsoft.Extensions.Hosting;
 
 namespace StreamMediaServerKeeper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static string WorkPath = Environment.CurrentDirectory + "/";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            Console.WriteLine("systeminfo:\r\n" + JsonHelper.ToJson(new ResGetSystemInfo()));
+           
 
+            Logger.Logger.Debug("SystemInfomation ->" + JsonHelper.ToJson(new ResGetSystemInfo()));
 
             ///启动一下，Common对象
             if (string.IsNullOrEmpty(Common.CustomizedRecordFilePath))
@@ -22,6 +33,11 @@ namespace StreamMediaServerKeeper
             CreateHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

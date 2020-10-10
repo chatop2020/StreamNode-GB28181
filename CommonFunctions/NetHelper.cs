@@ -621,7 +621,7 @@ namespace CommonFunctions
 
                 if (startPosition >= remoteFileLength)
                 {
-                    Console.WriteLine("本地文件长度" + startPosition + "已经大于等于远程文件长度" + remoteFileLength + "。下载完成。");
+                   Logger.Logger.Debug("本地文件长度" + startPosition + "已经大于等于远程文件长度" + remoteFileLength + "。下载完成。");
                     writeStream.Close();
 
                     return false;

@@ -12,7 +12,6 @@
 
 using System;
 using System.Net;
-using GB28181.Logger4Net;
 
 namespace GB28181.Net
 {
@@ -27,7 +26,7 @@ namespace GB28181.Net
     /// </summary>
     public class RTSPRequest
     {
-        private static ILog logger = AssemblyStreamState.logger;
+        //private static ILog logger = AssemblyStreamState.logger;
 
         private static string m_CRLF = RTSPConstants.CRLF;
         private static string m_rtspFullVersion = RTSPConstants.RTSP_FULLVERSION_STRING;
@@ -73,7 +72,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPRequest Ctor. " + excp.Message + ".");
+                Logger.Logger.Error("Exception RTSPRequest Ctor. ->" + excp.Message + ".");
             }
         }
 
@@ -109,7 +108,7 @@ namespace GB28181.Net
                 if (rtspRequest.Method == RTSPMethodsEnum.UNKNOWN)
                 {
                     rtspRequest.UnknownMethod = method;
-                    logger.Warn("Unknown RTSP method received " + rtspRequest.Method + ".");
+                    Logger.Logger.Warn("Unknown RTSP method received " + rtspRequest.Method + ".");
                 }
 
                 statusLine = statusLine.Substring(firstSpacePosn).Trim();
@@ -136,7 +135,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception parsing RTSP request. URI, " + urlStr + ".");
+                Logger.Logger.Error("Exception parsing RTSP request. URI, " + urlStr + ".");
                 throw new ApplicationException("There was an exception parsing an RTSP request. " + excp.Message);
             }
         }
@@ -163,7 +162,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception RTSPRequest ToString. " + excp.Message);
+                Logger.Logger.Error("Exception RTSPRequest ToString. ->" + excp.Message);
                 throw;
             }
         }

@@ -16,7 +16,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using GB28181.Logger4Net;
 using SIPSorcery.Sys;
 
 namespace GB28181.Sys
@@ -25,7 +24,7 @@ namespace GB28181.Sys
     {
         private const string THREAD_NAME = "udplistener-";
 
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         private IPEndPoint m_localEndPoint;
         private Guid m_socketId = Guid.NewGuid();
@@ -50,11 +49,11 @@ namespace GB28181.Sys
                 listenThread.Name = THREAD_NAME + Crypto.GetRandomString(4);
                 listenThread.Start();
 
-                logger.Debug("UDPListener listener created " + m_localEndPoint + ".");
+                Logger.Logger.Debug("UDPListener listener created " + m_localEndPoint + ".");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UDPListener Initialise. " + excp.Message);
+                Logger.Logger.Error("Exception UDPListener Initialise. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -67,7 +66,7 @@ namespace GB28181.Sys
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Disposing UDPListener. " + excp.Message);
+                Logger.Logger.Error("Exception Disposing UDPListener. ->" + excp.Message);
             }
         }
 
@@ -77,7 +76,7 @@ namespace GB28181.Sys
             {
                 byte[] buffer = null;
 
-                logger.Debug("UDPListener socket on " + m_localEndPoint + " listening started.");
+                Logger.Logger.Debug("UDPListener socket on " + m_localEndPoint + " listening started.");
 
                 while (!m_closed)
                 {
@@ -97,7 +96,7 @@ namespace GB28181.Sys
                     catch (Exception listenExcp)
                     {
                         // There is no point logging this as without processing the ICMP message it's not possible to know which socket the rejection came from.
-                        logger.Error("Exception listening on UDPListener. " + listenExcp.Message);
+                        Logger.Logger.Error("Exception listening on UDPListener. ->" + listenExcp.Message);
 
                         inEndPoint = new IPEndPoint(IPAddress.Any, 0);
                         continue;
@@ -118,11 +117,11 @@ namespace GB28181.Sys
                     }
                 }
 
-                logger.Debug("UDPListener socket on " + m_localEndPoint + " listening halted.");
+                Logger.Logger.Debug("UDPListener socket on " + m_localEndPoint + " listening halted.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception UDPListener Listen. " + excp.Message);
+                Logger.Logger.Error("Exception UDPListener Listen. ->" + excp.Message);
                 //throw excp;
             }
         }
@@ -156,8 +155,8 @@ namespace GB28181.Sys
             }
             catch (Exception excp)
             {
-                logger.Error("Exception (" + excp.GetType().ToString() + ") UDPListener Send (sendto=>" +
-                             IPSocket.GetSocketString(destinationEndPoint) + "). " + excp.Message);
+                Logger.Logger.Error("Exception (" + excp.GetType().ToString() + ") UDPListener Send (sendto=>" +
+                                    IPSocket.GetSocketString(destinationEndPoint) + "). ->" + excp.Message);
                 throw excp;
             }
         }
@@ -166,14 +165,14 @@ namespace GB28181.Sys
         {
             try
             {
-                logger.Debug("Closing UDPListener " + m_localEndPoint + ".");
+                Logger.Logger.Debug("Closing UDPListener " + m_localEndPoint + ".");
 
                 m_closed = true;
                 m_udpClient.Close();
             }
             catch (Exception excp)
             {
-                logger.Warn("Exception UDPListener Close. " + excp.Message);
+                Logger.Logger.Error("Exception UDPListener Close. ->" + excp.Message);
             }
         }
     }

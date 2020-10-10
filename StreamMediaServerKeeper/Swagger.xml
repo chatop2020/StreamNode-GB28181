@@ -461,6 +461,11 @@
             <param name="localfile">本地文件</param>
             <returns></returns>
         </member>
+        <member name="T:StreamMediaServerKeeper.ProcessApis">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:StreamMediaServerKeeper.ProcessApis.FileExists(System.String,StreamMediaServerKeeper.ResponseStruct@)">
             <summary>
             检查文件是否存在
@@ -523,6 +528,246 @@
             用可执行文件路径确定进程是否正在运行
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:StreamMediaServerKeeper.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StreamMediaServerKeeper.Program.WorkPath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:StreamMediaServerKeeper.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StreamMediaServerKeeper.ReqCutOrMergeVideoFile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqCutOrMergeVideoFile.StartTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqCutOrMergeVideoFile.EndTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqCutOrMergeVideoFile.MediaServerId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqCutOrMergeVideoFile.App">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqCutOrMergeVideoFile.Vhost">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqCutOrMergeVideoFile.StreamId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqCutOrMergeVideoFile.CallbackUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.ReqMediaServerReg">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.MediaServerHttpPort">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.WebApiServerhttpPort">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.Ipaddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.MediaServerId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.Secret">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.RecordFilePath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.SystemInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.LoadAverage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.LoadAverage.LoadAverageMin1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.LoadAverage.LoadAverageMin5">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.LoadAverage.LoadAverageMin15">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.OStype">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.CPUInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CPUInfo.CpuUsed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CPUInfo.CpuIdle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.CPUInfo.CpuCores">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.ResGetSystemInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.UpdateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.OStype">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.AssemblyPath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.AssemblyFolderPath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.TotalProcessRunningTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.TotalProcessRunningTimeText">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.TatolSystemRunningTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.TatolSystemRunningTimeText">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.LinuxCpuInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.LinuxLoadAverage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.LinuxMemoryUsage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.HddListInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StreamMediaServerKeeper.ResponseStruct">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ResponseStruct.#ctor(StreamMediaServerKeeper.ErrorNumber,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="code"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ResponseStruct.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResponseStruct.Code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StreamMediaServerKeeper.ResponseStruct.Message">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:StreamMediaServerKeeper.SystemHelper">
             <summary>
@@ -634,6 +879,19 @@
         <member name="M:StreamMediaServerKeeper.SystemHelper.GetCPUused">
             <summary>
             获取cpu使用率和空闲率
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.SystemHelper.GetSystemRunningTimeText(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.SystemHelper.GetSystemRunningTime">
+            <summary>
+            
             </summary>
             <returns></returns>
         </member>
@@ -801,6 +1059,11 @@
             空闲百分比
             </summary>
         </member>
+        <member name="T:StreamMediaServerKeeper.DriveMetrics">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:StreamMediaServerKeeper.DriveMetrics.Name">
             <summary>
             驱动名
@@ -846,6 +1109,11 @@
             写(kb/s)
             </summary>
         </member>
+        <member name="M:StreamMediaServerKeeper.DiskIO.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:StreamMediaServerKeeper.NetIO">
             <summary>
             系统IO
@@ -859,6 +1127,11 @@
         <member name="P:StreamMediaServerKeeper.NetIO.Transmit">
             <summary>
             发送(bytes/s)
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.NetIO.#ctor">
+            <summary>
+            
             </summary>
         </member>
     </members>

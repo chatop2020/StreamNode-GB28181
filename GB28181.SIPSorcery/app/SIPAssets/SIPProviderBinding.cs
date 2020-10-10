@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
@@ -44,7 +43,7 @@ namespace GB28181.App
         //public static readonly string SelectNextScheduledBinding = "select * from sipproviderbindings where nextregistrationtime <= ?1 order by nextregistrationtime asc limit 1";
 
         private static string m_newLine = AppState.NewLine;
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         public static int TimeZoneOffsetMinutes;
 
@@ -345,7 +344,7 @@ namespace GB28181.App
                 }
                 else
                 {
-                    logger.Warn("Could not load BindingURI for SIPProviderBinding with id=" + m_id + ".");
+                    Logger.Logger.Warn("Could not load BindingURI for SIPProviderBinding with id=" + m_id + ".");
                 }
 
                 if (bindingRow.Table.Columns.Contains("bindingexpiry") && bindingRow["bindingexpiry"] != DBNull.Value &&
@@ -394,7 +393,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPProviderBinding Load. " + excp.Message);
+                Logger.Logger.Error("Exception SIPProviderBinding Load. ->" + excp.Message);
                 throw excp;
             }
         }

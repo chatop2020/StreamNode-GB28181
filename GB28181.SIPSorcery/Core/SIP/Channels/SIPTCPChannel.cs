@@ -82,11 +82,11 @@ namespace GB28181
                 ThreadPool.QueueUserWorkItem(
                     delegate { PruneConnections(PRUNE_THREAD_NAME + m_localSIPEndPoint.Port); });
 
-                logger.Debug("SIP TCP Channel listener created " + m_localSIPEndPoint.GetIPEndPoint() + ".");
+                Logger.Logger.Debug("SIP TCP Channel listener created " + m_localSIPEndPoint.GetIPEndPoint() + ".");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTCPChannel Initialise. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTCPChannel Initialise. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -97,7 +97,7 @@ namespace GB28181
             {
                 Thread.CurrentThread.Name = threadName;
 
-                logger.Debug("SIPTCPChannel socket on " + m_localSIPEndPoint + " accept connections thread started.");
+                Logger.Logger.Debug("SIPTCPChannel socket on " + m_localSIPEndPoint + " accept connections thread started.");
 
                 while (!Closed)
                 {
@@ -114,7 +114,7 @@ namespace GB28181
 
                             //IPEndPoint remoteEndPoint = (IPEndPoint)clientSocket.RemoteEndPoint;
                             IPEndPoint remoteEndPoint = (IPEndPoint) tcpClient.Client.RemoteEndPoint;
-                            logger.Debug("SIP TCP Channel connection accepted from " + remoteEndPoint + ".");
+                            Logger.Logger.Debug("SIP TCP Channel connection accepted from " + remoteEndPoint + ".");
 
                             //SIPTCPConnection sipTCPClient = new SIPTCPConnection(this, clientSocket, remoteEndPoint, SIPTCPConnectionsEnum.Listener);
                             SIPConnection sipTCPConnection = new SIPConnection(this, tcpClient, tcpClient.GetStream(),
@@ -137,16 +137,16 @@ namespace GB28181
                     catch (Exception acceptExcp)
                     {
                         // This exception gets thrown if the remote end disconnects during the socket accept.
-                        logger.Warn("Exception SIPTCPChannel  accepting socket (" + acceptExcp.GetType() + "). " +
-                                    acceptExcp.Message);
+                        Logger.Logger.Warn("Exception SIPTCPChannel  accepting socket (" + acceptExcp.GetType() + "). " +
+                                           acceptExcp.Message);
                     }
                 }
 
-                logger.Debug("SIPTCPChannel socket on " + m_localSIPEndPoint + " listening halted.");
+                Logger.Logger.Debug("SIPTCPChannel socket on " + m_localSIPEndPoint + " listening halted.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTCPChannel Listen. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTCPChannel Listen. ->" + excp.Message);
                 //throw excp;
             }
         }
@@ -171,7 +171,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Warn("Exception SIPTCPChannel ReceiveCallback. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTCPChannel ReceiveCallback. ->" + excp.Message);
                 SIPTCPSocketDisconnected(sipTCPConnection.RemoteEndPoint);
             }
         }
@@ -193,7 +193,7 @@ namespace GB28181
         {
             try
             {
-                logger.Debug("TCP socket from " + remoteEndPoint + " disconnected.");
+                Logger.Logger.Debug("TCP socket from " + remoteEndPoint + " disconnected.");
 
                 lock (m_connectedSockets)
                 {
@@ -205,7 +205,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTCPClientDisconnected. " + excp.Message);
+                Logger.Logger.Error("Exception SIPTCPClientDisconnected. ->" + excp.Message);
             }
         }
 
@@ -240,9 +240,9 @@ namespace GB28181
                 }
                 else if (LocalTCPSockets.Contains(dstEndPoint.ToString()))
                 {
-                    logger.Error("SIPTCPChannel blocked Send to " + dstEndPoint.ToString() +
-                                 " as it was identified as a locally hosted TCP socket.\r\n" +
-                                 Encoding.UTF8.GetString(buffer));
+                    Logger.Logger.Error("SIPTCPChannel blocked Send to " + dstEndPoint.ToString() +
+                                        " as it was identified as a locally hosted TCP socket.->" +
+                                        Encoding.UTF8.GetString(buffer));
                     throw new ApplicationException(
                         "A Send call was made in SIPTCPChannel to send to another local TCP socket.");
                 }
@@ -268,7 +268,7 @@ namespace GB28181
                         }
                         catch (SocketException)
                         {
-                            logger.Warn("Could not send to TCP socket " + dstEndPoint + ", closing and removing.");
+                            Logger.Logger.Warn("Could not send to TCP socket " + dstEndPoint + ", closing and removing.");
                             sipTCPClient.SIPStream.Close();
                             m_connectedSockets.Remove(dstEndPoint.ToString());
                         }
@@ -290,7 +290,7 @@ namespace GB28181
                         }
                         else if (!m_connectingSockets.Contains(dstEndPoint.ToString()))
                         {
-                            logger.Debug("Attempting to establish TCP connection to " + dstEndPoint + ".");
+                            Logger.Logger.Debug("Attempting to establish TCP connection to " + dstEndPoint + ".");
 
                             TcpClient tcpClient = new TcpClient();
                             tcpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress,
@@ -310,14 +310,14 @@ namespace GB28181
             }
             catch (ApplicationException appExcp)
             {
-                logger.Warn("ApplicationException SIPTCPChannel Send (sendto=>" + dstEndPoint + "). " +
-                            appExcp.Message);
+                Logger.Logger.Error("ApplicationException SIPTCPChannel Send (sendto=>" + dstEndPoint + "). ->" +
+                                   appExcp.Message);
                 throw;
             }
             catch (Exception excp)
             {
-                logger.Error("Exception (" + excp.GetType().ToString() + ") SIPTCPChannel Send (sendto=>" +
-                             dstEndPoint + "). " + excp.Message);
+                Logger.Logger.Error("Exception (" + excp.GetType().ToString() + ") SIPTCPChannel Send (sendto=>" +
+                                    dstEndPoint + "). ->" + excp.Message);
                 throw;
             }
         }
@@ -333,7 +333,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception EndSend. " + excp.Message);
+                Logger.Logger.Error("Exception EndSend. ->" + excp.Message);
             }
         }
 
@@ -361,7 +361,7 @@ namespace GB28181
 
                 if (tcpClient != null && tcpClient.Connected)
                 {
-                    logger.Debug("Established TCP connection to " + dstEndPoint + ".");
+                    Logger.Logger.Debug("Established TCP connection to " + dstEndPoint + ".");
                     connected = true;
 
                     m_connectionFailureStrikes.Remove(dstEndPoint.ToString());
@@ -380,16 +380,16 @@ namespace GB28181
                 }
                 else
                 {
-                    logger.Warn("Could not establish TCP connection to " + dstEndPoint + ".");
+                    Logger.Logger.Warn("Could not establish TCP connection to " + dstEndPoint + ".");
                 }
             }
             catch (SocketException sockExcp)
             {
-                logger.Warn("SocketException SIPTCPChannel EndConnect. " + sockExcp.Message);
+                Logger.Logger.Error("SocketException SIPTCPChannel EndConnect. ->" + sockExcp.Message);
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPTCPChannel EndConnect (" + excp.GetType() + "). " + excp.Message);
+                Logger.Logger.Error("Exception SIPTCPChannel EndConnect (" + excp.GetType() + "). ->" + excp.Message);
             }
             finally
             {
@@ -422,7 +422,7 @@ namespace GB28181
         {
             if (!Closed == true)
             {
-                logger.Debug("Closing SIP TCP Channel " + SIPChannelEndPoint + ".");
+                Logger.Logger.Debug("Closing SIP TCP Channel " + SIPChannelEndPoint + ".");
 
                 Closed = true;
 
@@ -432,7 +432,7 @@ namespace GB28181
                 }
                 catch (Exception listenerCloseExcp)
                 {
-                    logger.Warn("Exception SIPTCPChannel Close (shutting down listener). " + listenerCloseExcp.Message);
+                    Logger.Logger.Error("Exception SIPTCPChannel Close (shutting down listener). ->" + listenerCloseExcp.Message);
                 }
 
                 lock (m_connectedSockets)
@@ -445,9 +445,9 @@ namespace GB28181
                         }
                         catch (Exception connectionCloseExcp)
                         {
-                            logger.Warn(
+                            Logger.Logger.Error(
                                 "Exception SIPTCPChannel Close (shutting down connection to " +
-                                tcpConnection.RemoteEndPoint ?? "?" + "). " + connectionCloseExcp.Message);
+                                tcpConnection.RemoteEndPoint ?? "?" + "). ->" + connectionCloseExcp.Message);
                         }
                     }
                 }
@@ -462,7 +462,7 @@ namespace GB28181
             }
             catch (Exception excp)
             {
-                logger.Error("Exception Disposing SIPTCPChannel. " + excp.Message);
+                Logger.Logger.Error("Exception Disposing SIPTCPChannel. ->" + excp.Message);
             }
         }
     }

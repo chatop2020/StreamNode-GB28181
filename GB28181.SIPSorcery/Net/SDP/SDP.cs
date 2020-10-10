@@ -95,7 +95,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 
 namespace GB28181.Net
@@ -109,7 +108,7 @@ namespace GB28181.Net
         public const string ICE_PWD_ATTRIBUTE_PREFIX = "ice-pwd";
         public const string ICE_CANDIDATE_ATTRIBUTE_PREFIX = "candidate";
 
-        private static ILog logger = AppState.logger;
+       // private static ILog logger = AppState.logger;
 
         public decimal Version = SDP_PROTOCOL_VERSION;
 
@@ -182,7 +181,7 @@ namespace GB28181.Net
                         {
                             if (!Decimal.TryParse(sdpLine.Substring(2), out sdp.Version))
                             {
-                                logger.Warn(
+                                Logger.Logger.Warn(
                                     "The Version value in an SDP description could not be parsed as a decimal: " +
                                     sdpLine + ".");
                             }
@@ -237,7 +236,7 @@ namespace GB28181.Net
                             }
                             else
                             {
-                                logger.Warn("A media line in SDP was invalid: " + sdpLine.Substring(2) + ".");
+                                Logger.Logger.Warn("A media line in SDP was invalid: " + sdpLine.Substring(2) + ".");
                             }
                         }
                         else if (sdpLine.Trim().StartsWith("a=" + ICE_UFRAG_ATTRIBUTE_PREFIX))
@@ -265,7 +264,7 @@ namespace GB28181.Net
                                     }
                                     else
                                     {
-                                        logger.Warn("Invalid media format attribute in SDP: " + sdpLine);
+                                        Logger.Logger.Warn("Invalid media format attribute in SDP: " + sdpLine);
                                     }
                                 }
                                 else
@@ -275,7 +274,7 @@ namespace GB28181.Net
                             }
                             else
                             {
-                                logger.Warn(
+                                Logger.Logger.Warn(
                                     "There was no active media announcement for a media format attribute, ignoring.");
                             }
                         }
@@ -297,7 +296,7 @@ namespace GB28181.Net
                                     }
                                     else
                                     {
-                                        logger.Warn("Invalid media format parameter attribute in SDP: " + sdpLine);
+                                        Logger.Logger.Warn("Invalid media format parameter attribute in SDP: " + sdpLine);
                                     }
                                 }
                                 else
@@ -307,7 +306,7 @@ namespace GB28181.Net
                             }
                             else
                             {
-                                logger.Warn(
+                                Logger.Logger.Warn(
                                     "There was no active media announcement for a media format parameter attribute, ignoring.");
                             }
                         }
@@ -338,7 +337,7 @@ namespace GB28181.Net
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ParseSDPDescription. " + excp.Message);
+                Logger.Logger.Error("Exception ParseSDPDescription. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -351,26 +350,11 @@ namespace GB28181.Net
 
         public override string ToString()
         {
-            //SDP˳������
-            /*
-             * v=0
-             * o=34020000002000000001 0 0 IN IP4 192.168.10.60
-             * s=Playback
-             * u=34020000001320000020:3
-             * c=IN IP4 192.168.10.60
-             * t=1481852021 1481855621
-             * m=video 10004 RTP/AVP 96 98
-             * a=recvonly
-             * a=rtpmap:96 PS/90000
-             * a=rtpmap:98 H264/90000
-             */
-
-
+           
             string sdp =
                 "v=" + SDP_PROTOCOL_VERSION + CRLF +
                 "o=" + Owner + CRLF +
                 "s=" + SessionName + CRLF;
-            //����¼��㲥sdp˳��
             sdp += string.IsNullOrWhiteSpace(URI) ? null : "u=" + URI + CRLF;
             sdp += ((Connection != null) ? Connection.ToString() : null);
             foreach (string bandwidth in BandwidthAttributes)

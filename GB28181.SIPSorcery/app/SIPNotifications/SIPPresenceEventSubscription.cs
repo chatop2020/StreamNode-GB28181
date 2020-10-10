@@ -129,7 +129,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPPresenceEventSubscription GetFullState. " + excp.Message);
+                Logger.Logger.Error("Exception SIPPresenceEventSubscription GetFullState. ->" + excp.Message);
             }
         }
 
@@ -202,7 +202,7 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPresenceEventSubscription AddMonitorEvent. " + excp.Message);
+                Logger.Logger.Error("Exception SIPresenceEventSubscription AddMonitorEvent. ->" + excp.Message);
                 throw;
             }
         }

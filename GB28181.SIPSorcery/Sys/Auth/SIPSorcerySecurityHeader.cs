@@ -1,5 +1,4 @@
 ﻿using System.Xml;
-using GB28181.Logger4Net;
 using SIPSorcery.Sys;
 
 namespace GB28181.Sys.Auth
@@ -12,7 +11,7 @@ namespace GB28181.Sys.Auth
         private const string AUTHID_ELEMENT_NAME = "AuthID";
         private const string APIKEY_ELEMENT_NAME = "apikey";
 
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         public string AuthID;
         public string APIKey;

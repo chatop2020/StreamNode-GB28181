@@ -12,7 +12,6 @@
 
 using System;
 using System.Text.RegularExpressions;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
 using SIPSorcery.Sys;
@@ -23,7 +22,7 @@ namespace GB28181.App
     {
         private const int NONCE_REFRESH_SECONDS = 120;
 
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         private static string m_previousNoncePrefix = null;
         private static string m_currentNoncePrefix = null;

@@ -5,6 +5,9 @@ using System.Threading;
 
 namespace StreamMediaServerKeeper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ProcessApis
     {
         private uint _pid;

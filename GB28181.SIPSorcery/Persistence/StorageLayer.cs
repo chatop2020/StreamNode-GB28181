@@ -21,7 +21,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text.RegularExpressions;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 
 //using Npgsql;
@@ -43,7 +42,7 @@ namespace GB28181.Persistence
         public static readonly string MinPoolSize = "MINPOOLSIZE";
         public static readonly string MaxPoolSize = "MAXPOOLSIZE";
 
-        private ILog logger = AppState.logger;
+        //private ILog logger = AppState.logger;
 
         //private static string m_errorNotificationAddress = AppState.ErrorNotificationEmail;
 
@@ -99,7 +98,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ExecuteNonQuery. " + excp.Message);
+                Logger.Logger.Error("Exception ExecuteNonQuery. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -127,7 +126,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ExecuteNonQuery. " + excp.Message);
+                Logger.Logger.Error("Exception ExecuteNonQuery. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -157,7 +156,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ExecuteScalar. " + excp.Message);
+                Logger.Logger.Error("Exception ExecuteScalar. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -187,7 +186,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ExecuteScalar. " + excp.Message);
+                Logger.Logger.Error("Exception ExecuteScalar. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -216,7 +215,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetDataSet. " + excp.Message);
+                Logger.Logger.Error("Exception GetDataSet. ->" + excp.Message);
                 throw excp;
             }
         }

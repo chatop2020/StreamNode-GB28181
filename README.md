@@ -62,11 +62,13 @@
 - 用于ZLMediaKit回调的一些接口，可以无视
 
 ## TODO List
-- 预计全面改用Log4net来记录日志，取消掉原来的Console.WriteLine等记录日志的手段(未开始)
+- 预计全面改用Log4net来记录日志，取消掉原来的Console.WriteLine等记录日志的手段(已完成)
 - 增加接口调用的鉴权机制(未开始)
 - 考虑SIP网关支持级联到上级平台(未开始)
 - 直播推流的完善支持(未开始)
 ## 更新日志
+### 2020-10-10
+1. 全面改用Log4Net来记录日志
 ### 2020-10-09
 1. 【支持】StreamNode已经与最新版(2020-10-09)ZLMediaKit兼容，不再需要修改ZLMediaKit的源码了。
 ### 2020-10-05    
@@ -553,7 +555,7 @@ CustomizedRecordFilePath::/home/cdtnb; //自定义存储视频的位置
 # 运行
 ## 环境
 - .net core 3.1
-- mysql 5.5以上或者其他freesql支持的数据库
+- mysql 5.7以上或者其他freesql支持的数据库
 - ffmpeg 4.2.2以上
 - ffmpeg 需要放在StreamNodeWebApi和StreamMediaServerKeeper的部署目录中
 ## 启动

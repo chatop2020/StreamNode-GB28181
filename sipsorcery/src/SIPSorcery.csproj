@@ -31,6 +31,10 @@
         <PackageReference Include="System.Net.WebSockets.Client" Version="4.3.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Logger\Logger.csproj" />
+    </ItemGroup>
+
     <PropertyGroup>
         <Version>4.0.52-pre</Version>
         <Authors>Aaron Clauson &amp; Contributors</Authors>

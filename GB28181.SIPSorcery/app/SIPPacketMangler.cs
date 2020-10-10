@@ -15,7 +15,7 @@
 using System;
 using System.Net;
 using System.Text.RegularExpressions;
-using GB28181.Logger4Net;
+using Logger;
 using GB28181.Net;
 using GB28181.Sys;
 using SIPSorcery.SIP;
@@ -25,7 +25,7 @@ namespace GB28181.App
 {
     public class SIPPacketMangler
     {
-        private static ILog logger = AppState.logger;
+      //  private static ILog logger = AppState.logger;
 
         public static string MangleSDP(string sdpBody, string publicIPAddress, out bool wasMangled)
         {
@@ -54,14 +54,15 @@ namespace GB28181.App
                 }
                 else
                 {
-                    logger.Warn("Mangle SDP was called with an empty body or public IP address.");
+                    Logger.Logger.Warn("Mangle SDP was called with an empty body or public IP address.");
                 }
 
                 return sdpBody;
             }
             catch (Exception excp)
             {
-                logger.Error("Exception MangleSDP. " + excp.Message);
+                Logger.Logger.Error("Exception MangleSDP. ->" + excp.Message);
+                //logger.Error("Exception MangleSDP. " + excp.Message);
                 return sdpBody;
             }
         }
@@ -109,7 +110,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception MangleSIPRequest. " + excp.Message);
+                Logger.Logger.Error("Exception MangleSIPRequest.->" + excp.Message);
+                //logger.Error("Exception MangleSIPRequest. " + excp.Message);
             }
         }
 
@@ -153,7 +155,8 @@ namespace GB28181.App
             }
             catch (Exception excp)
             {
-                logger.Error("Exception MangleSIPResponse. " + excp.Message);
+                Logger.Logger.Error("Exception MangleSIPResponse. ->" + excp.Message);
+                //logger.Error("Exception MangleSIPResponse. " + excp.Message);
             }
         }
 

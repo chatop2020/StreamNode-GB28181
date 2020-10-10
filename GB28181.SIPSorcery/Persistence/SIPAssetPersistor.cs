@@ -23,8 +23,7 @@ using System.Data.Common;
 using System.Linq.Expressions;
 using System.Reflection;
 using GB28181.App;
-using GB28181.Logger4Net;
-using GB28181.Sys;
+
 
 namespace GB28181.Persistence
 {
@@ -32,7 +31,7 @@ namespace GB28181.Persistence
 
     public class SIPAssetPersistor<T>
     {
-        protected static ILog logger = AppState.logger;
+       // protected static ILog logger = AppState.logger;
 
         protected DbProviderFactory m_dbProviderFactory;
         protected string m_dbConnectionStr;
@@ -187,8 +186,8 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPAssetPersistor IncrementProperty (for " + typeof(T).Name + "). " +
-                             excp.Message);
+                Logger.Logger.Error("Exception SIPAssetPersistor IncrementProperty (for " + typeof(T).Name + "). ->" +
+                                    excp.Message);
                 throw;
             }
         }
@@ -204,8 +203,8 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPAssetPersistor DecrementProperty (for " + typeof(T).Name + "). " +
-                             excp.Message);
+                Logger.Logger.Error("Exception SIPAssetPersistor DecrementProperty (for " + typeof(T).Name + "). ->" +
+                                    excp.Message);
                 throw;
             }
         }
@@ -227,7 +226,7 @@ namespace GB28181.Persistence
             }
             catch (Exception excp)
             {
-                logger.Error("Exception SIPAssetPersistor ExecuteCommand (for " + typeof(T).Name + "). " +
+                Logger.Logger.Error("Exception SIPAssetPersistor ExecuteCommand (for " + typeof(T).Name + "). ->" +
                              excp.Message);
                 throw;
             }

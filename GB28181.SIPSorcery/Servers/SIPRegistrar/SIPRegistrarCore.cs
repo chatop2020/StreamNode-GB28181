@@ -41,7 +41,6 @@ using System.Threading;
 using GB28181.App;
 using GB28181.Cache;
 using GB28181.Config;
-using GB28181.Logger4Net;
 using GB28181.Sys;
 using GB28181.Sys.Model;
 using SIPSorcery.SIP;
@@ -80,7 +79,7 @@ namespace GB28181.Servers
         private const int MAX_PROCESS_REGISTER_SLEEP = 10000;
         private const string REGISTRAR_THREAD_NAME_PREFIX = "sipregistrar-core";
 
-        private static ILog logger = AppState.GetLogger("sipregistrar");
+      //  private static ILog logger = AppState.GetLogger("sipregistrar");
 
         //最小的注册有效期，30秒
         public const int MINIMUM_EXPIRY_SECONDS = 30;
@@ -150,29 +149,29 @@ namespace GB28181.Servers
 
                     if (registerRequest.Header.To == null)
                     {
-                        logger.Debug("Bad register request, no To header from " + remoteEndPoint + ".");
+                        Logger.Logger.Debug("Bad register request, no To header from " + remoteEndPoint + ".");
                         SIPResponse badReqResponse = SIPTransport.GetResponse(registerRequest,
                             SIPResponseStatusCodesEnum.BadRequest, "Missing To header");
                         _sipTransport.SendResponse(badReqResponse);
                     }
                     else if (registerRequest.Header.To.ToURI.User.IsNullOrBlank())
                     {
-                        logger.Debug("Bad register request, no To user from " + remoteEndPoint + ".");
+                        Logger.Logger.Debug("Bad register request, no To user from " + remoteEndPoint + ".");
                         SIPResponse badReqResponse = SIPTransport.GetResponse(registerRequest,
                             SIPResponseStatusCodesEnum.BadRequest, "Missing username on To header");
                         _sipTransport.SendResponse(badReqResponse);
                     }
                     else if (registerRequest.Header.Contact == null || registerRequest.Header.Contact.Count == 0)
                     {
-                        logger.Debug("Bad register request, no Contact header from " + remoteEndPoint + ".");
+                        Logger.Logger.Debug("Bad register request, no Contact header from " + remoteEndPoint + ".");
                         SIPResponse badReqResponse = SIPTransport.GetResponse(registerRequest,
                             SIPResponseStatusCodesEnum.BadRequest, "Missing Contact header");
                         _sipTransport.SendResponse(badReqResponse);
                     }
                     else if (requestedExpiry > 0 && requestedExpiry < m_minimumBindingExpiry)
                     {
-                        logger.Debug("Bad register request, no expiry of " + requestedExpiry + " to small from " +
-                                     remoteEndPoint + ".");
+                        Logger.Logger.Debug("Bad register request, no expiry of " + requestedExpiry + " to small from " +
+                                            remoteEndPoint + ".");
                         SIPResponse tooFrequentResponse = GetErrorResponse(registerRequest,
                             SIPResponseStatusCodesEnum.IntervalTooBrief, null);
                         tooFrequentResponse.Header.MinExpires = m_minimumBindingExpiry;
@@ -191,8 +190,8 @@ namespace GB28181.Servers
                         }
                         else
                         {
-                            logger.Error("Register queue exceeded max queue size " + MAX_REGISTER_QUEUE_SIZE +
-                                         ", overloaded response sent.");
+                            Logger.Logger.Error("Register queue exceeded max queue size " + MAX_REGISTER_QUEUE_SIZE +
+                                                ", overloaded response sent.");
                             SIPResponse overloadedResponse = SIPTransport.GetResponse(registerRequest,
                                 SIPResponseStatusCodesEnum.TemporarilyUnavailable,
                                 "Registrar overloaded, please try again shortly");
@@ -205,14 +204,14 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception AddRegisterRequest (" + remoteEndPoint.ToString() + "). " + excp.Message);
+                Logger.Logger.Error("Exception AddRegisterRequest (" + remoteEndPoint.ToString() + "). ->" + excp.Message);
             }
         }
 
         public void ProcessRegisterRequest()
         {
-            logger.Debug("SIPRegistrarCore is running at " + _localSipAccount.MsgProtocol + ":" +
-                         _localSipAccount.LocalIP + ":" + _localSipAccount.LocalPort);
+            Logger.Logger.Debug("SIPRegistrarCore is running at " + _localSipAccount.MsgProtocol + ":" +
+                                _localSipAccount.LocalIP + ":" + _localSipAccount.LocalPort);
             try
             {
                 while (!Stop)
@@ -236,9 +235,9 @@ namespace GB28181.Servers
                                 RegisterComplete?.Invoke(duration.TotalMilliseconds,
                                     registrarTransaction.TransactionRequest.Header.AuthenticationHeader != null);
 
-                                logger.Debug("Camera[" + registrarTransaction.RemoteEndPoint + " deviceid:" +
-                                             registrarTransaction.TransactionRequest.Header.To.ToURI.User +
-                                             "] have completed registering GB service.");
+                                Logger.Logger.Debug("Camera[" + registrarTransaction.RemoteEndPoint + " deviceid:" +
+                                                    registrarTransaction.TransactionRequest.Header.To.ToURI.User +
+                                                    "] have completed registering GB service.");
                                 //CacheDeviceItem(registrarTransaction.TransactionRequest);
 
                                 //device alarm subscribe
@@ -248,12 +247,12 @@ namespace GB28181.Servers
                         catch (InvalidOperationException invalidOpExcp)
                         {
                             // This occurs when the queue is empty.
-                            logger.Warn("InvalidOperationException ProcessRegisterRequest Register Job. " +
-                                        invalidOpExcp.Message);
+                            Logger.Logger.Error("InvalidOperationException ProcessRegisterRequest Register Job. ->" +
+                                               invalidOpExcp.Message);
                         }
                         catch (Exception regExcp)
                         {
-                            logger.Error("Exception ProcessRegisterRequest Register Job. " + regExcp.Message);
+                            Logger.Logger.Error("Exception ProcessRegisterRequest Register Job. ->" + regExcp.Message);
                         }
                     }
                     else
@@ -262,11 +261,11 @@ namespace GB28181.Servers
                     }
                 }
 
-                logger.Warn("ProcessRegisterRequest thread " + Thread.CurrentThread.Name + " stopping.");
+                Logger.Logger.Warn("ProcessRegisterRequest thread " + Thread.CurrentThread.Name + " stopping.");
             }
             catch (Exception excp)
             {
-                logger.Error("Exception ProcessRegisterRequest (" + Thread.CurrentThread.Name + "). " + excp.Message);
+                Logger.Logger.Error("Exception ProcessRegisterRequest (" + Thread.CurrentThread.Name + "). ->" + excp.Message);
             }
         }
 
@@ -434,9 +433,9 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                string regErrorMessage = "Exception registrarcore registering. " + excp.Message + "\r\n" +
+                string regErrorMessage = "Exception registrarcore registering. ->" + excp.Message + "->" +
                                          registerTransaction.TransactionRequest.ToString();
-                logger.Error(regErrorMessage);
+                Logger.Logger.Error(regErrorMessage);
 
                 try
                 {
@@ -521,7 +520,7 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetOkResponse. " + excp.Message);
+                Logger.Logger.Error("Exception GetOkResponse. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -556,7 +555,7 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetAuthReqdResponse. " + excp.Message);
+                Logger.Logger.Error("Exception GetAuthReqdResponse. ->" + excp.Message);
                 throw excp;
             }
         }
@@ -593,7 +592,7 @@ namespace GB28181.Servers
             }
             catch (Exception excp)
             {
-                logger.Error("Exception GetErrorResponse. " + excp.Message);
+                Logger.Logger.Error("Exception GetErrorResponse. ->" + excp.Message);
                 throw excp;
             }
         }
