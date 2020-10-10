@@ -602,12 +602,12 @@ CustomizedRecordFilePath::/home/cdtnb; //自定义存储视频的位置
 - StreamNodeWebApi 全局只启动一份
 - 部署目录中手工创建一个log文件夹
 ~~~shell
-nohup dotnet StreamNodeWebApi.dll >./log/run.log &
+nohup dotnet StreamNodeWebApi.dll >/dev/null &
 ~~~
 - StreamMediaServerKeeper 一个流媒体启动一份，可以与StreamNodeWebApi不在同一台服务器
 - 部署目录中手工创建一个log文件夹
 ~~~shell
-nohup dotnet StreamMediaServerKeeper.dll >./log/run.log &
+nohup dotnet StreamMediaServerKeeper.dll >/dev/null &
 ~~~
 # 调试
 ## StreamNodeWebApi
