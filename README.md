@@ -115,6 +115,9 @@
 - 此操作是一个耗时操作，因此采用异步回调的方式来获取任务结果，调用方需提供一个WebApi接口来接受任务结果
 - 可能因为某些原因造成回调时调用方的WebApi不可用，导致任务结果未收到的情况，系统提供任务状态查询接口供调用方查询，此接口同样适用于任务进度的追踪（StreamMediaServerKeeper被重启后所有之前的任务结果会被清空，因为StreamMediaServerKeeper没有数据库持久保存这些数据）
 
+<details>
+  <summary>老版本ZLMediaKit的代码修改请看这里</summary>
+
 ## 修改ZLMediaKit的部分代码（ZLMediaKit官方已经在2020-10-09日合并了我的pr,使用2020-10-09以后ZLMeidakit代码生成的可的行文件就不需要再做以下代码修改了）
 - /src/Common/config.cpp
 ~~~c++
@@ -475,6 +478,8 @@ string Recorder::getRecordPath(Recorder::type type, const string &vhost, const s
 }
 ~~~
 
+</details>
+
 # 组成部分
 ## StreamNodeWebApi
 - 全局的流媒体管理API服务，包含了所有流媒体功能的控制，如摄像头注册，录制计划，rtp推流,ptz控制等。
@@ -549,6 +554,40 @@ StreamNodeServerUrl::http://192.168.2.43:5800/WebHook/MediaServerRegister; //向
 HttpPort::6880;//服务的WebApi端口
 IpAddress::192.168.2.43;//本机ip地址
 CustomizedRecordFilePath::/home/cdtnb; //自定义存储视频的位置 
+~~~
+
+## StreamNodeWebApi/Config/logconfig.xml
+- 日志配置文件
+~~~xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <!-- This section contains the log4net configuration settings -->
+    <log4net>
+        <appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender">
+            <layout type="log4net.Layout.PatternLayout" value="%date [%thread] %-5level %logger - %message%newline" />
+        </appender>
+        
+
+        <appender name="RollingLogFileAppender" type="log4net.Appender.RollingFileAppender">
+            <file value="log/" />
+            <appendToFile value="true" />
+            <rollingStyle value="Composite" />
+            <staticLogFileName value="false" />
+            <datePattern value="yyyyMMdd'.log'" />
+            <maxSizeRollBackups value="10" />
+            <maximumFileSize value="10MB" />
+            <layout type="log4net.Layout.PatternLayout" value="%date [%thread] %-5level %logger - %message%newline" />
+        </appender>
+
+        <!-- Setup the root category, add the appenders and set the default level -->
+        <root>
+            <level value="ALL" />
+            <appender-ref ref="ConsoleAppender" />
+            <appender-ref ref="RollingLogFileAppender" />
+        </root>
+
+    </log4net>
+</configuration>
 ~~~
 
 
