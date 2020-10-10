@@ -38,7 +38,10 @@ namespace StreamMediaServerKeeper
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            return File.Exists(filePath);
+
+            var h = File.Exists(filePath);
+            Logger.Logger.Debug("检查文件是否存在 -> " + filePath + " ->" + h.ToString());
+            return h;
         }
 
         /// <summary>
@@ -54,11 +57,13 @@ namespace StreamMediaServerKeeper
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            if (File.Exists(filePath))
+            var h = File.Exists(filePath);
+            if (h)
             {
                 File.Delete(filePath);
             }
 
+            Logger.Logger.Debug("删除文件 -> " + filePath + " ->" + h.ToString());
             return true;
         }
 
@@ -79,10 +84,13 @@ namespace StreamMediaServerKeeper
             {
                 foreach (var filePath in filePathList)
                 {
-                    if (File.Exists(filePath))
+                    var h = File.Exists(filePath);
+                    if (h)
                     {
                         File.Delete(filePath);
                     }
+
+                    Logger.Logger.Debug("删除文件 -> " + filePath + " ->" + h.ToString());
                 }
             }
 
@@ -109,10 +117,13 @@ namespace StreamMediaServerKeeper
                     foreach (DirectoryInfo subdir in subdirs)
                     {
                         FileSystemInfo[] subFiles = subdir.GetFileSystemInfos();
-                        if (subFiles.Length == 0)
+                        var l = subFiles.Length;
+                        if (l == 0)
                         {
                             subdir.Delete();
                         }
+
+                        Logger.Logger.Debug("清除空目录 ->" + subdir + " ->" + (l == 0 ? "true" : "false"));
                     }
                 }
 
@@ -136,6 +147,7 @@ namespace StreamMediaServerKeeper
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
+            Logger.Logger.Debug("检查流媒体服务器是否运行 ->" + _isRunning.ToString());
             return _isRunning;
         }
 
@@ -177,9 +189,11 @@ namespace StreamMediaServerKeeper
                     Code = ErrorNumber.Other,
                     Message = ErrorMessage.ErrorDic![ErrorNumber.Other],
                 };
+                Logger.Logger.Debug("关闭流媒体服务器失败...");
                 return false;
             }
 
+            Logger.Logger.Debug("关闭流媒体服务器成功...");
             return true;
         }
 
@@ -201,7 +215,9 @@ namespace StreamMediaServerKeeper
             }
 
             Thread.Sleep(2000);
-            return RunServer(out rs);
+            var t =RunServer(out rs);
+            Logger.Logger.Debug("重启流媒体服务器 ->"+t.ToString());
+            return t;
         }
 
         /// <summary>
@@ -242,6 +258,7 @@ namespace StreamMediaServerKeeper
 
                     if (checkProcessExists())
                     {
+                        Logger.Logger.Debug("启动流媒体服务器 -> pid->"+_pid.ToString()+" ->Alreday Exist");
                         return _pid;
                     }
 
@@ -251,9 +268,11 @@ namespace StreamMediaServerKeeper
                         Message = ErrorMessage.ErrorDic![ErrorNumber.ZLMediaKitRunBinExcept] + "\r\n" + stdout +
                                   "\r\n" + errout,
                     };
+                    Logger.Logger.Debug("启动流媒体服务器失败... -> pid->0 ->"+ JsonHelper.ToJson(rs));
                     return 0;
                 }
 
+                Logger.Logger.Debug("启动流媒体服务器 -> pid->"+_pid.ToString());
                 return _pid; //已经启动着的，不用重复启动
             }
 
@@ -262,6 +281,7 @@ namespace StreamMediaServerKeeper
                 Code = ErrorNumber.ZLMediaKitBinNotFound,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.ZLMediaKitBinNotFound],
             };
+            Logger.Logger.Debug("启动流媒体服务器失败... -> pid->0 ->"+ JsonHelper.ToJson(rs));
             return 0;
         }
 

@@ -556,7 +556,7 @@ IpAddress::192.168.2.43;//本机ip地址
 CustomizedRecordFilePath::/home/cdtnb; //自定义存储视频的位置 
 ~~~
 
-## StreamNodeWebApi/Config/logconfig.xml
+## StreamNodeWebApi/Config/logconfig.xml & StreamMediaServerKeeper/Config/logconfig.xml
 - 日志配置文件
 ~~~xml
 <?xml version="1.0" encoding="utf-8" ?>

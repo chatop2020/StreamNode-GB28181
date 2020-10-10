@@ -25,8 +25,7 @@ namespace CommonFunctions
         public static SessionManager SessionManager = new SessionManager();
         public static List<MediaServerInstance> MediaServerList = new List<MediaServerInstance>();
         public static List<CameraInstance> CameraInstanceList = new List<CameraInstance>();
-
-        public static LogMonitor LogMonitor = new LogMonitor();
+        
 
         //在线的摄像头列表
         public static List<CameraSession> CameraSessions = new List<CameraSession>();

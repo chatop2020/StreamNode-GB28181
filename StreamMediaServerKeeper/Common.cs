@@ -35,7 +35,7 @@ namespace StreamMediaServerKeeper
         /// </summary>
         public static string CustomizedRecordFilePath = "";
 
-        public static LogMonitor LogMonitor = new LogMonitor();
+      //  public static LogMonitor LogMonitor = new LogMonitor();
 
 
         /// <summary>
