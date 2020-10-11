@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Diagnostics;
 
 namespace StreamMediaServerKeeper
 {
@@ -167,17 +168,22 @@ namespace StreamMediaServerKeeper
             int i = 0;
             while (checkProcessExists() && i < 10)
             {
-                string cmd = "";
-                if (i < 5)
-                {
-                    cmd = "kill -2 " + _pid.ToString();
-                }
-                else
-                {
-                    cmd = "kill -9 " + _pid.ToString();
-                }
+                //string cmd = "";
+                //if (i < 5)
+                //{
+                //    cmd = "kill -2 " + _pid.ToString();
+                //}
+                //else
+                //{
+                //    cmd = "kill -9 " + _pid.ToString();
+                //}
 
-                LinuxShell.Run(cmd, 500);
+                //LinuxShell.Run(cmd, 500);
+                Process[] porcessByName = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Common.MediaServerBinPath));
+                foreach(Process p in porcessByName)
+                {
+                    p.Kill();
+                }
                 Thread.Sleep(200);
                 i++;
             }
@@ -244,11 +250,21 @@ namespace StreamMediaServerKeeper
 
                     string stdout = "";
                     string errout = "";
-                    string cmd = "ulimit -c unlimited";
-                    LinuxShell.Run(cmd, 500); //执行取消限制
-                    //  cmd = Common.MediaServerBinPath + " -d &";
-                    cmd = "nohup " + Common.MediaServerBinPath + " > " + dir + "log/MServerRun.log &";
-                    LinuxShell.Run(cmd, 1000);
+
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        Process MediaServerProcess = Process.Start(Common.MediaServerBinPath,"");
+                        _pid = (uint)MediaServerProcess.Id;
+                    }
+                    else
+                    {
+                        string cmd = "ulimit -c unlimited";
+                        LinuxShell.Run(cmd, 500); //执行取消限制
+                                                  //  cmd = Common.MediaServerBinPath + " -d &";
+                        cmd = "nohup " + Common.MediaServerBinPath + " > " + dir + "log/MServerRun.log &";
+                        LinuxShell.Run(cmd, 1000);
+                    }
+
                     int i = 0;
                     while (!checkProcessExists() && i < 50)
                     {
@@ -291,33 +307,39 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         private bool checkProcessExists()
         {
-            string cmd = "";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                cmd = "ps -aux |grep " + Common.MediaServerBinPath + "|grep -v grep|awk \'{print $2}\'";
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                cmd = "ps -A |grep " + Common.MediaServerBinPath + "|grep -v grep|awk \'{print $1}\'";
-            }
+            //string cmd = "";
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            //{
+            //    cmd = "ps -aux |grep " + Common.MediaServerBinPath + "|grep -v grep|awk \'{print $2}\'";
+            //}
+            //else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            //{
+            //    cmd = "ps -A |grep " + Common.MediaServerBinPath + "|grep -v grep|awk \'{print $1}\'";
+            //}
 
-            string stdout = "";
-            string errout = "";
-            var ret = LinuxShell.Run(cmd, 300, out stdout, out errout);
-            if (!string.IsNullOrEmpty(stdout) && ret)
-            {
-                if (uint.TryParse(stdout, out _pid))
-                {
-                    return true;
-                }
-            }
+            //string stdout = "";
+            //string errout = "";
+            //var ret = LinuxShell.Run(cmd, 300, out stdout, out errout);
+            //if (!string.IsNullOrEmpty(stdout) && ret)
+            //{
+            //    if (uint.TryParse(stdout, out _pid))
+            //    {
+            //        return true;
+            //    }
+            //}
 
-            if (!string.IsNullOrEmpty(errout) && ret)
+            //if (!string.IsNullOrEmpty(errout) && ret)
+            //{
+            //    if (uint.TryParse(errout, out _pid))
+            //    {
+            //        return true;
+            //    }
+            //}
+            Process[] porcessByName = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Common.MediaServerBinPath));
+            if (porcessByName.Length > 0)
             {
-                if (uint.TryParse(errout, out _pid))
-                {
-                    return true;
-                }
+                _pid = (uint)porcessByName[0].Id;
+                return true;
             }
 
             return false;
