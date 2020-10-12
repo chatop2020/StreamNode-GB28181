@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -103,13 +105,39 @@ namespace StreamMediaServerKeeper
             return random_str;
         }
 
+
+        
+       
+        /// <summary>
+        /// 删除以#开头的所有行
+        /// </summary>
+        /// <param name="filePath"></param>
+        private static void processZLMediaKitConfigFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                var list = File.ReadAllLines(filePath).ToList();
+                var tmp_list = new List<string>();
+                foreach (var str in list)
+                {
+                    if (!str.StartsWith('#'))
+                    {
+                        tmp_list.Add(str);
+                    }
+                }
+                File.WriteAllLines(filePath,tmp_list);
+            }
+        }
+
         /// <summary>
         /// 读取流媒体配置文件中关键信息
         /// </summary>
         private static void getMediaServerConfig()
         {
             string iniPath = checkMediaServerConfig();
+            processZLMediaKitConfigFile(iniPath); //处理FileIniDataParser碰到#开头的行，解析错误的问题
             var parser = new FileIniDataParser();
+            
             IniData data = parser.ReadFile(iniPath);
             var _tmpStr = data["general"]["mediaServerId"];
             if (!string.IsNullOrEmpty(_tmpStr))
