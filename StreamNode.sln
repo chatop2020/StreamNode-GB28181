@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_GetSystemRunningTime",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{033881F7-CDA4-4F67-905C-11D907C22A0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SystemInfo", "Test_SystemInfo\Test_SystemInfo.csproj", "{6149DA98-F536-40C4-8F64-D5A1B27D1AB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SystemInfo2", "Test_SystemInfo2\Test_SystemInfo2.csproj", "{EC644B1B-67C7-464C-81F0-A556CFE7B151}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +76,13 @@ Global
 		{033881F7-CDA4-4F67-905C-11D907C22A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{033881F7-CDA4-4F67-905C-11D907C22A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{033881F7-CDA4-4F67-905C-11D907C22A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6149DA98-F536-40C4-8F64-D5A1B27D1AB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6149DA98-F536-40C4-8F64-D5A1B27D1AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6149DA98-F536-40C4-8F64-D5A1B27D1AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6149DA98-F536-40C4-8F64-D5A1B27D1AB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC644B1B-67C7-464C-81F0-A556CFE7B151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC644B1B-67C7-464C-81F0-A556CFE7B151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC644B1B-67C7-464C-81F0-A556CFE7B151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC644B1B-67C7-464C-81F0-A556CFE7B151}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

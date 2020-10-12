@@ -16,7 +16,7 @@ namespace CommonFunctions
     {
         public static bool IsDebug = true;
         public static string WorkPath = Environment.CurrentDirectory + "/";
-        public static string SystemConfigPath = WorkPath + "system.conf";
+        public static string SystemConfigPath = WorkPath + "/Config/system.conf";
         public static string SystemLogPath = WorkPath + "log/";
         public static int FFmpegThreadCount = 2;
         public static string FFmpegBinPath = "./ffmpeg";

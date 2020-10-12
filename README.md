@@ -67,6 +67,9 @@
 - 考虑SIP网关支持级联到上级平台(未开始)
 - 直播推流的完善支持(未开始)
 ## 更新日志
+### 2020-10-12
+1. 更新读取ZLMediaKit配置文件时碰到以#开头的配置项时解析出错的情况，会先将此配置文件中所有以#开头的行改成以;开头，以确保以正确的ini标准的配置文件的注释
+2. 调整配置文件位置，system.conf及logconfig.xml到项目的Config/下面。
 ### 2020-10-10
 1. 全面改用Log4Net来记录日志
 ### 2020-10-09
@@ -534,7 +537,7 @@ string Recorder::getRecordPath(Recorder::type type, const string &vhost, const s
 
 
 
-## StreamNodeWebApi/system.conf
+## StreamNodeWebApi/Config/system.conf
 - StreamNodeWebApi的配置文件,参数名与参数值以::分开，每行以;结束
 - 数据库方面采用CodeFirst 模式，在数据库中建立一个名为streamnode的库，数据表会自动创建
 ~~~
@@ -546,7 +549,7 @@ dbtype::mysql;//数据库类型
 ffmpegpath::./ffmpeg;//ffmpeg可执行文件的位置
 ~~~
 
-## StreamMediaServerKeeper/Config.conf 
+## StreamMediaServerKeeper/Config/config.conf 
 - StreamMediaServerKeeper的配置文件
 ~~~
 MediaServerBinPath::/root/MediaService/MediaServer;//ZLMediaKit流媒体服务器可执行文件路径

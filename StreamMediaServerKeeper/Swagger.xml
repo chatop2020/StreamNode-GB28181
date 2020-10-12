@@ -24,6 +24,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:StreamMediaServerKeeper.Common.processZLMediaKitConfigFile(System.String)">
+            <summary>
+            替换#开头的所有行为;开头
+            </summary>
+            <param name="filePath"></param>
+        </member>
         <member name="M:StreamMediaServerKeeper.Common.getMediaServerConfig">
             <summary>
             读取流媒体配置文件中关键信息

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CZGL.SystemInfo" Version="0.1.1" />
+      <PackageReference Include="SystemInfoLibrary" Version="1.4.3" />
+    </ItemGroup>
+
+</Project>

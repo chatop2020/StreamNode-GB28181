@@ -183,6 +183,8 @@ namespace CommonFunctions
         }
 
 
+
+        
         /// <summary>
         /// 获取系统负载率
         /// </summary>
@@ -245,6 +247,11 @@ namespace CommonFunctions
             return null;
         }
 
+        
+        
+        
+        
+        
 
         /// <summary>
         /// 获取cpu使用率和空闲率

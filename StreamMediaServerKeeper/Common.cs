@@ -14,13 +14,12 @@ namespace StreamMediaServerKeeper
     public static class Common
     {
         public static string WorkPath = Environment.CurrentDirectory + "/";
-        public static string ConfigPath = WorkPath + "Config.conf";
+        public static string ConfigPath = WorkPath + "/Config/config.conf";
         public static string FFmpegBinPath = WorkPath + "ffmpeg";
         public static string StaticFilePath = WorkPath + "www/";
         public static string CutOrMergePath = StaticFilePath + "CutMergeFile/";
         public static string CutOrMergeTempPath = StaticFilePath + "CutMergeDir/";
         public static string RecordPath = StaticFilePath + "record/";
-        public static string SystemLogPath = WorkPath + "log/";
         public static int FFmpegThreadCount = 2;
         public static string MediaServerBinPath = null!;
         public static string StreamNodeServerUrl = null!;
@@ -126,7 +125,7 @@ namespace StreamMediaServerKeeper
                     }
                     else
                     {
-                        int index = str.IndexOf("#");
+                        int index = str.IndexOf("#", StringComparison.Ordinal);
                         tmp_list.Add(str.Remove(index,index).Insert(index,";"));
                     }
                 }
