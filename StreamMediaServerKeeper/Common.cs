@@ -109,7 +109,7 @@ namespace StreamMediaServerKeeper
         
        
         /// <summary>
-        /// 删除以#开头的所有行
+        /// 替换#开头的所有行为;开头
         /// </summary>
         /// <param name="filePath"></param>
         private static void processZLMediaKitConfigFile(string filePath)
@@ -123,6 +123,11 @@ namespace StreamMediaServerKeeper
                     if (!str.StartsWith('#'))
                     {
                         tmp_list.Add(str);
+                    }
+                    else
+                    {
+                        int index = str.IndexOf("#");
+                        tmp_list.Add(str.Remove(index,index).Insert(index,";"));
                     }
                 }
                 File.WriteAllLines(filePath,tmp_list);
