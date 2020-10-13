@@ -630,9 +630,35 @@ namespace StreamNodeCtrlApis.WebHookApis
             tmpDvrVideo.PushMediaServerId = record.MediaServerId;
             tmpDvrVideo.UpdateTime = currentTime;
             tmpDvrVideo.RecordDate = st.ToString("yyyy-MM-dd");
-            tmpDvrVideo.DownloadUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.WebApiPort +
-                                      "/CustomizedRecord/" +
-                                      tmpDvrVideo.DownloadUrl;
+            string tmp = tmpDvrVideo.DownloadUrl;
+            tmp = tmp.Replace("\\", "/", StringComparison.Ordinal);//跨平台兼容
+            if (tmp.Contains(":"))
+            {
+                tmp = tmp.Substring(tmp.IndexOf(':') + 1); //清除掉类似  c: 这样的字符，跨平台兼容
+            }
+            if (!string.IsNullOrEmpty(mediaServer.RecordFilePath) &&
+                record.File_Path.Contains(mediaServer.RecordFilePath))
+            {
+                tmp = tmp.Replace(mediaServer.RecordFilePath, "", StringComparison.Ordinal);
+                if (tmp.StartsWith("/"))
+                {
+                    tmp = tmp.TrimStart('/');
+                }
+
+                tmpDvrVideo.DownloadUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.WebApiPort +
+                                          "/CustomizedRecord/" + tmp;
+            }
+            else
+            {
+                //如果不包含自定义视频存储目录地址，就认为是默认地址
+                if (!string.IsNullOrEmpty(tmp) && tmp.Contains("/record/"))
+                {
+                    tmp = tmp.Replace("/record/", "", StringComparison.Ordinal);
+                }
+
+                tmpDvrVideo.DownloadUrl = "http://" + mediaServer.Ipaddress + ":" + mediaServer.WebApiPort +
+                                          "/CustomizedRecord/" + tmp;
+            }
 
             CameraSession session = null;
             lock (Common.CameraSessionLock)
