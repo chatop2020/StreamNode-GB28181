@@ -127,7 +127,8 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    if (obj.LastKeepAliveTime.AddMinutes(2) < DateTime.Now) //2分钟以上没有心跳的，就踢掉
+                    if((DateTime.Now-obj.LastKeepAliveTime).TotalSeconds>60)//1分钟以上没有心跳的，就踢掉
+                   // if (obj.LastKeepAliveTime.AddMinutes(2) < DateTime.Now) //2分钟以上没有心跳的，就踢掉
                     {
                         foreach (var camera in obj.CameraExList)
                         {
