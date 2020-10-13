@@ -256,36 +256,41 @@ namespace StreamMediaServerKeeper
         {
             try
             {
-                string std = "";
-                string err = "";
-                string cmd = "top -bn1 | awk '/%Cpu/ {print $2+$4,$8}'";
-                var ret = LinuxShell.Run(cmd, 1000, out std, out err);
-                if (ret)
-                {
-                    if (!string.IsNullOrEmpty(std))
-                    {
-                        string[] cpuinfo = std.Split(' ');
-                        if (cpuinfo.Length == 2)
-                        {
-                            CPUInfo result = new CPUInfo();
-                            result.CpuIdle = float.Parse(cpuinfo[1]);
-                            result.CpuUsed = float.Parse(cpuinfo[0]);
-                            return result;
-                        }
-                    }
 
-                    if (!string.IsNullOrEmpty(err))
+               
+                    string std = "";
+                    string err = "";
+                    string cmd = "top -bn1 | awk '/%Cpu/ {print $2+$4,$8}'";
+                    var ret = LinuxShell.Run(cmd, 1000, out std, out err);
+                    if (ret)
                     {
-                        string[] cpuinfo = err.Split(' ');
-                        if (cpuinfo.Length == 2)
+                        if (!string.IsNullOrEmpty(std))
                         {
-                            CPUInfo result = new CPUInfo();
-                            result.CpuIdle = float.Parse(cpuinfo[1]);
-                            result.CpuUsed = float.Parse(cpuinfo[0]);
-                            return result;
+                            string[] cpuinfo = std.Split(' ');
+                            if (cpuinfo.Length == 2)
+                            {
+                                CPUInfo result = new CPUInfo();
+                                result.CpuIdle = float.Parse(cpuinfo[1]);
+                                result.CpuUsed = float.Parse(cpuinfo[0]);
+                                return result;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(err))
+                        {
+                            string[] cpuinfo = err.Split(' ');
+                            if (cpuinfo.Length == 2)
+                            {
+                                CPUInfo result = new CPUInfo();
+                                result.CpuIdle = float.Parse(cpuinfo[1]);
+                                result.CpuUsed = float.Parse(cpuinfo[0]);
+                                return result;
+                            }
                         }
                     }
-                }
+                
+
+
             }
             catch
             {

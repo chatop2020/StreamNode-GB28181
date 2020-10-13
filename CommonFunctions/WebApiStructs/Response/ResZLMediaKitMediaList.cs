@@ -70,6 +70,7 @@ namespace CommonFunctions.WebApiStructs.Response
         private int? _fps;
         private int? _width;
         private int? _height;
+       
 
         [JsonProperty("channels")]
         public int? Channels
@@ -142,6 +143,9 @@ namespace CommonFunctions.WebApiStructs.Response
     [Serializable]
     public class MediaDataItem
     {
+        private int? _aliveSecond;
+        private int? _bytesSpeed;
+        private long? _createStamp;
         private string? _app;
         private int? _readerCount;
         private string? _schema;
@@ -153,6 +157,27 @@ namespace CommonFunctions.WebApiStructs.Response
         private string? _originTypeStr;
         private string? _originUrl;
         private List<TracksItem> _tracks;
+
+        [JsonProperty("createStamp")]
+        public long? CreateStamp
+        {
+            get => _createStamp;
+            set => _createStamp = value;
+        }
+
+        [JsonProperty("bytesSpeed")]
+        public int? BytesSpeed
+        {
+            get => _bytesSpeed;
+            set => _bytesSpeed = value;
+        }
+
+        [JsonProperty("aliveSecond")]
+        public int? AliveSecond
+        {
+            get => _aliveSecond;
+            set => _aliveSecond = value;
+        }
 
         [JsonProperty("app")]
         public string? App

@@ -360,14 +360,14 @@ namespace StreamNodeWebApi.Controllers
         /// <param name="cameraId"></param>
         /// <returns></returns>
         /// <exception cref="HttpResponseException"></exception>
-        [Route("GetCameraInstanceByCameraId")]
+        [Route("GetCameraSessionByCameraId")]
         [HttpGet]
         [Log]
         [AuthVerify]
-        public CameraSession GetCameraInstanceByCameraId(string mediaServerId, string cameraId)
+        public CameraSession GetCameraSessionByCameraId(string mediaServerId, string cameraId)
         {
             ResponseStruct rs;
-            var ret = MediaServerApis.GetCameraInstanceByCameraId(mediaServerId, cameraId, out rs);
+            var ret = MediaServerApis.GetCameraSessionByCameraId(mediaServerId, cameraId, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));

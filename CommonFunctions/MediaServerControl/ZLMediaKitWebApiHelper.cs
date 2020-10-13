@@ -396,7 +396,7 @@ namespace CommonFunctions.MediaServerControl
             string reqData = JsonHelper.ToJson(reqParams);
             var httpRet = NetHelper.HttpPostRequest(innerUrl, null, reqData, "utf-8", 5000);
             if (!string.IsNullOrEmpty(httpRet))
-            {
+            { 
                 try
                 {
                     var resZlMediaList = JsonHelper.FromJson<ResZLMediaKitMediaList>(httpRet);

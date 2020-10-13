@@ -331,7 +331,7 @@
             <returns></returns>
             <exception cref="T:CommonFunctions.HttpResponseException"></exception>
         </member>
-        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetCameraInstanceByCameraId(System.String,System.String)">
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetCameraSessionByCameraId(System.String,System.String)">
             <summary>
             根据摄像头ID查询在线摄像头对象
             </summary>

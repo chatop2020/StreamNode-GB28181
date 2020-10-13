@@ -1282,7 +1282,7 @@ namespace StreamNodeCtrlApis.SystemApis
         /// <param name="cameraId"></param>
         /// <param name="rs"></param>
         /// <returns></returns>
-        public static CameraSession GetCameraInstanceByCameraId(string mediaServerId, string cameraId,
+        public static CameraSession GetCameraSessionByCameraId(string mediaServerId, string cameraId,
             out ResponseStruct rs)
         {
             rs = new ResponseStruct()
