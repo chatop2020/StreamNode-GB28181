@@ -82,8 +82,11 @@ namespace LibGB28181SipGate
                          obj.SipDeviceStatus == SipDeviceStatus.GetDeviceList) &&
                         (obj.CameraExList == null || obj.CameraExList.Count == 0)) //自动获取设备列表
                     {
+                        Logger.Logger.Debug("发现设备处于注册状态，或者通道列表为空->开始获取通道列表->"+obj.IpAddress+"->"+obj.SipPort+"->"+obj.DeviceId);
                         if (GetDeviceList(obj.DeviceId))
                         {
+                            Logger.Logger.Debug("获取通道列表成功了->"+obj.IpAddress+"->"+obj.SipPort+"->"+obj.DeviceId);
+
                             lock (SipDeviceLock)
                             {
                                 obj.SipDeviceStatus = SipDeviceStatus.GetDeviceList;
@@ -91,9 +94,11 @@ namespace LibGB28181SipGate
                         }
                         else
                         {
+                            Logger.Logger.Debug("获取通道列表失败了，可能断线了，把它踢了，等他重新注册->"+obj.IpAddress+"->"+obj.SipPort+"->"+obj.DeviceId);
                             lock (SipDeviceLock)
                             {
                                 obj.SipDeviceStatus = SipDeviceStatus.LooksLikeOffline;
+                                obj.LastKeepAliveTime = DateTime.Now.AddMinutes(10); //用于将sip设备踢掉，等它重新注册
                             }
                         }
 
@@ -130,6 +135,7 @@ namespace LibGB28181SipGate
                     if((DateTime.Now-obj.LastKeepAliveTime).TotalSeconds>60)//1分钟以上没有心跳的，就踢掉
                    // if (obj.LastKeepAliveTime.AddMinutes(2) < DateTime.Now) //2分钟以上没有心跳的，就踢掉
                     {
+                    Logger.Logger.Debug("踢掉超过60秒没有心跳的设备->IP->"+obj.IpAddress+"->Port->"+obj.SipPort+"->DevId->"+obj.DeviceId);
                         foreach (var camera in obj.CameraExList)
                         {
                             if (camera != null && camera.SipCameraStatus == SipCameraStatus.RealVideo)
@@ -193,6 +199,7 @@ namespace LibGB28181SipGate
                 var dev = SipDeviceList.FindLast(x => x.DeviceId.Equals(devid));
                 if (dev == null)
                 {
+                    Logger.Logger.Debug("设备注册消息->SipDevList中没有找到->进行正常注册->"+ip+"->"+port+"->"+devid);
                     var newSip = new SipDevice();
                     newSip.CRC32 = CRC32Cls.GetCRC32(ip + port + devid).ToString();
                     newSip.DeviceId = devid;
@@ -209,6 +216,7 @@ namespace LibGB28181SipGate
                 }
                 else if (dev != null && dev.SipDeviceStatus == SipDeviceStatus.UnRegister)
                 {
+                    Logger.Logger.Debug("设备注册消息->SipDevList找到->属于未注册状态->进行状态转换->"+ip+"->"+port+"->"+devid);
                     dev.CameraExList.Clear();
                     dev.AlarmList.Clear();
                     dev.LastSipRequest = sipRequest;
@@ -217,6 +225,8 @@ namespace LibGB28181SipGate
                 }
                 else //发现公网不固定ip设备，可能因网络波动导致n次注册，而ip地址又不一致，造成straemnode后续处理问题，这边做一次信息修改来解决问题
                 {
+                    Logger.Logger.Debug("设备注册消息->SipDevList找到->不属于未激活状态->要做ip地址变更->"+ip+"->"+port+"->"+devid);
+                    Logger.Logger.Debug("设备注册消息->SipDevList找到->不属于未激活状态->老ip数据->"+dev.IpAddress+"->"+dev.SipPort+"->"+devid);
                     //sip网关全局只允许唯一deviceid,如果发现多个deviceid时，除非此设备为注销状态，将重新激活为注册状态，除此之外一律重置相关参数信息
                     dev.CRC32 = CRC32Cls.GetCRC32(ip + port + devid).ToString();
                     dev.DeviceId = devid;
@@ -280,6 +290,7 @@ namespace LibGB28181SipGate
         /// <param name="sIPAccount"></param>
         private void OnSipUnRegisterReceived(SIPRequest sipRequest, SIPAccount sIPAccount)
         {
+            Logger.Logger.Debug("设备注销消息->IP->"+sipRequest.Header.Vias.TopViaHeader.Host+"->Port->"+sipRequest.Header.Vias.TopViaHeader.Port+"->DevID->"+sipRequest.Header.From.FromURI.User);
             lock (SipDeviceLock)
             {
                 var dev = SipDeviceList.FindLast(x =>
