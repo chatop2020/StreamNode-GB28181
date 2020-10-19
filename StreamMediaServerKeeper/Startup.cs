@@ -94,21 +94,47 @@ namespace StreamMediaServerKeeper
             };
             app.UseStaticFiles(staticfile);*/
 
-            app.UseFileServer(new FileServerOptions()
+            /*app.UseCors("cors").UseFileServer(new FileServerOptions()
             {
                 FileProvider = new PhysicalFileProvider
                     (Path.Combine(Directory.GetCurrentDirectory(), Common.RecordPath)), //实际目录地址
                 RequestPath = new PathString("/CustomizedRecord"), //用户访问地址
                 EnableDirectoryBrowsing = true //开启目录浏览
+                
+            });*/
+
+
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), Common.CutOrMergePath)),
+                OnPrepareResponse = (c) =>
+                {
+                    c.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                },
+                RequestPath = new PathString("/CutMergeFile")
+            });
+            
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), Common.RecordPath)),
+                OnPrepareResponse = (c) =>
+                {
+                    c.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                },
+                RequestPath = new PathString("/CustomizedRecord")
             });
 
-            app.UseFileServer(new FileServerOptions()
+
+            /*app.UseCors("cors").UseFileServer(new FileServerOptions()
             {
                 FileProvider = new PhysicalFileProvider
-                    (Path.Combine(Directory.GetCurrentDirectory(), Common.CutOrMergePath)), //实际目录地址
+                    (Path.Combine(Directory.GetCurrentDirectory(), Common.CutOrMergePath))
+              ,
+                 //实际目录地址
                 RequestPath = new PathString("/CutMergeFile"), //用户访问地址
                 EnableDirectoryBrowsing = true //开启目录浏览
-            });
+            });*/
 
 
             app.UseEndpoints(
