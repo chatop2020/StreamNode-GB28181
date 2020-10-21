@@ -128,7 +128,7 @@ namespace StreamNodeWebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("HardDeleteDvrVideoByIdList")]
-        [HttpGet]
+        [HttpPost]
         [Log]
         [AuthVerify]
         public bool HardDeleteDvrVideoByIdList(List<long> dvrVideoId)
