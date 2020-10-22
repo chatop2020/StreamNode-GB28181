@@ -19,6 +19,7 @@ namespace GB28181.Servers
         event DeviceAlarmSubscribeDelegate DeviceAlarmSubscribe;
 
         public void RemoveDeviceItem(SIPRequest sipRequest);
+        public void RemoveDeviceItem(string deviceKey);
 
         public void CacheDeviceItem(SIPRequest sipRequest);
 

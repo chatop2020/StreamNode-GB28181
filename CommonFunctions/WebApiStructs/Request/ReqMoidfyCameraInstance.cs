@@ -13,6 +13,7 @@ namespace CommonFunctions.WebApiStructs.Request
         private bool? _enableRecord;
         private bool? _ifGB28181Tcp;
         private string? _pushMediaServerId;
+        private bool? _mobileCamera;
 
         public string CameraId
         {
@@ -79,6 +80,11 @@ namespace CommonFunctions.WebApiStructs.Request
         {
             get => _pushMediaServerId;
             set => _pushMediaServerId = value;
+        }
+        public bool? MobileCamera
+        {
+            get => _mobileCamera;
+            set => _mobileCamera = value;
         }
     }
 }

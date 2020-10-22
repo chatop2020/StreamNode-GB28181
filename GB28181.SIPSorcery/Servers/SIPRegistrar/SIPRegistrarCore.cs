@@ -291,6 +291,10 @@ namespace GB28181.Servers
             _cameraCache.TakeOut(sipRequest.URI.Host);
         }
 
+        public void RemoveDeviceItem(string deviceKey)
+        {
+             _cameraCache.TakeOut(deviceKey);
+        }
         public void CacheDeviceItem(SIPRequest sipRequest)
         {
             //Add Camera Item Into Cache

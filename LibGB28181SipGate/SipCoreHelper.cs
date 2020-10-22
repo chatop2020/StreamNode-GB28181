@@ -153,7 +153,7 @@ namespace LibGB28181SipGate
 
                         lock (SipDeviceLock)
                         {
-                           
+                            _sipMessageCore._registrarCore.RemoveDeviceItem(obj.IpAddress+":"+obj.SipPort);
                             _sipMessageCore.RemoteTransEPs.Remove(obj.IpAddress+":"+obj.SipPort);
                             SipDeviceList.Remove(obj);
                         }
@@ -227,7 +227,9 @@ namespace LibGB28181SipGate
                 else //发现公网不固定ip设备，可能因网络波动导致n次注册，而ip地址又不一致，造成straemnode后续处理问题，这边做一次信息修改来解决问题
                 {
                     _sipMessageCore.RemoteTransEPs.Remove(dev.IpAddress+":"+dev.SipPort);
-                   
+                    _sipMessageCore.RemoteTransEPs.Remove(ip+":"+port);
+                    _sipMessageCore._registrarCore.RemoveDeviceItem(dev.IpAddress+":"+dev.SipPort);
+                    _sipMessageCore._registrarCore.RemoveDeviceItem(ip+":"+port);
                     Logger.Logger.Debug("设备注册消息->SipDevList找到->不属于未激活状态->要做ip地址变更->"+ip+"->"+port+"->"+devid);
                     Logger.Logger.Debug("设备注册消息->SipDevList找到->不属于未激活状态->老ip数据->"+dev.IpAddress+"->"+dev.SipPort+"->"+devid);
                     //sip网关全局只允许唯一deviceid,如果发现多个deviceid时，除非此设备为注销状态，将重新激活为注册状态，除此之外一律重置相关参数信息
@@ -242,6 +244,7 @@ namespace LibGB28181SipGate
                     dev.LastKeepAliveTime = DateTime.Now;
                     dev.LastUpdateTime = DateTime.Now;
                     /*尝试修复公网非固定ip设备的重启后无法通讯问题*/
+                 
                     _sipMessageCore._registrarCore.CacheDeviceItem(sipRequest); //更新数据
                     _sipMessageCore.RemoteTransEPs.Add(dev.IpAddress+":"+dev.SipPort,dev.DeviceId);
                     lock (SipDeviceLock)
