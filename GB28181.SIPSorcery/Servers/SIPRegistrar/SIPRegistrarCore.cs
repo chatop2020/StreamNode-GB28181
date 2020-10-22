@@ -286,12 +286,12 @@ namespace GB28181.Servers
         /// 从缓存中移除
         /// </summary>
         /// <param name="sipRequest"></param>
-        private void RemoveDeviceItem(SIPRequest sipRequest)
+        public void RemoveDeviceItem(SIPRequest sipRequest)
         {
             _cameraCache.TakeOut(sipRequest.URI.Host);
         }
 
-        private void CacheDeviceItem(SIPRequest sipRequest)
+        public void CacheDeviceItem(SIPRequest sipRequest)
         {
             //Add Camera Item Into Cache
             _cameraCache.PlaceIn(sipRequest.URI.Host, new Camera()
