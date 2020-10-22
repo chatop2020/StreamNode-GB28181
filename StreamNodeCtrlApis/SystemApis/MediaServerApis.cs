@@ -1000,6 +1000,8 @@ namespace StreamNodeCtrlApis.SystemApis
                     .SetIf(req.EnableLive != null, x => x.EnableLive, req.EnableLive)
                     .SetIf(req.IfGb28181Tcp != null, x => x.IfGb28181Tcp, req.IfGb28181Tcp)
                     .SetIf(req.EnablePtz != null, x => x.EnablePtz, req.EnablePtz).Set(x => x.UpdateTime, DateTime.Now)
+                    .SetIf(!string.IsNullOrEmpty(req.PushMediaServerId) && !req.PushMediaServerId.ToLower().Trim().Equals("string"),
+                        x=>x.PushMediaServerId,req.PushMediaServerId)
                     .Where(x => x.PushMediaServerId.Equals(mediaServerId)).Where(x => x.CameraId.Equals(req.CameraId))
                     .ExecuteAffrows();
                 if (ret > 0)
