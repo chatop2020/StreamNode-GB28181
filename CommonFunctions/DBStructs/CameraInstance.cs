@@ -11,6 +11,7 @@ namespace CommonFunctions.DBStructs
     [Index("cmr_dept", "DeptId,PDetpId", false)]
     [Index("cmr_deptex", "DeptName", false)]
     [Index("cmr_enablelive", "EnableKive", false)]
+   
     [Serializable]
     public class CameraInstance
     {

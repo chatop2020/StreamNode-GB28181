@@ -20,6 +20,7 @@ namespace CommonFunctions
         ZLMediaKitNotRunning = -4007,
         MediaServerCtrlWebApiExcept = -4008,
         MediaServerInstancesNotFound = -4009,
+        CameraInstanceExists=-4010,
 
         InitSystem = -5000, //初始化系统出错
         ConfigFile = -5001, //配置文件没有找到
@@ -123,7 +124,7 @@ namespace CommonFunctions
             ErrorDic[ErrorNumber.ZLMediaKitNotRunning] = "流媒体服务没有启动";
             ErrorDic[ErrorNumber.MediaServerCtrlWebApiExcept] = "流媒体服务控制接口调用返回异常";
             ErrorDic[ErrorNumber.MediaServerInstancesNotFound] = "流媒体服务实例不存在";
-
+            ErrorDic[ErrorNumber.CameraInstanceExists] = "摄像头实例已存在";
 
             ErrorDic[ErrorNumber.ConfigFile] = "配置文件没有找到";
             ErrorDic[ErrorNumber.InitSystem] = "初始化系统出错";

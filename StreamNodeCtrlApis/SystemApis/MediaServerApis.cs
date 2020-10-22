@@ -1166,6 +1166,20 @@ namespace StreamNodeCtrlApis.SystemApis
                 }
 
                 req.IfRtspUrl = "";
+                var have = OrmService.Db.Select<CameraInstance>().Where(x => x.CameraType.Equals(CameraType.GB28181))
+                    .Where(x => x.PushMediaServerId.Equals(mediaServerId))
+                    .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable.Trim()))
+                    .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable.Trim())).Count();
+                if (have > 0)
+                {
+                    rs = new ResponseStruct()
+                    {
+                        Code = ErrorNumber.CameraInstanceExists,
+                        Message = ErrorMessage.ErrorDic![ErrorNumber.CameraInstanceExists],
+                    };
+                    return null; 
+                }
+
             }
 
             req.CameraId = string.Format("{0:X8}", CRC32Cls.GetCRC32(req.PushMediaServerId + req.CameraType +
