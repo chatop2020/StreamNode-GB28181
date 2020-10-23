@@ -76,8 +76,9 @@ namespace LibGB28181SipGate
         {
             while (_isRunning)
             {
-                foreach (var obj in SipDeviceList)
+                for (int i = SipDeviceList.Count-1; i>=0; i--)
                 {
+                    var obj = _sipDeviceList[i];
                     if ((obj.SipDeviceStatus == SipDeviceStatus.Register ||
                          obj.SipDeviceStatus == SipDeviceStatus.GetDeviceList) &&
                         (obj.CameraExList == null || obj.CameraExList.Count == 0)) //自动获取设备列表
@@ -132,7 +133,7 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    if((DateTime.Now-obj.LastKeepAliveTime).TotalSeconds>60)//1分钟以上没有心跳的，就踢掉
+                    if(Math.Abs((DateTime.Now-obj.LastKeepAliveTime).TotalSeconds)>60)//1分钟以上没有心跳的，就踢掉
                    // if (obj.LastKeepAliveTime.AddMinutes(2) < DateTime.Now) //2分钟以上没有心跳的，就踢掉
                     {
                     Logger.Logger.Debug("踢掉超过60秒没有心跳的设备->IP->"+obj.IpAddress+"->Port->"+obj.SipPort+"->DevId->"+obj.DeviceId);
@@ -155,12 +156,60 @@ namespace LibGB28181SipGate
                         {
                             _sipMessageCore._registrarCore.RemoveDeviceItem(obj.IpAddress+":"+obj.SipPort);
                             _sipMessageCore.RemoteTransEPs.Remove(obj.IpAddress+":"+obj.SipPort);
-                            SipDeviceList.Remove(obj);
+                            _sipDeviceList[i] = null;
+
                         }
                     }
                 }
 
+                lock (SipDeviceLock)
+                {
+                    RemoveNull(SipDeviceList);
+                }
+                
                 Thread.Sleep(5000); //5秒一次
+            }
+        }
+        
+        /// <summary>
+        /// 删除List<T>中null的记录
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        private static void RemoveNull<T>(List<T> list)
+        {
+            // 找出第一个空元素 O(n)
+            int count = list.Count;
+            for (int i = 0; i < count; i++)
+                if (list[i] == null)
+                {
+                    // 记录当前位置
+                    int newCount = i++;
+
+                    // 对每个非空元素，复制至当前位置 O(n)
+                    for (; i < count; i++)
+                        if (list[i] != null)
+                            list[newCount++] = list[i];
+
+                    // 移除多余的元素 O(n)
+                    list.RemoveRange(newCount, count - newCount);
+                    break;
+                }
+        }
+
+        public void TickOutDevice(string devId)
+        {
+            lock (SipDeviceLock)
+            {
+                var dev = SipDeviceList.FindLast(x=>x.DeviceId.Equals(devId));
+                if (dev != null )
+                {
+                    lock (SipDeviceLock)
+                    {
+                        dev.SipDeviceStatus = SipDeviceStatus.LooksLikeOffline;
+                        dev.LastKeepAliveTime = DateTime.Now.AddMinutes(10); //用于将sip设备踢掉，等它重新注册
+                    }
+                }
             }
         }
 
@@ -226,6 +275,13 @@ namespace LibGB28181SipGate
                 }
                 else //发现公网不固定ip设备，可能因网络波动导致n次注册，而ip地址又不一致，造成straemnode后续处理问题，这边做一次信息修改来解决问题
                 {
+                
+                    lock (SipDeviceLock)
+                    {
+                        dev.SipDeviceStatus = SipDeviceStatus.LooksLikeOffline;
+                        dev.LastKeepAliveTime = DateTime.Now.AddMinutes(10); //用于将sip设备踢掉，等它重新注册
+                    }
+                /*
                     _sipMessageCore.RemoteTransEPs.Remove(dev.IpAddress+":"+dev.SipPort);
                     _sipMessageCore.RemoteTransEPs.Remove(ip+":"+port);
                     _sipMessageCore._registrarCore.RemoveDeviceItem(dev.IpAddress+":"+dev.SipPort);
@@ -243,7 +299,7 @@ namespace LibGB28181SipGate
                     dev.SipDeviceStatus = SipDeviceStatus.Register;
                     dev.LastKeepAliveTime = DateTime.Now;
                     dev.LastUpdateTime = DateTime.Now;
-                    /*尝试修复公网非固定ip设备的重启后无法通讯问题*/
+                    /*尝试修复公网非固定ip设备的重启后无法通讯问题#1#
                  
                     _sipMessageCore._registrarCore.CacheDeviceItem(sipRequest); //更新数据
                     _sipMessageCore.RemoteTransEPs.Add(dev.IpAddress+":"+dev.SipPort,dev.DeviceId);
@@ -285,7 +341,7 @@ namespace LibGB28181SipGate
                     }
 
 
-                    /*尝试修复公网非固定ip设备的重启后无法通讯问题*/
+                    /*尝试修复公网非固定ip设备的重启后无法通讯问题#1#*/
                 }
             }
         }
@@ -502,6 +558,11 @@ namespace LibGB28181SipGate
         {
             lock (SipDeviceLock)
             {
+                var camearDev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(devId));
+                if (camearDev != null && camearDev.SipDeviceStatus == SipDeviceStatus.LooksLikeOffline)
+                {
+                    return; //如果是断线状态，就不处理
+                }
                 var deviceObj = SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(devId));
                 if (!remoteEp.Address.ToString().Equals(deviceObj.Value.RemoteEndPoint.Address.ToString())
                     || !remoteEp.Port.ToString().Equals(deviceObj.Value.RemoteEndPoint.Port.ToString()))
@@ -509,7 +570,7 @@ namespace LibGB28181SipGate
                     deviceObj.Value.RemoteEndPoint = remoteEp;
                 }
 
-                var camearDev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(devId));
+              
                 if (camearDev != null && camearDev.CameraExList != null)
                 {
                     foreach (var cex in camearDev.CameraExList)
