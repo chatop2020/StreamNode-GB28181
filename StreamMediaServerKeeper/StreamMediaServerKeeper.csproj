@@ -13,6 +13,11 @@
     </PropertyGroup>
 
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>Swagger.xml</DocumentationFile>
+    </PropertyGroup>
+
+
     <ItemGroup>
         <PackageReference Include="ini-parser" Version="2.5.2" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

@@ -10,6 +10,10 @@
         <DebugType>full</DebugType>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>Swagger.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\CommonFunctions\CommonFunctions.csproj" />
         <ProjectReference Include="..\LibGB28181SipGate\LibGB28181SipGate.csproj" />

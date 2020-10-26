@@ -1,0 +1,437 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StreamNodeCtrlApis</name>
+    </assembly>
+    <members>
+        <member name="T:StreamNodeCtrlApis.SipGateApis.CommonApi">
+            <summary>
+            sip网关的一般接口
+            </summary>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.ByeLiveVideo(System.String,System.String,System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            停掉直播流
+            </summary>
+            <param name="mediaServerDeviceId"></param>
+            <param name="deviceId"></param>
+            <param name="cameraid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.LiveVideo(System.String,System.String,System.String,CommonFunctions.ManageStructs.ResponseStruct@,System.Boolean)">
+            <summary>
+            请求直播流
+            </summary>
+            <param name="mediaServerDeviceId"></param>
+            <param name="deviceId"></param>
+            <param name="cameraid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.ActiveDeviceCatalogQuery(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            主动获取一次设备目录列表
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.GetAutoPushStreamState(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取自动推流状态
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.SetAutoPushStreamState(System.Boolean,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            设置自动推流状态
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.PtzControl(System.String,System.String,System.Int32,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            ptz控制
+            </summary>
+            <param name="deviceid"></param>
+            <param name="dir"></param>
+            <param name="speed"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.GetSipDeviceList(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取sip设备列表
+            </summary>
+            <param name="deviceId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.DvrPlanApis.DeleteDvrPlanById(System.Int64,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            通过id删除一个录制计划
+            </summary>
+            <param name="id"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.DvrPlanApis.OnOrOffDvrPlanById(System.Int64,System.Boolean,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            启用或停止一个录制计划
+            </summary>
+            <param name="id"></param>
+            <param name="enable"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.DvrPlanApis.SetDvrPlanById(System.Int64,CommonFunctions.ManageStructs.ReqStreamDvrPlan,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            修改dvrplan
+            </summary>
+            <param name="id"></param>
+            <param name="sdp"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.DvrPlanApis.CreateDvrPlan(CommonFunctions.ManageStructs.ReqStreamDvrPlan,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            创建一个录制计划
+            </summary>
+            <param name="sdp"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.analysisVideoFile(CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取需要裁剪合并的文件列表 
+            </summary>
+            <param name="rcmv"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.CutOrMergeVideoFile(CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            裁剪或合并视频文件
+            </summary>
+            <param name="rcmv"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetMergeTaskStatus(System.String,System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取裁剪合并任务状态
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="taskId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetBacklogTaskList(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取裁剪合并任务积压列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.UndoSoftDelete(System.Int64,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            恢复被软删除的录制文件
+            </summary>
+            <param name="id"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.HardDeleteDvrVideoById(System.Int64,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            删除一个录像文件（硬删除，立即删除文件，数据库置Delete）
+            </summary>
+            <param name="id"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.HardDeleteDvrVideoByIdList(System.Collections.Generic.List{System.Int64},CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            删除一批录像文件（硬删除，立即删除文件，数据库置Delete）
+            </summary>
+            <param name="idList"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.SoftDeleteDvrVideoById(System.Int64,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            删除一个录像文件（软删除，只做标记不删除文件，文件保留24小时后删除）
+            </summary>
+            <param name="id"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetDvrVideoById(System.Int64,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            根据id,获取视频文件信息
+            </summary>
+            <param name="id"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetDvrVideoList(CommonFunctions.ManageStructs.ReqGetDvrVideo,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取录像文件列表
+            </summary>
+            <param name="rgdv"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetCameraInstanceListEx(CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            扩展查询已注册摄像头列表
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetCameraInstanceList(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取已注册的摄像头列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.ModifyCameraInstance(System.String,CommonFunctions.WebApiStructs.Request.ReqMoidfyCameraInstance,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            修改注册摄像头的配置信息
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.DeleteCameraInstance(System.String,System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            删除一个注册的摄像头实例
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="cameraId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.AddCameraInstance(System.String,CommonFunctions.WebApiStructs.Request.ReqAddCameraInstance,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            注册一个摄像头信息以供流发布时的鉴权
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetPlayerSessionList(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取在线player列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetCameraSessionByCameraId(System.String,System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            根据摄像头ID查找在线摄像头
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="cameraId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetCameraSessionList(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取在线摄像头列表
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetConfig(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取流媒体配置信息
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.AddFFmpegProxy(System.String,System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            启动一个FFmpeg流
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.CloseStreams(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitCloseStreams,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            关闭一个流
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetStreamList(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取流列表 
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.StartRecord(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStartRecord,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            开始录制 
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.StopRecord(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStopRecord,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            停止录制 
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetRecordStatus(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStopRecord,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取录制状态 
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.OpenRtpPort(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitOpenRtpPort,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            关闭rtp端口 
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.CloseRtpPort(System.String,CommonFunctions.WebApiStructs.Request.ReqZLMediaKitCloseRtpPort,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            关闭rtp端口 
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetRtpPortList(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取rtp端口列表 
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.CheckMediaServerIsRunning(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            流媒体服务是否正在运行
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.RestartMediaServer(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            重启流媒体服务
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.StopMediaServer(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            停止流媒体服务
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.StartMediaServer(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            启动流媒体服务
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetMediaServerList(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取流媒体服务器列表
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetMediaServerInstance(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取一个MediaServer的实例
+            </summary>
+            <param name="deviceid"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.AddSipDeviceToDB(CommonFunctions.WebApiStructs.Request.ReqAddCameraInstance,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            自动向数据库写入sip摄像头通道
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.ActivateSipCamera(CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            激活自动添加的gb28181摄像头
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.WebHookApis.MediaServerCtrlApi.GetCameraFromCameraInstance(CommonFunction.ManageStructs.CameraSession)">
+            <summary>
+            从注册摄像头列表中获取摄像头实例
+            </summary>
+            <param name="session"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.WebHookApis.MediaServerCtrlApi.getCameraFromSipDevice(System.UInt32,System.String,System.String,System.String)">
+            <summary>
+            在sip设备中找到某个streamid的摄像头信息
+            </summary>
+            <param name="streamId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.WebHookApis.MediaServerCtrlApi.OnPublishNew(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPublish,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            只有rtp推流或才rtmp，rtsp推流才会有onpublish事件触发，因此这里忽略ffmpeg推流的方式
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.WebHookApis.MediaServerCtrlApi.OnStreamChangeNew(CommonFunctions.WebApiStructs.Request.ReqForWebHookOnStreamChange,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            当有RTSP拉流事件时的处理
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamNodeCtrlApis.WebHookApis.MediaServerCtrlApi.OnMediaServerStart(CommonFunctions.WebApiStructs.Response.ZLMediaKitConfigForResponse,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            有媒体服务器启动
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

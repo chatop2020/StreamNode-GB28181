@@ -1,5 +1,8 @@
 namespace CommonFunctions.WebApiStructs.Request
 {
+    /// <summary>
+    /// 请求结构-修改摄像头实例
+    /// </summary>
     public class ReqMoidfyCameraInstance
     {
         private string _cameraId;
@@ -15,12 +18,16 @@ namespace CommonFunctions.WebApiStructs.Request
         private string? _pushMediaServerId;
         private bool? _mobileCamera;
 
+        /// <summary>
+        /// 摄像头实例ID（不可修改，是条件）
+        /// </summary>
         public string CameraId
         {
             get => _cameraId;
             set => _cameraId = value;
         }
 
+        
         public string? CameraName
         {
             get => _cameraName;

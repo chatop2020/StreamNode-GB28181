@@ -5,9 +5,21 @@ namespace GB28181.Sys.Model
     [Serializable]
     public enum CameraType
     {
+        /// <summary>
+        /// GB28181设备
+        /// </summary>
         GB28181,
+        /// <summary>
+        /// RTSP设备
+        /// </summary>
         Rtsp,
+        /// <summary>
+        /// 直播设备
+        /// </summary>
         LiveCast,
+        /// <summary>
+        /// 未知设备
+        /// </summary>
         None,
     }
 

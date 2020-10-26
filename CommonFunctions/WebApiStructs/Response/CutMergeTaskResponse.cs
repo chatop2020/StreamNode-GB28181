@@ -4,6 +4,8 @@ using CommonFunctions.WebApiStructs.Request;
 
 namespace CommonFunctions.WebApiStructs.Response
 {
+    
+    [Serializable]
     public enum CutMergeRequestStatus
     {
         Succeed,

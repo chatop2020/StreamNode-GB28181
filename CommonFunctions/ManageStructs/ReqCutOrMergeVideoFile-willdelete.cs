@@ -2,8 +2,11 @@ using System;
 
 namespace SRSManageCommon.ControllerStructs.RequestModules
 {
+    /// <summary>
+    /// 请求裁剪合并文件
+    /// </summary>
     [Serializable]
-    public class ReqCutOrMergeVideoFile
+    public class ReqCutOrMergeVideoFile_willDelete
     {
         private DateTime _startTime;
         private DateTime _endTime;

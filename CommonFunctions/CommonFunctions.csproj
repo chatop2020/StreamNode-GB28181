@@ -8,6 +8,11 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <DebugType>full</DebugType>
+      <DocumentationFile>CommonFunctions.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>CommonFunctions.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

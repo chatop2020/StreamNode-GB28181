@@ -1,0 +1,2658 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonFunctions</name>
+    </assembly>
+    <members>
+        <member name="M:CommonFunctions.Common.IsUrl(System.String)">
+            <summary>
+            是否为Url
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.CopyOjbect(System.Object)">
+            <summary>
+            对象拷贝
+            </summary>
+            <param name="obj">被复制对象</param>
+            <returns>新对象</returns>
+        </member>
+        <member name="M:CommonFunctions.Common.ConvertDateTimeToInt(System.DateTime)">
+            <summary>  
+            将 DateTime时间格式转换为Unix时间戳格式  
+            </summary>  
+            <param name="time">时间</param>  
+            <returns>long</returns>  
+        </member>
+        <member name="M:CommonFunctions.Common.ConvertDateTimeToInt(System.Int64)">
+            <summary>  
+            将Unix时间戳格式 转换为DateTime时间格式
+            </summary>  
+            <param name="time">时间</param>  
+            <returns>long</returns>  
+        </member>
+        <member name="M:CommonFunctions.Common.GetValue(System.String,System.String,System.String)">
+            <summary>
+            正则获取内容
+            </summary>
+            <param name="str"></param>
+            <param name="s"></param>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.GetTimeGoneMilliseconds(System.DateTime,System.DateTime)">
+            <summary>
+            获取两个时间差的毫秒数
+            </summary>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:CommonFunctions.Common.RemoveNull``1(System.Collections.Generic.List{``0})" -->
+        <member name="M:CommonFunctions.Common.CheckFFmpegBin(System.String)">
+            <summary>
+            检查ffmpeg是否存在
+            </summary>
+            <param name="ffpath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.GetTimeStampMilliseconds">
+            <summary>
+            获取时间戳(毫秒级)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.IsIpAddr(System.String)">
+            <summary>
+            检测是否为ip 地址
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.CreateUuid">
+            <summary>
+            生成guid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.IsUuidByError(System.String)">
+            <summary>
+            是否为GUID
+            </summary>
+            <param name="strSrc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.CheckAuth(System.String,System.String,System.String)">
+            <summary>
+            检测session和allow
+            </summary>
+            <param name="ipAddr"></param>
+            <param name="allowKey"></param>
+            <param name="sessionCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.CheckPassword(System.String)">
+            <summary>
+            检查密码
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.CheckSession(System.String)">
+            <summary>
+            检查Session是否正常
+            </summary>
+            <param name="sessionCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.CheckAllow(System.String,System.String)">
+            <summary>
+            检查appkey
+            </summary>
+            <param name="ipAddr"></param>
+            <param name="allowKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.Common.KillSelf">
+            <summary>
+            结束自己
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.Common.GetProcessPid(System.String)">
+            <summary>
+            获取pid
+            </summary>
+            <param name="processName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.Id">
+            <summary>
+            数据库中的主键id
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.CameraId">
+            <summary>
+            摄像头实例ID(自动生成，全局唯一，添加摄像头实例时写null或空字符串)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.CameraName">
+            <summary>
+            摄像头名称，添加摄像头实例或者修改摄像头实例时可修改
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.MobileCamera">
+            <summary>
+            是否为移动摄像头，如果是移动摄像头，将不再判定它的ip地址是否一致
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.DeptId">
+            <summary>
+            部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.DeptName">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.PDetpId">
+            <summary>
+            父部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.PDetpName">
+            <summary>
+            父部门名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.CameraIpAddress">
+            <summary>
+            摄像头ip地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.CameraChannelLable">
+            <summary>
+            GB28181设备的音视频通道ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.CameraDeviceLable">
+            <summary>
+            GB28181设备的设备ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.CameraType">
+            <summary>
+            摄像头类型
+            GB28181=GB28181设备
+            Rtsp=RTSP设备
+            LiveCast=直播设备
+            None=未知设备
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.IfRtspUrl">
+            <summary>
+            摄像头实例的RTSP地址，如果是RTSP设备，必须填写此地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.IfGb28181Tcp">
+            <summary>
+            如果是GB28181设备，此项为True时，采用TCP的方式推流，否则采用UDP方式。
+            此项参数与摄备是否支持TCP推流有关，如果不支持TCP推流则使此项参数为False。
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.PushMediaServerId">
+            <summary>
+            流媒体服务器ID，指定将音视频流推向哪个流媒体节点
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.EnableLive">
+            <summary>
+            是否启用自动推流，系统自动发生摄像头是否在线，如果在线且EnableLive为true,系统将自动尝试推流
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.EnablePtz">
+            <summary>
+            是否允许PTZ控制（仅支持GB28181设备）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.CreateTime">
+            <summary>
+            摄像头实例的创建时间（自动填写，添加时写null即可）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.UpdateTime">
+            <summary>
+            摄像头实例的更新时间（自动填写，添加时写null即可）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.CameraInstance.Activated">
+            <summary>
+            GB28181设备上线时，如果数据库中不存在此设备及通道信息，系统会自动将设备及通道信息写入数据库
+            同时将Activated设备为false,需要通过接口激活这类设备
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.Id">
+            <summary>
+            数据库主键
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.Ipaddress">
+            <summary>
+            ip地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.CameraId">
+            <summary>
+            摄像头实例ID（全局唯一）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.CreateTime">
+            <summary>
+            记录生成时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.ClientType">
+            <summary>
+            客户端类型
+             Camera =摄像头
+             Player =播放者
+            Livecast=直播者
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.CameraProtocolType">
+            <summary>
+            摄像头类型
+            GB28181=GB28181设备
+            Rtsp=RTSP设备
+            LiveCast=直播设备
+            None=未知设备
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.Vhost">
+            <summary>
+            Vhost标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.App">
+            <summary>
+            APP标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.StreamId">
+            <summary>
+            StreamId标记，流媒体对某个音视频流的标记，与Vhost和App结合后可以唯一标记在同一个流媒体服务器里的某一个音视频流
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.Schema">
+            <summary>
+            段标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.PushMediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.OnOff">
+            <summary>
+            上线或下线事件
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.DvrDayTimeRange.Id">
+            <summary>
+            数据库主键
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.DvrDayTimeRange.StreamDvrPlanId">
+            <summary>
+            计划任务表的主键
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.DvrDayTimeRange.WeekDay">
+            <summary>
+            星期n枚举
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.DvrDayTimeRange.StartTime">
+            <summary>
+            录制开始时间（只取时间部分）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.DvrDayTimeRange.EndTime">
+            <summary>
+            录制结束时间（只取时间部分）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.Id">
+            <summary>
+            数据库主键
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.CameraId">
+            <summary>
+            摄像头实例ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.CameraName">
+            <summary>
+            摄像头名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.DeptId">
+            <summary>
+            部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.DeptName">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.PDetpId">
+            <summary>
+            父部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.PDetpName">
+            <summary>
+            父部门名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.CameraIpAddress">
+            <summary>
+            摄像头ip地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.Duration">
+            <summary>
+            录制文件的时长（秒）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.Deleted">
+            <summary>
+            删除标记（true为已删除）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.VideoPath">
+            <summary>
+            录制文件的物理路径
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.FileSize">
+            <summary>
+            录制文件大小(Byte)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.Vhost">
+            <summary>
+            流媒体Vhost标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.Streamid">
+            <summary>
+            流媒体StreamId标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.App">
+            <summary>
+            流媒体App标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.StartTime">
+            <summary>
+            录制文件的开始时间(yyyy-MM-dd HH:mm:ss)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.EndTime">
+            <summary>
+            录制文件的结束时间(yyyy-MM-dd HH:mm:ss)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.UpdateTime">
+            <summary>
+            记录更新时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.RecordDate">
+            <summary>
+            记录录制日期
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.DownloadUrl">
+            <summary>
+            录制文件的播放与下载地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.Undo">
+            <summary>
+            是否可以恢复删除（true为可恢复）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.RecordFile.PushMediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.StreamDvrPlan.Id">
+            <summary>
+            数据库主键
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.StreamDvrPlan.Enable">
+            <summary>
+            是否启用该录制计划(true为启用)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.StreamDvrPlan.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.StreamDvrPlan.CameraId">
+            <summary>
+            摄像头实例ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.StreamDvrPlan.LimitSpace">
+            <summary>
+            录制占用空间限制（Byte）,最大录制到某个值后做相应处理
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.StreamDvrPlan.LimitDays">
+            <summary>
+            录制占用天数限制,最大录制到某个值后做相应处理
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DBStructs.StreamDvrPlan.OverStepPlan">
+            <summary>
+            具体的录制计划列表
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ErrorNumber">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ErrorMessage">
+            <summary>
+            错误代码描述
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.LinuxShell.Run(System.String)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:CommonFunctions.LinuxShell.Run(System.String,System.Int32)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:CommonFunctions.LinuxShell.Run(System.String,System.Int32,System.String@)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <param name="stdOutput">结果输出</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.LinuxShell.Run(System.String,System.Int32,System.String@,System.String@)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <param name="stdOutput">结果输出</param>
+            <param name="stdError">错误输出</param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.AllowKey">
+            <summary>
+            allowkey管理类
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.AllowKey.Key">
+            <summary>
+            key值
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.AllowKey.IpArray">
+            <summary>
+            ip地址列表
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.CutMergeStruct">
+            <summary>
+            裁剪合并任务结构体
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeStruct.DbId">
+            <summary>
+            数据库中的主键ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeStruct.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeStruct.StartTime">
+            <summary>
+            录制文件开始时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeStruct.EndTime">
+            <summary>
+            录制文件结束时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeStruct.FileSize">
+            <summary>
+            文件大小(Byte)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeStruct.Duration">
+            <summary>
+            音视频文件时长(秒)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeStruct.CutStartPos">
+            <summary>
+            裁剪开始位置标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeStruct.CutEndPos">
+            <summary>
+            裁剪结束位置标记
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.TaskStatus">
+            <summary>
+            裁剪合并任务的状态
+            Create=任务创建
+            Packaging=解包成ts流
+            Cutting=对前后进行裁剪
+            Mergeing=文件合并
+            Closed=任务结束
+            </summary>
+        </member>
+        <member name="F:CommonFunctions.ManageStructs.CutMergeTask._processPercentage">
+            <summary>
+            Create=0%
+            Packageing=45%
+            Cutting=15%
+            Mergeing=40%
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTask.CutMergeFileList">
+            <summary>
+            裁剪合并结构列表（任务中所包含的所有文件列表）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTask.TaskId">
+            <summary>
+            裁剪合并任务ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTask.CallbakUrl">
+            <summary>
+            裁剪合并任务结束后的回调地址（http webapi地址）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTask.CreateTime">
+            <summary>
+            裁剪合并任务的创建时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTask.TaskStatus">
+            <summary>
+            裁剪合并任务状态
+            Create=任务创建
+            Packaging=解包成ts流
+            Cutting=对前后进行裁剪
+            Mergeing=文件合并
+            Closed=任务结束
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTask.ProcessPercentage">
+            <summary>
+            任务处理百分比
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTask.PlayUrl">
+            <summary>
+            下载与播放地址
+            </summary>
+        </member>
+        <member name="F:CommonFunctions.ManageStructs.CutMergeTaskStatusResponse._processPercentage">
+            <summary>
+            Create=0%
+            Packageing=45%
+            Cutting=15%
+            Mergeing=40%
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTaskStatusResponse.TaskId">
+            <summary>
+            裁剪合并任务id
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTaskStatusResponse.CallbakUrl">
+            <summary>
+            任务结束后回调http地址（http webapi）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTaskStatusResponse.CreateTime">
+            <summary>
+            任务创建时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTaskStatusResponse.TaskStatus">
+            <summary>
+            裁剪合并任务状态
+            Create=任务创建
+            Packaging=解包成ts流
+            Cutting=对前后进行裁剪
+            Mergeing=文件合并
+            Closed=任务结束
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTaskStatusResponse.ProcessPercentage">
+            <summary>
+            任务处理百分比
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.CutMergeTaskStatusResponse.PlayUrl">
+            <summary>
+            播放及下载地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.DvrVideoResponseList.DvrVideoList">
+            <summary>
+            录制文件列表
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.DvrVideoResponseList.Request">
+            <summary>
+            请求结构
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.DvrVideoResponseList.Total">
+            <summary>
+            记录数
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.OrderByDir">
+            <summary>
+            排序方法
+            ASC=顺序
+            DESC=倒序
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.OrderByStruct.FieldName">
+            <summary>
+            排序字段名
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.OrderByStruct.OrderByDir">
+            <summary>
+            排序方法
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ReqGetDvrPlan">
+            <summary>
+            请求结构-获取录制计划
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqGetDvrPlan.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqGetDvrPlan.CameraId">
+            <summary>
+            摄像头实例ID
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ReqGetDvrVideo">
+            <summary>
+            请求结构-获取录制文件-支持分页
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqGetDvrVideo.PageIndex">
+            <summary>
+            页码（从1开始）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqGetDvrVideo.PageSize">
+            <summary>
+            每页记录数量
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqGetDvrVideo.IncludeDeleted">
+            <summary>
+            是否包含已删除记录
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqGetDvrVideo.StartTime">
+            <summary>
+            录制开始时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqGetDvrVideo.EndTime">
+            <summary>
+            录制结束时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqGetDvrVideo.OrderBy">
+            <summary>
+            排序结构
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ReqDvrDayTimeRange">
+            <summary>
+            请求结构-录制计划-时间范围
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqDvrDayTimeRange.StreamDvrPlanId">
+            <summary>
+            录制计划ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqDvrDayTimeRange.WeekDay">
+            <summary>
+            星期n
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqDvrDayTimeRange.StartTime">
+            <summary>
+            开始录制的时间（仅取时间部分）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqDvrDayTimeRange.EndTime">
+            <summary>
+            结束录制的时间（仅取时间部分）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqStreamDvrPlan.Enable">
+            <summary>
+            是否启用该录制计划
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqStreamDvrPlan.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqStreamDvrPlan.CameraId">
+            <summary>
+            摄像头实例ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqStreamDvrPlan.LimitSpace">
+            <summary>
+            录制占用空间限制（Byte）,最大录制到某个值后做相应处理
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqStreamDvrPlan.LimitDays">
+            <summary>
+            录制占用天数限制,最大录制到某个值后做相应处理
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqStreamDvrPlan.OverStepPlan">
+            <summary>
+            超过限制以后的处理方法
+            StopDvr=停止录制
+            DeleteFile=删除文件
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ReqStreamDvrPlan.TimeRangeList">
+            <summary>
+            请求结构-录制计划-时间范围列表
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ResponseStruct">
+            <summary>
+            返回状态结构
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.ManageStructs.ResponseStruct.#ctor(CommonFunctions.ErrorNumber,System.String)">
+            <summary>
+            返回结构体构造
+            </summary>
+            <param name="code"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ResponseStruct.Code">
+            <summary>
+            状态代码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ResponseStruct.Message">
+            <summary>
+            状态描述
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_API">
+            <summary>
+            流媒体服务器的配置结构-API
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_API.ApiDebug">
+            <summary>
+            是否启用Debug日志输出
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_API.DefaultSnap">
+            <summary>
+            启用截图？
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_API.Secret">
+            <summary>
+            WebApi鉴权用的Key
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_API.SnapRoot">
+            <summary>
+            截图保存路径
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_FFMpeg">
+            <summary>
+            流媒体服务器的配置结构-FFMPEG
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_FFMpeg.Bin">
+            <summary>
+            ffmpeg可执行文件路径
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_FFMpeg.Cmd">
+            <summary>
+            ffmpeg的命令行参数
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_FFMpeg.Log">
+            <summary>
+            ffmpeg的日志文件路径
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_FFMpeg.Snap">
+            <summary>
+            ffmpeg获取截图的命令
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_General">
+            <summary>
+            流媒体服务器的配置结构-通用
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.AddMuteAudio">
+            <summary>
+            自动静音
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.EnableVhost">
+            <summary>
+            启用vhost标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.FlowThreshold">
+            <summary>
+            参数控制触发hook.on_flow_report事件阈值，使用流量超过该阈值后才触发，单位KB
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.MaxStreamWaitMs">
+            <summary>
+            播放最多等待时间，单位毫秒
+            播放在播放某个流时，如果该流不存在，
+            ZLMediaKit会最多让播放器等待maxStreamWaitMS毫秒
+            如果在这个时间内，该流注册成功，那么会立即返回播放器播放成功
+            否则返回播放器未找到该流，该机制的目的是可以先播放再推流
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.MergeWriteMs">
+            <summary>
+            合并写缓存大小(单位毫秒)，合并写指服务器缓存一定的数据后才会一次性写入socket，这样能提高性能，但是会提高延时
+            开启后会同时关闭TCP_NODELAY并开启MSG_MORE
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.ModifyStamp">
+            <summary>
+            全局的时间戳覆盖开关，在转协议时，对frame进行时间戳覆盖
+            该开关对rtsp/rtmp/rtp推流、rtsp/rtmp/hls拉流代理转协议时生效
+            会直接影响rtsp/rtmp/hls/mp4/flv等协议的时间戳
+            同协议情况下不影响(例如rtsp/rtmp推流，那么播放rtsp/rtmp时不会影响时间戳)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.PublishToHls">
+            <summary>
+            是否默认推流时转换成hls，hook接口(on_publish)中可以覆盖该设置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.PublishToMp4">
+            <summary>
+            是否默认推流时mp4录像，hook接口(on_publish)中可以覆盖该设置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.PublishToRtxp">
+            <summary>
+            是否默认推流时rtxp录像，hook接口(on_publish)中可以覆盖该设置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.ResetWhenRePlay">
+            <summary>
+            拉流代理时如果断流再重连成功是否删除前一次的媒体流数据，如果删除将重新开始，
+            如果不删除将会接着上一次的数据继续写(录制hls/mp4时会继续在前一个文件后面写)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_General.StreamNoneReaderDelayMs">
+            <summary>
+            某个流无人观看时，触发hook.on_stream_none_reader事件的最大等待时间，单位毫秒
+            在配合hook.on_stream_none_reader事件时，可以做到无人观看自动停止拉流或停止接收推流
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hls">
+            <summary>
+            流媒体服务器的配置结构-HLS
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hls.FileBufSize">
+            <summary>
+            文件写入缓冲区大小
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hls.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hls.SegDur">
+            <summary>
+            文件段长度
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hls.SegNum">
+            <summary>
+            文件段数量
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hls.SegRetain">
+            <summary>
+            HLS切片从m3u8文件中移除后，继续保留在磁盘上的个数
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook">
+            <summary>
+            流媒体服务器的配置结构-Hook
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.Admin_Params">
+            <summary>
+            在推流时，如果url参数匹对admin_params，那么可以不经过hook鉴权直接推流成功，播放时亦然
+            该配置项的目的是为了开发者自己调试测试，该参数暴露后会有泄露隐私的安全隐患
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.Enable">
+            <summary>
+            是否启用hook
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Flow_Report">
+            <summary>
+            流量汇报
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Http_Access">
+            <summary>
+            访问http文件鉴权事件，置空则关闭鉴权
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Play">
+            <summary>
+            当有播放事件时触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Publish">
+            <summary>
+            当有音视频流发布时触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Record_Mp4">
+            <summary>
+            当录制mp4（段）结束后触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Rtsp_Auth">
+            <summary>
+            rtsp鉴权事件，此事件中比对rtsp的用户名密码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Rtsp_Realm">
+            <summary>
+            rtsp播放是否开启专属鉴权事件，置空则关闭rtsp鉴权。rtsp播放鉴权还支持url方式鉴权
+            建议开发者统一采用url参数方式鉴权，rtsp用户名密码鉴权一般在设备上用的比较多
+            开启rtsp专属鉴权后，将不再触发on_play鉴权事件
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Server_Started">
+            <summary>
+            当流媒体服务器启动时触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Shell_Login">
+            <summary>
+            当shell登陆时触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Stream_Changed">
+            <summary>
+            当有流状态变改时触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Stream_None_Reader">
+            <summary>
+            当流无人观看时触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Stream_Not_Found">
+            <summary>
+            当流不存在时触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.TimeoutSec">
+            <summary>
+            hook api最大等待回复时间，单位秒
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http">
+            <summary>
+            流媒体服务器的配置结构-Http
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.CharSet">
+            <summary>
+            字符集
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.DirMenu">
+            <summary>
+            是否显示文件夹菜单，开启后可以浏览文件夹
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.KeepAliveSecond">
+            <summary>
+            http链接超时时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.MaxReqSize">
+            <summary>
+            调试telnet服务器接受最大bufffer大小
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.NotFound">
+            <summary>
+            404页面
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.Port">
+            <summary>
+            http服务端口
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.RootPath">
+            <summary>
+            根目录地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.SendBufSize">
+            <summary>
+            发送缓冲大小
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Http.Sslport">
+            <summary>
+            ssl端口
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Multicast">
+            <summary>
+            流媒体服务器的配置结构-Multicast
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Multicast.AddrMax">
+            <summary>
+            最大地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Multicast.AddrMin">
+            <summary>
+            最小地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Multicast.UdpTtl">
+            <summary>
+            udp ttl
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Record">
+            <summary>
+            流媒体服务器的配置结构-录制
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Record.AppName">
+            <summary>
+            流媒体APP标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Record.FastStart">
+            <summary>
+            mp4的快速加载播放标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Record.FileBufSize">
+            <summary>
+            文件写入缓冲大小
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Record.FilePath">
+            <summary>
+            文件录制位置 
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Record.FileRepeat">
+            <summary>
+            MP4点播(rtsp/rtmp/http-flv/ws-flv)是否循环播放文件
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Record.FileSecond">
+            <summary>
+            mp4录制切片时间，单位秒
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Record.SampleMs">
+            <summary>
+            mp4点播每次流化数据量，单位毫秒，
+            减少该值可以让点播数据发送量更平滑，增大该值则更节省cpu资源
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtmp">
+            <summary>
+            流媒体服务器的配置结构-Rtmp
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtmp.HandshakeSecond">
+            <summary>
+            rtmp必须在此时间内完成握手，否则服务器会断开链接，单位秒
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtmp.KeepAliveSecond">
+            <summary>
+            rtmp超时时间，如果该时间内未收到客户端的数据，
+            或者tcp发送缓存超过这个时间，则会断开连接，单位秒
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtmp.ModifyStamp">
+            <summary>
+            在接收rtmp推流时，是否重新生成时间戳(很多推流器的时间戳着实很烂)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtmp.Port">
+            <summary>
+            rtmp端口
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtmp.Sslport">
+            <summary>
+            rtmp ssl端口
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp">
+            <summary>
+            流媒体服务器的配置结构-Rtp
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.AudioMtuSize">
+            <summary>
+            音频的mtu大小
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.ClearCount">
+            <summary>
+            清除数量
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.CycleMs">
+            <summary>
+            rtp时间戳回环时间，单位毫秒
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.MaxRtpCount">
+            <summary>
+            最大rtp包数量
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.VideoMtuSize">
+            <summary>
+             视频mtu大小，该参数限制rtp最大字节数，推荐不要超过1400
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp_Proxy">
+            <summary>
+            流媒体服务器的配置结构-Rtp代理
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp_Proxy.CheckSource">
+            <summary>
+            是否检查源
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp_Proxy.DumpDir">
+            <summary>
+            dump地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp_Proxy.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp_Proxy.TimeoutSec">
+            <summary>
+            超时时间
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtsp">
+            <summary>
+            流媒体服务器的配置结构-Rtsp
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtsp.AuthBasic">
+            <summary>
+            rtsp专有鉴权方式是采用base64还是md5方式
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtsp.DirectProxy">
+            <summary>
+            rtsp拉流代理是否是直接代理模式
+            直接代理后支持任意编码格式，但是会导致GOP缓存无法定位到I帧，可能会导致开播花屏
+            并且如果是tcp方式拉流，如果rtp大于mtu会导致无法使用udp方式代理
+            假定您的拉流源地址不是264或265或AAC，那么你可以使用直接代理的方式来支持rtsp代理
+            默认开启rtsp直接代理，rtmp由于没有这些问题，是强制开启直接代理的
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtsp.HandshakeSecond">
+            <summary>
+            #rtsp必须在此时间内完成握手，否则服务器会断开链接，单位秒
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtsp.KeepAliveSecond">
+            <summary>
+            rtsp超时时间，如果该时间内未收到客户端的数据，
+            或者tcp发送缓存超过这个时间，则会断开连接，单位秒
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtsp.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtsp.Sslport">
+            <summary>
+            ssl端口
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Shell">
+            <summary>
+            流媒体服务器的配置结构-shell
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Shell.MaxReqSize">
+            <summary>
+            调试telnet服务器接受最大bufffer大小
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Shell.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig">
+            <summary>
+            ZLMediaKit配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Api">
+            <summary>
+            ZLMeidaKit_Api配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Ffmpeg">
+            <summary>
+            ZLMeidaKit_FFMPEG配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.General">
+            <summary>
+            ZLMeidaKit_通用配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Hls">
+            <summary>
+            ZLMeidaKit_HLS配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Hook">
+            <summary>
+            ZLMeidaKit_HOOK配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Http">
+            <summary>
+            ZLMeidaKit_HTTP配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Multicast">
+            <summary>
+            ZLMeidaKit_Multicast配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Record">
+            <summary>
+            ZLMeidaKit_Record配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Rtmp">
+            <summary>
+            ZLMeidaKit_Rtmp配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Rtp">
+            <summary>
+            ZLMeidaKit_Rtp配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Rtp_Proxy">
+            <summary>
+            ZLMeidaKit_Rtp_Proxy配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Rtsp">
+            <summary>
+            ZLMeidaKit_Rtsp配置
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig.Shell">
+            <summary>
+            ZLMeidaKit_shell配置
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.ZLMediaKitStreamType">
+            <summary>
+            ZLMediaKit流类型
+            hls=hls流
+            rtsp=rtsp流
+            rtmp=rtmp流
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.MediaServerControl.MediaServerInstance">
+            <summary>
+            流媒体服务实例控制类
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.MediaServerControl.MediaServerInstance.IsRunning">
+            <summary>
+            是否正在运行
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.MediaServerControl.MediaServerInstance.Uptime">
+            <summary>
+            获取运行时长（秒）
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.StopServer(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            关闭流媒体
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.RestartServer(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            重启流媒体服务
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.RunServer(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            启动流媒体服务
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.DeleteFileList(System.Collections.Generic.List{System.String},CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            删除一批文件
+            </summary>
+            <param name="filePath"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.GetMergeTaskStatus(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            添加一个裁剪与合并任务
+            </summary>
+            <param name="task"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.GetBacklogTaskList(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取裁剪积压任务列表
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.AddCutOrMergeTask(CommonFunctions.ManageStructs.CutMergeTask,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            添加一个裁剪与合并任务
+            </summary>
+            <param name="task"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.DeleteFile(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            删除一个文件
+            </summary>
+            <param name="filePath"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.CheckFileExists(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            判断文件是否存在
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.MediaServerInstance.ClearNoFileDir(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            清理空目录
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.CloseRtpPort(CommonFunctions.WebApiStructs.Request.ReqZLMediaKitCloseRtpPort,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            关闭动态rtp端口
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.OpenRtpPort(CommonFunctions.WebApiStructs.Request.ReqZLMediaKitOpenRtpPort,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            生成动态rtp端口
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.GetRecordStatus(CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStopRecord,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取录制状态
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.StopRecord(CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStopRecord,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            停止录制
+            </summary>
+            <param name="serverip"></param>
+            <param name="serverport"></param>
+            <param name="secret"></param>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.StartRecord(CommonFunctions.WebApiStructs.Request.ReqZLMediaKitStartRecord,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            启动录制
+            </summary>
+            <param name="serverip"></param>
+            <param name="serverport"></param>
+            <param name="secret"></param>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.GetMediaList(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取流媒体列表
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.RestartMediaServer(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            重启流媒体服务器
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.CloseFFmpegProxy(CommonFunctions.WebApiStructs.Request.ReqZLMediaKitCloseStreams,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            专用于关掉ffmpegproxy的流
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.CloseStreams(CommonFunctions.WebApiStructs.Request.ReqZLMediaKitCloseStreams,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            关闭一个流
+            </summary>
+            <param name="req"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.TryAddRtspProxy(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            添加ffmpeg代理的视频流
+            </summary>
+            <param name="src_url"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.AddStreamProxy(System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            添加一个ZLMediaKit内部的Rtsp拉流代理
+            </summary>
+            <param name="src_url"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.MediaServerControl.ZLMediaKitWebApiHelper.GetConfig(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取流媒体配置信息
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonFunctions.NetHelper">
+            <summary>
+            http请求类
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpDeleteRequestByProxy(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http delete请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpGetRequest(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32)">
+            <summary>
+            http get请求
+            </summary>
+            <param name="url"></param>
+            <param name="headers">headers</param>
+            <param name="encode"></param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpGetRequestByProxy(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http get请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpGetRequestAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32)">
+            <summary>
+            http get请求
+            </summary>
+            <param name="url"></param>
+            <param name="headers">headers</param>
+            <param name="encode"></param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpGetRequestByProxyAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http get请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpPostRequest(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.Int32)">
+            <summary>
+            http post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="param">请求参数</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpPostRequestByProxy(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="param">请求参数</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpPostRequestAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.Int32)">
+            <summary>
+            http post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="param">请求参数</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.HttpPostRequestByProxyAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Net.IWebProxy,System.String,System.Int32)">
+            <summary>
+            http post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="headers">headers</param>
+            <param name="param">请求参数</param>
+            <param name="proxy">代理地址</param>
+            <param name="encode">字符编码</param>
+            <param name="timeout">超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.CheckValidationResult(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            不检查证书
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.GetHttpLength(System.String)">
+            <summary>
+            从文件头得到远程文件的长度
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.NetHelper.Download(System.String,System.String)">
+            <summary>
+            Http方式下载文件
+            </summary>
+            <param name="url">http地址</param>
+            <param name="localfile">本地文件</param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonFunctions.Session">
+            <summary>
+            session类结构
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.Session.AllowKey">
+            <summary>
+            授权key
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.Session.RefreshCode">
+            <summary>
+            session刷新code
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.Session.SessionCode">
+            <summary>
+            session code
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.Session.Expires">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.SessionManager">
+            <summary>
+            session管理
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.SessionManager.#ctor">
+            <summary>
+            Session管理构造函数
+            </summary>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="P:CommonFunctions.SessionManager.SessionList">
+            <summary>
+            session列表
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.SessionManager.clearExpires">
+            <summary>
+            清空已经过期的session
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.SessionManager.RefreshSession(CommonFunctions.Session)">
+            <summary>
+            刷新Session
+            </summary>
+            <param name="session">旧的session</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SessionManager.NewSession(System.String)">
+            <summary>
+            创建一个新的Session
+            </summary>
+            <param name="allowKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonFunctions.SystemConfig">
+            <summary>
+            配置文件类
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SystemConfig.HttpPort">
+            <summary>
+            http端口
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SystemConfig.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SystemConfig.AllowKeys">
+            <summary>
+            控制访问授权
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.SystemConfig.RebuidConfig(System.String)">
+            <summary>
+            写入配置文件
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemConfig.LoadConfig(System.String)">
+            <summary>
+            加载配置文件
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonFunctions.SystemHelper">
+            <summary>
+            系统帮助类
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsWindows">
+            <summary>
+            是否windows平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsWin32">
+            <summary>
+            是否windows32平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsWin64">
+            <summary>
+            是否windows64平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsLinux">
+            <summary>
+            是否Linux平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsLinux32">
+            <summary>
+            是否Linux32平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsLinux64">
+            <summary>
+            是否Linux64平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsOSX">
+            <summary>
+            是否OSX平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsOSX32">
+            <summary>
+            是否OSX32平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsOSX64">
+            <summary>
+            是否OSX64平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsUnix">
+            <summary>
+            是否Unix平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsUnix32">
+            <summary>
+            是否Unix32平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.IsUnix64">
+            <summary>
+            是否Unix64平台
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetAssemblyPath">
+            <summary>
+            获取当前程序集文件dll路径（包含文件名）(绝对路径)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetAssemblyFolderPath">
+            <summary>
+            获取当前程序集文件夹路径(绝对路径)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetBaseDirectory">
+            <summary>
+            获取程序集解析程序用于探测程序集的基目录的路径名。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetCpuNumber">
+            <summary>
+            获取当前计算机上的处理器数。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetLoadAverage">
+            <summary>
+            获取系统负载率
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetCPUused">
+            <summary>
+            获取cpu使用率和空闲率
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetTotalRunningTime(System.Diagnostics.Process)">
+            <summary>
+            获取指定进程运行总时间（毫秒）
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetTotalRunningTimeEx(System.Diagnostics.Process)">
+            <summary>
+            获取指定进程运行总时间（{days}天{hours}时{minutes}分{seconds}秒{milliseconds}毫秒）
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetWindowsCpuUsageAsync(System.Diagnostics.Process)">
+            <summary>
+            获取指定进程cpu占用百分比(以单核=100%为基准)
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetWindowsCpuUsageExAsync(System.Diagnostics.Process)">
+            <summary>
+            获取指定进程cpu占用百分比(以所有核加起来=100%为基准)
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetLinuxCpuUsage(System.Diagnostics.Process)">
+            <summary>
+            获取指定进程cpu使用情况
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetMemoryUsage(System.Diagnostics.Process)">
+            <summary>
+            获取进程物理内存占用(返回单位MB)
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetVirtualMemoryUsage(System.Diagnostics.Process)">
+            <summary>
+            获取进程虚拟内存占用(返回单位MB)
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetLinuxMemoryUsage(System.Diagnostics.Process)">
+            <summary>
+            获取进程物理内存占用(返回单位MB)
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetWindowsMemoryMetrics">
+            <summary>
+            获取Windows系统总物理内存使用情况(总量/已使用/未使用)(返回单位MB)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetLinuxMemoryMetrics">
+            <summary>
+            获取linux系统总物理内存使用情况(总量/已使用/未使用)(返回单位MB)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetDriveMetrics">
+            <summary>
+            获取当前驱动使用情况
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetLinuxDiskIO(System.Diagnostics.Process)">
+            <summary>
+            获取指定进程cpu使用情况(Linux)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.GetLinuxNetIO">
+            <summary>
+            获取系统网络吞吐(Linux)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.ReadProcNetDev">
+            <summary>
+            读取/proc/net/dev文件(Linux)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.BytesToMB(System.Int64)">
+            <summary>
+            字节转MB，保留3位小数
+            </summary>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.SystemHelper.BytesToGB(System.Int64)">
+            <summary>
+            字节转GB，保留3位小数
+            </summary>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonFunctions.SysUsage">
+            <summary>
+            系统使用情况
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SysUsage.ProcessCpu">
+            <summary>
+            当前进程占用CPU(百分比)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SysUsage.ProcessMemory">
+            <summary>
+            当前进程占用物理内存(MB)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SysUsage.ProcessDriveInfo">
+            <summary>
+            当前进程所在驱动使用情况
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SysUsage.ProcessDiskIO">
+            <summary>
+            当前进程磁盘IO
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SysUsage.SystemMemoryInfo">
+            <summary>
+            系统内存使用情况
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.SysUsage.SystemNetIO">
+            <summary>
+            系统网络IO
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.MemoryMetrics">
+            <summary>
+            系统内存情况
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.MemoryMetrics.Total">
+            <summary>
+            总量(MB)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.MemoryMetrics.Used">
+            <summary>
+            已使用(MB)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.MemoryMetrics.Free">
+            <summary>
+            未使用(MB)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.MemoryMetrics.FreePercent">
+            <summary>
+            空闲百分比
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DriveMetrics.Name">
+            <summary>
+            驱动名
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DriveMetrics.IsReady">
+            <summary>
+            驱动状态，是否可用
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DriveMetrics.Total">
+            <summary>
+            总量(GB)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DriveMetrics.Used">
+            <summary>
+            已使用(GB)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DriveMetrics.Free">
+            <summary>
+            未使用(GB)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DriveMetrics.FreePercent">
+            <summary>
+            空闲百分比
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.DiskIO">
+            <summary>
+            指定进程磁盘IO
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DiskIO.Read">
+            <summary>
+            读(kb/s)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.DiskIO.Write">
+            <summary>
+            写(kb/s)
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.NetIO">
+            <summary>
+            系统IO
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.NetIO.Receive">
+            <summary>
+            接受(bytes/s)
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.NetIO.Transmit">
+            <summary>
+            发送(bytes/s)
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera">
+            <summary>
+            请求结构-自动加入未激活GB28181设备
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.CameraChannelLable">
+            <summary>
+            摄像头音视频流的GB28181 ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.CameraDeviceLable">
+            <summary>
+            GB28181设备的设备ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.PushMediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.CameraName">
+            <summary>
+            摄像头实例名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.MobileCamera">
+            <summary>
+            是否为移动GB28181设备（非固定ip设备）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.DeptId">
+            <summary>
+            部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.DeptName">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.PDetpId">
+            <summary>
+            父部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.PDetpName">
+            <summary>
+            父部门名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.CameraIpAddress">
+            <summary>
+            摄像头设备IP地址（非固定ip可随意填写一个ip地址，与MobileCamera配合使用）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.IfGb28181Tcp">
+            <summary>
+            使用TCP方式来接受GB28181设备的音频视频（告知摄像头用TCP推流）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.EnableLive">
+            <summary>
+            是否自动推流（设备上线自动推流）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqActivateSipCamera.EnablePtz">
+            <summary>
+            是否启用PTZ控制（仅支持GB28181设备）
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.WebApiStructs.Request.ReqAddCameraInstance">
+            <summary>
+            请求结构-添加摄像头实例
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile">
+            <summary>
+            请求结构-裁剪合并文件结构
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile.CameraId">
+            <summary>
+            摄像头实例ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile.CallbackUrl">
+            <summary>
+            任务结束后的回调地址（http webapi）
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay">
+            <summary>
+            请求结构-当有播放者时触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.App">
+            <summary>
+            流媒体APP标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.Id">
+            <summary>
+            流媒体针对每个播放用户的sessionid
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.Ip">
+            <summary>
+            播放者IP地址
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.Params">
+            <summary>
+            参数
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.Schema">
+            <summary>
+            段
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.Stream">
+            <summary>
+            流媒体的StreamId标记
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqForWebHookOnPlay.Vhost">
+            <summary>
+            流媒体Vhost标记
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx">
+            <summary>
+            请求结构-摄像头实例列表（扩展）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.CameraName">
+            <summary>
+            摄像头实例名称
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.CameraDeptId">
+            <summary>
+            摄像头部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.CameraType">
+            <summary>
+            摄像头类型
+            GB28181=GB28181设备
+            Rtsp=RTSP设备
+            LiveCast=直播设备
+            None=未知设备
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.EnableLive">
+            <summary>
+            是否启用自动推流
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.CameraId">
+            <summary>
+            摄像头实例ID
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.Activated">
+            <summary>
+            摄像头是否已激活（false为没有激活）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.PageIndex">
+            <summary>
+            页码（从1开始）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.PageSize">
+            <summary>
+            每页多少条记录
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqGetCameraInstanceListEx.OrderBy">
+            <summary>
+            排序结构
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo">
+            <summary>
+            流媒体服务器的系统信息
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.OsType">
+            <summary>
+            操作系统类型
+            WindowsX32,
+            WindowsX64,
+            LinuxX32,
+            LinuxX64,
+            MacOSX32,
+            MacOSX64,
+            UnixX32,
+            UnixX64,
+            Unknow,
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.UpdateTime">
+            <summary>
+            获取数据时间
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.AssemblyPath">
+            <summary>
+            可执行文件路径
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.AssemblyFolderPath">
+            <summary>
+            可执行文件目录
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.TotalProcessRunningTime">
+            <summary>
+            可执行文件进程运行时长（秒）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.TotalProcessRunningTimeText">
+            <summary>
+            可执行文件进程运行时长，文本方式显示
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.TatolSystemRunningTime">
+            <summary>
+            系统运行时长（秒）
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.TatolSystemRunningTimeText">
+            <summary>
+            系统运行时长，文本方式显示
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.LinuxCpuInfo">
+            <summary>
+            CPU信息
+            CpuUsed=cpu使用量
+            CpuIdle=cpu空闲量
+            CpuCores=cpu核数
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.LinuxLoadAverage">
+            <summary>
+            linux操作系统负载
+            LoadAverageMin1=1分钟负载
+            LoadAverageMin5=5分钟负载
+            LoadAverageMin15=15分钟负载
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.LinuxMemoryUsage">
+            <summary>
+            操作系统内存信息
+            Total=内存总量
+            Used=使用内存总量
+            Free=空闲内容总量
+            FreePercent=内存空闲率
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMediaServerSystemInfo.HddListInfo">
+            <summary>
+            操作硬盘信息列表
+            Name=Win:硬盘盘符;类unix 挂载目录地址
+            IsReady=是否可用
+            Total=存储总量
+            Used=使用存储总量
+            Free=空闲存储总量
+            FreePercent=存储空闲率
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.WebApiStructs.Request.ReqMoidfyCameraInstance">
+            <summary>
+            请求结构-修改摄像头实例
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.WebApiStructs.Request.ReqMoidfyCameraInstance.CameraId">
+            <summary>
+            摄像头实例ID（不可修改，是条件）
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.WebApiStructs.Response.ResLiveVideoResponse">
+            <summary>
+            用于返回实时视频预览请求的结果
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraId">
+            <summary>
+            摄像头实例ID
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraName">
+            <summary>
+            摄像头实例名称
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraDeptId">
+            <summary>
+            摄像头部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraDeptName">
+            <summary>
+            摄像头部门名称
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraPDeptId">
+            <summary>
+            摄像头父部门代码
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraPDeptName">
+            <summary>
+            摄像头父部门名称
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraType">
+            <summary>
+            摄像头类型
+            GB28181=GB28181设备
+            Rtsp=RTSP设备
+            LiveCast=直播设备
+            None=未知设备
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.ClientType">
+            <summary>
+            客户端类型
+             Camera =摄像头
+             Player =播放者
+            Livecast=直播者
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraEx">
+            <summary>
+            摄像头详细信息
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.IsOnline">
+            <summary>
+            摄像头是否在线
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.IsRecord">
+            <summary>
+            摄像头是否正在录制音视频文件
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.PlayUrl">
+            <summary>
+            摄像头的音视频流播放地址
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.CameraIpAddress">
+            <summary>
+            摄像头IP地址
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.UpTime">
+            <summary>
+            摄像头的在线时长（秒）
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.OnlineTime">
+            <summary>
+            摄像头最近的上线时间
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.Vhost">
+            <summary>
+            流媒体Vhost标记
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.App">
+            <summary>
+            流媒体APP标记
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.StreamId">
+            <summary>
+            流媒体StreamId标记
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.MediaServerIp">
+            <summary>
+            流媒体服务器IP地址
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.CameraSession.ForceOffline">
+            <summary>
+            强制下线，此参数为true时，cameraKeeper中不再使这个摄像头上线，否则导致重复上线的问题（暂时无用）
+            </summary>
+        </member>
+        <member name="T:CommonFunction.ManageStructs.PlayerSession">
+            <summary>
+            播放者结构
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.CameraId">
+            <summary>
+            摄像头实例ID
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.MediaServerId">
+            <summary>
+            流媒体服务器ID
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.ClientType">
+            <summary>
+            客户端类型
+             Camera =摄像头
+             Player =播放者
+            Livecast=直播者
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.PlayUrl">
+            <summary>
+            播放的URL地址
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.PlayerIp">
+            <summary>
+            播放者ip地址
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.UpTime">
+            <summary>
+            在线时长（秒）
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.OnlineTime">
+            <summary>
+            最后一次在线时间
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.Vhost">
+            <summary>
+            流媒体Vhost标记
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.App">
+            <summary>
+            流媒体APP标记
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.StreamId">
+            <summary>
+            流媒体StreamId标记
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.MediaServerIp">
+            <summary>
+            流媒体服务器IP地址
+            </summary>
+        </member>
+        <member name="P:CommonFunction.ManageStructs.PlayerSession.SessionId">
+            <summary>
+            客户端在流媒体服务器中的SessionId
+            </summary>
+        </member>
+        <member name="T:SRSManageCommon.ControllerStructs.RequestModules.ReqCutOrMergeVideoFile_willDelete">
+            <summary>
+            请求裁剪合并文件
+            </summary>
+        </member>
+    </members>
+</doc>
