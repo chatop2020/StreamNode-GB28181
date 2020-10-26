@@ -40,7 +40,6 @@ namespace StreamNodeWebApi
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "StreamNodeApi", Version = "v1"});
                 c.IncludeXmlComments(Path.Combine(Common.WorkPath, "CommonFunctions.xml"));
                 c.IncludeXmlComments(Path.Combine(Common.WorkPath, "Swagger.xml"));
-           
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

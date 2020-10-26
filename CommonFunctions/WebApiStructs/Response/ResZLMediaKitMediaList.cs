@@ -70,7 +70,7 @@ namespace CommonFunctions.WebApiStructs.Response
         private int? _fps;
         private int? _width;
         private int? _height;
-       
+
 
         [JsonProperty("channels")]
         public int? Channels

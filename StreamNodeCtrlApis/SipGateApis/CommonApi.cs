@@ -335,12 +335,12 @@ namespace StreamNodeCtrlApis.SipGateApis
                 Code = ErrorNumber.None,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
-            var right=Common.SipProcess.GetDeviceList(deviceid);
+            var right = Common.SipProcess.GetDeviceList(deviceid);
             if (right == false)
             {
-                
                 Common.SipProcess.TickOutDevice(deviceid);
             }
+
             return right;
         }
 

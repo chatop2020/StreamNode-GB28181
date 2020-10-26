@@ -36,7 +36,7 @@ namespace StreamMediaServerKeeper
         /// </summary>
         public static string CustomizedRecordFilePath = "";
 
-      //  public static LogMonitor LogMonitor = new LogMonitor();
+        //  public static LogMonitor LogMonitor = new LogMonitor();
 
 
         /// <summary>
@@ -105,8 +105,6 @@ namespace StreamMediaServerKeeper
         }
 
 
-        
-       
         /// <summary>
         /// 替换#开头的所有行为;开头
         /// </summary>
@@ -126,10 +124,11 @@ namespace StreamMediaServerKeeper
                     else
                     {
                         int index = str.IndexOf("#", StringComparison.Ordinal);
-                        tmp_list.Add(str.Remove(index,index).Insert(index,";"));
+                        tmp_list.Add(str.Remove(index, index).Insert(index, ";"));
                     }
                 }
-                File.WriteAllLines(filePath,tmp_list);
+
+                File.WriteAllLines(filePath, tmp_list);
             }
         }
 
@@ -141,7 +140,7 @@ namespace StreamMediaServerKeeper
             string iniPath = checkMediaServerConfig();
             processZLMediaKitConfigFile(iniPath); //处理FileIniDataParser碰到#开头的行，解析错误的问题
             var parser = new FileIniDataParser();
-            
+
             IniData data = parser.ReadFile(iniPath);
             var _tmpStr = data["general"]["mediaServerId"];
             if (!string.IsNullOrEmpty(_tmpStr))

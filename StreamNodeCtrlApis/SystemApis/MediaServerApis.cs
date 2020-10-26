@@ -1000,9 +1000,11 @@ namespace StreamNodeCtrlApis.SystemApis
                     .SetIf(req.EnableLive != null, x => x.EnableLive, req.EnableLive)
                     .SetIf(req.IfGb28181Tcp != null, x => x.IfGb28181Tcp, req.IfGb28181Tcp)
                     .SetIf(req.EnablePtz != null, x => x.EnablePtz, req.EnablePtz).Set(x => x.UpdateTime, DateTime.Now)
-                    .SetIf(!string.IsNullOrEmpty(req.PushMediaServerId) && !req.PushMediaServerId.ToLower().Trim().Equals("string"),
-                        x=>x.PushMediaServerId,req.PushMediaServerId)
-                    .SetIf(req.MobileCamera!=null,x=>x.MobileCamera,req.MobileCamera)
+                    .SetIf(
+                        !string.IsNullOrEmpty(req.PushMediaServerId) &&
+                        !req.PushMediaServerId.ToLower().Trim().Equals("string"),
+                        x => x.PushMediaServerId, req.PushMediaServerId)
+                    .SetIf(req.MobileCamera != null, x => x.MobileCamera, req.MobileCamera)
                     .Where(x => x.PushMediaServerId.Equals(mediaServerId)).Where(x => x.CameraId.Equals(req.CameraId))
                     .ExecuteAffrows();
                 if (ret > 0)
@@ -1180,9 +1182,8 @@ namespace StreamNodeCtrlApis.SystemApis
                         Code = ErrorNumber.CameraInstanceExists,
                         Message = ErrorMessage.ErrorDic![ErrorNumber.CameraInstanceExists],
                     };
-                    return null; 
+                    return null;
                 }
-
             }
 
             req.CameraId = string.Format("{0:X8}", CRC32Cls.GetCRC32(req.PushMediaServerId + req.CameraType +
@@ -2666,12 +2667,11 @@ namespace StreamNodeCtrlApis.SystemApis
             }
 
 
-            
             var ret1 = OrmService.Db.Select<CameraInstance>()
                 .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
                 .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))
                 .Where(x => x.Activated.Equals(true)).First();
-            if (ret1 != null)//如果这个摄像头已经是被激活状态，就不允许再激活
+            if (ret1 != null) //如果这个摄像头已经是被激活状态，就不允许再激活
             {
                 rs = new ResponseStruct()
                 {
@@ -2680,6 +2680,7 @@ namespace StreamNodeCtrlApis.SystemApis
                 };
                 return null;
             }
+
             var ret = OrmService.Db.Select<CameraInstance>()
                 .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
                 .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))

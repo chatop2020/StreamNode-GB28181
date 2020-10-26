@@ -631,11 +631,12 @@ namespace StreamNodeCtrlApis.WebHookApis
             tmpDvrVideo.UpdateTime = currentTime;
             tmpDvrVideo.RecordDate = st.ToString("yyyy-MM-dd");
             string tmp = tmpDvrVideo.DownloadUrl;
-            tmp = tmp.Replace("\\", "/", StringComparison.Ordinal);//跨平台兼容
+            tmp = tmp.Replace("\\", "/", StringComparison.Ordinal); //跨平台兼容
             if (tmp.Contains(":"))
             {
                 tmp = tmp.Substring(tmp.IndexOf(':') + 1); //清除掉类似  c: 这样的字符，跨平台兼容
             }
+
             if (!string.IsNullOrEmpty(mediaServer.RecordFilePath) &&
                 record.File_Path.Contains(mediaServer.RecordFilePath))
             {

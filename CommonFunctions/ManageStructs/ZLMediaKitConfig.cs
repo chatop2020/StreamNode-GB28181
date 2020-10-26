@@ -236,8 +236,7 @@ namespace CommonFunctions.ManageStructs
         }
     }
 
-    
-    
+
     /// <summary>
     /// 流媒体服务器的配置结构-HLS
     /// </summary>
@@ -299,7 +298,6 @@ namespace CommonFunctions.ManageStructs
     /// <summary>
     /// 流媒体服务器的配置结构-Hook
     /// </summary>
-
     [Serializable]
     public class ZLMediaKitConfig_Hook
     {
@@ -319,7 +317,7 @@ namespace CommonFunctions.ManageStructs
         private string? _on_stream_not_found;
         private int? _timeoutSec;
 
-        
+
         /// <summary>
         /// 在推流时，如果url参数匹对admin_params，那么可以不经过hook鉴权直接推流成功，播放时亦然
         /// 该配置项的目的是为了开发者自己调试测试，该参数暴露后会有泄露隐私的安全隐患
@@ -399,7 +397,6 @@ namespace CommonFunctions.ManageStructs
         public int? TimeoutSec => _timeoutSec;
     }
 
-    
 
     /// <summary>
     /// 流媒体服务器的配置结构-Http
@@ -444,7 +441,7 @@ namespace CommonFunctions.ManageStructs
             set => _keepAliveSecond = value;
         }
 
-        
+
         /// <summary>
         /// 调试telnet服务器接受最大bufffer大小
         /// </summary>
@@ -620,7 +617,6 @@ namespace CommonFunctions.ManageStructs
     /// <summary>
     /// 流媒体服务器的配置结构-Rtmp
     /// </summary>
-    
     [Serializable]
     public class ZLMediaKitConfig_Rtmp
     {
@@ -734,10 +730,10 @@ namespace CommonFunctions.ManageStructs
             set => _videoMtuSize = value;
         }
     }
+
     /// <summary>
     /// 流媒体服务器的配置结构-Rtp代理
     /// </summary>
-
     [Serializable]
     public class ZLMediaKitConfig_Rtp_Proxy
     {
@@ -746,7 +742,7 @@ namespace CommonFunctions.ManageStructs
         private ushort? _port;
         private int? _timeoutSec;
 
-        
+
         /// <summary>
         /// 是否检查源
         /// </summary>
@@ -866,18 +862,18 @@ namespace CommonFunctions.ManageStructs
         private int? _maxReqSize;
         private ushort? _port;
 
-       /// <summary>
-       /// 调试telnet服务器接受最大bufffer大小
-       /// </summary>
-       public int? MaxReqSize
+        /// <summary>
+        /// 调试telnet服务器接受最大bufffer大小
+        /// </summary>
+        public int? MaxReqSize
         {
             get => _maxReqSize;
             set => _maxReqSize = value;
         }
 
-       /// <summary>
-       /// 端口
-       /// </summary>
+        /// <summary>
+        /// 端口
+        /// </summary>
         public ushort? Port
         {
             get => _port;
@@ -914,6 +910,7 @@ namespace CommonFunctions.ManageStructs
             get => _api;
             set => _api = value;
         }
+
         /// <summary>
         /// ZLMeidaKit_FFMPEG配置
         /// </summary>
@@ -949,6 +946,7 @@ namespace CommonFunctions.ManageStructs
             get => _hook;
             set => _hook = value;
         }
+
         /// <summary>
         /// ZLMeidaKit_HTTP配置
         /// </summary>
@@ -957,6 +955,7 @@ namespace CommonFunctions.ManageStructs
             get => _http;
             set => _http = value;
         }
+
         /// <summary>
         /// ZLMeidaKit_Multicast配置
         /// </summary>
@@ -974,6 +973,7 @@ namespace CommonFunctions.ManageStructs
             get => _record;
             set => _record = value;
         }
+
         /// <summary>
         /// ZLMeidaKit_Rtmp配置
         /// </summary>
@@ -991,6 +991,7 @@ namespace CommonFunctions.ManageStructs
             get => _rtp;
             set => _rtp = value;
         }
+
         /// <summary>
         /// ZLMeidaKit_Rtp_Proxy配置
         /// </summary>
@@ -999,6 +1000,7 @@ namespace CommonFunctions.ManageStructs
             get => _rtp_Proxy;
             set => _rtp_Proxy = value;
         }
+
         /// <summary>
         /// ZLMeidaKit_Rtsp配置
         /// </summary>
@@ -1007,6 +1009,7 @@ namespace CommonFunctions.ManageStructs
             get => _rtsp;
             set => _rtsp = value;
         }
+
         /// <summary>
         /// ZLMeidaKit_shell配置
         /// </summary>

@@ -20,7 +20,7 @@ namespace CommonFunctions
         ZLMediaKitNotRunning = -4007,
         MediaServerCtrlWebApiExcept = -4008,
         MediaServerInstancesNotFound = -4009,
-        CameraInstanceExists=-4010,
+        CameraInstanceExists = -4010,
 
         InitSystem = -5000, //初始化系统出错
         ConfigFile = -5001, //配置文件没有找到

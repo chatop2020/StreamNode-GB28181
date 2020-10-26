@@ -215,8 +215,8 @@ namespace StreamMediaServerKeeper
             }
 
             Thread.Sleep(2000);
-            var t =RunServer(out rs);
-            Logger.Logger.Debug("重启流媒体服务器 ->"+t.ToString());
+            var t = RunServer(out rs);
+            Logger.Logger.Debug("重启流媒体服务器 ->" + t.ToString());
             return t;
         }
 
@@ -258,7 +258,7 @@ namespace StreamMediaServerKeeper
 
                     if (checkProcessExists())
                     {
-                        Logger.Logger.Debug("启动流媒体服务器 -> pid->"+_pid.ToString()+" ->Alreday Exist");
+                        Logger.Logger.Debug("启动流媒体服务器 -> pid->" + _pid.ToString() + " ->Alreday Exist");
                         return _pid;
                     }
 
@@ -268,11 +268,11 @@ namespace StreamMediaServerKeeper
                         Message = ErrorMessage.ErrorDic![ErrorNumber.ZLMediaKitRunBinExcept] + "\r\n" + stdout +
                                   "\r\n" + errout,
                     };
-                    Logger.Logger.Debug("启动流媒体服务器失败... -> pid->0 ->"+ JsonHelper.ToJson(rs));
+                    Logger.Logger.Debug("启动流媒体服务器失败... -> pid->0 ->" + JsonHelper.ToJson(rs));
                     return 0;
                 }
 
-                Logger.Logger.Debug("启动流媒体服务器 -> pid->"+_pid.ToString());
+                Logger.Logger.Debug("启动流媒体服务器 -> pid->" + _pid.ToString());
                 return _pid; //已经启动着的，不用重复启动
             }
 
@@ -281,7 +281,7 @@ namespace StreamMediaServerKeeper
                 Code = ErrorNumber.ZLMediaKitBinNotFound,
                 Message = ErrorMessage.ErrorDic![ErrorNumber.ZLMediaKitBinNotFound],
             };
-            Logger.Logger.Debug("启动流媒体服务器失败... -> pid->0 ->"+ JsonHelper.ToJson(rs));
+            Logger.Logger.Debug("启动流媒体服务器失败... -> pid->0 ->" + JsonHelper.ToJson(rs));
             return 0;
         }
 

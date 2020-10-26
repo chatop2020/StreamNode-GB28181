@@ -104,24 +104,19 @@ namespace StreamMediaServerKeeper
             });*/
 
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider =
+                    new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), Common.CutOrMergePath)),
+                OnPrepareResponse = (c) => { c.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*"); },
+                RequestPath = new PathString("/CutMergeFile")
+            });
 
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), Common.CutOrMergePath)),
-                OnPrepareResponse = (c) =>
-                {
-                    c.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-                },
-                RequestPath = new PathString("/CutMergeFile")
-            });
-            
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), Common.RecordPath)),
-                OnPrepareResponse = (c) =>
-                {
-                    c.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-                },
+                FileProvider =
+                    new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), Common.RecordPath)),
+                OnPrepareResponse = (c) => { c.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*"); },
                 RequestPath = new PathString("/CustomizedRecord")
             });
 

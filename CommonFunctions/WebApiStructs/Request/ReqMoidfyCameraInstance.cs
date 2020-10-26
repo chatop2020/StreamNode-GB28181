@@ -27,7 +27,7 @@ namespace CommonFunctions.WebApiStructs.Request
             set => _cameraId = value;
         }
 
-        
+
         public string? CameraName
         {
             get => _cameraName;
@@ -88,6 +88,7 @@ namespace CommonFunctions.WebApiStructs.Request
             get => _pushMediaServerId;
             set => _pushMediaServerId = value;
         }
+
         public bool? MobileCamera
         {
             get => _mobileCamera;

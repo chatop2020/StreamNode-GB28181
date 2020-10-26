@@ -11,7 +11,7 @@ namespace CommonFunctions.ManageStructs
         private ReqGetDvrVideo? _request;
         private long? _total;
 
-        
+
         /// <summary>
         /// 录制文件列表
         /// </summary>

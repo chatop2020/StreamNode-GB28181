@@ -140,11 +140,13 @@ namespace LibGB28181SipGate
                     var now = DateTime.Now;
                     var time = obj.LastKeepAliveTime;
                     var subTime = Math.Abs((now - time).TotalSeconds);
-                    if (subTime> 60) //1分钟以上没有心跳的，就踢掉
+                    if (subTime > 60) //1分钟以上没有心跳的，就踢掉
                         // if (obj.LastKeepAliveTime.AddMinutes(2) < DateTime.Now) //2分钟以上没有心跳的，就踢掉
                     {
                         Logger.Logger.Debug("踢掉超过60秒没有心跳的设备->IP->" + obj.IpAddress + "->Port->" + obj.SipPort +
-                                            "->DevId->" + obj.DeviceId+"->"+subTime+"->"+now.ToString("yyyy-MM-dd HH:mm:ss")+"->"+time.ToString("yyyy-MM-dd HH:mm:ss"));
+                                            "->DevId->" + obj.DeviceId + "->" + subTime + "->" +
+                                            now.ToString("yyyy-MM-dd HH:mm:ss") + "->" +
+                                            time.ToString("yyyy-MM-dd HH:mm:ss"));
                         foreach (var camera in obj.CameraExList)
                         {
                             if (camera != null && camera.SipCameraStatus == SipCameraStatus.RealVideo)
@@ -573,11 +575,12 @@ namespace LibGB28181SipGate
                 var camearDev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(devId));
                 if (camearDev != null && camearDev.SipDeviceStatus == SipDeviceStatus.LooksLikeOffline)
                 {
-                    Logger.Logger.Debug("收到判断为断线Sip设备的心跳数据，不做处理->" + remoteEp.Address + "->" + remoteEp.Port + "->" + devId);
+                    Logger.Logger.Debug("收到判断为断线Sip设备的心跳数据，不做处理->" + remoteEp.Address + "->" + remoteEp.Port + "->" +
+                                        devId);
                     return; //如果是断线状态，就不处理
                 }
 
-                
+
                 var deviceObj = SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(devId));
                 if (!remoteEp.Address.ToString().Equals(deviceObj.Value.RemoteEndPoint.Address.ToString())
                     || !remoteEp.Port.ToString().Equals(deviceObj.Value.RemoteEndPoint.Port.ToString()))
@@ -616,13 +619,15 @@ namespace LibGB28181SipGate
                     && x.DeviceId.Equals(devId));
                 if (dev != null)
                 {
-                    Logger.Logger.Debug("收到Sip设备的心跳数据并更新设备心跳时间->" + remoteEp.Address + "->" + remoteEp.Port + "->" + devId);
+                    Logger.Logger.Debug("收到Sip设备的心跳数据并更新设备心跳时间->" + remoteEp.Address + "->" + remoteEp.Port + "->" +
+                                        devId);
                     dev.LastUpdateTime = DateTime.Now;
                     dev.LastKeepAliveTime = DateTime.Now;
                 }
                 else
                 {
-                    Logger.Logger.Debug("收到Sip设备的心跳数据但没有找到相关设备，不做设备心跳时间更新->" + remoteEp.Address + "->" + remoteEp.Port + "->" + devId);
+                    Logger.Logger.Debug("收到Sip设备的心跳数据但没有找到相关设备，不做设备心跳时间更新->" + remoteEp.Address + "->" + remoteEp.Port +
+                                        "->" + devId);
                 }
             }
         }

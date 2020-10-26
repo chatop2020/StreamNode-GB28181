@@ -22,14 +22,18 @@ namespace CommonFunctions.DBStructs
         /// 计划任务表的主键
         /// </summary>
         public int StreamDvrPlanId { get; set; }
+
         /// <summary>
         /// 星期n枚举
         /// </summary>
-        [Column(MapType = typeof(string))] public DayOfWeek WeekDay { get; set; }
+        [Column(MapType = typeof(string))]
+        public DayOfWeek WeekDay { get; set; }
+
         /// <summary>
         /// 录制开始时间（只取时间部分）
         /// </summary>
         public DateTime StartTime { get; set; }
+
         /// <summary>
         /// 录制结束时间（只取时间部分）
         /// </summary>

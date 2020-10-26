@@ -52,7 +52,7 @@ namespace CommonFunctions.DBStructs
             set => _ipaddress = value;
         }
 
- 
+
         /// <summary>
         /// 摄像头实例ID（全局唯一）
         /// </summary>
@@ -105,6 +105,7 @@ namespace CommonFunctions.DBStructs
             get => _vhost;
             set => _vhost = value;
         }
+
         /// <summary>
         /// APP标记
         /// </summary>

@@ -810,7 +810,8 @@ namespace GB28181.Servers.SIPMessage
                 if (!_remoteTransEPs.ContainsKey(remoteEP.ToHost()))
                 {
                     _remoteTransEPs.Add(remoteEP.ToHost(), request.Header.From.FromURI.User); //加入
-                    Logger.Logger.Debug("加入RemoteTransEps->"+remoteEP.ToHost()+"->"+request.Header.From.FromURI.User);
+                    Logger.Logger.Debug("加入RemoteTransEps->" + remoteEP.ToHost() + "->" +
+                                        request.Header.From.FromURI.User);
                 }
             }
 

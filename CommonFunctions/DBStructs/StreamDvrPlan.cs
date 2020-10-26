@@ -62,7 +62,8 @@ namespace CommonFunctions.DBStructs
         /// <summary>
         /// 具体的录制计划列表
         /// </summary>
-        [Column(MapType = typeof(string))] public OverStepPlan? OverStepPlan { get; set; }
+        [Column(MapType = typeof(string))]
+        public OverStepPlan? OverStepPlan { get; set; }
 
         [Navigate(nameof(DvrDayTimeRange.StreamDvrPlanId))]
         public List<DvrDayTimeRange> TimeRangeList { get; set; } = null!;

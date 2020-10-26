@@ -22,6 +22,5 @@ namespace GB28181.Servers
         public void RemoveDeviceItem(string deviceKey);
 
         public void CacheDeviceItem(SIPRequest sipRequest);
-
     }
 }

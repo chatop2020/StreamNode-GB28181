@@ -34,10 +34,11 @@ namespace StreamMediaServerKeeper
                             taskStatus.PlayUrl = taskReturn.Uri;
                         }
 
-                        Logger.Logger.Debug("一个裁剪合并任务执行回调 -> "+taskReturn.Task.TaskId+" -> "+taskReturn.Status.ToString()+"->"+taskReturn.TimeConsuming.ToString()+"->"+taskReturn.Task.CallbakUrl);
+                        Logger.Logger.Debug("一个裁剪合并任务执行回调 -> " + taskReturn.Task.TaskId + " -> " +
+                                            taskReturn.Status.ToString() + "->" + taskReturn.TimeConsuming.ToString() +
+                                            "->" + taskReturn.Task.CallbakUrl);
                         var postDate = JsonHelper.ToJson(taskReturn);
                         var ret = NetHelper.HttpPostRequest(taskReturn.Task.CallbakUrl!, null!, postDate);
-                       
                     }
                 }
             });
@@ -132,7 +133,7 @@ namespace StreamMediaServerKeeper
             };
             try
             {
-                Logger.Logger.Info("接受一个裁剪合并请求 ->"+task.TaskId);
+                Logger.Logger.Info("接受一个裁剪合并请求 ->" + task.TaskId);
                 CutMergeTaskList.Add(task);
                 CutMergeTaskStatusList.Add(task);
                 return new CutMergeTaskResponse()
@@ -145,14 +146,14 @@ namespace StreamMediaServerKeeper
                     Request = null,
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 rs = new ResponseStruct()
                 {
                     Code = ErrorNumber.Other,
                     Message = ErrorMessage.ErrorDic![ErrorNumber.Other],
                 };
-                Logger.Logger.Error("接受一个裁剪合并请求出现异常 ->"+task.TaskId+" -> "+ex.Message+"->"+ex.StackTrace);
+                Logger.Logger.Error("接受一个裁剪合并请求出现异常 ->" + task.TaskId + " -> " + ex.Message + "->" + ex.StackTrace);
                 return null;
             }
         }
@@ -193,7 +194,8 @@ namespace StreamMediaServerKeeper
                 task.ProcessPercentage += ((double) 1 / (double) task.CutMergeFileList!.Count * 100f) * 0.4f;
                 Thread.Sleep(20);
             }
-            Logger.Logger.Debug("完成裁剪合并任务打包成TS文件 ->"+task.TaskId);
+
+            Logger.Logger.Debug("完成裁剪合并任务打包成TS文件 ->" + task.TaskId);
 
             return task;
         }
@@ -237,7 +239,7 @@ namespace StreamMediaServerKeeper
                 FileInfo fileInfo = new FileInfo(newFilePath);
                 if (fileInfo.Length > 10)
                 {
-                    Logger.Logger.Debug("完成裁剪合并任务合并文件 ->"+task.TaskId);
+                    Logger.Logger.Debug("完成裁剪合并任务合并文件 ->" + task.TaskId);
                     return newFilePath;
                 }
             }
@@ -290,12 +292,11 @@ namespace StreamMediaServerKeeper
                 }
                 else
                 {
-                    Logger.Logger.Warn("合并请求任务裁剪失败(cutProcess)... ->"+ffmpegCmd + "->" + err);
-                    
+                    Logger.Logger.Warn("合并请求任务裁剪失败(cutProcess)... ->" + ffmpegCmd + "->" + err);
                 }
             }
 
-            Logger.Logger.Debug("完成裁剪文件任务 ->"+cms.FilePath);
+            Logger.Logger.Debug("完成裁剪文件任务 ->" + cms.FilePath);
             return cms;
         }
 
@@ -357,7 +358,8 @@ namespace StreamMediaServerKeeper
                         if (ret != null)
                         {
                         }
-                        Logger.Logger.Debug("裁剪合并任务成功 ->"+task.TaskId);
+
+                        Logger.Logger.Debug("裁剪合并任务成功 ->" + task.TaskId);
                         return new CutMergeTaskResponse
                         {
                             FilePath = newPath,
@@ -369,7 +371,7 @@ namespace StreamMediaServerKeeper
                         };
                     }
 
-                    Logger.Logger.Warn("裁剪合并任务失败 ->"+task.TaskId);
+                    Logger.Logger.Warn("裁剪合并任务失败 ->" + task.TaskId);
                     return new CutMergeTaskResponse
                     {
                         FilePath = "",

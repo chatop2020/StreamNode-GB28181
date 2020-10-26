@@ -41,7 +41,7 @@ namespace CommonFunctions.WebApiStructs.Request
             set => _osType = value;
         }
 
-        
+
         /// <summary>
         /// 获取数据时间
         /// </summary>
@@ -86,7 +86,7 @@ namespace CommonFunctions.WebApiStructs.Request
             get => _totalProcessRunningTimeText;
             set => _totalProcessRunningTimeText = value;
         }
-        
+
         /// <summary>
         /// 系统运行时长（秒）
         /// </summary>

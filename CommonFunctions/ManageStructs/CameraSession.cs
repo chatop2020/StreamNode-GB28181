@@ -112,6 +112,7 @@ namespace CommonFunction.ManageStructs
             get => _cameraType;
             set => _cameraType = value;
         }
+
         /// <summary>
         /// 客户端类型
         ///  Camera =摄像头

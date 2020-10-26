@@ -17,7 +17,7 @@ namespace CommonFunctions.ManageStructs
         private string? _cutStartPos;
         private string? _cutEndPos;
 
-        
+
         /// <summary>
         /// 数据库中的主键ID
         /// </summary>

@@ -49,7 +49,7 @@ namespace CommonFunctions.WebApiStructs.Request
             get => _cameraDeptId;
             set => _cameraDeptId = value;
         }
-        
+
         /// <summary>
         /// 摄像头类型
         /// GB28181=GB28181设备

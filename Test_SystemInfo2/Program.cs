@@ -18,7 +18,7 @@ namespace Test_SystemInfo2
             var GetSystemRunInfo = CZGL.SystemInfo.EnvironmentInfo.GetSystemRunInfo();
             var GetSystemPlatformInfoValue = CZGL.SystemInfo.EnvironmentInfo.GetSystemPlatformInfoValue();
             var GetSystemRunInfoValue = CZGL.SystemInfo.EnvironmentInfo.GetSystemRunInfoValue();
-            
+
             foreach (var ev in EnvironmentVariables)
             {
                 if (!ev.Equals(null) && !string.IsNullOrEmpty(ev.Key))
@@ -88,8 +88,8 @@ namespace Test_SystemInfo2
                                       t.Value);
                 }
             }
-            
-            
+
+
             var gsri = GetSystemRunInfo.Item2;
             foreach (var t in gsri)
             {
@@ -98,6 +98,7 @@ namespace Test_SystemInfo2
                     Console.WriteLine("GetSystemRunInfo->" + GetSystemRunInfo.Item1 + "->" + t.Key + "->" + t.Value);
                 }
             }
+
             foreach (var gspiv in GetSystemPlatformInfoValue)
             {
                 if (!gspiv.Equals(null) && !string.IsNullOrEmpty(gspiv.Key))
@@ -106,6 +107,7 @@ namespace Test_SystemInfo2
                                       gspiv.Value);
                 }
             }
+
             foreach (var gsriv in GetSystemRunInfoValue)
             {
                 if (!gsriv.Equals(null) && !string.IsNullOrEmpty(gsriv.Key))
@@ -114,10 +116,9 @@ namespace Test_SystemInfo2
                                       gsriv.Value);
                 }
             }
-            
-            Console.WriteLine("TatolMem->"+hard.RAM.Total);
-            Console.WriteLine("FreeMem->"+hard.RAM.Free);
-            
+
+            Console.WriteLine("TatolMem->" + hard.RAM.Total);
+            Console.WriteLine("FreeMem->" + hard.RAM.Free);
         }
     }
 }
