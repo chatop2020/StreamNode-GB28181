@@ -169,6 +169,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                               "/" + req.App + "/" + req.Stream + ".flv",
                     IsOnline = true,
                     ForceOffline = false,
+                    MediaServerIp = mediaServer.Ipaddress,
                 };
                 if (getCameraSessionInfoEx(ref session))
                 {
