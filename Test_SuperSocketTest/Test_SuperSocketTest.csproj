@@ -1,0 +1,1008 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\SuperSocket-NetCore\.gitattributes">
+        <Link>SuperSocket-NetCore\.gitattributes</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.gitignore">
+        <Link>SuperSocket-NetCore\.gitignore</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\config">
+        <Link>SuperSocket-NetCore\.git\config</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\description">
+        <Link>SuperSocket-NetCore\.git\description</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\HEAD">
+        <Link>SuperSocket-NetCore\.git\HEAD</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\applypatch-msg.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\applypatch-msg.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\commit-msg.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\commit-msg.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\fsmonitor-watchman.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\fsmonitor-watchman.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\post-update.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\post-update.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\pre-applypatch.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\pre-applypatch.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\pre-commit.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\pre-commit.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\pre-merge-commit.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\pre-merge-commit.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\pre-push.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\pre-push.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\pre-rebase.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\pre-rebase.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\pre-receive.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\pre-receive.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\prepare-commit-msg.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\prepare-commit-msg.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\hooks\update.sample">
+        <Link>SuperSocket-NetCore\.git\hooks\update.sample</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\index">
+        <Link>SuperSocket-NetCore\.git\index</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\info\exclude">
+        <Link>SuperSocket-NetCore\.git\info\exclude</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\logs\HEAD">
+        <Link>SuperSocket-NetCore\.git\logs\HEAD</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\logs\refs\heads\master">
+        <Link>SuperSocket-NetCore\.git\logs\refs\heads\master</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\logs\refs\remotes\origin\HEAD">
+        <Link>SuperSocket-NetCore\.git\logs\refs\remotes\origin\HEAD</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\objects\pack\pack-2969b978a18f85030e92656ff30886d63c1dc575.idx">
+        <Link>SuperSocket-NetCore\.git\objects\pack\pack-2969b978a18f85030e92656ff30886d63c1dc575.idx</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\objects\pack\pack-2969b978a18f85030e92656ff30886d63c1dc575.pack">
+        <Link>SuperSocket-NetCore\.git\objects\pack\pack-2969b978a18f85030e92656ff30886d63c1dc575.pack</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\packed-refs">
+        <Link>SuperSocket-NetCore\.git\packed-refs</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\refs\heads\master">
+        <Link>SuperSocket-NetCore\.git\refs\heads\master</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\.git\refs\remotes\origin\HEAD">
+        <Link>SuperSocket-NetCore\.git\refs\remotes\origin\HEAD</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\README.md">
+        <Link>SuperSocket-NetCore\README.md</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Dynamic.dll">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Dynamic.dll</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Dynamic.xml">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Dynamic.xml</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Scripting.Core.dll">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Scripting.Core.dll</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Scripting.Core.xml">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Scripting.Core.xml</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Scripting.dll">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Scripting.dll</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Scripting.xml">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net35\Microsoft.Scripting.xml</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net40\Microsoft.Dynamic.dll">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net40\Microsoft.Dynamic.dll</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net40\Microsoft.Dynamic.xml">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net40\Microsoft.Dynamic.xml</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net40\Microsoft.Scripting.dll">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net40\Microsoft.Scripting.dll</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\Reference\DLR\Net40\Microsoft.Scripting.xml">
+        <Link>SuperSocket-NetCore\Reference\DLR\Net40\Microsoft.Scripting.xml</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\SuperSocket.2017.sln">
+        <Link>SuperSocket-NetCore\SuperSocket.2017.sln</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\SuperSocket.Common\SuperSocket.Common.csproj">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\SuperSocket.Common.csproj</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\SuperSocket.Dlr\SuperSocket.Dlr.csproj">
+        <Link>SuperSocket-NetCore\SuperSocket.Dlr\SuperSocket.Dlr.csproj</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\SuperSocket.Facility\SuperSocket.Facility.csproj">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\SuperSocket.Facility.csproj</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\SuperSocket.ProtoBase.csproj">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\SuperSocket.ProtoBase.csproj</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\SuperSocket.SocketBase.csproj">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\SuperSocket.SocketBase.csproj</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\SuperSocket.SocketEngine.csproj">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\SuperSocket.SocketEngine.csproj</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SuperSocket.WebSocket.csproj">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SuperSocket.WebSocket.csproj</Link>
+      </Content>
+      <Content Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\TelnetServer_05_StartByConfig.csproj">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\TelnetServer_05_StartByConfig.csproj</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\ArraySegmentEx.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\ArraySegmentEx.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\ArraySegmentList.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\ArraySegmentList.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\AssemblyUtil.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\AssemblyUtil.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\BinaryUtil.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\BinaryUtil.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\BufferManager.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\BufferManager.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\ConfigurationElementBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\ConfigurationElementBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\ConfigurationExtension.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\ConfigurationExtension.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\DictionaryExtension.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\DictionaryExtension.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\ErrorEventArgs.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\ErrorEventArgs.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\GenericConfigurationElementCollectionBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\GenericConfigurationElementCollectionBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\Platform.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\Platform.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\SearchMarkState.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\SearchMarkState.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\SendingQueue.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\SendingQueue.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\SmartPool.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\SmartPool.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\SocketEx.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\SocketEx.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\StringExtension.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\StringExtension.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Common\TheadPoolEx.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Common\TheadPoolEx.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Dlr\DynamicCommand.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Dlr\DynamicCommand.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Dlr\DynamicCommandLoader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Dlr\DynamicCommandLoader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Dlr\DynamicCommandLoaderBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Dlr\DynamicCommandLoaderBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Dlr\FileScriptSource.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Dlr\FileScriptSource.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Dlr\IScriptSource.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Dlr\IScriptSource.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Dlr\ScriptSourceBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Dlr\ScriptSourceBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\PolicyReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\PolicyReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\FlashPolicyServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\FlashPolicyServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\PolicyReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\PolicyReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\PolicyReceiveFilterFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\PolicyReceiveFilterFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\PolicyServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\PolicyServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\PolicySession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\PolicySession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\SilverlightPolicyServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\PolicyServer\SilverlightPolicyServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\Protocol\BeginEndMarkReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\Protocol\BeginEndMarkReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\Protocol\CountSpliterReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\Protocol\CountSpliterReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\Protocol\CountSpliterReceiveFilterFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\Protocol\CountSpliterReceiveFilterFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\Protocol\FixedHeaderReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\Protocol\FixedHeaderReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\Protocol\FixedSizeReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\Protocol\FixedSizeReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\Protocol\HttpReceiveFilterBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\Protocol\HttpReceiveFilterBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\Protocol\HttpRequestInfoBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\Protocol\HttpRequestInfoBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.Facility\Protocol\MimeHeaderHelper.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.Facility\Protocol\MimeHeaderHelper.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\BasicStringParser.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\BasicStringParser.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\BufferedPackageInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\BufferedPackageInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\BufferList.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\BufferList.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\BufferStream.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\BufferStream.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\Buffer\IBufferManager.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\Buffer\IBufferManager.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\Buffer\NullBufferManager.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\Buffer\NullBufferManager.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\CloseReason.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\CloseReason.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\DefaultPipelineProcessor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\DefaultPipelineProcessor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\Encoder\IProtoDataEncoder.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\Encoder\IProtoDataEncoder.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\Encoder\IProtoObjectEncoder.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\Encoder\IProtoObjectEncoder.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\Encoder\IProtoTextEncoder.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\Encoder\IProtoTextEncoder.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\Extensions.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\Extensions.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\FilterState.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\FilterState.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\HttpBase\HttpHeaderInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\HttpBase\HttpHeaderInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\HttpBase\HttpHeaderReceiveFilterBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\HttpBase\HttpHeaderReceiveFilterBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\HttpBase\HttpPackageInfoBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\HttpBase\HttpPackageInfoBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IBufferedPackageInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IBufferedPackageInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ICommunicationChannel.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ICommunicationChannel.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IOutputBuffer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IOutputBuffer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IPackageHandler.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IPackageHandler.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IPackageInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IPackageInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IPackageResolver.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IPackageResolver.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IPipelineProcessor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IPipelineProcessor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IProtoHandler.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IProtoHandler.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\IStringParser.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\IStringParser.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\MimeHeaderHelper.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\MimeHeaderHelper.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\PackageInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\PackageInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ProcessResult.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ProcessResult.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ProcessState.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ProcessState.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ProtoHandlerBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ProtoHandlerBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\BeginEndMarkReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\BeginEndMarkReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\CountSpliterReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\CountSpliterReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\FixedHeaderReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\FixedHeaderReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\FixedSizeReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\FixedSizeReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\SearchMarkState.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\SearchMarkState.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\StateFullSearch.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\StateFullSearch.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\TerminatorReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\ReceiveFilters\TerminatorReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\SingleItemList.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\SingleItemList.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.ProtoBase\StringPackageInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.ProtoBase\StringPackageInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\AppServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\AppServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\AppServerBase.ConfigHotUpdate.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\AppServerBase.ConfigHotUpdate.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\AppServerBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\AppServerBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\AppSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\AppSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Async.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Async.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\CommandExecutingContext.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\CommandExecutingContext.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandLoaderBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandLoaderBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandUpdateEventArgs.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandUpdateEventArgs.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandUpdateInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\CommandUpdateInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\ICommand.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\ICommand.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\ICommandFilterProvider.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\ICommandFilterProvider.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\ICommandLoader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\ICommandLoader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\ReflectCommandLoader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\ReflectCommandLoader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Command\StringCommandBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Command\StringCommandBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\CertificateConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\CertificateConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\CommandAssemblyConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\CommandAssemblyConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\ConfigurationSource.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\ConfigurationSource.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\HotUpdateAttribute.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\HotUpdateAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\ICertificateConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\ICertificateConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\ICommandAssemblyConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\ICommandAssemblyConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\IConfigurationSource.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\IConfigurationSource.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\IListenerConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\IListenerConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\IRootConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\IRootConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\IServerConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\IServerConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\ITypeProvider.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\ITypeProvider.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\ListenerConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\ListenerConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\RootConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\RootConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\ServerConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\ServerConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\TypeProvider.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\TypeProvider.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\TypeProviderCollection.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\TypeProviderCollection.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Config\TypeProviderConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Config\TypeProviderConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Extensions.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Extensions.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\IActiveConnector.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\IActiveConnector.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\IAppServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\IAppServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\IAppSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\IAppSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\IBootstrap.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\IBootstrap.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\IConnectionFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\IConnectionFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\ILoggerProvider.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\ILoggerProvider.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\ISessionBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\ISessionBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\ISocketServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\ISocketServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\ISocketServerFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\ISocketServerFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\ISocketSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\ISocketSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\IsolationMode.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\IsolationMode.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\IStatusInfoSource.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\IStatusInfoSource.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\ISystemEndPoint.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\ISystemEndPoint.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\IWorkItem.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\IWorkItem.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\ListenerInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\ListenerInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\LoggerExtension.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\LoggerExtension.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Logging\ConsoleLog.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Logging\ConsoleLog.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Logging\ConsoleLogFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Logging\ConsoleLogFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Logging\ILog.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Logging\ILog.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Logging\ILogFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Logging\ILogFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Logging\Log4NetLog.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Logging\Log4NetLog.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Logging\Log4NetLogFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Logging\Log4NetLogFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Logging\LogFactoryBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Logging\LogFactoryBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\AppServerMetadataTypeAttribute.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\AppServerMetadataTypeAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\CommandFilterAttribute.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\CommandFilterAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\DefaultAppServerMetadata.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\DefaultAppServerMetadata.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\StatusInfoAttribute.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\StatusInfoAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\StatusInfoKeys.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Metadata\StatusInfoKeys.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\NodeStatus.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\NodeStatus.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\BasicRequestInfoParser.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\BasicRequestInfoParser.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\BinaryRequestInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\BinaryRequestInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\CommandLineReceiveFilterFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\CommandLineReceiveFilterFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\DefaultReceiveFilterFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\DefaultReceiveFilterFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\FilterState.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\FilterState.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IOffsetAdapter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IOffsetAdapter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IReceiveFilterFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IReceiveFilterFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IReceiveFilterInitializer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IReceiveFilterInitializer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IRequestInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IRequestInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IRequestInfoParser.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\IRequestInfoParser.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\ReceiveFilterBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\ReceiveFilterBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\RequestInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\RequestInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\StringRequestInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\StringRequestInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\TerminatorReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\TerminatorReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\TerminatorReceiveFilterFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\TerminatorReceiveFilterFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\UdpRequestInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Protocol\UdpRequestInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Provider\ExportFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Provider\ExportFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Provider\ProviderFactoryInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Provider\ProviderFactoryInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Provider\ProviderKey.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Provider\ProviderKey.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\RequestHandler.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\RequestHandler.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\Security\CertificateManager.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\Security\CertificateManager.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\ServerState.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\ServerState.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\SessionHandler.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\SessionHandler.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\SocketMode.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\SocketMode.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketBase\StatusInfoCollection.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketBase\StatusInfoCollection.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\AppDomainAppServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\AppDomainAppServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\AppDomainAppServer.StatusInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\AppDomainAppServer.StatusInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\AppDomainBootstrap.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\AppDomainBootstrap.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\AssemblyImport.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\AssemblyImport.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\AsyncSocketServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\AsyncSocketServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\AsyncSocketSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\AsyncSocketSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\AsyncSocket\SocketAsyncEventArgsProxy.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\AsyncSocket\SocketAsyncEventArgsProxy.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\AsyncStreamSocketSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\AsyncStreamSocketSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\BootstrapFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\BootstrapFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\ConfigurationWatcher.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\ConfigurationWatcher.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\CertificateConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\CertificateConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\CommandAssembly.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\CommandAssembly.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\Listener.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\Listener.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\Server.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\Server.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\ServerCollection.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\ServerCollection.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\SocketServiceConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\Configuration\SocketServiceConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\DefaultBootstrap.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\DefaultBootstrap.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\IAsyncSocketSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\IAsyncSocketSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\IExceptionSource.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\IExceptionSource.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\IPerformanceMonitor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\IPerformanceMonitor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\IProcessServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\IProcessServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\IRemoteWorkItem.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\IRemoteWorkItem.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\ISocketListener.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\ISocketListener.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\IsolationAppServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\IsolationAppServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\MarshalAppServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\MarshalAppServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\PerformanceMonitor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\PerformanceMonitor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\ProcessAppServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\ProcessAppServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\ProcessBootstrap.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\ProcessBootstrap.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\ProcessLocker.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\ProcessLocker.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\ProcessPerformanceCounterHelper.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\ProcessPerformanceCounterHelper.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\RemoteBootstrapProxy.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\RemoteBootstrapProxy.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\ServerTypeMetadata.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\ServerTypeMetadata.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\SocketListenerBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\SocketListenerBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\SocketServerBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\SocketServerBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\SocketServerFactory.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\SocketServerFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\SocketSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\SocketSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\TcpAsyncSocketListener.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\TcpAsyncSocketListener.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\TcpSocketServerBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\TcpSocketServerBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\TypeValidator.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\TypeValidator.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\UdpSocketListener.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\UdpSocketListener.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\UdpSocketServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\UdpSocketServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\UdpSocketSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\UdpSocketSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\WorkItemFactoryInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\WorkItemFactoryInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.SocketEngine\WorkItemFactoryInfoLoader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.SocketEngine\WorkItemFactoryInfoLoader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\Binary.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\Binary.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\Close.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\Close.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\Continuation.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\Continuation.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\FragmentCommand.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\FragmentCommand.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\HandShake.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\HandShake.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\Ping.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\Ping.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\Plain.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\Plain.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\Pong.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\Pong.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Command\Text.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Command\Text.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Config\CommandConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Config\CommandConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Config\CommandConfigCollection.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Config\CommandConfigCollection.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Config\SubProtocolConfig.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Config\SubProtocolConfig.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Config\SubProtocolConfigCollection.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Config\SubProtocolConfigCollection.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Extensions.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Extensions.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\IBinaryDataConverter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\IBinaryDataConverter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\JsonWebSocketSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\JsonWebSocketSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\CloseStatusCodeHybi10.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\CloseStatusCodeHybi10.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\CloseStatusCodeRfc6455.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\CloseStatusCodeRfc6455.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\DraftHybi00Processor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\DraftHybi00Processor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\DraftHybi10Processor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\DraftHybi10Processor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\DataFramePartReader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\DataFramePartReader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\ExtendedLenghtReader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\ExtendedLenghtReader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\FixPartReader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\FixPartReader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\IDataFramePartReader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\IDataFramePartReader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\MaskKeyReader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\MaskKeyReader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\PayloadDataReader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\FramePartReader\PayloadDataReader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\HandshakeRequest.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\HandshakeRequest.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\ICloseStatusCode.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\ICloseStatusCode.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\IProtocolProcessor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\IProtocolProcessor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\IWebSocketFragment.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\IWebSocketFragment.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\MultipleProtocolSwitchProcessor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\MultipleProtocolSwitchProcessor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\OpCode.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\OpCode.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\PlainFragment.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\PlainFragment.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\ProtocolProcessorBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\ProtocolProcessorBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\Rfc6455Processor.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\Rfc6455Processor.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketDataFrame.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketDataFrame.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketDataFrameReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketDataFrameReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketDataReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketDataReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketHeaderReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketHeaderReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketReceiveFilterBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketReceiveFilterBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketSecKey3ReceiveFilter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\Protocol\WebSocketSecKey3ReceiveFilter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\AsyncJsonSubCommand.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\AsyncJsonSubCommand.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\BasicSubCommandParser.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\BasicSubCommandParser.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\BasicSubProtocol.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\BasicSubProtocol.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\ISubCommand.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\ISubCommand.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\ISubCommandFilterLoader.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\ISubCommandFilterLoader.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\ISubProtocol.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\ISubProtocol.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\ISubRequestInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\ISubRequestInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\JsonSubCommand.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\JsonSubCommand.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\JsonSubCommandBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\JsonSubCommandBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\SubCommandBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\SubCommandBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\SubCommandFilterAttribute.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\SubCommandFilterAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\SubProtocolBase.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\SubProtocolBase.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\SubRequestInfo.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\SubProtocol\SubRequestInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\TextEncodingBinaryDataConverter.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\TextEncodingBinaryDataConverter.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\WebSocketConst.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\WebSocketConst.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\WebSocketProtocol.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\WebSocketProtocol.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\WebSocketServer.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\WebSocketServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\SuperSocket.WebSocket\WebSocketSession.cs">
+        <Link>SuperSocket-NetCore\SuperSocket.WebSocket\WebSocketSession.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\ADD.cs">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\ADD.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\ECHO.cs">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\ECHO.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\MULT.cs">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\MULT.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\Program.cs">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\Program.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\TelnetServer.cs">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\TelnetServer.cs</Link>
+      </Compile>
+      <Compile Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\TelnetSession.cs">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\TelnetSession.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="..\SuperSocket-NetCore\.git\objects\info">
+        <Link>SuperSocket-NetCore\.git\objects\info</Link>
+      </Folder>
+      <Folder Include="..\SuperSocket-NetCore\.git\refs\tags">
+        <Link>SuperSocket-NetCore\.git\refs\tags</Link>
+      </Folder>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\App.config">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\App.config</Link>
+      </None>
+      <None Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\Config\log4net.config">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\Config\log4net.config</Link>
+      </None>
+      <None Include="..\SuperSocket-NetCore\TelnetServer_05_StartByConfig\Config\log4net.unix.config">
+        <Link>SuperSocket-NetCore\TelnetServer_05_StartByConfig\Config\log4net.unix.config</Link>
+      </None>
+    </ItemGroup>
+
+</Project>
