@@ -16,6 +16,8 @@ namespace StreamNodeCtrlApis.SystemApis
 {
     public static class MediaServerApis
     {
+        
+        
         /// <summary>
         /// 获取需要裁剪合并的文件列表 
         /// </summary>
@@ -292,6 +294,52 @@ namespace StreamNodeCtrlApis.SystemApis
                 Message = ErrorMessage.ErrorDic![ErrorNumber.DvrCutMergeFileNotFound],
             };
             return null!;
+        }
+
+
+
+        /// <summary>
+        /// 通过流媒体服务器ID与摄像头实例ID获取SipDeviceId
+        /// </summary>
+        /// <param name="mediaServerId"></param>
+        /// <param name="cameraId"></param>
+        /// <param name="rs"></param>
+        /// <returns></returns>
+        public static string GetSipDeviceIdFromCameraId(string mediaServerId, string cameraId,out ResponseStruct rs)
+        {
+            rs = new ResponseStruct()
+            {
+                Code = ErrorNumber.None,
+                Message = ErrorMessage.ErrorDic![ErrorNumber.None],
+            };
+
+            try
+            {
+                var ret = OrmService.Db.Select<CameraInstance>().Where(x => x.PushMediaServerId.Equals(mediaServerId))
+                    .Where(x => x.CameraId.Equals(cameraId)).Where(x => x.CameraType.Equals(CameraType.GB28181)).First();
+                if (ret != null && !string.IsNullOrEmpty(ret.CameraDeviceLable))
+                {
+                    return ret.CameraDeviceLable;
+                }
+                else
+                {
+                    rs = new ResponseStruct()
+                    {
+                        Code = ErrorNumber.SipDeviceOrCameraNotFound,
+                        Message = ErrorMessage.ErrorDic![ErrorNumber.SipDeviceOrCameraNotFound],
+                    };
+                    return null;
+                }
+            }
+            catch
+            {
+                rs = new ResponseStruct()
+                {
+                    Code = ErrorNumber.SystemDataBaseExcept,
+                    Message = ErrorMessage.ErrorDic![ErrorNumber.SystemDataBaseExcept],
+                };
+                return null;
+            }
         }
 
         /// <summary>

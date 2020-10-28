@@ -111,6 +111,15 @@
             <param name="rs"></param>
             <returns></returns>
         </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetSipDeviceIdFromCameraId(System.String,System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            通过流媒体服务器ID与摄像头实例ID获取SipDeviceId
+            </summary>
+            <param name="mediaServerId"></param>
+            <param name="cameraId"></param>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
         <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.CutOrMergeVideoFile(CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile,CommonFunctions.ManageStructs.ResponseStruct@)">
             <summary>
             裁剪或合并视频文件

@@ -376,6 +376,31 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
+        
+      
+        /// <summary>
+        /// 通过流媒体ID与摄像头实例ID获取SipDeviceId
+        /// </summary>
+        /// <param name="mediaServerId"></param>
+        /// <param name="cameraId"></param>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
+        [Route("GetSipDeviceIdFromCameraId")]
+        [HttpGet]
+        [Log]
+        [AuthVerify]
+        public string GetSipDeviceIdFromCameraId(string mediaServerId,string cameraId)
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.GetSipDeviceIdFromCameraId(mediaServerId,cameraId, out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+
+            return ret;
+        }
+        
 
         /// <summary>
         /// 获取在线摄像头列表
