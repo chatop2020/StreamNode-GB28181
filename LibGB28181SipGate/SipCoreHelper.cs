@@ -84,7 +84,7 @@ namespace LibGB28181SipGate
                         (obj.CameraExList == null || obj.CameraExList.Count == 0)) //自动获取设备列表
                     {
                         Logger.Logger.Info("发现设备处于注册状态，或者通道列表为空->开始获取通道列表->" + obj.IpAddress + "->" + obj.SipPort +
-                                            "->" + obj.DeviceId);
+                                           "->" + obj.DeviceId);
                         if (GetDeviceList(obj.DeviceId))
                         {
                             Logger.Logger.Debug(
@@ -289,13 +289,11 @@ namespace LibGB28181SipGate
                         if (!ip.Equals(dev.IpAddress) || !port.Equals(dev.SipPort))
                         {
                             Logger.Logger.Info("收到一个错误的注册设备,要准备踢掉了->" + dev.DeviceId + "->" + dev.IpAddress + "->" +
-                                                dev.SipPort);
+                                               dev.SipPort);
                             dev.SipDeviceStatus = SipDeviceStatus.LooksLikeOffline;
                             dev.LastKeepAliveTime = DateTime.Now.AddMinutes(10); //用于将sip设备踢掉，等它重新注册
                         }
                     }
-
-                   
                 }
             }
         }
@@ -436,7 +434,7 @@ namespace LibGB28181SipGate
                                 dev.CameraExList.Add(camera);
                                 dev.LastUpdateTime = DateTime.Now;
 
-                               
+
                                 CameraInstanceForSip c = new CameraInstanceForSip();
                                 c.Activated = false;
                                 c.EnableLive = false;
@@ -478,8 +476,6 @@ namespace LibGB28181SipGate
                                     // ignored
                                 }
                             }
-
-                           
                         }
                     }
                 }
@@ -820,11 +816,11 @@ namespace LibGB28181SipGate
                 var ret = gdlt.PtzContorl(dir, speed);
                 if (ret)
                 {
-                    Logger.Logger.Info("请求PTZ控制成功->" + gdlt.DeviceId + "->" + gdlt.CallId);
+                    Logger.Logger.Info("请求PTZ控制成功->" + gdlt.DeviceId + "->" + gdlt.CallId + "->" + dir + "->" + speed);
                 }
                 else
                 {
-                    Logger.Logger.Warn("请求PTZ控制失败->" + gdlt.DeviceId + "->" + gdlt.CallId);
+                    Logger.Logger.Warn("请求PTZ控制失败->" + gdlt.DeviceId + "->" + gdlt.CallId + "->" + dir + "->" + speed);
                 }
 
                 TaskList.Remove(gdlt);
