@@ -233,6 +233,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
             }
 
+            Logger.Logger.Info("流发布成功->"+mediaServer.MediaServerId+"->"+session.CameraId+"->"+session.CameraType+"->"+session.Vhost+"->"+session.App+"->"+session.StreamId+"->"+session.PlayUrl);
             return new ResToWebHookOnPublish() //返回zlmediakit成功
             {
                 Code = 0,
@@ -307,6 +308,8 @@ namespace StreamNodeCtrlApis.WebHookApis
                         OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                         lock (Common.PlayerSessionListLock)
                         {
+                            Logger.Logger.Info("停止播放->"+mediaServer.MediaServerId+"->"+tmpClientLog.CameraId+"->"+tmpClientLog.Vhost+"->"+tmpClientLog.App+"->"+tmpClientLog.StreamId+"->"+req.Ip+"->"+req.Id+"->"+req.Duration+"->"+req.TotalBytes);
+
                             Common.PlayerSessions.Remove(player);
                         }
                     }
@@ -330,11 +333,13 @@ namespace StreamNodeCtrlApis.WebHookApis
                         lock (Common.CameraSessionLock)
                         {
                             camera.IsOnline = false;
+                            Logger.Logger.Info("流停止发布->"+mediaServer.MediaServerId+"->"+tmpClientLog.CameraId+"->"+camera.ClientType+"->"+tmpClientLog.Vhost+"->"+tmpClientLog.App+"->"+tmpClientLog.StreamId);
+
                         }
                     }
                 }
             }
-
+            
             return new ResToWebHookOnStreamChange()
             {
                 Code = 0,
@@ -413,7 +418,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 StreamId = player.StreamId,
             };
             OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
-
+            Logger.Logger.Info("开始播放->"+mediaServer.MediaServerId+"->"+player.CameraId+"->"+player.Vhost+"->"+player.App+"->"+player.StreamId+"->"+req.Ip+"->"+req.Id+"->"+player.PlayUrl);
             return new ResToWebHookOnStreamChange()
             {
                 Code = 0,
@@ -550,6 +555,8 @@ namespace StreamNodeCtrlApis.WebHookApis
                                 StreamId = session.StreamId,
                                 Schema = "rtsp",
                             };
+                            Logger.Logger.Info("RTSP流发布->"+mediaServer.MediaServerId+"->"+tmpClientLog.CameraId+"->"+session.ClientType+"->"+tmpClientLog.Vhost+"->"+tmpClientLog.App+"->"+tmpClientLog.StreamId);
+
                             OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                         }
                         else
@@ -585,6 +592,8 @@ namespace StreamNodeCtrlApis.WebHookApis
                         StreamId = checksession.StreamId,
                         Schema = "rtsp",
                     };
+                    Logger.Logger.Info("RTSP流发布->"+mediaServer.MediaServerId+"->"+tmpClientLog.CameraId+"->"+checksession.ClientType+"->"+tmpClientLog.Vhost+"->"+tmpClientLog.App+"->"+tmpClientLog.StreamId);
+
                     OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                 }
             }
@@ -681,6 +690,8 @@ namespace StreamNodeCtrlApis.WebHookApis
             }
 
             OrmService.Db.Insert(tmpDvrVideo).ExecuteAffrows();
+            Logger.Logger.Info("文件录制成功->"+mediaServer.MediaServerId+"->"+tmpDvrVideo.CameraId+"->"+session.ClientType+"->"+tmpDvrVideo.Vhost+"->"+tmpDvrVideo.App+"->"+tmpDvrVideo.Streamid+"->"+tmpDvrVideo.FileSize +"->"+tmpDvrVideo.VideoPath);
+
             return new ResToWebHookOnStreamChange()
             {
                 Code = 0,
