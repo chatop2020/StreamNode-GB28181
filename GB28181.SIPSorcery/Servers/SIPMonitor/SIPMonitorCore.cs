@@ -408,6 +408,7 @@ namespace GB28181.Servers.SIPMonitor
             media.AddExtra("y=" + ssrc);
             media.AddFormatParameterAttribute(psFormat.FormatID, psFormat.Name);
             media.AddFormatParameterAttribute(h264Format.FormatID, h264Format.Name);
+            //media.AddExtra("a=stream:1");//a=stream:0主码流   a=stream:1子码流
             media.Port = rtpServerPort;
 
             sdp.Media.Add(media);

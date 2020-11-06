@@ -268,6 +268,7 @@ namespace StreamNodeWebApi.AutoTasker
             string end = d.EndTime.ToString("HH:mm:ss");
             TimeSpan workStartDt = DateTime.Parse(start).TimeOfDay;
             TimeSpan workEndDt = DateTime.Parse(end).TimeOfDay;
+          
             if (nowDt > workStartDt && nowDt < workEndDt)
             {
                 return true;

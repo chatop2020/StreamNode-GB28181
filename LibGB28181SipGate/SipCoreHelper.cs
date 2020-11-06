@@ -626,6 +626,7 @@ namespace LibGB28181SipGate
             {
                 SipCoreTask gdlt = new SipCoreTask(pid, devId, this);
                 TaskList.Add(gdlt);
+                
                 string streamid = pip + pid + devId;
                 uint stid = CRC32Cls.GetCRC32(streamid);
                 Logger.Logger.Info("资料->" + streamid + " 10进制->" + stid + " 16进制->" + string.Format("{0:X8}", stid));

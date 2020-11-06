@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using CommonFunction.ManageStructs;
 using CommonFunctions;
+using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
@@ -98,7 +99,27 @@ namespace StreamNodeCtrlApis.SipGateApis
                 App = "",
                 PushStreamSocketType = null,
             };
-            string streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID;
+
+            /*
+            CameraInstance cameraInst = null;
+            lock (Common.CameraInstanceListLock)
+            {
+                cameraInst = Common.CameraInstanceList.FindLast(x =>
+                    x.CameraDeviceLable.Equals(dev.DeviceId) && x.CameraChannelLable.Equals(cameraid) &&
+                    x.PushMediaServerId.Equals(mediaServerDeviceId));
+            }
+            */
+
+            string streamid=dev.IpAddress+dev.DeviceId + camera.Camera.DeviceID ;
+            /*if (cameraInst != null && cameraInst.MobileCamera == true)
+            {
+                streamid = cameraInst.MobileCamera + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
+            }
+            else
+            {
+                streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
+            }*/
+
             uint stid = CRC32Cls.GetCRC32(streamid);
             string mediaStreamId = string.Format("{0:X8}", stid);
             ReqZLMediaKitCloseRtpPort req = new ReqZLMediaKitCloseRtpPort()
@@ -243,8 +264,29 @@ namespace StreamNodeCtrlApis.SipGateApis
             };
             if (camera.SipCameraStatus == SipCameraStatus.Idle)
             {
-                string streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID;
+                CameraInstance cameraInst = null;
+                /*lock (Common.CameraInstanceListLock)
+                {
+                    cameraInst = Common.CameraInstanceList.FindLast(x =>
+                        x.CameraDeviceLable.Equals(dev.DeviceId) && x.CameraChannelLable.Equals(cameraid) &&
+                        x.PushMediaServerId.Equals(mediaServerDeviceId));
+                }*/
+
+                string streamid =dev.IpAddress+ dev.DeviceId + camera.Camera.DeviceID ;
+                /*if (cameraInst != null && cameraInst.MobileCamera == true)
+                {
+                    streamid = cameraInst.MobileCamera + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
+                }
+                else
+                {
+                    streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
+                }*/
+
                 uint stid = CRC32Cls.GetCRC32(streamid);
+                
+                
+                
+                
                 string mediaStreamId = string.Format("{0:X8}", stid);
                 ReqZLMediaKitOpenRtpPort req = new ReqZLMediaKitOpenRtpPort()
                 {

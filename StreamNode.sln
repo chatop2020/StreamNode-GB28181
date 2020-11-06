@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SystemInfo", "Test_Sys
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SystemInfo2", "Test_SystemInfo2\Test_SystemInfo2.csproj", "{EC644B1B-67C7-464C-81F0-A556CFE7B151}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SIPSocket", "Test_SIPSocket\Test_SIPSocket.csproj", "{230AFBF9-001D-4B82-953F-939176E6F86B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,5 +86,9 @@ Global
 		{EC644B1B-67C7-464C-81F0-A556CFE7B151}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC644B1B-67C7-464C-81F0-A556CFE7B151}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC644B1B-67C7-464C-81F0-A556CFE7B151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230AFBF9-001D-4B82-953F-939176E6F86B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230AFBF9-001D-4B82-953F-939176E6F86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230AFBF9-001D-4B82-953F-939176E6F86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230AFBF9-001D-4B82-953F-939176E6F86B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
