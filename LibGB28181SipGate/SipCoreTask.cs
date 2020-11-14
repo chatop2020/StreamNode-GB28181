@@ -104,6 +104,9 @@ namespace LibGB28181SipGate
         }
 
 
+        
+        
+        
         /// <summary>
         /// 启动远端视频推流,动态创建端口
         /// </summary>
@@ -155,6 +158,33 @@ namespace LibGB28181SipGate
             }
 
             return false;
+        }
+
+
+        /// <summary>
+        /// 获取GB28181录像文件
+        /// </summary>
+        /// <returns></returns>
+        public int RecordFileQuery(DateTime startTime, DateTime endTime, string type)
+        {
+            var monitor = _sipCoreHelper.SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(_deviceId));
+            if (monitor.Value != null)
+            {
+                var obj = monitor.Value;
+                /*< ! -- 录像产生类型(可选)time 或alarm 或 manual 或all--> <element name="Type" type="string"/>*/
+                var ret = obj.RecordFileQuery(startTime,endTime,type, out _callId,true);
+                var timeout = _autoResetEvent.WaitOne(5000);
+                if (!timeout)
+                {
+                    return ret;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+            return -1;
         }
 
         /// <summary>

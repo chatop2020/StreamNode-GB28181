@@ -504,8 +504,9 @@ namespace GB28181.Servers.SIPMonitor
         {
             _recordTotal = recordTotal;
         }
-
-        /// <summary>
+        
+        
+         /// <summary>
         /// 录像文件查询
         /// </summary>
         /// <param name="startTime">开始时间</param>
@@ -559,6 +560,75 @@ namespace GB28181.Servers.SIPMonitor
                     break;
                 }
             }
+
+            return _recordTotal;
+        }
+
+       /// <summary>
+       ///  录像文件查询 ,需要返回数据
+       /// </summary>
+       /// <param name="startTime"></param>
+       /// <param name="endTime"></param>
+       /// <param name="type"></param>
+       /// <param name="needResult"></param>
+       /// <returns></returns>
+        public int RecordFileQuery(DateTime startTime, DateTime endTime, string type ,out string _callId,bool needResult=false)
+        {
+            this.Stop();
+
+            SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
+            SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), "");
+            SIPFromHeader from = new SIPFromHeader(null, localUri, CallProperties.CreateNewTag());
+            SIPToHeader to = new SIPToHeader(null, remoteUri, CallProperties.CreateNewTag());
+            SIPRequest recordFileReq = _sipTransport.GetRequest(SIPMethodsEnum.MESSAGE, remoteUri);
+            SIPContactHeader contactHeader = new SIPContactHeader(null, localUri);
+            recordFileReq.Header.Contact.Clear();
+            recordFileReq.Header.Contact.Add(contactHeader);
+
+            recordFileReq.Header.Allow = null;
+            recordFileReq.Header.From = from;
+            recordFileReq.Header.To = to;
+            recordFileReq.Header.UserAgent = SIPConstants.SIP_USERAGENT_STRING;
+            recordFileReq.Header.CSeq = CallHelpers.CreateNewCSeq();
+            recordFileReq.Header.CallId = CallProperties.CreateNewCallId();
+            recordFileReq.Header.ContentType = "application/MANSCDP+xml";
+
+            string bTime = startTime.ToString("yyyy-MM-ddTHH:mm:ss");
+            string eTime = endTime.ToString("yyyy-MM-ddTHH:mm:ss");
+            RecordQuery record = new RecordQuery()
+            {
+                DeviceID = DeviceId,
+                SN = new Random().Next(1, 3000),
+                CmdType = CommandType.RecordInfo,
+                Secrecy = 0,
+                StartTime = bTime,
+                EndTime = eTime,
+                Type = type
+            };
+
+            _recordTotal = -1;
+            string xmlBody = RecordQuery.Instance.Save<RecordQuery>(record);
+            recordFileReq.Body = xmlBody;
+            _sipMsgCoreService.SendRequest(RemoteEndPoint, recordFileReq);
+            DateTime recordQueryTime = DateTime.Now;
+            while (_recordTotal < 0)
+            {
+                Thread.Sleep(50);
+                if (DateTime.Now.Subtract(recordQueryTime).TotalSeconds > 2)
+                {
+                    Logger.Logger.Debug("[" + DeviceId + "] 等待录像查询超时");
+                    _recordTotal = 0;
+                    break;
+                }
+            }
+            
+            _reqSession = recordFileReq;
+            _callId = recordFileReq.Header.CallId;
+            if (needResult)
+            {
+                _syncRequestContext.TryAdd(_callId, recordFileReq);
+            }
+
 
             return _recordTotal;
         }

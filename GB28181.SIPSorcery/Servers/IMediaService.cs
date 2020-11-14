@@ -72,10 +72,23 @@ namespace GB28181.Servers
 
         /// <summary>
         /// 录像文件检索
-        /// <param name="beginTime">开始时间</param>
-        /// <param name="endTime">结束时间</param>
         /// </summary>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         int RecordFileQuery(DateTime beginTime, DateTime endTime, string type);
+
+
+        /// <summary>
+        /// 录像文件检索(有返回)
+        /// </summary>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="type"></param>
+        /// <param name="needResult"></param>
+        /// <returns></returns>
+        int RecordFileQuery(DateTime beginTime, DateTime endTime, string type, out string _callId,bool needResult = false);
 
         /// <summary>
         /// 录像点播视频请求

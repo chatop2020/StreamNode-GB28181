@@ -499,9 +499,17 @@ namespace LibGB28181SipGate
             //待实现
         }
 
+        /// <summary>
+        /// 当有录像文件查询回调时触发
+        /// </summary>
+        /// <param name="recordInfo"></param>
         private void OnRecordInfoReceived(RecordInfo recordInfo)
         {
             //待实现
+            var str = "收到GB28181的录像文件目录->\r\n"+JsonHelper.ToJson(recordInfo);
+            Logger.Logger.Debug(str);
+            
+
         }
 
         private void OnKeepAliveReceived(SIPEndPoint remoteEp, KeepAlive keepAlive, string devId)
@@ -843,6 +851,32 @@ namespace LibGB28181SipGate
             else
             {
                 Logger.Logger.Warn("获取设备目录失败->" + gdlt.DeviceId + "->" + gdlt.CallId);
+            }
+
+            TaskList.Remove(gdlt);
+            return ret;
+        }
+        
+        /// <summary>
+        /// 获取gb28181的录像文件
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="type">录像产生类型 time alarm manual all</param>
+        /// <returns></returns>
+        public int GetRecordFile(string deviceId,DateTime startTime, DateTime endTime, string type)
+        {
+            SipCoreTask gdlt = new SipCoreTask("", deviceId, this);
+            TaskList.Add(gdlt);
+            var ret = gdlt.RecordFileQuery(startTime,endTime,type);
+            if (ret>-1)
+            {
+                Logger.Logger.Info("获取录像目录成功->录像数量->("+ret+")个->" + gdlt.DeviceId + "->" + gdlt.CallId);
+            }
+            else
+            {
+                Logger.Logger.Warn("获取录像目录失败->" + gdlt.DeviceId + "->" + gdlt.CallId);
             }
 
             TaskList.Remove(gdlt);
