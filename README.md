@@ -2,8 +2,13 @@
 ## 简介
 - 本项目是基于ZLMediaKit的流媒体控制管理接口平台，支持RTSP,GB28181的设备拉流与推流控制，GB28181部分支持PTZ控制。
 - 对ZLMediaKit的源码做了一些小的改造，用于将ZLMediaKit的http回调增加流媒体服务的唯一标识，以及对ffmpeg管理部分的一个小修改
+- 【特别说明】由于最近关注 StreamNode-GB28181（原StreamNode）的朋友越来越多，在这里统一做一下说明。当前StreamNode-GB28181只适配了Linux操作系统，在CentOS7,Ubuntu 20.x Desktop,嵌入式Rpibian buster (基于Debian的树莓派操作系统，StreamNode在树莓派4B上跑得非常好)上做过测试，可以正常运行；其他操作系统没有做过适配，可能无法正常使用，需要Windows部署的朋友可以自己动手改改代码，方便的话给我提个PR，我有空的时候也会把跨平台适配性加强一些。
 - 【新增】支持对公网动态ip的GB28181设备支持，通过数据库中的标记来确定是否校验设备IP地址，因此可以支持如4G国标协议执法记录仪接入
 - 【修复】Sip网关支持部署在内网，映射到公网IP的端口，即可提供服务,同时修复了推流设备在内网中GB28181协议注册时未正确获得真实设备IP的问题，表示可以正确识别与通讯内网的GB28181设备。
+## 支持操作系统及要求
+- CentOS7.x  强烈推荐
+- Ubuntu
+- 需要Mysql5.7或Mariadb 10.3.x以上，（当然其他FreeSql库所支持的数据库也是支持的，比如Sqlite）
 ## 接口功能
 ### DvrPlan 录制计划
 - /DvrPlan​/DeleteDvrPlanById          删除一个录制计划ById
