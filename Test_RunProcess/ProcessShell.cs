@@ -4,10 +4,10 @@ using System.IO;
 
 namespace Test_RunProcess
 {
-    /// <summary>
+   /// <summary>
     /// 
     /// </summary>
-    public static class LinuxShell
+    public static class ProcessShell
     {
         private const string processName = "/bin/bash";
 
@@ -51,7 +51,7 @@ namespace Test_RunProcess
         }
 
         
-        public static int RunProcess(string filePath, string args,int milliseconds,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args,int milliseconds,bool lookup=false,EventHandler exitEvent=null)
         {
             try
             {
@@ -78,11 +78,11 @@ namespace Test_RunProcess
                     {
                         result = process.WaitForExit(milliseconds);
                     }
-                    
-                    return result == false ? -1 : process.Id;
+
+                    return result == false ? null : process;
                 }
             }
-            catch(Exception ex) //异常直接返回错误
+            catch (Exception ex)//异常直接返回错误
             {
                 //异常处理
                 throw ex;
@@ -142,7 +142,7 @@ namespace Test_RunProcess
         /// <param name="stdOutput">标准输出</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        public static int RunProcess(string filePath, string args,int milliseconds, out string stdOutput,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args,int milliseconds, out string stdOutput,bool lookup=false,EventHandler exitEvent=null)
         {
             stdOutput = null!;
             try
@@ -177,7 +177,7 @@ namespace Test_RunProcess
                         stdOutput = process.StandardOutput.ReadToEnd();
                     }
 
-                    return result == false ? -1 : process.Id;
+                    return result==false?null:process;
                 }
             }
             catch(Exception ex) //异常直接返回错误
@@ -243,7 +243,7 @@ namespace Test_RunProcess
         /// <param name="stdError">错误输出</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        public static int RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError,bool lookup=false,EventHandler exitEvent=null)
         {
             stdOutput = null!;
             stdError = null!;
@@ -280,10 +280,10 @@ namespace Test_RunProcess
                         stdError = process.StandardError.ReadToEnd()!;
                     }
 
-                    return result == false ? -1 : process.Id;
+                    return result==false?null:process;
                 }
             }
-            catch (Exception ex)//异常直接返回错误
+            catch(Exception ex) //异常直接返回错误
             {
                 //异常处理
                 throw ex;

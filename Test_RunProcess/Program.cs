@@ -16,7 +16,7 @@ namespace Test_RunProcess
         {
             string std = "";
             string err = "";
-            var pid= LinuxShell.RunProcess("/usr/local/bin/ffmpeg", "", 1000, out  std,out  err,true, Process_Exited);
+            var pid= ProcessShell.RunProcess("/usr/local/bin/ffmpeg", "", 1000, out  std,out  err,true, Process_Exited);
            Console.WriteLine(pid);
             Console.WriteLine(std);
             Console.WriteLine(err);

@@ -51,7 +51,7 @@ namespace StreamMediaServerKeeper
         }
 
         
-        public static bool RunProcess(string filePath, string args,int milliseconds,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args,int milliseconds,bool lookup=false,EventHandler exitEvent=null)
         {
             try
             {
@@ -73,18 +73,19 @@ namespace StreamMediaServerKeeper
                         process.EnableRaisingEvents = true; // 启用Exited事件
                         process.Exited += exitEvent;  
                     }
-                    if (process.Start())
+                    bool result = process.Start();
+                    if (result)
                     {
-                        return process.WaitForExit(milliseconds);
+                        result = process.WaitForExit(milliseconds);
                     }
 
-                    return false;
+                    return result == false ? null : process;
                 }
             }
-            catch //异常直接返回错误
+            catch (Exception ex)//异常直接返回错误
             {
                 //异常处理
-                return false;
+                throw ex;
             }
         }
         
@@ -141,7 +142,7 @@ namespace StreamMediaServerKeeper
         /// <param name="stdOutput">标准输出</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        public static bool RunProcess(string filePath, string args,int milliseconds, out string stdOutput,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args,int milliseconds, out string stdOutput,bool lookup=false,EventHandler exitEvent=null)
         {
             stdOutput = null!;
             try
@@ -176,13 +177,13 @@ namespace StreamMediaServerKeeper
                         stdOutput = process.StandardOutput.ReadToEnd();
                     }
 
-                    return result;
+                    return result==false?null:process;
                 }
             }
-            catch //异常直接返回错误
+            catch(Exception ex) //异常直接返回错误
             {
                 //异常处理
-                return false;
+                throw ex;
             }
         }
 
@@ -242,7 +243,7 @@ namespace StreamMediaServerKeeper
         /// <param name="stdError">错误输出</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        public static bool RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError,bool lookup=false,EventHandler exitEvent=null)
         {
             stdOutput = null!;
             stdError = null!;
@@ -279,13 +280,13 @@ namespace StreamMediaServerKeeper
                         stdError = process.StandardError.ReadToEnd()!;
                     }
 
-                    return result;
+                    return result==false?null:process;
                 }
             }
-            catch //异常直接返回错误
+            catch(Exception ex) //异常直接返回错误
             {
                 //异常处理
-                return false;
+                throw ex;
             }
         }
     }
