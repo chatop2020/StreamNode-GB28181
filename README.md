@@ -589,22 +589,33 @@ string Recorder::getRecordPath(Recorder::type type, const string &vhost, const s
 - StreamNodeWebApi的配置文件,参数名与参数值以::分开，每行以;结束
 - 数据库方面采用CodeFirst 模式，在数据库中建立一个名为streamnode的库，数据表会自动创建
 ~~~
-httpport::5800;   //webapi的端口
-password::password123!@#; //暂时无用
-allowkey::0D906284-6801-4B84-AEC9-DCE07FAE81DA	*	192.168.2.*	; //鉴权，暂时无用
-db::Data Source=192.168.2.35;Port=3306;User ID=root;Password=password; Initial Catalog=streamnode;Charset=utf8; SslMode=none;Min pool size=1;//数据库连接串
-dbtype::mysql;//数据库类型
-ffmpegpath::./ffmpeg;//ffmpeg可执行文件的位置
+#webapi的端口
+httpport::5800;
+#暂时无用
+password::password123!@#;
+#鉴权，暂时无用
+allowkey::0D906284-6801-4B84-AEC9-DCE07FAE81DA	*	192.168.2.*	; 
+#数据库连接串
+db::Data Source=192.168.2.35;Port=3306;User ID=root;Password=password; Initial Catalog=streamnode;Charset=utf8; SslMode=none;Min pool size=1;
+#数据库类型
+dbtype::mysql;
+#ffmpeg可执行文件的位置
+ffmpegpath::./ffmpeg;
 ~~~
 
 ## StreamMediaServerKeeper/Config/config.conf 
 - StreamMediaServerKeeper的配置文件
 ~~~
-MediaServerBinPath::/root/MediaService/MediaServer;//ZLMediaKit流媒体服务器可执行文件路径
-StreamNodeServerUrl::http://192.168.2.43:5800/WebHook/MediaServerRegister; //向哪个StreamNodeWebApi注册自己的服务
-HttpPort::6880;//服务的WebApi端口
-IpAddress::192.168.2.43;//本机ip地址
-CustomizedRecordFilePath::/home/cdtnb; //自定义存储视频的位置 
+#ZLMediaKit流媒体服务器可执行文件路径
+MediaServerBinPath::/root/MediaService/MediaServer;
+#向哪个StreamNodeWebApi注册自己的服务
+StreamNodeServerUrl::http://192.168.2.43:5800/WebHook/MediaServerRegister;
+#服务的WebApi端口
+HttpPort::6880;
+#本机ip地址
+IpAddress::192.168.2.43;
+#自定义存储视频的位置 
+CustomizedRecordFilePath::/home/cdtnb;
 ~~~
 
 ## StreamNodeWebApi/Config/logconfig.xml & StreamMediaServerKeeper/Config/logconfig.xml
