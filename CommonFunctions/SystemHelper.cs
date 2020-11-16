@@ -195,7 +195,7 @@ namespace CommonFunctions
                 string err = "";
                 string cmd = "top - bn1 | awk '/average:/ '";
 
-                var ret = LinuxShell.Run(cmd, 1000, out std, out err);
+                var ret = ProcessShell.Run(cmd, 1000, out std, out err);
                 if (ret)
                 {
                     if (!string.IsNullOrEmpty(std))
@@ -257,7 +257,7 @@ namespace CommonFunctions
                 string std = "";
                 string err = "";
                 string cmd = "top -bn1 | awk '/%Cpu/ {print $2+$4,$8}'";
-                var ret = LinuxShell.Run(cmd, 1000, out std, out err);
+                var ret = ProcessShell.Run(cmd, 1000, out std, out err);
                 if (ret)
                 {
                     if (!string.IsNullOrEmpty(std))

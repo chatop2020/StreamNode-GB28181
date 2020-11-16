@@ -299,45 +299,6 @@
             <param name="p"></param>
             <returns></returns>
         </member>
-        <member name="T:StreamMediaServerKeeper.LinuxShell">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:StreamMediaServerKeeper.LinuxShell.Run(System.String)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.LinuxShell.Run(System.String,System.Int32)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.LinuxShell.Run(System.String,System.Int32,System.String@)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <param name="stdOutput">结果输出</param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.LinuxShell.Run(System.String,System.Int32,System.String@,System.String@)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <param name="stdOutput">结果输出</param>
-            <param name="stdError">错误输出</param>
-            <returns></returns>
-        </member>
         <member name="T:StreamMediaServerKeeper.NetHelper">
             <summary>
             http请求类
@@ -534,6 +495,68 @@
             用可执行文件路径确定进程是否正在运行
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:StreamMediaServerKeeper.ProcessShell">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessShell.Run(System.String)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessShell.Run(System.String,System.Int32)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessShell.Run(System.String,System.Int32,System.String@)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <param name="stdOutput">结果输出</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessShell.RunProcess(System.String,System.String,System.Int32,System.String@,System.Boolean,System.EventHandler)">
+            <summary>
+            执行外部程序
+            </summary>
+            <param name="filePath">可执行文件路径</param>
+            <param name="args">参数</param>
+            <param name="milliseconds">超时（毫秒）</param>
+            <param name="stdOutput">标准输出</param>
+            <returns></returns>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessShell.Run(System.String,System.Int32,System.String@,System.String@)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <param name="stdOutput">结果输出</param>
+            <param name="stdError">错误输出</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessShell.RunProcess(System.String,System.String,System.Int32,System.String@,System.String@,System.Boolean,System.EventHandler)">
+             <summary>
+            执行外部程序
+             </summary>
+             <param name="filePath">可执行文件路径</param>
+             <param name="args">参数</param>
+             <param name="milliseconds">超时（毫秒）</param>
+             <param name="stdOutput">标准输出</param>
+             <param name="stdError">错误输出</param>
+             <returns></returns>
+             <exception cref="T:System.IO.FileNotFoundException"></exception>
         </member>
         <member name="T:StreamMediaServerKeeper.Program">
             <summary>

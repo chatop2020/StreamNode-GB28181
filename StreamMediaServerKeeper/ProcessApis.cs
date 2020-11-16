@@ -177,7 +177,7 @@ namespace StreamMediaServerKeeper
                     cmd = "kill -9 " + _pid.ToString();
                 }
 
-                LinuxShell.Run(cmd, 500);
+                ProcessShell.Run(cmd, 500);
                 Thread.Sleep(200);
                 i++;
             }
@@ -245,10 +245,10 @@ namespace StreamMediaServerKeeper
                     string stdout = "";
                     string errout = "";
                     string cmd = "ulimit -c unlimited";
-                    LinuxShell.Run(cmd, 500); //执行取消限制
+                    ProcessShell.Run(cmd, 500); //执行取消限制
                     //  cmd = Common.MediaServerBinPath + " -d &";
                     cmd = "nohup " + Common.MediaServerBinPath + " > " + dir + "log/MServerRun.log &";
-                    LinuxShell.Run(cmd, 1000);
+                    ProcessShell.Run(cmd, 1000);
                     int i = 0;
                     while (!checkProcessExists() && i < 50)
                     {
@@ -303,7 +303,7 @@ namespace StreamMediaServerKeeper
 
             string stdout = "";
             string errout = "";
-            var ret = LinuxShell.Run(cmd, 300, out stdout, out errout);
+            var ret = ProcessShell.Run(cmd, 300, out stdout, out errout);
             if (!string.IsNullOrEmpty(stdout) && ret)
             {
                 if (uint.TryParse(stdout, out _pid))

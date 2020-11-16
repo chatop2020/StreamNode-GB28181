@@ -479,40 +479,6 @@
             错误代码描述
             </summary>
         </member>
-        <member name="M:CommonFunctions.LinuxShell.Run(System.String)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:CommonFunctions.LinuxShell.Run(System.String,System.Int32)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:CommonFunctions.LinuxShell.Run(System.String,System.Int32,System.String@)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <param name="stdOutput">结果输出</param>
-            <returns></returns>
-        </member>
-        <member name="M:CommonFunctions.LinuxShell.Run(System.String,System.Int32,System.String@,System.String@)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <param name="stdOutput">结果输出</param>
-            <param name="stdError">错误输出</param>
-            <returns></returns>
-        </member>
         <member name="T:CommonFunctions.ManageStructs.AllowKey">
             <summary>
             allowkey管理类
@@ -1718,6 +1684,68 @@
             <param name="url">http地址</param>
             <param name="localfile">本地文件</param>
             <returns></returns>
+        </member>
+        <member name="T:CommonFunctions.ProcessShell">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CommonFunctions.ProcessShell.Run(System.String)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:CommonFunctions.ProcessShell.Run(System.String,System.Int32)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:CommonFunctions.ProcessShell.Run(System.String,System.Int32,System.String@)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <param name="stdOutput">结果输出</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.ProcessShell.RunProcess(System.String,System.String,System.Int32,System.String@,System.Boolean,System.EventHandler)">
+            <summary>
+            执行外部程序
+            </summary>
+            <param name="filePath">可执行文件路径</param>
+            <param name="args">参数</param>
+            <param name="milliseconds">超时（毫秒）</param>
+            <param name="stdOutput">标准输出</param>
+            <returns></returns>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+        </member>
+        <member name="M:CommonFunctions.ProcessShell.Run(System.String,System.Int32,System.String@,System.String@)">
+            <summary>
+            执行CMD命令
+            </summary>
+            <param name="command">命令内容</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
+            <param name="stdOutput">结果输出</param>
+            <param name="stdError">错误输出</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.ProcessShell.RunProcess(System.String,System.String,System.Int32,System.String@,System.String@,System.Boolean,System.EventHandler)">
+             <summary>
+            执行外部程序
+             </summary>
+             <param name="filePath">可执行文件路径</param>
+             <param name="args">参数</param>
+             <param name="milliseconds">超时（毫秒）</param>
+             <param name="stdOutput">标准输出</param>
+             <param name="stdError">错误输出</param>
+             <returns></returns>
+             <exception cref="T:System.IO.FileNotFoundException"></exception>
         </member>
         <member name="T:CommonFunctions.Session">
             <summary>

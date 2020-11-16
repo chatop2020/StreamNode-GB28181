@@ -179,7 +179,7 @@ namespace StreamMediaServerKeeper
                 string videoTsFilePath = tsPath + "/" + videoTsFileName;
                 string ffmpegCmd = Common.FFmpegBinPath + " -i " + task.CutMergeFileList[i]!.FilePath! +
                                    " -vcodec copy -acodec copy -vbsf h264_mp4toannexb " + videoTsFilePath + " -y";
-                var retRun = LinuxShell.Run(ffmpegCmd, 1000 * 60 * 30, out string std, out string err);
+                var retRun = ProcessShell.Run(ffmpegCmd, 1000 * 60 * 30, out string std, out string err);
 
                 if (retRun && (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err)) &&
                     File.Exists(videoTsFilePath))
@@ -230,7 +230,7 @@ namespace StreamMediaServerKeeper
                                " -f concat -safe 0 -i " + mergePath +
                                "files.txt" + " -c copy  -movflags faststart " + newFilePath;
 
-            var retRun = LinuxShell.Run(ffmpegCmd, 1000 * 60 * 30, out string std, out string err);
+            var retRun = ProcessShell.Run(ffmpegCmd, 1000 * 60 * 30, out string std, out string err);
             task.ProcessPercentage += 40f;
             if (retRun && (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err)) &&
                 File.Exists(newFilePath))
@@ -263,7 +263,7 @@ namespace StreamMediaServerKeeper
             string ffmpegCmd = Common.FFmpegBinPath + " -i " + cms.FilePath +
                                " -vcodec copy -acodec copy -ss " + cms.CutStartPos + " -to " + cms.CutEndPos + " " +
                                newTsName + " -y";
-            var retRun = LinuxShell.Run(ffmpegCmd, 1000 * 60 * 30, out string std, out string err);
+            var retRun = ProcessShell.Run(ffmpegCmd, 1000 * 60 * 30, out string std, out string err);
             if (retRun && (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err)) &&
                 File.Exists(newTsName))
             {

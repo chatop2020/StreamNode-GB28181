@@ -346,7 +346,7 @@ namespace StreamMediaServerKeeper
         public static void KillProcess(int pid)
         {
             string cmd = "kill -9 " + pid.ToString();
-            LinuxShell.Run(cmd, 1000);
+            ProcessShell.Run(cmd, 1000);
         }
 
         /// <summary>
@@ -366,7 +366,7 @@ namespace StreamMediaServerKeeper
                 cmd = "ps -A |grep " + processName + "|grep -v grep|awk \'{print $1}\'";
             }
 
-            LinuxShell.Run(cmd, 1000, out string std, out string err);
+            ProcessShell.Run(cmd, 1000, out string std, out string err);
             if (string.IsNullOrEmpty(std) && string.IsNullOrEmpty(err))
             {
                 return -1;

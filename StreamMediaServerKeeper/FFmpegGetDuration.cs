@@ -16,7 +16,7 @@ namespace StreamMediaServerKeeper
 
             if (!string.IsNullOrEmpty(ext) && !ext.Trim().ToLower().Equals(".mp4"))
             {
-                if (LinuxShell.Run(ffmpegCmd, 60 * 1000 * 5, out string std, out string err))
+                if (ProcessShell.Run(ffmpegCmd, 60 * 1000 * 5, out string std, out string err))
                 {
                     if (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err))
                     {
@@ -64,7 +64,7 @@ namespace StreamMediaServerKeeper
 
                 path = videoFilePath;
                 string cmd = ffmpegBinPath + " -i " + videoFilePath;
-                if (LinuxShell.Run(cmd, 1000, out string std, out string err))
+                if (ProcessShell.Run(cmd, 1000, out string std, out string err))
                 {
                     if (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err))
                     {
