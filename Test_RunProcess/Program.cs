@@ -16,11 +16,11 @@ namespace Test_RunProcess
         {
             string std = "";
             string err = "";
-            var pid= ProcessShell.RunProcess("/usr/local/bin/ffmpeg", "", 1000, out  std,out  err,true, Process_Exited);
-           Console.WriteLine(pid);
+            var process= ProcessShell.RunProcess("/usr/local/bin/ffmpeg", "", 1000, out  std,out  err,true, Process_Exited);
+            Console.WriteLine(process.Id);
             Console.WriteLine(std);
             Console.WriteLine(err);
-
+         
             Console.WriteLine("Hello World!");
         }
     }

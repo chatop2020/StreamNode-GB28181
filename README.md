@@ -6,6 +6,24 @@
 - <font color=#A52A2A size=12 >【特别说明2】</font>StreamNode-GB28181支持对ZLMediaKit流媒体服务的集群部署，组件[StreamMediaServerKeeper]与流媒体服务器[ZLMeidaKit]配对部署（必须在同一台服务器）；组件[StreamNodeWebApi]可以与[StreamMediaServerKeeper]不在同一台服务器，一个[StreamMediaServerKeeper]+[ZLMeidaKit]的组合是一个独立部分，通过内部的HttpWebApi接口实现流媒体与主控程序间的控制，[StreamNodeWebApi]负责GB28181的Sip信令控制，摄像头管理，录制计划管理，流媒体服务管理等功能，[StreamMediaServerKeeper]仅监控流媒体服务器[ZLMediaKit]的运行状态，提供对录制文件的裁剪与合并任务以及提供静态文件http服务功能。
 - 【新增】支持对公网动态ip的GB28181设备支持，通过数据库中的标记来确定是否校验设备IP地址，因此可以支持如4G国标协议执法记录仪接入
 - 【修复】Sip网关支持部署在内网，映射到公网IP的端口，即可提供服务,同时修复了推流设备在内网中GB28181协议注册时未正确获得真实设备IP的问题，表示可以正确识别与通讯内网的GB28181设备。
+## 采用StreamNode-GB28181接口管理平台实现的WEB管理平台展示（此平台不是StreamNode-GB28181的组件之一）
+- 视频广场
+![QQ20201116-150115@2x.png](https://i.loli.net/2020/11/16/dho7kcjfrwp6Vmq.png)
+- 录制计划
+![QQ20201116-150146@2x.png](https://i.loli.net/2020/11/16/5hjItzVg6oPFQdb.png)
+- 录制文件列表
+![QQ20201116-150157@2x.png](https://i.loli.net/2020/11/16/a3kwHGTOv89optU.png)
+- 录制文件回放
+![QQ20201116-150220@2x.png](https://i.loli.net/2020/11/16/yAg2dpLnsKoejqi.png)
+- 录制文件裁剪合并任务
+![QQ20201116-150334@2x.png](https://i.loli.net/2020/11/16/CSmtoqOZTzP9BAj.png)
+- RTSP兼容
+![QQ20201116-150511@2x.png](https://i.loli.net/2020/11/16/GPIwONuCHegi8xb.png)
+- GB28181兼容
+![QQ20201116-150530@2x.png](https://i.loli.net/2020/11/16/QRbZ69PnLi1TCyh.png)
+- 流媒体节点（ZLMediaKit+StreamNodeServiceKeeper）管理
+![QQ20201116-150453@2x.png](https://i.loli.net/2020/11/16/k9cDXlqBezt6PbZ.png)
+
 ## 支持操作系统及要求
 - CentOS7.x  强烈推荐
 - Ubuntu
