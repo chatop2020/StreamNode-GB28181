@@ -559,25 +559,45 @@ string Recorder::getRecordPath(Recorder::type type, const string &vhost, const s
     <ID>10</ID>
     <Name>上级平台</Name>
     <GbVersion>GB-2016</GbVersion>
-    <LocalID>34020000002000000001</LocalID>  //服务器id
-    <LocalIP>192.168.2.43</LocalIP> //服务器ip
-    <LocalPort>5060</LocalPort> //服务器的端口
+    <!-- 服务器id -->
+    <LocalID>34020000002000000001</LocalID>  
+    <!-- 服务器ip -->
+    <LocalIP>192.168.2.43</LocalIP> 
+    <!-- 服务器的端口 -->
+    <LocalPort>5060</LocalPort>
+    <!-- 远端端口 -->
     <RemotePort>5060</RemotePort>
+    <!-- 是否启用鉴权 -->
     <Authentication>false</Authentication>
+    <!-- 鉴权-用户名 -->
     <SIPUsername>admin</SIPUsername>
+    <!-- 鉴权-密码 -->
     <SIPPassword>123456</SIPPassword>
-    <MsgProtocol>UDP</MsgProtocol> //sip服务的端口模式
+    <!-- SIP通讯的协议方式，UDP和TCP两种可选 ，选择TCP将会启用TCP和UDP两种端口模式 -->
+    <MsgProtocol>UDP</MsgProtocol> 
+    <!-- 这个忽略掉，因为StreamNode流媒体采用了ZLMediaKit，所以这个已经无用 -->
     <StreamProtocol>UDP</StreamProtocol> 
+    <!-- 被动模式，不太清楚用意 -->
     <TcpMode>passive</TcpMode>
+    <!-- 消息体字符集 -->
     <MsgEncode>GB2312</MsgEncode>
+    <!-- 流媒体的包处理特性，忽略它 -->
     <PacketOutOrder>true</PacketOutOrder>
+    <!-- 心跳间隔时间，StreamNode没有应用这个参数 -->
     <KeepaliveInterval>5000</KeepaliveInterval>
+    <!-- 心跳最多丢失次数，StreamNode没有应用这个参数 -->
     <KeepaliveNumber>3</KeepaliveNumber>
-    <MediaIP>192.168.2.43</MediaIP> //流媒体服务的ip地址
-    <MediaPort>10000</MediaPort>  //忽略
-    <MediaPortMin>10000</MediaPortMin> //忽略
-    <MediaPortMax>10000</MediaPortMax> //忽略
+    <!-- 流媒体服务器IP，StreamNode没有应用这个参数 -->
+    <MediaIP>192.168.2.43</MediaIP> 
+    <!-- 流媒体服务器端口，StreamNode没有应用这个参数 -->
+    <MediaPort>10000</MediaPort>  
+    <!-- 流媒体服务器最小端口（从n号端口开始），StreamNode没有应用这个参数 -->
+    <MediaPortMin>10000</MediaPortMin> 
+    <!-- 流媒体服务器最大端口（到n号端口结束），StreamNode没有应用这个参数 -->
+    <MediaPortMax>10000</MediaPortMax> 
+    <!-- 平台间对接，StreamNode没有应用这个参数 -->
     <!--<ServiceType>GBToGB</ServiceType>-->
+     <!-- 平台到设备对接，StreamNode没有应用这个参数 -->
     <!--<ServiceType>GBToDevice</ServiceType>-->
   </sipaccount>
 </sipaccounts>
