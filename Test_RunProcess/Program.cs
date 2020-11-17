@@ -2,26 +2,27 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Threading;
 
 namespace Test_RunProcess
 {
-    class Program
-    {
-        private static void Process_Exited(object sender, EventArgs e)
-        {
-            Console.WriteLine("触发Exited事件");
-        }
+
+    class Program{
         
-        static void Main(string[] args)
-        {
-            string std = "";
-            string err = "";
-            var process= ProcessShell.RunProcess("/usr/local/bin/ffmpeg", "", 1000, out  std,out  err,true, Process_Exited);
-            Console.WriteLine(process.Id);
-            Console.WriteLine(std);
-            Console.WriteLine(err);
-         
-            Console.WriteLine("Hello World!");
+    static void Main(string[] args)
+    {
+        Process _process = null;
+          
+            TestProcess testProcess = new TestProcess();
+            _process=testProcess.RealAction("/sbin/ping","192.168.2.1");
+            while (_process!=null)
+            {
+                Console.WriteLine("Pid->"+_process.Id);
+                Thread.Sleep(1000);
+            }
+            Console.ReadLine();
+
+
         }
     }
 }

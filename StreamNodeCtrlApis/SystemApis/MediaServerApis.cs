@@ -18,6 +18,8 @@ namespace StreamNodeCtrlApis.SystemApis
     {
         
         
+        
+        
         /// <summary>
         /// 获取需要裁剪合并的文件列表 
         /// </summary>
@@ -297,6 +299,33 @@ namespace StreamNodeCtrlApis.SystemApis
         }
 
 
+        /// <summary>
+        /// 获取所有需要激活的摄像头实例
+        /// </summary>
+        /// <param name="rs"></param>
+        /// <returns></returns>
+        public static List<CameraInstance> GetWaitForActiveCameraInstances(out ResponseStruct rs)
+        {
+            rs = new ResponseStruct()
+            {
+                Code = ErrorNumber.None,
+                Message = ErrorMessage.ErrorDic![ErrorNumber.None],
+            };
+            try
+            {
+
+               return OrmService.Db.Select<CameraInstance>().Where(x => x.Activated == false).ToList();
+            }
+            catch (Exception ex)
+            {
+                rs = new ResponseStruct()
+                {
+                    Code = ErrorNumber.SystemDataBaseExcept,
+                    Message = ErrorMessage.ErrorDic![ErrorNumber.SystemDataBaseExcept],
+                };
+                return null; 
+            }
+        }
 
         /// <summary>
         /// 通过流媒体服务器ID与摄像头实例ID获取SipDeviceId

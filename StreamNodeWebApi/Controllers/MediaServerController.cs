@@ -773,6 +773,28 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
+        /// <summary>
+        /// 获取所有需要激活的摄像头实例
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="HttpResponseException"></exception>
+        [Route("GetWaitForActiveCameraInstances")]
+        [HttpGet]
+        [Log]
+        [AuthVerify]
+        public List<CameraInstance> GetWaitForActiveCameraInstances()
+        {
+            ResponseStruct rs;
+            var ret = MediaServerApis.GetWaitForActiveCameraInstances( out rs);
+            if (rs.Code != ErrorNumber.None)
+            {
+                throw new HttpResponseException(JsonHelper.ToJson(rs));
+            }
+
+            return ret;
+        }
+
+        
 
         /// <summary>
         /// 启动流媒体服务

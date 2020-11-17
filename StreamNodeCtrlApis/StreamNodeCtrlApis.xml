@@ -111,6 +111,13 @@
             <param name="rs"></param>
             <returns></returns>
         </member>
+        <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetWaitForActiveCameraInstances(CommonFunctions.ManageStructs.ResponseStruct@)">
+            <summary>
+            获取所有需要激活的摄像头实例
+            </summary>
+            <param name="rs"></param>
+            <returns></returns>
+        </member>
         <member name="M:StreamNodeCtrlApis.SystemApis.MediaServerApis.GetSipDeviceIdFromCameraId(System.String,System.String,CommonFunctions.ManageStructs.ResponseStruct@)">
             <summary>
             通过流媒体服务器ID与摄像头实例ID获取SipDeviceId

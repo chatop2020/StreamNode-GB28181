@@ -89,6 +89,51 @@ namespace Test_RunProcess
             }
         }
         
+        
+        /// <summary>
+        /// 启动外部程序不等程序结束
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="args"></param>
+        /// <param name="lookup"></param>
+        /// <param name="exitEvent"></param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="Exception"></exception>
+        public static Process RunProcess(string filePath, string args,bool lookup=false,EventHandler exitEvent=null)
+        {
+            try
+            {
+                string escapedArgs = args.Replace("\"", "\\\"");
+
+                if (!File.Exists(filePath))
+                {
+                    throw  new FileNotFoundException(filePath+"不存在");
+                }
+                using (Process process = new Process())
+                {
+                    process.StartInfo.FileName = processName;
+                    process.StartInfo.UseShellExecute = false; //不使用shell以免出现操作系统shell出错
+                    process.StartInfo.CreateNoWindow = true; //不显示窗口
+
+                    process.StartInfo.Arguments = args;
+                    if (lookup)
+                    {
+                        process.EnableRaisingEvents = true; // 启用Exited事件
+                        process.Exited += exitEvent;  
+                    }
+                    bool result = process.Start();
+                    return result == false ? null : process;
+                }
+            }
+            catch (Exception ex)//异常直接返回错误
+            {
+                //异常处理
+                throw ex;
+            }
+        }
+        
+        
         /// <summary>
         /// 执行CMD命令
         /// </summary>

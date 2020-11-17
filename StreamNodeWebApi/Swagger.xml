@@ -476,6 +476,13 @@
             <returns></returns>
             <exception cref="T:CommonFunctions.HttpResponseException"></exception>
         </member>
+        <member name="M:StreamNodeWebApi.Controllers.MediaServerController.GetWaitForActiveCameraInstances">
+            <summary>
+            获取所有需要激活的摄像头实例
+            </summary>
+            <returns></returns>
+            <exception cref="T:CommonFunctions.HttpResponseException"></exception>
+        </member>
         <member name="M:StreamNodeWebApi.Controllers.MediaServerController.StartMediaServer(System.String)">
             <summary>
             启动流媒体服务
