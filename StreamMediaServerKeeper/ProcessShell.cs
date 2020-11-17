@@ -143,7 +143,35 @@ namespace StreamMediaServerKeeper
                 return false;
             }
         }
-        
-      
+
+        /// <summary>
+        /// 启动程序
+        /// </summary>
+        /// <param name="fileName">程序完整路径</param>
+        /// <param name="milliseconds">超时时间（负数表示无限等待）</param>
+        /// <returns></returns>
+        public static bool RunProgram(string fileName, int milliseconds)
+        {
+            try
+            {
+                using (Process process = new Process())
+                {
+                    process.StartInfo.FileName = fileName;
+                    process.StartInfo.UseShellExecute = false; //不使用shell以免出现操作系统shell出错
+                    process.StartInfo.CreateNoWindow = false; //不显示窗口
+                    if (process.Start())
+                    {
+                        return process.WaitForExit(milliseconds);
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex) //异常直接返回错误
+            {
+                Logger.Logger.Error(ex.Message);
+                //异常处理
+                return false;
+            }
+        }
     }
 }

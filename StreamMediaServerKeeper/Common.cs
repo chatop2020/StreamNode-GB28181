@@ -13,7 +13,9 @@ namespace StreamMediaServerKeeper
 {
     public static class Common
     {
-        public static string WorkPath = Environment.CurrentDirectory + "/";
+        //Windows平台调试Environment.CurrentDirectory是项目根目录，而不是可执行程序根目录，根据我得理解，此处应该使用AppDomain.CurrentDomain.BaseDirectory
+        //public static string WorkPath = Environment.CurrentDirectory + "/";
+        public static string WorkPath = AppDomain.CurrentDomain.BaseDirectory + "/";
         public static string ConfigPath = WorkPath + "/Config/config.conf";
         public static string FFmpegBinPath = WorkPath + "ffmpeg";
         public static string StaticFilePath = WorkPath + "www/";
