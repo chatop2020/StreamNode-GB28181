@@ -38,6 +38,7 @@
 - mysql中创建一个名为“straemnode”的数据库，要和StreamNodeWebApi/system.conf中db行指定的一致，字符集请使用utf-8
 - StreamNodeWebApi 全局只启动一份
 - 部署目录中手工创建一个log文件夹
+- 需要root权限 需要root权限 需要root权限
 ~~~shell
 nohup dotnet StreamNodeWebApi.dll >/dev/null &
 ~~~

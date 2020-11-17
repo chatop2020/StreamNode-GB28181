@@ -16,10 +16,6 @@ namespace StreamNodeCtrlApis.SystemApis
 {
     public static class MediaServerApis
     {
-        
-        
-        
-        
         /// <summary>
         /// 获取需要裁剪合并的文件列表 
         /// </summary>
@@ -313,8 +309,7 @@ namespace StreamNodeCtrlApis.SystemApis
             };
             try
             {
-
-               return OrmService.Db.Select<CameraInstance>().Where(x => x.Activated == false).ToList();
+                return OrmService.Db.Select<CameraInstance>().Where(x => x.Activated == false).ToList();
             }
             catch (Exception ex)
             {
@@ -323,7 +318,7 @@ namespace StreamNodeCtrlApis.SystemApis
                     Code = ErrorNumber.SystemDataBaseExcept,
                     Message = ErrorMessage.ErrorDic![ErrorNumber.SystemDataBaseExcept],
                 };
-                return null; 
+                return null;
             }
         }
 
@@ -334,7 +329,7 @@ namespace StreamNodeCtrlApis.SystemApis
         /// <param name="cameraId"></param>
         /// <param name="rs"></param>
         /// <returns></returns>
-        public static string GetSipDeviceIdFromCameraId(string mediaServerId, string cameraId,out ResponseStruct rs)
+        public static string GetSipDeviceIdFromCameraId(string mediaServerId, string cameraId, out ResponseStruct rs)
         {
             rs = new ResponseStruct()
             {
@@ -345,7 +340,8 @@ namespace StreamNodeCtrlApis.SystemApis
             try
             {
                 var ret = OrmService.Db.Select<CameraInstance>().Where(x => x.PushMediaServerId.Equals(mediaServerId))
-                    .Where(x => x.CameraId.Equals(cameraId)).Where(x => x.CameraType.Equals(CameraType.GB28181)).First();
+                    .Where(x => x.CameraId.Equals(cameraId)).Where(x => x.CameraType.Equals(CameraType.GB28181))
+                    .First();
                 if (ret != null && !string.IsNullOrEmpty(ret.CameraDeviceLable))
                 {
                     return ret.CameraDeviceLable;

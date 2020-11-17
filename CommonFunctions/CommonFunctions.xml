@@ -1714,17 +1714,6 @@
             <param name="stdOutput">结果输出</param>
             <returns></returns>
         </member>
-        <member name="M:CommonFunctions.ProcessShell.RunProcess(System.String,System.String,System.Int32,System.String@,System.Boolean,System.EventHandler)">
-            <summary>
-            执行外部程序
-            </summary>
-            <param name="filePath">可执行文件路径</param>
-            <param name="args">参数</param>
-            <param name="milliseconds">超时（毫秒）</param>
-            <param name="stdOutput">标准输出</param>
-            <returns></returns>
-            <exception cref="T:System.IO.FileNotFoundException"></exception>
-        </member>
         <member name="M:CommonFunctions.ProcessShell.Run(System.String,System.Int32,System.String@,System.String@)">
             <summary>
             执行CMD命令
@@ -1734,18 +1723,6 @@
             <param name="stdOutput">结果输出</param>
             <param name="stdError">错误输出</param>
             <returns></returns>
-        </member>
-        <member name="M:CommonFunctions.ProcessShell.RunProcess(System.String,System.String,System.Int32,System.String@,System.String@,System.Boolean,System.EventHandler)">
-             <summary>
-            执行外部程序
-             </summary>
-             <param name="filePath">可执行文件路径</param>
-             <param name="args">参数</param>
-             <param name="milliseconds">超时（毫秒）</param>
-             <param name="stdOutput">标准输出</param>
-             <param name="stdError">错误输出</param>
-             <returns></returns>
-             <exception cref="T:System.IO.FileNotFoundException"></exception>
         </member>
         <member name="T:CommonFunctions.Session">
             <summary>
