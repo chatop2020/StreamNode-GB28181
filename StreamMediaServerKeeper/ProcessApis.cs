@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -244,11 +245,13 @@ namespace StreamMediaServerKeeper
 
                     string stdout = "";
                     string errout = "";
-                    string cmd = "ulimit -c unlimited";
+                    /*string cmd = "ulimit -c unlimited";
                     ProcessShell.Run(cmd, 500); //执行取消限制
                     //  cmd = Common.MediaServerBinPath + " -d &";
                     cmd = "nohup " + Common.MediaServerBinPath + " > " + dir + "log/MServerRun.log &";
-                    ProcessShell.Run(cmd, 1000);
+                    ProcessShell.Run(cmd, 1000);*/
+                    //使用.Net Core API启动程序
+                    ProcessShell.RunProgram(Common.MediaServerBinPath, 1000);
                     int i = 0;
                     while (!checkProcessExists() && i < 50)
                     {
@@ -291,7 +294,15 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         private bool checkProcessExists()
         {
-            string cmd = "";
+            //通过进程名称获取进程列表
+            Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(Common.MediaServerBinPath));
+            bool hasValue = processes.Length > 0;
+            if (hasValue)
+            {
+                _pid = (uint)processes[0].Id;
+            }
+            return hasValue;
+            /*string cmd = "";
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 cmd = "ps -aux |grep " + Common.MediaServerBinPath + "|grep -v grep|awk \'{print $2}\'";
@@ -320,7 +331,8 @@ namespace StreamMediaServerKeeper
                 }
             }
 
-            return false;
+            return false;*/
         }
+
     }
 }
