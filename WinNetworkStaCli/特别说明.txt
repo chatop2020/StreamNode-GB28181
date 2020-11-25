@@ -1,0 +1,6 @@
+由于.net core 在非托管的状态下读写内存有bug,因此只能用FW4.0写了一个Console工程
+.net core 调用FW4.0写的Console程序，通过读取标准输出来获取来自于Console工程中输出的网络信息
+因此，请注意：在Windows操作系统下，必须安装.net framework 4.0或以上；LibSystemInfo类在Windows操作系统下，
+必须配合本工程来实现网络信息的获取；本工程的可执行文件名必须是WinNetworkStaCli.exe；LibSystemInfo.dll的同
+一目录下必须存在WinNetworkStaCli.exe这个可执行文件。
+本工程在非Windows环境下编译，可使用Mono,我实际测试在MacOS上用mono进行编译，能顺利通过，并且在Windows上运行没有问题。

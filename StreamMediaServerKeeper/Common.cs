@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -8,13 +9,13 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using IniParser;
 using IniParser.Model;
+using LibSystemInfo;
 
 namespace StreamMediaServerKeeper
 {
     public static class Common
     {
-        //Windows平台调试Environment.CurrentDirectory是项目根目录，而不是可执行程序根目录，根据我得理解，此处应该使用AppDomain.CurrentDomain.BaseDirectory
-        //public static string WorkPath = Environment.CurrentDirectory + "/";
+   
         public static string WorkPath = AppDomain.CurrentDomain.BaseDirectory + "/";
         public static string ConfigPath = WorkPath + "/Config/config.conf";
         public static string FFmpegBinPath = WorkPath + "ffmpeg";
@@ -31,14 +32,41 @@ namespace StreamMediaServerKeeper
         public static string MediaServerId = null!;
         public static ProcessApis ProcessApis = new ProcessApis();
         public static string MyIPAddress = "";
-        public static ResGetSystemInfo MySystemInfo = null;
+
+        public static SystemInfo MySystemInfo = new SystemInfo();
+        
+        public static Process ProcessOfZLMediaKit = null; //用于启动与停止流媒体服务器
+        public static ProcessHelper ProcessHelper = null;
 
         /// <summary>
         /// 自定义的录制文件存储位置
         /// </summary>
         public static string CustomizedRecordFilePath = "";
 
-        //  public static LogMonitor LogMonitor = new LogMonitor();
+
+        
+        private static void ProcessOfZLMediaKit_Exited(object sender, EventArgs e)
+        {
+            // 执行结束后触发
+           Logger.Logger.Warn("ZLMediaKit已经退出");
+           ProcessOfZLMediaKit = null;
+        }
+        private static void ProcessOfZLMediaKit_StdOutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                Logger.Logger.Info("【ZLMediaKit】->"+e.Data);
+            }
+        }
+        
+        private static void ProcessOfZLMediaKit_ErrOutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                Logger.Logger.Error("【ZLMediaKit】->"+e.Data);
+            }
+        }
+        
 
 
         /// <summary>
@@ -338,54 +366,30 @@ namespace StreamMediaServerKeeper
         {
             Logger.Logger.Fatal("异常情况，结束自己进程..." + "-> " + message);
             string fileName = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
-            var ret = GetProcessPid(fileName);
-            if (ret > 0)
+            Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(fileName));
+            if (processes.Length > 0)
             {
-                KillProcess(ret);
+                processes[0].Kill();
             }
         }
 
-        public static void KillProcess(int pid)
-        {
-            string cmd = "kill -9 " + pid.ToString();
-            ProcessShell.Run(cmd, 1000);
-        }
 
         /// <summary>
         /// 获取pid
         /// </summary>
         /// <param name="processName"></param>
         /// <returns></returns>
-        public static int GetProcessPid(string processName)
+        public static int GetProcessPid(string fileName)
         {
-            string cmd = "";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(fileName));
+            if (processes.Length > 0)
             {
-                cmd = "ps -aux |grep " + processName + "|grep -v grep|awk \'{print $2}\'";
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                cmd = "ps -A |grep " + processName + "|grep -v grep|awk \'{print $1}\'";
-            }
-
-            ProcessShell.Run(cmd, 1000, out string std, out string err);
-            if (string.IsNullOrEmpty(std) && string.IsNullOrEmpty(err))
-            {
-                return -1;
-            }
-
-            int pid = -1;
-            if (!string.IsNullOrEmpty(std))
-            {
-                int.TryParse(std, out pid);
-            }
-
-            if (!string.IsNullOrEmpty(err))
-            {
-                int.TryParse(err, out pid);
-            }
-
-            return pid;
+                if (!processes[0].HasExited)
+                {
+                    return processes[0].Id;
+                }
+            } 
+            return -1;
         }
 
 
@@ -398,15 +402,15 @@ namespace StreamMediaServerKeeper
                 if (i > 999999999)
                 {
                     i = 1;
-                    MySystemInfo = null;
+                 
                 }
 
                 try
                 {
                     ReqMediaServerReg req = null;
-                    if (i == 1 || i % 5 == 0 || MySystemInfo == null)
+                    if (i == 1 || i % 5 == 0 )
                     {
-                        MySystemInfo = new ResGetSystemInfo();
+                       // MySystemInfo = new ResGetSystemInfo();
                         req = new ReqMediaServerReg()
                         {
                             Ipaddress = MyIPAddress,
@@ -415,8 +419,9 @@ namespace StreamMediaServerKeeper
                             Secret = Secret,
                             WebApiServerhttpPort = HttpPort,
                             RecordFilePath = RecordPath,
-                            SystemInfo = MySystemInfo,
+                            MediaServerSystemInfo = MySystemInfo.GetSystemInfoObject(),
                         };
+                     
                     }
                     else
                     {
@@ -428,16 +433,19 @@ namespace StreamMediaServerKeeper
                             Secret = Secret,
                             WebApiServerhttpPort = HttpPort,
                             RecordFilePath = RecordPath,
-                            SystemInfo = null,
+                            MediaServerSystemInfo = null,
+                            
                         };
                     }
 
                     string reqData = JsonHelper.ToJson(req);
+                    Logger.Logger.Debug("CCCC->"+reqData);
                     try
                     {
                         var httpRet = NetHelper.HttpPostRequest(StreamNodeServerUrl, null!, reqData, "utf-8", 5000);
                         if (string.IsNullOrEmpty(httpRet))
                         {
+                          
                             MySystemInfo = null;
                             if (ProcessApis.CheckIsRunning(out _) > 0)
                             {
@@ -446,6 +454,7 @@ namespace StreamMediaServerKeeper
                         }
                         else
                         {
+                            Logger.Logger.Debug("DDDDD->"+httpRet);
                             if (ProcessApis.CheckIsRunning(out _) == 0)
                             {
                                 ProcessApis.RunServer(out _); //如果正常返回，但是流媒体没启动，则启动流媒体
@@ -474,8 +483,11 @@ namespace StreamMediaServerKeeper
 
         static Common()
         {
+            
             try
             {
+                //创建进程执行者
+                ProcessHelper = new ProcessHelper(ProcessOfZLMediaKit_StdOutputDataReceived,ProcessOfZLMediaKit_ErrOutputDataReceived,ProcessOfZLMediaKit_Exited);
                 CutMergeService.start = true;
                 if (checkConfigFile())
                 {
@@ -491,6 +503,19 @@ namespace StreamMediaServerKeeper
                             KillSelf("流媒体配置文件不存在");
                         }
 
+                        //启动时先把所有mediaserver杀掉
+                        Process[] processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(MediaServerBinPath));
+                        if (processes != null && processes.Length > 0)
+                        {
+                            foreach (var process in processes)
+                            {
+                                if (process != null && process.HasExited == false)
+                                {
+                                    process.Kill();
+                                }
+                            }
+                        }
+                        
                         getMediaServerConfig();
                     }
                     else

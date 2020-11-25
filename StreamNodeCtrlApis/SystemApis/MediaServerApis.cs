@@ -1647,7 +1647,7 @@ namespace StreamNodeCtrlApis.SystemApis
                 Message = ErrorMessage.ErrorDic![ErrorNumber.None],
             };
             var result = new ResGlobleSystemInfo();
-            result.StreamCtrlSystemInfo = new ResGetSystemInfo();
+            result.StreamCtrlSystemInfo = Common.MySystemInfo.GetSystemInfoObject();
 
             foreach (var mediaObj in Common.MediaServerList)
             {
@@ -1661,7 +1661,7 @@ namespace StreamNodeCtrlApis.SystemApis
                     var tmp = new MediaServerInfomation()
                     {
                         MediaSeverId = mediaObj.MediaServerId,
-                        MediaServerSystemInfo = mediaObj.SystemInfo,
+                        MediaServerSystemInfo = mediaObj.MediaServerSystemInfo,
                     };
                     result.MediaServerSystemInfos.Add(tmp);
                 }

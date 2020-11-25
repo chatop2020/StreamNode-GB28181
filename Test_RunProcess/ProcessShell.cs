@@ -66,13 +66,7 @@ namespace Test_RunProcess
                     process.StartInfo.FileName = processName;
                     process.StartInfo.UseShellExecute = false; //不使用shell以免出现操作系统shell出错
                     process.StartInfo.CreateNoWindow = true; //不显示窗口
-
                     process.StartInfo.Arguments = args;
-                    if (lookup)
-                    {
-                        process.EnableRaisingEvents = true; // 启用Exited事件
-                        process.Exited += exitEvent;  
-                    }
                     bool result = process.Start();
                     if (result)
                     {
@@ -288,7 +282,7 @@ namespace Test_RunProcess
         /// <param name="stdError">错误输出</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        public static Process RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError)
         {
             stdOutput = null!;
             stdError = null!;
@@ -308,11 +302,7 @@ namespace Test_RunProcess
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
                     process.StartInfo.Arguments = escapedArgs;
-                    if (lookup)
-                    {
-                        process.EnableRaisingEvents = true; // 启用Exited事件
-                        process.Exited += exitEvent;  
-                    }
+                   
                     bool result = process.Start();
                     if (result)
                     {

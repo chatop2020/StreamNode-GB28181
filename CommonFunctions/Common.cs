@@ -9,13 +9,14 @@ using CommonFunctions.DBStructs;
 using CommonFunctions.MediaServerControl;
 using CommonFunctions.WebApiStructs.Response;
 using LibGB28181SipGate;
+using LibSystemInfo;
 
 namespace CommonFunctions
 {
     public static class Common
     {
         public static bool IsDebug = true;
-        public static string WorkPath = Environment.CurrentDirectory + "/";
+        public static string WorkPath = AppDomain.CurrentDomain.BaseDirectory + "/";
         public static string SystemConfigPath = WorkPath + "/Config/system.conf";
         public static string SystemLogPath = WorkPath + "log/";
         public static int FFmpegThreadCount = 2;
@@ -26,6 +27,7 @@ namespace CommonFunctions
         public static List<MediaServerInstance> MediaServerList = new List<MediaServerInstance>();
         public static List<CameraInstance> CameraInstanceList = new List<CameraInstance>();
 
+        public static SystemInfo MySystemInfo = new SystemInfo();
 
         //在线的摄像头列表
         public static List<CameraSession> CameraSessions = new List<CameraSession>();

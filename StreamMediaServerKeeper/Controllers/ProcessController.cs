@@ -155,7 +155,7 @@ namespace StreamMediaServerKeeper.Controllers
         /// <exception cref="HttpResponseException"></exception>
         [Route("StartServer")]
         [HttpGet]
-        public uint StartServer()
+        public int StartServer()
         {
             ResponseStruct rs;
             var ret = Common.ProcessApis.RunServer(out rs);
@@ -193,7 +193,7 @@ namespace StreamMediaServerKeeper.Controllers
         /// <exception cref="HttpResponseException"></exception>
         [Route("RestartServer")]
         [HttpGet]
-        public uint RestartServer()
+        public int RestartServer()
         {
             ResponseStruct rs;
             var ret = Common.ProcessApis.RestartServer(out rs);
@@ -212,7 +212,7 @@ namespace StreamMediaServerKeeper.Controllers
         /// <exception cref="HttpResponseException"></exception>
         [Route("CheckIsRunning")]
         [HttpGet]
-        public uint CheckIsRunning()
+        public int CheckIsRunning()
         {
             ResponseStruct rs;
             var ret = Common.ProcessApis.CheckIsRunning(out rs);

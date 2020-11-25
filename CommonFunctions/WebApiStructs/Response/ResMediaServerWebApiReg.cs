@@ -1,19 +1,25 @@
 using System;
 using CommonFunctions.WebApiStructs.Request;
+using LibSystemInfo;
 
 namespace CommonFunctions.WebApiStructs.Response
 {
     [Serializable]
     public class ResMediaServerWebApiReg
     {
+        private GlobalSystemInfo? _mediaServerSystemInfo;
         private ushort _mediaServerHttpPort;
         private ushort _webApiServerhttpPort;
         private string? _ipaddress;
         private string _mediaServerId;
         private string _secret;
         private string? _recordFilePath;
-        private ReqMediaServerSystemInfo? _systemInfo;
-
+       
+        public GlobalSystemInfo? MediaServerSystemInfo
+        {
+            get => _mediaServerSystemInfo;
+            set => _mediaServerSystemInfo = value;
+        }
 
         public ushort MediaServerHttpPort
         {
@@ -52,10 +58,7 @@ namespace CommonFunctions.WebApiStructs.Response
             set => _recordFilePath = value;
         }
 
-        public ReqMediaServerSystemInfo? SystemInfo
-        {
-            get => _systemInfo;
-            set => _systemInfo = value;
-        }
+
+      
     }
 }

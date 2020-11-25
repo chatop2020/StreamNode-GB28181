@@ -233,7 +233,7 @@ namespace StreamNodeWebApi.Controllers
         [HttpPost]
         [Log]
         [AuthVerify]
-        public ResMediaServerWebApiReg MediaServerRegister(ResMediaServerWebApiReg req)
+        public ResMediaServerWebApiReg MediaServerRegister( ResMediaServerWebApiReg req)
         {
             ResponseStruct rs;
             if (string.IsNullOrEmpty(req.Ipaddress))
@@ -243,6 +243,7 @@ namespace StreamNodeWebApi.Controllers
                 req.Ipaddress = thisip.MapToIPv4().ToString();
             }
 
+            Logger.Logger.Debug("AAAAA->"+JsonHelper.ToJson(req));
 
             var ret = MediaServerCtrlApi.ServerReg(req, out rs);
             if (rs.Code != ErrorNumber.None)

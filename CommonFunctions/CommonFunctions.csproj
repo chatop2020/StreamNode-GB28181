@@ -17,6 +17,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\LibGB28181SipGate\LibGB28181SipGate.csproj" />
+        <ProjectReference Include="..\LibSystemInfo\LibSystemInfo.csproj" />
         <ProjectReference Include="..\Logger\Logger.csproj" />
     </ItemGroup>
 

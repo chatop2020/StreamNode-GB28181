@@ -116,6 +116,12 @@ namespace CommonFunctions.ManageStructs
         private bool? _publishToRtxp;
         private bool? _resetWhenRePlay;
         private int? _streamNoneReaderDelayMS;
+        private bool? _hls_demand;
+        private bool? _rtsp_demand;
+        private bool? _rtmp_demand;
+        private bool? _ts_demand;
+        private bool? _fmp4_demand;
+      
 
         /// <summary>
         /// 自动静音
@@ -234,6 +240,36 @@ namespace CommonFunctions.ManageStructs
             get => _streamNoneReaderDelayMS;
             set => _streamNoneReaderDelayMS = value;
         }
+
+        public bool? Hls_Demand
+        {
+            get => _hls_demand;
+            set => _hls_demand = value;
+        }
+
+        public bool? Rtsp_Demand
+        {
+            get => _rtsp_demand;
+            set => _rtsp_demand = value;
+        }
+
+        public bool? Rtmp_Demand
+        {
+            get => _rtmp_demand;
+            set => _rtmp_demand = value;
+        }
+
+        public bool? Ts_Demand
+        {
+            get => _ts_demand;
+            set => _ts_demand = value;
+        }
+
+        public bool? Fmp4_Demand
+        {
+            get => _fmp4_demand;
+            set => _fmp4_demand = value;
+        }
     }
 
 
@@ -248,6 +284,7 @@ namespace CommonFunctions.ManageStructs
         private int? _segDur;
         private int? _segNum;
         private int? _segRetain;
+        private bool? _broadcastRecordTs;
 
         /// <summary>
         /// 文件写入缓冲区大小
@@ -293,6 +330,15 @@ namespace CommonFunctions.ManageStructs
             get => _segRetain;
             set => _segRetain = value;
         }
+
+        /// <summary>
+        /// 是否广播 ts 切片完成通知
+        /// </summary>
+        public bool? BroadcastRecordTs
+        {
+            get => _broadcastRecordTs;
+            set => _broadcastRecordTs = value;
+        }
     }
 
     /// <summary>
@@ -308,6 +354,7 @@ namespace CommonFunctions.ManageStructs
         private string? _on_play;
         private string? _on_publish;
         private string? _on_record_mp4;
+        private string? _on_record_ts;
         private string? _on_rtsp_auth;
         private string? _on_rtsp_realm;
         private string? _on_server_started;
@@ -354,6 +401,10 @@ namespace CommonFunctions.ManageStructs
         /// </summary>
         public string? On_Record_Mp4 => _on_record_mp4;
 
+        /// <summary>
+        /// 录制 hls ts 切片完成事件
+        /// </summary>
+        public string? On_Record_TS => _on_record_ts;
         /// <summary>
         /// rtsp鉴权事件，此事件中比对rtsp的用户名密码
         /// </summary>
@@ -680,9 +731,9 @@ namespace CommonFunctions.ManageStructs
     public class ZLMediaKitConfig_Rtp
     {
         private int? _audioMtuSize;
-        private int? _clearCount;
+     //   private int? _clearCount;
         private ulong? _cycleMS;
-        private int? _maxRtpCount;
+       // private int? _maxRtpCount;
         private int? _videoMtuSize;
 
         /// <summary>
@@ -697,11 +748,13 @@ namespace CommonFunctions.ManageStructs
         /// <summary>
         /// 清除数量
         /// </summary>
+        /*
         public int? ClearCount
         {
             get => _clearCount;
             set => _clearCount = value;
         }
+        */
 
         /// <summary>
         /// rtp时间戳回环时间，单位毫秒
@@ -715,11 +768,13 @@ namespace CommonFunctions.ManageStructs
         /// <summary>
         /// 最大rtp包数量
         /// </summary>
+        /*
         public int? MaxRtpCount
         {
             get => _maxRtpCount;
             set => _maxRtpCount = value;
         }
+        */
 
         /// <summary>
         ///  视频mtu大小，该参数限制rtp最大字节数，推荐不要超过1400

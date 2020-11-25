@@ -5,10 +5,11 @@ using CommonFunctions;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Response;
 using GB28181.Sys.Model;
-using LibGB28181SipGate;
+using LibSystemInfo;
 using Microsoft.AspNetCore.Mvc;
 using StreamNodeCtrlApis.SystemApis;
 using Swashbuckle.AspNetCore.Annotations;
+using JsonHelper = LibGB28181SipGate.JsonHelper;
 
 namespace StreamNodeWebApi.Controllers
 {
@@ -24,9 +25,9 @@ namespace StreamNodeWebApi.Controllers
         [HttpPost]
         [Log]
         [AuthVerify]
-        public ResGetSystemInfo TestGetSystemInfo()
+        public GlobalSystemInfo TestGetSystemInfo()
         {
-            return Common.SystemInfo;
+            return Common.MySystemInfo.GetSystemInfoObject();
         }
 
         [Route("GetTask")]
@@ -37,7 +38,7 @@ namespace StreamNodeWebApi.Controllers
         {
             if (response != null)
             {
-                Logger.Logger.Debug("收到task参数 ->" + JsonHelper.ToJson(response));
+                Logger.Logger.Debug("收到task参数 ->" + JsonHelper.ToJson( response));
             }
         }
 

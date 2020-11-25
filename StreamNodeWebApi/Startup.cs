@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace StreamNodeWebApi
 {
@@ -52,7 +55,8 @@ namespace StreamNodeWebApi
                             DateTimeFormat = "yyyy-MM-dd HH:mm:ss",
                         });
                     }
-                );*/
+                );
+                */
 
             services.AddControllers().AddJsonOptions(
                 options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
@@ -60,6 +64,8 @@ namespace StreamNodeWebApi
             {
                 configure.JsonSerializerOptions.Converters.Add(new DatetimeJsonConverter());
             });
+            
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

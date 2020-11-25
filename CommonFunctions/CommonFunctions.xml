@@ -961,6 +961,11 @@
             HLS切片从m3u8文件中移除后，继续保留在磁盘上的个数
             </summary>
         </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hls.BroadcastRecordTs">
+            <summary>
+            是否广播 ts 切片完成通知
+            </summary>
+        </member>
         <member name="T:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook">
             <summary>
             流媒体服务器的配置结构-Hook
@@ -1000,6 +1005,11 @@
         <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Record_Mp4">
             <summary>
             当录制mp4（段）结束后触发
+            </summary>
+        </member>
+        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Record_TS">
+            <summary>
+            录制 hls ts 切片完成事件
             </summary>
         </member>
         <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Hook.On_Rtsp_Auth">
@@ -1196,19 +1206,9 @@
             音频的mtu大小
             </summary>
         </member>
-        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.ClearCount">
-            <summary>
-            清除数量
-            </summary>
-        </member>
         <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.CycleMs">
             <summary>
             rtp时间戳回环时间，单位毫秒
-            </summary>
-        </member>
-        <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.MaxRtpCount">
-            <summary>
-            最大rtp包数量
             </summary>
         </member>
         <member name="P:CommonFunctions.ManageStructs.ZLMediaKitConfig_Rtp.VideoMtuSize">
@@ -1683,6 +1683,41 @@
             </summary>
             <param name="url">http地址</param>
             <param name="localfile">本地文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.ProcessHelper.KillProcess(System.Diagnostics.Process)">
+            <summary>
+            杀死进程
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.ProcessHelper.CheckProcessExists(System.Diagnostics.Process)">
+            <summary>
+            检查进程是否正在运行
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFunctions.ProcessHelper.RunProcess(System.String,System.String,System.Int32,System.String@,System.String@)">
+            <summary>
+            执行外部程序，含超时
+            </summary>
+            <param name="filePath"></param>
+            <param name="args"></param>
+            <param name="milliseconds"></param>
+            <param name="stdOutput"></param>
+            <param name="stdError"></param>
+            <returns></returns>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:CommonFunctions.ProcessHelper.RunProcess(System.String,System.String)">
+            <summary>
+            执行外部程序，直到执行结束
+            </summary>
+            <param name="StartFileName"></param>
+            <param name="StartFileArg"></param>
             <returns></returns>
         </member>
         <member name="T:CommonFunctions.ProcessShell">

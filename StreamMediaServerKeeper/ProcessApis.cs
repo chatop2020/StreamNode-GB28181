@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,9 +12,11 @@ namespace StreamMediaServerKeeper
     /// </summary>
     public class ProcessApis
     {
-        private uint _pid;
+        private int _pid;
 
-        private uint _isRunning
+        private Process _zlmediaKitServerProcess;
+
+        private int _isRunning
         {
             get
             {
@@ -141,7 +144,7 @@ namespace StreamMediaServerKeeper
         /// </summary>
         /// <param name="rs"></param>
         /// <returns></returns>
-        public uint CheckIsRunning(out ResponseStruct rs)
+        public int CheckIsRunning(out ResponseStruct rs)
         {
             rs = new ResponseStruct()
             {
@@ -168,17 +171,11 @@ namespace StreamMediaServerKeeper
             int i = 0;
             while (checkProcessExists() && i < 10)
             {
-                string cmd = "";
-                if (i < 5)
+                if (Common.ProcessHelper.KillProcess(Common.ProcessOfZLMediaKit))
                 {
-                    cmd = "kill -2 " + _pid.ToString();
+                    Common.ProcessOfZLMediaKit = null;
                 }
-                else
-                {
-                    cmd = "kill -9 " + _pid.ToString();
-                }
-
-                ProcessShell.Run(cmd, 500);
+       
                 Thread.Sleep(200);
                 i++;
             }
@@ -203,7 +200,7 @@ namespace StreamMediaServerKeeper
         /// </summary>
         /// <param name="rs"></param>
         /// <returns></returns>
-        public uint RestartServer(out ResponseStruct rs)
+        public int RestartServer(out ResponseStruct rs)
         {
             rs = new ResponseStruct()
             {
@@ -226,7 +223,7 @@ namespace StreamMediaServerKeeper
         /// </summary>
         /// <param name="rs"></param>
         /// <returns></returns>
-        public uint RunServer(out ResponseStruct rs)
+        public int RunServer(out ResponseStruct rs)
         {
             rs = new ResponseStruct()
             {
@@ -235,6 +232,8 @@ namespace StreamMediaServerKeeper
             };
             if (File.Exists(Common.MediaServerBinPath))
             {
+                string Message=null;
+                string StackTrace = null;
                 if (!checkProcessExists()) //如果不存在，就执行
                 {
                     string dir = Path.GetDirectoryName(Common.MediaServerBinPath) + "/";
@@ -243,15 +242,17 @@ namespace StreamMediaServerKeeper
                         Directory.CreateDirectory(dir + "log");
                     }
 
-                    string stdout = "";
-                    string errout = "";
-                    /*string cmd = "ulimit -c unlimited";
-                    ProcessShell.Run(cmd, 500); //执行取消限制
-                    //  cmd = Common.MediaServerBinPath + " -d &";
-                    cmd = "nohup " + Common.MediaServerBinPath + " > " + dir + "log/MServerRun.log &";
-                    ProcessShell.Run(cmd, 1000);*/
-                    //使用.Net Core API启动程序
-                    ProcessShell.RunProgram(Common.MediaServerBinPath, 1000);
+                    try
+                    {
+                        Common.ProcessOfZLMediaKit = Common.ProcessHelper.RunProcess(Common.MediaServerBinPath, "");
+                    }
+                    catch(Exception ex)
+                    {
+                        Message = ex.Message;
+                        StackTrace = ex.StackTrace;
+
+                    }
+
                     int i = 0;
                     while (!checkProcessExists() && i < 50)
                     {
@@ -268,8 +269,8 @@ namespace StreamMediaServerKeeper
                     rs = new ResponseStruct()
                     {
                         Code = ErrorNumber.ZLMediaKitRunBinExcept,
-                        Message = ErrorMessage.ErrorDic![ErrorNumber.ZLMediaKitRunBinExcept] + "\r\n" + stdout +
-                                  "\r\n" + errout,
+                        Message = ErrorMessage.ErrorDic![ErrorNumber.ZLMediaKitRunBinExcept] + "\r\n" + Message +
+                                  "\r\n" + StackTrace ,
                     };
                     Logger.Logger.Debug("启动流媒体服务器失败... -> pid->0 ->" + JsonHelper.ToJson(rs));
                     return 0;
@@ -294,44 +295,15 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         private bool checkProcessExists()
         {
-            //通过进程名称获取进程列表
-            Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(Common.MediaServerBinPath));
-            bool hasValue = processes.Length > 0;
-            if (hasValue)
+            var processID = Common.ProcessHelper.CheckProcessExists(Common.ProcessOfZLMediaKit);
+            if (processID > 0)
             {
-                _pid = (uint)processes[0].Id;
-            }
-            return hasValue;
-            /*string cmd = "";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                cmd = "ps -aux |grep " + Common.MediaServerBinPath + "|grep -v grep|awk \'{print $2}\'";
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                cmd = "ps -A |grep " + Common.MediaServerBinPath + "|grep -v grep|awk \'{print $1}\'";
+                _pid = processID;
+                return true;
             }
 
-            string stdout = "";
-            string errout = "";
-            var ret = ProcessShell.Run(cmd, 300, out stdout, out errout);
-            if (!string.IsNullOrEmpty(stdout) && ret)
-            {
-                if (uint.TryParse(stdout, out _pid))
-                {
-                    return true;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(errout) && ret)
-            {
-                if (uint.TryParse(errout, out _pid))
-                {
-                    return true;
-                }
-            }
-
-            return false;*/
+            return false;
+            
         }
 
     }

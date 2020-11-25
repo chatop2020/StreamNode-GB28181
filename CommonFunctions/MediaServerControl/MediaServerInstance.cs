@@ -6,7 +6,8 @@ using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
-using LibGB28181SipGate;
+using LibSystemInfo;
+using JsonHelper = LibGB28181SipGate.JsonHelper;
 
 namespace CommonFunctions.MediaServerControl
 {
@@ -20,8 +21,8 @@ namespace CommonFunctions.MediaServerControl
         private string _secret; //流媒体服务接口验证key
         private string _mediaServerId; //流媒体服务的deviceid
         private ushort _mediaServerHttpPort; //流媒体服务接口端口
-        private ReqMediaServerSystemInfo? _systemInfo;
-        private uint _pid = 0; //流媒体服务的pid
+        private GlobalSystemInfo? _mediaServerSystemInfo;
+        private int _pid = 0; //流媒体服务的pid
         private DateTime _updateTime; //最后控制时间
         private DateTime _keepAlive;
         private ZLMediaKitWebApiHelper _webApi; //流媒体服务操作类
@@ -71,7 +72,7 @@ namespace CommonFunctions.MediaServerControl
         }
 
         [JsonIgnore]
-        public uint Pid
+        public int Pid
         {
             get => _pid;
             set => _pid = value;
@@ -97,10 +98,10 @@ namespace CommonFunctions.MediaServerControl
             set => _webApi = value;
         }
 
-        public ReqMediaServerSystemInfo? SystemInfo
+        public GlobalSystemInfo? MediaServerSystemInfo
         {
-            get => _systemInfo;
-            set => _systemInfo = value;
+            get => _mediaServerSystemInfo;
+            set => _mediaServerSystemInfo = value;
         }
 
 
@@ -185,7 +186,7 @@ namespace CommonFunctions.MediaServerControl
 
 
         public MediaServerInstance(string ipaddress, ushort webApiPort, ushort mediaServerHttpPort, string secret,
-            string mediaServerId, string recordFilePath, ReqMediaServerSystemInfo? systemInfo)
+            string mediaServerId, string recordFilePath, GlobalSystemInfo? systemInfo)
         {
             _ipaddress = ipaddress;
             _webApiPort = webApiPort;
@@ -195,7 +196,7 @@ namespace CommonFunctions.MediaServerControl
             _webApi = new ZLMediaKitWebApiHelper(_ipaddress, mediaServerHttpPort, _secret);
             _updateTime = DateTime.Now;
             _recordFilePath = recordFilePath;
-            _systemInfo = systemInfo == null ? null : systemInfo;
+            _mediaServerSystemInfo = systemInfo == null ? null : systemInfo;
             new Thread(new ThreadStart(delegate
 
             {
@@ -224,8 +225,8 @@ namespace CommonFunctions.MediaServerControl
             {
                 try
                 {
-                    uint _tmpUint;
-                    var res = uint.TryParse(httpRet, out _tmpUint);
+                    int _tmpUint;
+                    var res = int.TryParse(httpRet, out _tmpUint);
                     if (res && _tmpUint > 0)
                     {
                         return true;
@@ -363,8 +364,8 @@ namespace CommonFunctions.MediaServerControl
             {
                 try
                 {
-                    uint _tmpPid;
-                    var res = uint.TryParse(httpRet, out _tmpPid);
+                    int _tmpPid;
+                    var res = int.TryParse(httpRet, out _tmpPid);
                     if (res)
                     {
                         if (_tmpPid > 0)
@@ -429,8 +430,8 @@ namespace CommonFunctions.MediaServerControl
             {
                 try
                 {
-                    uint _tmpPid;
-                    var res = uint.TryParse(httpRet, out _tmpPid);
+                    int _tmpPid;
+                    var res = int.TryParse(httpRet, out _tmpPid);
                     if (res)
                     {
                         if (_tmpPid > 0)

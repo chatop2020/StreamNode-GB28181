@@ -738,6 +738,9 @@ namespace StreamNodeCtrlApis.WebHookApis
 
         public static ResMediaServerWebApiReg ServerReg(ResMediaServerWebApiReg req, out ResponseStruct rs)
         {
+            
+         
+            
             rs = new ResponseStruct()
             {
                 Code = ErrorNumber.None,
@@ -751,9 +754,9 @@ namespace StreamNodeCtrlApis.WebHookApis
                 if (retObj != null)
                 {
                     retObj.KeepAlive = DateTime.Now;
-                    if (req.SystemInfo != null)
+                    if (req.MediaServerSystemInfo != null)
                     {
-                        retObj.SystemInfo = req.SystemInfo;
+                        retObj.MediaServerSystemInfo = req.MediaServerSystemInfo;
                     }
 
                     if (retObj.Config == null)
@@ -765,7 +768,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 }
 
                 MediaServerInstance msi = new MediaServerInstance(req.Ipaddress, req.WebApiServerhttpPort,
-                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath, req.SystemInfo);
+                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath, req.MediaServerSystemInfo);
                 msi.KeepAlive = DateTime.Now;
 
                 lock (Common.MediaServerList)

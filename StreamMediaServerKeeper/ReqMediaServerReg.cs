@@ -1,4 +1,5 @@
 using System;
+using LibSystemInfo;
 
 namespace StreamMediaServerKeeper
 {
@@ -14,7 +15,7 @@ namespace StreamMediaServerKeeper
         private string? _mediaServerId;
         private string? _secret;
         private string? _recordFilePath;
-        private ResGetSystemInfo? _systemInfo;
+        private GlobalSystemInfo? _mediaServerSystemInfo;
 
         /// <summary>
         /// 
@@ -74,10 +75,10 @@ namespace StreamMediaServerKeeper
         /// <summary>
         /// 
         /// </summary>
-        public ResGetSystemInfo? SystemInfo
+        public GlobalSystemInfo? MediaServerSystemInfo
         {
-            get => _systemInfo;
-            set => _systemInfo = value;
+            get => _mediaServerSystemInfo;
+            set => _mediaServerSystemInfo = value;
         }
     }
 }

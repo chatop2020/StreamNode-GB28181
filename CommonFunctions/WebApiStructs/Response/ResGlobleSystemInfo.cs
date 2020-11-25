@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CommonFunctions.WebApiStructs.Request;
+using LibSystemInfo;
 
 namespace CommonFunctions.WebApiStructs.Response
 {
@@ -8,7 +9,7 @@ namespace CommonFunctions.WebApiStructs.Response
     public class MediaServerInfomation
     {
         private string? _mediaSeverId;
-        private ReqMediaServerSystemInfo? _mediaServerSystemInfo;
+        private GlobalSystemInfo? _mediaServerSystemInfo;
 
         public string? MediaSeverId
         {
@@ -16,7 +17,7 @@ namespace CommonFunctions.WebApiStructs.Response
             set => _mediaSeverId = value;
         }
 
-        public ReqMediaServerSystemInfo? MediaServerSystemInfo
+        public GlobalSystemInfo? MediaServerSystemInfo
         {
             get => _mediaServerSystemInfo;
             set => _mediaServerSystemInfo = value;
@@ -26,11 +27,11 @@ namespace CommonFunctions.WebApiStructs.Response
     [Serializable]
     public class ResGlobleSystemInfo
     {
-        private ResGetSystemInfo _StreamCtrlSystemInfo = null;
+        private GlobalSystemInfo _StreamCtrlSystemInfo;
         private List<MediaServerInfomation> _mediaServerSystemInfos;
         private DateTime _updateTime;
 
-        public ResGetSystemInfo StreamCtrlSystemInfo
+        public GlobalSystemInfo StreamCtrlSystemInfo
         {
             get => _StreamCtrlSystemInfo;
             set => _StreamCtrlSystemInfo = value;

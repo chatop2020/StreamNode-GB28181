@@ -27,6 +27,7 @@
 
 
     <ItemGroup>
+      <ProjectReference Include="..\LibSystemInfo\LibSystemInfo.csproj" />
       <ProjectReference Include="..\Logger\Logger.csproj" />
     </ItemGroup>
 

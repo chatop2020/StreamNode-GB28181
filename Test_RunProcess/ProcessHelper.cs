@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace Test_RunProcess
 {
@@ -17,7 +18,110 @@ namespace Test_RunProcess
             _err = err;
             _exitEventHandle = exitEvent;
         }
+
         
+        /// <summary>
+        /// 杀死进程
+        /// </summary>
+        /// <param name="process"></param>
+        /// <returns></returns>
+        public bool KillProcess(Process process)
+        {
+            if (process != null && !process.HasExited)
+            {
+                process.Kill();
+            }
+
+            if (process.StartInfo != null )
+            {
+                Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
+                return !(processes.Length > 0);
+            }
+
+            return true;
+        }
+        
+        
+        /// <summary>
+        /// 检查进程是否正在运行
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public int CheckProcessExists(Process process)
+        {
+            if (process == null || process.StartInfo == null || process.HasExited)
+            {
+                return -1;
+            }
+            Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
+            bool hasValue = processes.Length > 0;
+            if (hasValue)
+            {
+                return processes[0].Id;
+            }
+            return -1;
+        }
+        
+        /// <summary>
+        /// 执行外部程序，含超时
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="args"></param>
+        /// <param name="milliseconds"></param>
+        /// <param name="stdOutput"></param>
+        /// <param name="stdError"></param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="Exception"></exception>
+        public static bool RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError)
+        {
+            stdOutput = null!;
+            stdError = null!;
+            try
+            {
+                string escapedArgs = args.Replace("\"", "\\\"");
+
+                if (!File.Exists(filePath))
+                {
+                    throw  new FileNotFoundException(filePath+"不存在");
+                }
+                using (Process process = new Process())
+                {
+                    process.StartInfo.FileName = filePath;
+                    process.StartInfo.UseShellExecute = false; //不使用shell以免出现操作系统shell出错
+                    process.StartInfo.CreateNoWindow = true; //不显示窗口
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.RedirectStandardError = true;
+                    process.StartInfo.Arguments = escapedArgs;
+                   
+                    bool result = process.Start();
+                    if (result)
+                    {
+                        result = process.WaitForExit(milliseconds);
+                    }
+
+                    if (result)
+                    {
+                        stdOutput = process.StandardOutput.ReadToEnd();
+                        stdError = process.StandardError.ReadToEnd()!;
+                    }
+
+                    return result;
+                }
+            }
+            catch(Exception ex) //异常直接返回错误
+            {
+                //异常处理
+                throw ex;
+            }
+        }
+        
+        /// <summary>
+        /// 一直等到执行完毕
+        /// </summary>
+        /// <param name="StartFileName"></param>
+        /// <param name="StartFileArg"></param>
+        /// <returns></returns>
         public Process RunProcess(string StartFileName, string StartFileArg)
         {
             Process CmdProcess = new Process();

@@ -496,6 +496,41 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:StreamMediaServerKeeper.ProcessHelper.KillProcess(System.Diagnostics.Process)">
+            <summary>
+            杀死进程
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessHelper.CheckProcessExists(System.Diagnostics.Process)">
+            <summary>
+            检查进程是否正在运行
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessHelper.RunProcess(System.String,System.String,System.Int32,System.String@,System.String@)">
+            <summary>
+            执行外部程序，含超时
+            </summary>
+            <param name="filePath"></param>
+            <param name="args"></param>
+            <param name="milliseconds"></param>
+            <param name="stdOutput"></param>
+            <param name="stdError"></param>
+            <returns></returns>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessHelper.RunProcess(System.String,System.String)">
+            <summary>
+            执行程序，直到结束
+            </summary>
+            <param name="StartFileName"></param>
+            <param name="StartFileArg"></param>
+            <returns></returns>
+        </member>
         <member name="T:StreamMediaServerKeeper.ProcessShell">
             <summary>
             
@@ -533,6 +568,14 @@
             <param name="milliseconds">超时时间（负数表示无限等待）</param>
             <param name="stdOutput">结果输出</param>
             <param name="stdError">错误输出</param>
+            <returns></returns>
+        </member>
+        <member name="M:StreamMediaServerKeeper.ProcessShell.RunProgram(System.String,System.Int32)">
+            <summary>
+            启动程序
+            </summary>
+            <param name="fileName">程序完整路径</param>
+            <param name="milliseconds">超时时间（负数表示无限等待）</param>
             <returns></returns>
         </member>
         <member name="T:StreamMediaServerKeeper.Program">
@@ -633,117 +676,7 @@
             
             </summary>
         </member>
-        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.SystemInfo">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.LoadAverage">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.LoadAverage.LoadAverageMin1">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.LoadAverage.LoadAverageMin5">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.LoadAverage.LoadAverageMin15">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.OStype">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.CPUInfo">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.CPUInfo.CpuUsed">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.CPUInfo.CpuIdle">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.CPUInfo.CpuCores">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.ResGetSystemInfo">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.UpdateTime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.OStype">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.AssemblyPath">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.AssemblyFolderPath">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.TotalProcessRunningTime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.TotalProcessRunningTimeText">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.TatolSystemRunningTime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.TatolSystemRunningTimeText">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.LinuxCpuInfo">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.LinuxLoadAverage">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.LinuxMemoryUsage">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.ResGetSystemInfo.HddListInfo">
+        <member name="P:StreamMediaServerKeeper.ReqMediaServerReg.MediaServerSystemInfo">
             <summary>
             
             </summary>
@@ -771,371 +704,6 @@
             </summary>
         </member>
         <member name="P:StreamMediaServerKeeper.ResponseStruct.Message">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.SystemHelper">
-            <summary>
-            系统帮助类
-            </summary>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsWindows">
-            <summary>
-            是否windows平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsWin32">
-            <summary>
-            是否windows32平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsWin64">
-            <summary>
-            是否windows64平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsLinux">
-            <summary>
-            是否Linux平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsLinux32">
-            <summary>
-            是否Linux32平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsLinux64">
-            <summary>
-            是否Linux64平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsOSX">
-            <summary>
-            是否OSX平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsOSX32">
-            <summary>
-            是否OSX32平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsOSX64">
-            <summary>
-            是否OSX64平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsUnix">
-            <summary>
-            是否Unix平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsUnix32">
-            <summary>
-            是否Unix32平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.IsUnix64">
-            <summary>
-            是否Unix64平台
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetAssemblyPath">
-            <summary>
-            获取当前程序集文件dll路径（包含文件名）(绝对路径)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetAssemblyFolderPath">
-            <summary>
-            获取当前程序集文件夹路径(绝对路径)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetBaseDirectory">
-            <summary>
-            获取程序集解析程序用于探测程序集的基目录的路径名。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetCpuNumber">
-            <summary>
-            获取当前计算机上的处理器数。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetLoadAverage">
-            <summary>
-            获取系统负载率
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetCPUused">
-            <summary>
-            获取cpu使用率和空闲率
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetSystemRunningTimeText(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="d"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetSystemRunningTime">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetTotalRunningTime(System.Diagnostics.Process)">
-            <summary>
-            获取指定进程运行总时间（毫秒）
-            </summary>
-            <param name="process"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetTotalRunningTimeEx(System.Diagnostics.Process)">
-            <summary>
-            获取指定进程运行总时间（{days}天{hours}时{minutes}分{seconds}秒{milliseconds}毫秒）
-            </summary>
-            <param name="process"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetWindowsCpuUsageAsync(System.Diagnostics.Process)">
-            <summary>
-            获取指定进程cpu占用百分比(以单核=100%为基准)
-            </summary>
-            <param name="process"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetWindowsCpuUsageExAsync(System.Diagnostics.Process)">
-            <summary>
-            获取指定进程cpu占用百分比(以所有核加起来=100%为基准)
-            </summary>
-            <param name="process"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetLinuxCpuUsage(System.Diagnostics.Process)">
-            <summary>
-            获取指定进程cpu使用情况
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetMemoryUsage(System.Diagnostics.Process)">
-            <summary>
-            获取进程物理内存占用(返回单位MB)
-            </summary>
-            <param name="process"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetVirtualMemoryUsage(System.Diagnostics.Process)">
-            <summary>
-            获取进程虚拟内存占用(返回单位MB)
-            </summary>
-            <param name="process"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetLinuxMemoryUsage(System.Diagnostics.Process)">
-            <summary>
-            获取进程物理内存占用(返回单位MB)
-            </summary>
-            <param name="process"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetWindowsMemoryMetrics">
-            <summary>
-            获取Windows系统总物理内存使用情况(总量/已使用/未使用)(返回单位MB)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetLinuxMemoryMetrics">
-            <summary>
-            获取linux系统总物理内存使用情况(总量/已使用/未使用)(返回单位MB)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetDriveMetrics">
-            <summary>
-            获取当前驱动使用情况
-            </summary>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetLinuxDiskIO(System.Diagnostics.Process)">
-            <summary>
-            获取指定进程cpu使用情况(Linux)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.GetLinuxNetIO">
-            <summary>
-            获取系统网络吞吐(Linux)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.ReadProcNetDev">
-            <summary>
-            读取/proc/net/dev文件(Linux)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.BytesToMB(System.Int64)">
-            <summary>
-            字节转MB，保留3位小数
-            </summary>
-            <param name="bytes"></param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.SystemHelper.BytesToGB(System.Int64)">
-            <summary>
-            字节转GB，保留3位小数
-            </summary>
-            <param name="bytes"></param>
-            <returns></returns>
-        </member>
-        <member name="T:StreamMediaServerKeeper.SysUsage">
-            <summary>
-            系统使用情况
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.SysUsage.ProcessCpu">
-            <summary>
-            当前进程占用CPU(百分比)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.SysUsage.ProcessMemory">
-            <summary>
-            当前进程占用物理内存(MB)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.SysUsage.ProcessDriveInfo">
-            <summary>
-            当前进程所在驱动使用情况
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.SysUsage.ProcessDiskIO">
-            <summary>
-            当前进程磁盘IO
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.SysUsage.SystemMemoryInfo">
-            <summary>
-            系统内存使用情况
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.SysUsage.SystemNetIO">
-            <summary>
-            系统网络IO
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.MemoryMetrics">
-            <summary>
-            系统内存情况
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.MemoryMetrics.Total">
-            <summary>
-            总量(MB)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.MemoryMetrics.Used">
-            <summary>
-            已使用(MB)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.MemoryMetrics.Free">
-            <summary>
-            未使用(MB)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.MemoryMetrics.FreePercent">
-            <summary>
-            空闲百分比
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.DriveMetrics">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.DriveMetrics.Name">
-            <summary>
-            驱动名
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.DriveMetrics.IsReady">
-            <summary>
-            驱动状态，是否可用
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.DriveMetrics.Total">
-            <summary>
-            总量(GB)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.DriveMetrics.Used">
-            <summary>
-            已使用(GB)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.DriveMetrics.Free">
-            <summary>
-            未使用(GB)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.DriveMetrics.FreePercent">
-            <summary>
-            空闲百分比
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.DiskIO">
-            <summary>
-            指定进程磁盘IO
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.DiskIO.Read">
-            <summary>
-            读(kb/s)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.DiskIO.Write">
-            <summary>
-            写(kb/s)
-            </summary>
-        </member>
-        <member name="M:StreamMediaServerKeeper.DiskIO.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:StreamMediaServerKeeper.NetIO">
-            <summary>
-            系统IO
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.NetIO.Receive">
-            <summary>
-            接受(bytes/s)
-            </summary>
-        </member>
-        <member name="P:StreamMediaServerKeeper.NetIO.Transmit">
-            <summary>
-            发送(bytes/s)
-            </summary>
-        </member>
-        <member name="M:StreamMediaServerKeeper.NetIO.#ctor">
             <summary>
             
             </summary>
