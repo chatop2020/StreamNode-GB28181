@@ -410,7 +410,7 @@ namespace StreamMediaServerKeeper
                     ReqMediaServerReg req = null;
                     if (i == 1 || i % 5 == 0 )
                     {
-                       // MySystemInfo = new ResGetSystemInfo();
+                     
                         req = new ReqMediaServerReg()
                         {
                             Ipaddress = MyIPAddress,
@@ -454,7 +454,7 @@ namespace StreamMediaServerKeeper
                         }
                         else
                         {
-                            Logger.Logger.Debug("DDDDD->"+httpRet);
+                        
                             if (ProcessApis.CheckIsRunning(out _) == 0)
                             {
                                 ProcessApis.RunServer(out _); //如果正常返回，但是流媒体没启动，则启动流媒体
@@ -474,7 +474,7 @@ namespace StreamMediaServerKeeper
                 }
                 catch (Exception ex)
                 {
-                    MySystemInfo = null;
+                
                     Logger.Logger.Error("报错了-> " + ex.Message + " -> " + ex.StackTrace);
                     continue;
                 }
