@@ -548,11 +548,12 @@
             <returns></returns>
             <exception cref="T:CommonFunctions.HttpResponseException"></exception>
         </member>
-        <member name="M:StreamNodeWebApi.Controllers.SipGateController.PtzControl(System.String,System.String,System.Int32)">
+        <member name="M:StreamNodeWebApi.Controllers.SipGateController.PtzControl(System.String,System.String,System.String,System.Int32)">
             <summary>
-            ptz控制
+            PTZ控制
             </summary>
             <param name="deviceid"></param>
+            <param name="channelid">当需要对多通道设备进行ptz控制时，这里传通道id</param>
             <param name="dir"></param>
             <param name="speed"></param>
             <returns></returns>

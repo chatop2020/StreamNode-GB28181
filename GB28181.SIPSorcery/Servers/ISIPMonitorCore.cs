@@ -26,7 +26,7 @@ namespace GB28181.Servers
         /// </summary>
         /// <param name="ucommand">控制命令</param>
         /// <param name="dwSpeed">速度</param>
-        void PtzContrl(out string _callid, PTZCommand ucommand, int dwSpeed, bool needResult = false);
+        void PtzContrl(out string _callid, PTZCommand ucommand, int dwSpeed, bool needResult = false ,string channelId="");
 
         /// <summary>
         /// 设备状态查询

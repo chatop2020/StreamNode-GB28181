@@ -439,7 +439,7 @@ namespace StreamMediaServerKeeper
                     }
 
                     string reqData = JsonHelper.ToJson(req);
-                    Logger.Logger.Debug("CCCC->"+reqData);
+                  
                     try
                     {
                         var httpRet = NetHelper.HttpPostRequest(StreamNodeServerUrl, null!, reqData, "utf-8", 5000);

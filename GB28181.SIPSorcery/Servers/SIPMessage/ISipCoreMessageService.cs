@@ -34,7 +34,7 @@ namespace GB28181.Servers.SIPMessage
 
         void AddMessageResponse(SIPEndPoint localEP, SIPEndPoint remoteEP, SIPResponse response);
 
-        void PtzControl(PTZCommand ptzcmd, int dwSpeed, string deviceId);
+        void PtzControl(PTZCommand ptzcmd, int dwSpeed, string deviceId,string channelId="");
         void DeviceStateQuery(string deviceId);
 
         void DeviceCatalogQuery();

@@ -160,9 +160,10 @@ namespace StreamNodeWebApi.Controllers
 
 
         /// <summary>
-        /// ptz控制
+        /// PTZ控制
         /// </summary>
         /// <param name="deviceid"></param>
+        /// <param name="channelid">当需要对多通道设备进行ptz控制时，这里传通道id</param>
         /// <param name="dir"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
@@ -171,14 +172,30 @@ namespace StreamNodeWebApi.Controllers
         [HttpGet]
         [Log]
         [AuthVerify]
-        public bool PtzControl(string deviceid, string dir, int speed)
+        public bool PtzControl(string deviceid, string? channelid, string dir, int speed)
         {
             ResponseStruct rs;
+            string c = "";
+            try
+            {
+                if (string.IsNullOrEmpty(channelid) || channelid.ToUpper().Equals("string"))
+                {
+                    c = "";
+                }
+                else
+                {
+                    c = channelid.Trim();
+                }
+            }
+            catch
+            {
+                // ignored
+            }
 
             if (speed > 255) speed = 255;
             if (speed <= 0) speed = 1;
 
-            var ret = CommonApi.PtzControl(deviceid, dir, speed, out rs);
+            var ret = CommonApi.PtzControl(deviceid, dir, speed, out rs, c);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));

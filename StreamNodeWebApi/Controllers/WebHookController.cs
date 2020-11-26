@@ -243,8 +243,7 @@ namespace StreamNodeWebApi.Controllers
                 req.Ipaddress = thisip.MapToIPv4().ToString();
             }
 
-            Logger.Logger.Debug("AAAAA->"+JsonHelper.ToJson(req));
-
+          
             var ret = MediaServerCtrlApi.ServerReg(req, out rs);
             if (rs.Code != ErrorNumber.None)
             {

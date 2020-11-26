@@ -214,9 +214,9 @@ namespace GB28181.Servers
         /// <param name="ptzCommand"></param>
         /// <param name="speed"></param>
         /// <param name="deviceid"></param>
-        public void PtzControl(PTZCommand ptzCommand, int speed, string deviceid)
+        public void PtzControl(PTZCommand ptzCommand, int speed, string deviceid,string channelId="")
         {
-            _sipCoreMessageService.PtzControl(ptzCommand, speed, deviceid);
+            _sipCoreMessageService.PtzControl(ptzCommand, speed, deviceid,channelId);
         }
 
         #endregion

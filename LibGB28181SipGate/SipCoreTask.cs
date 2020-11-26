@@ -211,8 +211,9 @@ namespace LibGB28181SipGate
         /// <param name="dir"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
-        public bool PtzContorl(string dir, int speed)
+        public bool PtzContorl(string dir, int speed,string channelId="")
         {
+
             var monitor = _sipCoreHelper.SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(_deviceId));
             if (monitor.Value != null)
             {
@@ -267,7 +268,7 @@ namespace LibGB28181SipGate
                         break;
                 }
 
-                obj.PtzContrl(out _callId, cmd, speed, true);
+                obj.PtzContrl(out _callId, cmd, speed, true,channelId);
                 var timeout = _autoResetEvent.WaitOne(5000);
                 if (!timeout)
                 {

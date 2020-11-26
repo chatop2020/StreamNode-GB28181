@@ -1618,31 +1618,33 @@ namespace GB28181.Servers.SIPMonitor
         /// <param name="ucommand">控制命令</param>
         /// <param name="dwStop">开始或结束</param>
         /// <param name="dwSpeed">速度</param>
-        public void PtzContrl(out string _callid, PTZCommand ucommand, int dwSpeed, bool needResult = false)
+        public void PtzContrl(out string _callid, PTZCommand ucommand, int dwSpeed, bool needResult = false,string channelId="")
         {
             string fromTag = CallProperties.CreateNewTag();
             string toTag = CallProperties.CreateNewTag();
             int cSeq = CallHelpers.CreateNewCSeq();
             string callId = CallProperties.CreateNewCallId();
             _callid = callId;
-            Logger.Logger.Debug("PtzContrl() start to PTZRequest.");
+          
             SIPRequest ptzReq = PTZRequest(fromTag, toTag, cSeq, callId);
             string cmdStr = GetPtzCmd(ucommand, dwSpeed);
 
             PTZControl ptz = new PTZControl()
             {
                 CommandType = CommandType.DeviceControl,
-                DeviceID = DeviceId,
+                DeviceID = string.IsNullOrEmpty(channelId)?DeviceId:channelId,//如果有channelID则使用此ID
                 SN = 11, //new Random().Next(9999),
                 PTZCmd = cmdStr
             };
             string xmlBody = PTZControl.Instance.Save<PTZControl>(ptz);
             ptzReq.Body = xmlBody;
-            //logger.Debug("PtzContrl() start to SendRequest...");
+          
             if (needResult)
             {
                 _syncRequestContext.TryAdd(callId, ptzReq);
             }
+            
+         
 
             _sipMsgCoreService.SendRequest(RemoteEndPoint, ptzReq);
         }
@@ -1653,6 +1655,7 @@ namespace GB28181.Servers.SIPMonitor
         /// <returns></returns>
         private SIPRequest PTZRequest(string fromTag, string toTag, int cSeq, string callId)
         {
+           
             SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
             SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), "");
             SIPFromHeader from = new SIPFromHeader(null, localUri, fromTag);
