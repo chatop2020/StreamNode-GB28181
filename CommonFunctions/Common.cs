@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -47,6 +48,19 @@ namespace CommonFunctions
             if (!MySystemConfig.LoadConfig(SystemConfigPath))
             {
                 KillSelf();
+            }
+            
+            //清理ffmpeg进程
+           Process[] processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(FFmpegBinPath));
+            if (processes != null && processes.Length > 0)
+            {
+                foreach (var process in processes)
+                {
+                    if (process != null && process.HasExited == false)
+                    {
+                        process.Kill();
+                    }
+                }
             }
 
             if (!Directory.Exists(SystemLogPath))

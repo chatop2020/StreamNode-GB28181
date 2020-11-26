@@ -516,6 +516,18 @@ namespace StreamMediaServerKeeper
                             }
                         }
                         
+                        processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(FFmpegBinPath));
+                        if (processes != null && processes.Length > 0)
+                        {
+                            foreach (var process in processes)
+                            {
+                                if (process != null && process.HasExited == false)
+                                {
+                                    process.Kill();
+                                }
+                            }
+                        }
+                        
                         getMediaServerConfig();
                     }
                     else
