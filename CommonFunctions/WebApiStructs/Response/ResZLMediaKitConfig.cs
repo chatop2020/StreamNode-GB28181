@@ -19,6 +19,8 @@ namespace CommonFunctions.WebApiStructs.Response
         private bool? _general_addMuteAudio;
         private bool? _general_enableVhost;
         private int? _general_flowThreshold;
+        private bool? _general_fmp4_demand;//新增
+        private bool? _general_hls_demand;//新增
         private int? _general_maxStreamWaitMS;
         private string? _general_mediaServerId;
         private int? _general_mergeWriteMS;
@@ -26,7 +28,10 @@ namespace CommonFunctions.WebApiStructs.Response
         private bool? _general_publishToHls;
         private bool? _general_publishToMP4;
         private bool? _general_resetWhenRePlay;
+        private bool? _general_rtmp_demand;//新增
+        private bool? _general_rtsp_demand;//新增
         private int? _general_streamNoneReaderDelayMS;
+        private bool? _general_ts_demand;//新增
         private bool? _hls_broadcastRecordTs;
         private int? _hls_fileBufSize;
         private string? _hls_filePath;
@@ -178,6 +183,20 @@ namespace CommonFunctions.WebApiStructs.Response
             get => _general_flowThreshold;
             set => _general_flowThreshold = value;
         }
+        [JsonProperty("general.fmp4_demand")]
+        [JsonConverter(typeof(JsonConvStr2Bool))]
+        public bool? General_Fmp4_Demand
+        {
+            get => _general_fmp4_demand;
+            set => _general_fmp4_demand = value;
+        }
+        [JsonProperty("general.hls_demand")]
+        [JsonConverter(typeof(JsonConvStr2Bool))]
+        public bool? General_Hls_Demand
+        {
+            get => _general_hls_demand;
+            set => _general_hls_demand = value;
+        }
 
         [JsonProperty("general.maxStreamWaitMS")]
         public int? General_MaxStreamWaitMs
@@ -233,11 +252,33 @@ namespace CommonFunctions.WebApiStructs.Response
             set => _general_resetWhenRePlay = value;
         }
 
+        [JsonProperty("general.rtmp_demand")]
+        [JsonConverter(typeof(JsonConvStr2Bool))]
+        public bool? General_Rtmp_Demand
+        {
+            get => _general_rtmp_demand;
+            set => _general_rtmp_demand = value;
+        }
+        [JsonProperty("general.rtsp_demand")]
+        [JsonConverter(typeof(JsonConvStr2Bool))]
+        public bool? General_Rtsp_Demand
+        {
+            get => _general_rtsp_demand;
+            set => _general_rtsp_demand = value;
+        }
+
         [JsonProperty("general.streamNoneReaderDelayMS")]
         public int? General_StreamNoneReaderDelayMs
         {
             get => _general_streamNoneReaderDelayMS;
             set => _general_streamNoneReaderDelayMS = value;
+        }
+        [JsonProperty("general.ts_demand")]
+        [JsonConverter(typeof(JsonConvStr2Bool))]
+        public bool? General_Ts_Demand
+        {
+            get => _general_ts_demand;
+            set => _general_ts_demand = value;
         }
 
         [JsonProperty("hls.broadcastRecordTs")]
