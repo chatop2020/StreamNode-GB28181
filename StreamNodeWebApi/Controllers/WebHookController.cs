@@ -45,6 +45,7 @@ namespace StreamNodeWebApi.Controllers
         [AuthVerify]
         public bool OnSipDeviceRegister(ReqAddCameraInstance req)
         {
+           
             ResponseStruct rs;
             var ret = MediaServerApis.AddSipDeviceToDB(req, out rs);
             if (rs.Code != ErrorNumber.None)
