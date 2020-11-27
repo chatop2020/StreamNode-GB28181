@@ -63,7 +63,7 @@ namespace StreamMediaServerKeeper
         {
             if (e.Data != null)
             {
-                Logger.Logger.Error("【ZLMediaKit】->"+e.Data);
+                Logger.Logger.Error("[ZLMediaKit]->"+e.Data);
             }
         }
         
