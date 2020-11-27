@@ -1,13 +1,11 @@
 # StreamNode-GB28181(原StreamNode)说明
 ## 简介
 - 本项目是基于ZLMediaKit的流媒体控制管理接口平台，支持RTSP,GB28181的设备拉流与推流控制，GB28181部分支持PTZ控制。
-- 对ZLMediaKit的源码做了一些小的改造，用于将ZLMediaKit的http回调增加流媒体服务的唯一标识，以及对ffmpeg管理部分的一个小修改
-- <font color=#A52A2A size=12 >【特别说明1】</font>由于最近关注 StreamNode-GB28181（原StreamNode）的朋友越来越多，在这里统一做一下说明。当前StreamNode-GB28181只适配了Linux操作系统，在CentOS7,Ubuntu 20.x Desktop,嵌入式Rpibian buster (基于Debian的树莓派操作系统，StreamNode在树莓派4B上跑得非常好)上做过测试，可以正常运行；其他操作系统没有做过适配，可能无法正常使用，需要Windows部署的朋友可以自己动手改改代码，方便的话给我提个PR，我有空的时候也会把跨平台适配性加强一些。
-- <font color=#A52A2A size=12 >【特别说明2】</font>StreamNode-GB28181支持对ZLMediaKit流媒体服务的集群部署，组件[StreamMediaServerKeeper]与流媒体服务器[ZLMeidaKit]配对部署（必须在同一台服务器）；组件[StreamNodeWebApi]可以与[StreamMediaServerKeeper]不在同一台服务器，一个[StreamMediaServerKeeper]+[ZLMeidaKit]的组合是一个独立部分，通过内部的HttpWebApi接口实现流媒体与主控程序间的控制，[StreamNodeWebApi]负责GB28181的Sip信令控制，摄像头管理，录制计划管理，流媒体服务管理等功能，[StreamMediaServerKeeper]仅监控流媒体服务器[ZLMediaKit]的运行状态，提供对录制文件的裁剪与合并任务以及提供静态文件http服务功能。
-- 【新增】支持对公网动态ip的GB28181设备支持，通过数据库中的标记来确定是否校验设备IP地址，因此可以支持如4G国标协议执法记录仪接入
-- 【修复】Sip网关支持部署在内网，映射到公网IP的端口，即可提供服务,同时修复了推流设备在内网中GB28181协议注册时未正确获得真实设备IP的问题，表示可以正确识别与通讯内网的GB28181设备。
+- 支持跨平台特性，已测试操作系统有CentOS,Ubunut,Raspbain(ARM嵌入式树莓派操作系统)，Windows10,MacOS Big Sur等操作系统，均可正常使用。
+- 提供对ZLMediaKit的集群实现，提供不同服务器、不同操作系统下的ZLMediaKit能保持同一种操作方式与输出规范。
+
 ## 更新日志
-### 2020-11-25 跨平台重大更新（有待测试）
+### 2020-11-25 跨平台重大更新
 1. 所有特用于Linux的Shell脚本用法全部取消，使用.net Core自带的Process管理第三方进程
 2. 重写性能收集类LibSystemInfo,完全适配Linux,MacOS,Windows三大平台（注意Windows平台需要额外添加WinNetworkStaCli.exe文件到StreamNode目录）
 3. 已在Linux操作系统，MacOS操作系统基本测试，一切正常。
@@ -47,6 +45,7 @@
 ## 支持操作系统及要求
 - CentOS7.x  强烈推荐
 - Ubuntu
+- Windows,MACOS 已支持(2020-11-27)
 - 需要Mysql5.7或Mariadb 10.3.x以上，（当然其他FreeSql库所支持的数据库也是支持的，比如Sqlite）
 # 运行
 ## 环境
