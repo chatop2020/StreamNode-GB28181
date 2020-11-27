@@ -97,10 +97,10 @@ namespace StreamNodeWebApi.Controllers
         [HttpGet]
         [Log]
         [AuthVerify]
-        public ResLiveVideoResponse LiveVideo(string mediaServerId, string deviceid, string cameraid, bool tcp = false)
+        public ResLiveVideoResponse LiveVideo(string mediaServerId, string cameraDeviceLable, string cameraChannelLable, bool tcp = false)
         {
             ResponseStruct rs;
-            var ret = CommonApi.LiveVideo(mediaServerId, deviceid, cameraid, out rs,
+            var ret = CommonApi.LiveVideo(mediaServerId, cameraDeviceLable, cameraChannelLable, out rs,
                 tcp);
             if (rs.Code != ErrorNumber.None)
             {
@@ -123,10 +123,10 @@ namespace StreamNodeWebApi.Controllers
         [HttpGet]
         [Log]
         [AuthVerify]
-        public ResLiveVideoResponse ByeLiveVideo(string mediaServerId, string deviceid, string cameraid)
+        public ResLiveVideoResponse ByeLiveVideo(string mediaServerId,string cameraDeviceLable, string cameraChannelLable)
         {
             ResponseStruct rs;
-            var ret = CommonApi.ByeLiveVideo(mediaServerId, deviceid, cameraid, out rs);
+            var ret = CommonApi.ByeLiveVideo(mediaServerId, cameraDeviceLable, cameraChannelLable, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
@@ -146,10 +146,10 @@ namespace StreamNodeWebApi.Controllers
         [HttpGet]
         [Log]
         [AuthVerify]
-        public List<SipDevice> GetSipDeviceList(string? deviceid)
+        public List<SipDevice> GetSipDeviceList(string? cameraDeviceLable)
         {
             ResponseStruct rs;
-            var ret = CommonApi.GetSipDeviceList(deviceid, out rs);
+            var ret = CommonApi.GetSipDeviceList(cameraDeviceLable, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
