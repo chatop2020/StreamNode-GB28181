@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonFunctions", "CommonFu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamNodeCtrlApis", "StreamNodeCtrlApis\StreamNodeCtrlApis.csproj", "{E30BE9BF-F340-453C-84C2-B17B9F0F1047}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SSH", "Test_SSH\Test_SSH.csproj", "{42BEE94C-6225-455A-9AB5-5B24EB256F05}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamMediaServerKeeper", "StreamMediaServerKeeper\StreamMediaServerKeeper.csproj", "{9B191663-1EC0-41D9-AA9B-77BC9384BA32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_GetSystemRunningTime", "Test_GetSystemRunningTime\Test_GetSystemRunningTime.csproj", "{F804BDAC-8C7F-4692-8738-A9D24038CE13}"
@@ -66,10 +64,6 @@ Global
 		{E30BE9BF-F340-453C-84C2-B17B9F0F1047}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E30BE9BF-F340-453C-84C2-B17B9F0F1047}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E30BE9BF-F340-453C-84C2-B17B9F0F1047}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42BEE94C-6225-455A-9AB5-5B24EB256F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42BEE94C-6225-455A-9AB5-5B24EB256F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42BEE94C-6225-455A-9AB5-5B24EB256F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42BEE94C-6225-455A-9AB5-5B24EB256F05}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B191663-1EC0-41D9-AA9B-77BC9384BA32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B191663-1EC0-41D9-AA9B-77BC9384BA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B191663-1EC0-41D9-AA9B-77BC9384BA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
