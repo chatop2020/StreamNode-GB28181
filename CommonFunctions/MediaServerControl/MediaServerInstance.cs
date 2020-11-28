@@ -219,7 +219,7 @@ namespace CommonFunctions.MediaServerControl
             {
                 string innerUrl = "http://" + _ipaddress + ":" + _webApiPort + "/Health";
                 var httpRet = NetHelper.HttpGetRequest(innerUrl, null, "utf-8", 1000);
-                if (!string.IsNullOrEmpty(httpRet) && httpRet.Equals("ok"))
+                if (!string.IsNullOrEmpty(httpRet) && httpRet.Equals("OK"))
                 {
                     return true;
                 }
