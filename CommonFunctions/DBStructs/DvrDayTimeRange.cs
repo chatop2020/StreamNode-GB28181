@@ -4,6 +4,9 @@ using FreeSql.DataAnnotations;
 
 namespace CommonFunctions.DBStructs
 {
+    /// <summary>
+    /// 录制计划详细计划的结构，是数据库DvrDayTimeRange表的字段映射
+    /// </summary>
     [Serializable]
     [Table(Name = "DvrDayTimeRange")]
     /// <summary>

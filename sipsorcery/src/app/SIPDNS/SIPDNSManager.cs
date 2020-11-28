@@ -26,7 +26,6 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Heijden.DNS;
-using Microsoft.Extensions.Logging;
 using SIPSorcery.Net;
 using SIPSorcery.Sys;
 

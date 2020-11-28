@@ -22,7 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml;
-using GB28181.Sys;
 
 #if UNITTEST
 using NUnit.Framework;

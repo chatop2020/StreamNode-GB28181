@@ -3,6 +3,9 @@ using FreeSql.DataAnnotations;
 
 namespace CommonFunctions.DBStructs
 {
+    /// <summary>
+    /// 录制文件的记录结构，是数据库RecordFile表的字段映射
+    /// </summary>
     [Table(Name = "RecordFile")]
     [Index("rf_cameraid", "CameraId", false)]
     [Index("rf_cameraname", "CameraName", false)]

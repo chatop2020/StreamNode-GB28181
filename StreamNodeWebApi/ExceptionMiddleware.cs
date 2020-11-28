@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace StreamNodeWebApi
 {
+    /// <summary>
+    /// 异常情况处理的中间件
+    /// </summary>
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate next;
@@ -45,10 +48,6 @@ namespace StreamNodeWebApi
             info = $@"{info}  Body: {error}";
             Logger.Logger.Error($@"OUTPUT    {remoteIpAddr}    {context.Request.Method}    {context.Request.Path} -> " +
                                 info);
-            /*LogWebApiWriter.WriteWebApiLog(
-                $@"OUTPUT    {remoteIpAddr}    {context.Request.Method}    {context.Request.Path}",
-                info,
-                ConsoleColor.Yellow);*/
 
             await context.Response.WriteAsync(error);
         }
@@ -70,11 +69,6 @@ namespace StreamNodeWebApi
             info = $@"{info}  Body: {error}";
             Logger.Logger.Error($@"OUTPUT    {remoteIpAddr}    {context.Request.Method}    {context.Request.Path} -> " +
                                 info);
-            /*LogWebApiWriter.WriteWebApiLog(
-                $@"OUTPUT    {remoteIpAddr}    {context.Request.Method}    {context.Request.Path}",
-                info,
-                ConsoleColor.Yellow);*/
-
             await context.Response.WriteAsync(error);
         }
     }

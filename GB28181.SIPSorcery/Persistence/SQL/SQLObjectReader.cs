@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using GB28181.App;
 
-
 namespace GB28181.Persistence
 {
     public class SQLObjectReader<T> : IEnumerable<T>, IEnumerable where T : class, ISIPAsset, new()

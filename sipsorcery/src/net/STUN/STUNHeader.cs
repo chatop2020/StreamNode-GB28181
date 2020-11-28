@@ -72,7 +72,6 @@
 
 using System;
 using System.Text;
-using Microsoft.Extensions.Logging;
 using SIPSorcery.Sys;
 
 namespace SIPSorcery.Net

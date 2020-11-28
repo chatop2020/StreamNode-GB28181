@@ -16,7 +16,6 @@
 using System;
 using System.Net;
 using System.Text;
-using Microsoft.Extensions.Logging;
 using SIPSorcery.Sys;
 
 namespace SIPSorcery.Net

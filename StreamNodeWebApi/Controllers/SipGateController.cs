@@ -13,6 +13,7 @@ namespace StreamNodeWebApi.Controllers
 {
     /// <summary>
     /// Sip网关类接口
+    /// GB28181 SIP信令网关的接口
     /// </summary>
     [ApiController]
     [Route("/SipGate")]
@@ -97,7 +98,8 @@ namespace StreamNodeWebApi.Controllers
         [HttpGet]
         [Log]
         [AuthVerify]
-        public ResLiveVideoResponse LiveVideo(string mediaServerId, string cameraDeviceLable, string cameraChannelLable, bool tcp = false)
+        public ResLiveVideoResponse LiveVideo(string mediaServerId, string cameraDeviceLable, string cameraChannelLable,
+            bool tcp = false)
         {
             ResponseStruct rs;
             var ret = CommonApi.LiveVideo(mediaServerId, cameraDeviceLable, cameraChannelLable, out rs,
@@ -123,7 +125,8 @@ namespace StreamNodeWebApi.Controllers
         [HttpGet]
         [Log]
         [AuthVerify]
-        public ResLiveVideoResponse ByeLiveVideo(string mediaServerId,string cameraDeviceLable, string cameraChannelLable)
+        public ResLiveVideoResponse ByeLiveVideo(string mediaServerId, string cameraDeviceLable,
+            string cameraChannelLable)
         {
             ResponseStruct rs;
             var ret = CommonApi.ByeLiveVideo(mediaServerId, cameraDeviceLable, cameraChannelLable, out rs);

@@ -504,9 +504,9 @@ namespace GB28181.Servers.SIPMonitor
         {
             _recordTotal = recordTotal;
         }
-        
-        
-         /// <summary>
+
+
+        /// <summary>
         /// 录像文件查询
         /// </summary>
         /// <param name="startTime">开始时间</param>
@@ -564,15 +564,16 @@ namespace GB28181.Servers.SIPMonitor
             return _recordTotal;
         }
 
-       /// <summary>
-       ///  录像文件查询 ,需要返回数据
-       /// </summary>
-       /// <param name="startTime"></param>
-       /// <param name="endTime"></param>
-       /// <param name="type"></param>
-       /// <param name="needResult"></param>
-       /// <returns></returns>
-        public int RecordFileQuery(DateTime startTime, DateTime endTime, string type ,out string _callId,bool needResult=false)
+        /// <summary>
+        ///  录像文件查询 ,需要返回数据
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="type"></param>
+        /// <param name="needResult"></param>
+        /// <returns></returns>
+        public int RecordFileQuery(DateTime startTime, DateTime endTime, string type, out string _callId,
+            bool needResult = false)
         {
             this.Stop();
 
@@ -621,7 +622,7 @@ namespace GB28181.Servers.SIPMonitor
                     break;
                 }
             }
-            
+
             _reqSession = recordFileReq;
             _callId = recordFileReq.Header.CallId;
             if (needResult)
@@ -1618,33 +1619,33 @@ namespace GB28181.Servers.SIPMonitor
         /// <param name="ucommand">控制命令</param>
         /// <param name="dwStop">开始或结束</param>
         /// <param name="dwSpeed">速度</param>
-        public void PtzContrl(out string _callid, PTZCommand ucommand, int dwSpeed, bool needResult = false,string channelId="")
+        public void PtzContrl(out string _callid, PTZCommand ucommand, int dwSpeed, bool needResult = false,
+            string channelId = "")
         {
             string fromTag = CallProperties.CreateNewTag();
             string toTag = CallProperties.CreateNewTag();
             int cSeq = CallHelpers.CreateNewCSeq();
             string callId = CallProperties.CreateNewCallId();
             _callid = callId;
-          
+
             SIPRequest ptzReq = PTZRequest(fromTag, toTag, cSeq, callId);
             string cmdStr = GetPtzCmd(ucommand, dwSpeed);
 
             PTZControl ptz = new PTZControl()
             {
                 CommandType = CommandType.DeviceControl,
-                DeviceID = string.IsNullOrEmpty(channelId)?DeviceId:channelId,//如果有channelID则使用此ID
+                DeviceID = string.IsNullOrEmpty(channelId) ? DeviceId : channelId, //如果有channelID则使用此ID
                 SN = 11, //new Random().Next(9999),
                 PTZCmd = cmdStr
             };
             string xmlBody = PTZControl.Instance.Save<PTZControl>(ptz);
             ptzReq.Body = xmlBody;
-          
+
             if (needResult)
             {
                 _syncRequestContext.TryAdd(callId, ptzReq);
             }
-            
-         
+
 
             _sipMsgCoreService.SendRequest(RemoteEndPoint, ptzReq);
         }
@@ -1655,7 +1656,6 @@ namespace GB28181.Servers.SIPMonitor
         /// <returns></returns>
         private SIPRequest PTZRequest(string fromTag, string toTag, int cSeq, string callId)
         {
-           
             SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
             SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), "");
             SIPFromHeader from = new SIPFromHeader(null, localUri, fromTag);

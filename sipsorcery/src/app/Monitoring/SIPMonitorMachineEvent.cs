@@ -19,7 +19,6 @@
 using System;
 using System.Globalization;
 using System.Net;
-using Microsoft.Extensions.Logging;
 using SIPSorcery.Sys;
 
 namespace SIPSorcery.SIP.App

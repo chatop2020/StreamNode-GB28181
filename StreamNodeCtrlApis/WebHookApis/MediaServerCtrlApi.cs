@@ -233,7 +233,9 @@ namespace StreamNodeCtrlApis.WebHookApis
                 OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
             }
 
-            Logger.Logger.Info("流发布成功->"+mediaServer.MediaServerId+"->"+session.CameraId+"->"+session.CameraType+"->"+session.Vhost+"->"+session.App+"->"+session.StreamId+"->"+session.PlayUrl);
+            Logger.Logger.Info("流发布成功->" + mediaServer.MediaServerId + "->" + session.CameraId + "->" +
+                               session.CameraType + "->" + session.Vhost + "->" + session.App + "->" +
+                               session.StreamId + "->" + session.PlayUrl);
             return new ResToWebHookOnPublish() //返回zlmediakit成功
             {
                 Code = 0,
@@ -308,7 +310,10 @@ namespace StreamNodeCtrlApis.WebHookApis
                         OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                         lock (Common.PlayerSessionListLock)
                         {
-                            Logger.Logger.Info("停止播放->"+mediaServer.MediaServerId+"->"+tmpClientLog.CameraId+"->"+tmpClientLog.Vhost+"->"+tmpClientLog.App+"->"+tmpClientLog.StreamId+"->"+req.Ip+"->"+req.Id+"->"+req.Duration+"->"+req.TotalBytes);
+                            Logger.Logger.Info("停止播放->" + mediaServer.MediaServerId + "->" + tmpClientLog.CameraId +
+                                               "->" + tmpClientLog.Vhost + "->" + tmpClientLog.App + "->" +
+                                               tmpClientLog.StreamId + "->" + req.Ip + "->" + req.Id + "->" +
+                                               req.Duration + "->" + req.TotalBytes);
 
                             Common.PlayerSessions.Remove(player);
                         }
@@ -333,13 +338,14 @@ namespace StreamNodeCtrlApis.WebHookApis
                         lock (Common.CameraSessionLock)
                         {
                             camera.IsOnline = false;
-                            Logger.Logger.Info("流停止发布->"+mediaServer.MediaServerId+"->"+tmpClientLog.CameraId+"->"+camera.ClientType+"->"+tmpClientLog.Vhost+"->"+tmpClientLog.App+"->"+tmpClientLog.StreamId);
-
+                            Logger.Logger.Info("流停止发布->" + mediaServer.MediaServerId + "->" + tmpClientLog.CameraId +
+                                               "->" + camera.ClientType + "->" + tmpClientLog.Vhost + "->" +
+                                               tmpClientLog.App + "->" + tmpClientLog.StreamId);
                         }
                     }
                 }
             }
-            
+
             return new ResToWebHookOnStreamChange()
             {
                 Code = 0,
@@ -418,7 +424,9 @@ namespace StreamNodeCtrlApis.WebHookApis
                 StreamId = player.StreamId,
             };
             OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
-            Logger.Logger.Info("开始播放->"+mediaServer.MediaServerId+"->"+player.CameraId+"->"+player.Vhost+"->"+player.App+"->"+player.StreamId+"->"+req.Ip+"->"+req.Id+"->"+player.PlayUrl);
+            Logger.Logger.Info("开始播放->" + mediaServer.MediaServerId + "->" + player.CameraId + "->" + player.Vhost +
+                               "->" + player.App + "->" + player.StreamId + "->" + req.Ip + "->" + req.Id + "->" +
+                               player.PlayUrl);
             return new ResToWebHookOnStreamChange()
             {
                 Code = 0,
@@ -555,7 +563,9 @@ namespace StreamNodeCtrlApis.WebHookApis
                                 StreamId = session.StreamId,
                                 Schema = "rtsp",
                             };
-                            Logger.Logger.Info("RTSP流发布->"+mediaServer.MediaServerId+"->"+tmpClientLog.CameraId+"->"+session.ClientType+"->"+tmpClientLog.Vhost+"->"+tmpClientLog.App+"->"+tmpClientLog.StreamId);
+                            Logger.Logger.Info("RTSP流发布->" + mediaServer.MediaServerId + "->" + tmpClientLog.CameraId +
+                                               "->" + session.ClientType + "->" + tmpClientLog.Vhost + "->" +
+                                               tmpClientLog.App + "->" + tmpClientLog.StreamId);
 
                             OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                         }
@@ -592,7 +602,9 @@ namespace StreamNodeCtrlApis.WebHookApis
                         StreamId = checksession.StreamId,
                         Schema = "rtsp",
                     };
-                    Logger.Logger.Info("RTSP流发布->"+mediaServer.MediaServerId+"->"+tmpClientLog.CameraId+"->"+checksession.ClientType+"->"+tmpClientLog.Vhost+"->"+tmpClientLog.App+"->"+tmpClientLog.StreamId);
+                    Logger.Logger.Info("RTSP流发布->" + mediaServer.MediaServerId + "->" + tmpClientLog.CameraId + "->" +
+                                       checksession.ClientType + "->" + tmpClientLog.Vhost + "->" + tmpClientLog.App +
+                                       "->" + tmpClientLog.StreamId);
 
                     OrmService.Db.Insert<ClientOnOffLog>(tmpClientLog).ExecuteAffrows();
                 }
@@ -690,7 +702,9 @@ namespace StreamNodeCtrlApis.WebHookApis
             }
 
             OrmService.Db.Insert(tmpDvrVideo).ExecuteAffrows();
-            Logger.Logger.Info("文件录制成功->"+mediaServer.MediaServerId+"->"+tmpDvrVideo.CameraId+"->"+session.ClientType+"->"+tmpDvrVideo.Vhost+"->"+tmpDvrVideo.App+"->"+tmpDvrVideo.Streamid+"->"+tmpDvrVideo.FileSize +"->"+tmpDvrVideo.VideoPath);
+            Logger.Logger.Info("文件录制成功->" + mediaServer.MediaServerId + "->" + tmpDvrVideo.CameraId + "->" +
+                               session.ClientType + "->" + tmpDvrVideo.Vhost + "->" + tmpDvrVideo.App + "->" +
+                               tmpDvrVideo.Streamid + "->" + tmpDvrVideo.FileSize + "->" + tmpDvrVideo.VideoPath);
 
             return new ResToWebHookOnStreamChange()
             {
@@ -738,9 +752,6 @@ namespace StreamNodeCtrlApis.WebHookApis
 
         public static ResMediaServerWebApiReg ServerReg(ResMediaServerWebApiReg req, out ResponseStruct rs)
         {
-            
-         
-            
             rs = new ResponseStruct()
             {
                 Code = ErrorNumber.None,
@@ -751,27 +762,37 @@ namespace StreamNodeCtrlApis.WebHookApis
                 var retObj = Common.MediaServerList.FindLast(x => x.Ipaddress.Equals(req.Ipaddress)
                                                                   && x.Secret.Equals(req.Secret) &&
                                                                   x.MediaServerId.Equals(req.MediaServerId));
-                if (retObj != null)
+                try
                 {
-                    retObj.KeepAlive = DateTime.Now;
-                    if (req.MediaServerSystemInfo != null)
+                    if (retObj != null)
                     {
-                        retObj.MediaServerSystemInfo = req.MediaServerSystemInfo;
-                    }
+                        retObj.KeepAlive = DateTime.Now;
+                        if (req.MediaServerSystemInfo != null)
+                        {
+                            retObj.MediaServerSystemInfo = req.MediaServerSystemInfo;
+                        }
 
-                    if (retObj.Config == null)
-                    {
-                        MediaServerApis.GetConfig(req.MediaServerId, out _); //配置信息不存在时获取配置信息 
-                    }
+                        if (retObj.Config == null)
+                        {
+                            MediaServerApis.GetConfig(req.MediaServerId, out _); //配置信息不存在时获取配置信息 
+                        }
 
-                    return req;
+                        return req;
+                    }
+                }
+                catch
+                {
+                    // ignored
+                    //为了防止MediaServer在其他地方被null掉，线程不同步情况下报错
+                    return null;
                 }
 
                 MediaServerInstance msi = new MediaServerInstance(req.Ipaddress, req.WebApiServerhttpPort,
-                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath, req.MediaServerSystemInfo);
+                    req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath,
+                    req.MediaServerSystemInfo);
                 msi.KeepAlive = DateTime.Now;
 
-                lock (Common.MediaServerList)
+                lock (Common.MediaServerLock)
                 {
                     Common.MediaServerList.Add(msi);
                 }

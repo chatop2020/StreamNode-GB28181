@@ -42,8 +42,6 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using DnsClient;
 using DnsClient.Protocol;
-using Microsoft.Extensions.Logging;
-using SIPSorcery.Sys;
 
 namespace SIPSorcery.Net
 {

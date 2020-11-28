@@ -47,6 +47,12 @@
             <param name="processName"></param>
             <returns></returns>
         </member>
+        <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.Health">
+            <summary>
+            健康检测
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:StreamMediaServerKeeper.Controllers.ProcessController.GetBacklogTaskList">
             <summary>
             获取合并裁剪任务积压列表

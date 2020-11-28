@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
-using GB28181.Sys;
 using SIPSorcery.Sys;
 
 namespace GB28181.App

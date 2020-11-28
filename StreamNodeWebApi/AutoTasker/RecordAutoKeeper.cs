@@ -136,7 +136,8 @@ namespace StreamNodeWebApi.AutoTasker
                         .Set(x => x.Deleted, true)
                         .Where(x => x.RecordDate == day).ExecuteAffrows();
                     mediaServer.DeleteFileList(deleteFileList, out _);
-                    Logger.Logger.Info(sdp.MediaServerId+"->"+sdp.CameraId+"->"+"要删除除一天的文件，数据库标记为删除 -> " + day!);
+                    Logger.Logger.Info(sdp.MediaServerId + "->" + sdp.CameraId + "->" + "要删除除一天的文件，数据库标记为删除 -> " +
+                                       day!);
                     // LogWriter.WriteLog("要删除除一天的文件，数据库标记为删除", day!);
                 }
 
@@ -193,7 +194,8 @@ namespace StreamNodeWebApi.AutoTasker
                                     OrmService.Db.Update<RecordFile>().Set(x => x.UpdateTime, DateTime.Now)
                                         .Set(x => x.Deleted, true)
                                         .Where(x => x.Id == ret!.Id).ExecuteAffrows();
-                                    Logger.Logger.Info(sdp.MediaServerId+"->"+sdp.CameraId+"->"+"删除录制文件 -> " + ret.VideoPath!);
+                                    Logger.Logger.Info(sdp.MediaServerId + "->" + sdp.CameraId + "->" + "删除录制文件 -> " +
+                                                       ret.VideoPath!);
                                     Thread.Sleep(20);
                                 }
                             }
@@ -268,7 +270,7 @@ namespace StreamNodeWebApi.AutoTasker
             string end = d.EndTime.ToString("HH:mm:ss");
             TimeSpan workStartDt = DateTime.Parse(start).TimeOfDay;
             TimeSpan workEndDt = DateTime.Parse(end).TimeOfDay;
-          
+
             if (nowDt > workStartDt && nowDt < workEndDt)
             {
                 return true;
@@ -290,24 +292,24 @@ namespace StreamNodeWebApi.AutoTasker
                 bool haveFalse = false;
                 foreach (var sdpTimeRange in sdp.TimeRangeList)
                 {
-                    
-                    if ( sdpTimeRange!=null && sdpTimeRange.WeekDay == DateTime.Now.DayOfWeek && isTimeRange(sdpTimeRange))
+                    if (sdpTimeRange != null && sdpTimeRange.WeekDay == DateTime.Now.DayOfWeek &&
+                        isTimeRange(sdpTimeRange))
                     {
-                        return true;//有当天计划并在时间反问内返回true
+                        return true; //有当天计划并在时间反问内返回true
                     }
 
                     if (sdpTimeRange != null && sdpTimeRange.WeekDay == DateTime.Now.DayOfWeek &&
                         !isTimeRange(sdpTimeRange))
                     {
-                        haveFalse = true;//当天计划存在，但不在范围，先做个标记，因为也许会有多个星期n的情况
+                        haveFalse = true; //当天计划存在，但不在范围，先做个标记，因为也许会有多个星期n的情况
                     }
-                   
                 }
-                if (haveFalse) 
+
+                if (haveFalse)
                 {
-                    return false;//如果循环以外，haveFalse为true,说明真的不在范围内
+                    return false; //如果循环以外，haveFalse为true,说明真的不在范围内
                 }
-              
+
                 /*var t = sdp.TimeRangeList.FindLast(x => x.WeekDay == DateTime.Now.DayOfWeek);
                 if (t != null && isTimeRange(t)) //有当天计划并在时间反问内返回true
                 {

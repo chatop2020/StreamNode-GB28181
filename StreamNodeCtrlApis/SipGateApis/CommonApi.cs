@@ -110,7 +110,7 @@ namespace StreamNodeCtrlApis.SipGateApis
             }
             */
 
-            string streamid=dev.IpAddress+dev.DeviceId + camera.Camera.DeviceID ;
+            string streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID;
             /*if (cameraInst != null && cameraInst.MobileCamera == true)
             {
                 streamid = cameraInst.MobileCamera + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
@@ -272,7 +272,7 @@ namespace StreamNodeCtrlApis.SipGateApis
                         x.PushMediaServerId.Equals(mediaServerDeviceId));
                 }*/
 
-                string streamid =dev.IpAddress+ dev.DeviceId + camera.Camera.DeviceID ;
+                string streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID;
                 /*if (cameraInst != null && cameraInst.MobileCamera == true)
                 {
                     streamid = cameraInst.MobileCamera + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
@@ -283,10 +283,8 @@ namespace StreamNodeCtrlApis.SipGateApis
                 }*/
 
                 uint stid = CRC32Cls.GetCRC32(streamid);
-                
-                
-                
-                
+
+
                 string mediaStreamId = string.Format("{0:X8}", stid);
                 ReqZLMediaKitOpenRtpPort req = new ReqZLMediaKitOpenRtpPort()
                 {
@@ -417,16 +415,17 @@ namespace StreamNodeCtrlApis.SipGateApis
             return true;
         }
 
-       /// <summary>
-       /// ptz控制
-       /// </summary>
-       /// <param name="deviceid"></param>
-       /// <param name="dir"></param>
-       /// <param name="speed"></param>
-       /// <param name="rs"></param>
-       /// <param name="channelId">当需要对多通道设备进行ptz控制时，在此传通道id(NVR对接时要用到)</param>
-       /// <returns></returns>
-        public static bool PtzControl(string deviceid, string dir, int speed, out ResponseStruct rs,string channelId="")
+        /// <summary>
+        /// ptz控制
+        /// </summary>
+        /// <param name="deviceid"></param>
+        /// <param name="dir"></param>
+        /// <param name="speed"></param>
+        /// <param name="rs"></param>
+        /// <param name="channelId">当需要对多通道设备进行ptz控制时，在此传通道id(NVR对接时要用到)</param>
+        /// <returns></returns>
+        public static bool PtzControl(string deviceid, string dir, int speed, out ResponseStruct rs,
+            string channelId = "")
         {
             rs = new ResponseStruct()
             {
@@ -444,7 +443,7 @@ namespace StreamNodeCtrlApis.SipGateApis
             }
 
             var dev = Common.SipProcess.SipDeviceList.FindLast(x => x.DeviceId.Equals(deviceid));
-           
+
             if (dev != null)
             {
                 string cmd = dir.Trim().ToLower();
@@ -468,7 +467,7 @@ namespace StreamNodeCtrlApis.SipGateApis
                     cmd.Equals("removepreset") //删除预设位(不支持)   */
                 )
                 {
-                    var ret = Common.SipProcess.ReqPtzControl(deviceid, cmd, speed,channelId);
+                    var ret = Common.SipProcess.ReqPtzControl(deviceid, cmd, speed, channelId);
                     if (ret)
                     {
                         return true;

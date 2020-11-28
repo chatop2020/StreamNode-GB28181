@@ -1,2 +1,0 @@
-[08/08/2020 15:21:45]	INPUT    ::ffff:127.0.0.1    GET    /System/GetMediaServerList	{}
-[08/08/2020 15:21:45]	OUTPUT    ::ffff:127.0.0.1    GET    /System/GetMediaServerList	StatusCode:200  Body: []

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CommonFunction.ManageStructs;
 using CommonFunctions;
@@ -14,7 +13,8 @@ using JsonHelper = LibGB28181SipGate.JsonHelper;
 namespace StreamNodeWebApi.Controllers
 {
     /// <summary>
-    /// 系统接口类
+    /// 测试接口类
+    /// 此接口类是测试用的，与实际业务无关，可以忽略
     /// </summary>
     [ApiController]
     [Route("/Test")]
@@ -38,7 +38,7 @@ namespace StreamNodeWebApi.Controllers
         {
             if (response != null)
             {
-                Logger.Logger.Debug("收到task参数 ->" + JsonHelper.ToJson( response));
+                Logger.Logger.Debug("收到task参数 ->" + JsonHelper.ToJson(response));
             }
         }
 

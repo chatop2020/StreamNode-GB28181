@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace StreamMediaServerKeeper
@@ -175,7 +174,7 @@ namespace StreamMediaServerKeeper
                 {
                     Common.ProcessOfZLMediaKit = null;
                 }
-       
+
                 Thread.Sleep(200);
                 i++;
             }
@@ -232,7 +231,7 @@ namespace StreamMediaServerKeeper
             };
             if (File.Exists(Common.MediaServerBinPath))
             {
-                string Message=null;
+                string Message = null;
                 string StackTrace = null;
                 if (!checkProcessExists()) //如果不存在，就执行
                 {
@@ -246,11 +245,10 @@ namespace StreamMediaServerKeeper
                     {
                         Common.ProcessOfZLMediaKit = Common.ProcessHelper.RunProcess(Common.MediaServerBinPath, "");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Message = ex.Message;
                         StackTrace = ex.StackTrace;
-
                     }
 
                     int i = 0;
@@ -270,7 +268,7 @@ namespace StreamMediaServerKeeper
                     {
                         Code = ErrorNumber.ZLMediaKitRunBinExcept,
                         Message = ErrorMessage.ErrorDic![ErrorNumber.ZLMediaKitRunBinExcept] + "\r\n" + Message +
-                                  "\r\n" + StackTrace ,
+                                  "\r\n" + StackTrace,
                     };
                     Logger.Logger.Debug("启动流媒体服务器失败... -> pid->0 ->" + JsonHelper.ToJson(rs));
                     return 0;
@@ -303,8 +301,6 @@ namespace StreamMediaServerKeeper
             }
 
             return false;
-            
         }
-
     }
 }

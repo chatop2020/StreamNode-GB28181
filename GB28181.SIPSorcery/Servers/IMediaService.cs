@@ -1,6 +1,5 @@
 ﻿using System;
 using GB28181.Net;
-using SIPSorcery.SIP;
 
 namespace GB28181.Servers
 {
@@ -88,7 +87,8 @@ namespace GB28181.Servers
         /// <param name="type"></param>
         /// <param name="needResult"></param>
         /// <returns></returns>
-        int RecordFileQuery(DateTime beginTime, DateTime endTime, string type, out string _callId,bool needResult = false);
+        int RecordFileQuery(DateTime beginTime, DateTime endTime, string type, out string _callId,
+            bool needResult = false);
 
         /// <summary>
         /// 录像点播视频请求

@@ -5,6 +5,9 @@ using GB28181.Sys.Model;
 
 namespace CommonFunctions.DBStructs
 {
+    /// <summary>
+    /// 音视频设备的注册实例结构，与数据库中Camera表一致是Camera表的字段映射
+    /// </summary>
     [Table(Name = "Camera")]
     [Index("cmr_cameraid", "CameraId", true)]
     [Index("cmr_cameraname", "CameraName", false)]

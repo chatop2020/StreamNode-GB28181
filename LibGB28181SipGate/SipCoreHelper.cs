@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
-using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 using GB28181;
@@ -506,10 +505,8 @@ namespace LibGB28181SipGate
         private void OnRecordInfoReceived(RecordInfo recordInfo)
         {
             //待实现
-            var str = "收到GB28181的录像文件目录->\r\n"+JsonHelper.ToJson(recordInfo);
+            var str = "收到GB28181的录像文件目录->\r\n" + JsonHelper.ToJson(recordInfo);
             Logger.Logger.Debug(str);
-            
-
         }
 
         private void OnKeepAliveReceived(SIPEndPoint remoteEp, KeepAlive keepAlive, string devId)
@@ -634,7 +631,7 @@ namespace LibGB28181SipGate
             {
                 SipCoreTask gdlt = new SipCoreTask(pid, devId, this);
                 TaskList.Add(gdlt);
-                
+
                 string streamid = pip + pid + devId;
                 uint stid = CRC32Cls.GetCRC32(streamid);
                 Logger.Logger.Info("资料->" + streamid + " 10进制->" + stid + " 16进制->" + string.Format("{0:X8}", stid));
@@ -815,15 +812,14 @@ namespace LibGB28181SipGate
             return false;
         }
 
-        public bool ReqPtzControl(string devId, string dir, int speed,string channelId="")
+        public bool ReqPtzControl(string devId, string dir, int speed, string channelId = "")
         {
             var dev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(devId));
             if (dev != null)
             {
-                
                 SipCoreTask gdlt = new SipCoreTask("", devId, this);
                 TaskList.Add(gdlt);
-                var ret = gdlt.PtzContorl(dir, speed,channelId);
+                var ret = gdlt.PtzContorl(dir, speed, channelId);
                 if (ret)
                 {
                     Logger.Logger.Info("请求PTZ控制成功->" + gdlt.DeviceId + "->" + gdlt.CallId + "->" + dir + "->" + speed);
@@ -857,7 +853,7 @@ namespace LibGB28181SipGate
             TaskList.Remove(gdlt);
             return ret;
         }
-        
+
         /// <summary>
         /// 获取gb28181的录像文件
         /// </summary>
@@ -866,14 +862,14 @@ namespace LibGB28181SipGate
         /// <param name="endTime"></param>
         /// <param name="type">录像产生类型 time alarm manual all</param>
         /// <returns></returns>
-        public int GetRecordFile(string deviceId,DateTime startTime, DateTime endTime, string type)
+        public int GetRecordFile(string deviceId, DateTime startTime, DateTime endTime, string type)
         {
             SipCoreTask gdlt = new SipCoreTask("", deviceId, this);
             TaskList.Add(gdlt);
-            var ret = gdlt.RecordFileQuery(startTime,endTime,type);
-            if (ret>-1)
+            var ret = gdlt.RecordFileQuery(startTime, endTime, type);
+            if (ret > -1)
             {
-                Logger.Logger.Info("获取录像目录成功->录像数量->("+ret+")个->" + gdlt.DeviceId + "->" + gdlt.CallId);
+                Logger.Logger.Info("获取录像目录成功->录像数量->(" + ret + ")个->" + gdlt.DeviceId + "->" + gdlt.CallId);
             }
             else
             {

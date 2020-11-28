@@ -11,6 +11,9 @@ namespace CommonFunction.ManageStructs
         Livecast,
     }
 
+    /// <summary>
+    /// 在线音视频设备的结构
+    /// </summary>
     [Serializable]
     public class CameraSession
     {

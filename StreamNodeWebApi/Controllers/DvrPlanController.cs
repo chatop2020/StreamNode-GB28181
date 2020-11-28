@@ -9,7 +9,9 @@ using StreamNodeCtrlApis.SystemApis;
 namespace StreamNodeWebApi.Controllers
 {
     /// <summary>
-    /// 授权访问接口类
+    /// 录制计划相关的接口类
+    /// 可以针对某个音视频设备实例设置对该音视频设备的开始录制与结束录制计划
+    /// 可以设置录制限制（空间和时间配额），在录制受限后通过什么样的方式进行处理
     /// </summary>
     [ApiController]
     [Route("/DvrPlan")]

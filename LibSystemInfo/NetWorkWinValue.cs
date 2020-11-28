@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 
 namespace LibSystemInfo
 {
@@ -11,13 +10,17 @@ namespace LibSystemInfo
     /// </summary>
     public static class NetWorkWinValue
     {
-        private static object lockObj= new object();
+        private static object lockObj = new object();
         private static string binPath = AppDomain.CurrentDomain.BaseDirectory + "/WinNetworkStaCli.exe";
-        private static ProcessHelper SystemInfoProcessHelper = new ProcessHelper(p_StdOutputDataReceived, null, p_Process_Exited);
-        private static long perSendBytes=0;
-        private static long perRecvBytes=0;
+
+        private static ProcessHelper SystemInfoProcessHelper =
+            new ProcessHelper(p_StdOutputDataReceived, null, p_Process_Exited);
+
+        private static long perSendBytes = 0;
+        private static long perRecvBytes = 0;
         private static string mac = "";
         public static NetWorkStat _NetWorkStat = new NetWorkStat();
+
         private static void p_Process_Exited(object sender, EventArgs e)
         {
             SystemInfoProcessHelper.RunProcess(binPath, "");
@@ -29,7 +32,7 @@ namespace LibSystemInfo
             {
                 long tmpSendBytes = 0;
                 long tmpRecvBytes = 0;
-                string[] tmpStrArr = e.Data.Trim().Split("]-[",StringSplitOptions.RemoveEmptyEntries);
+                string[] tmpStrArr = e.Data.Trim().Split("]-[", StringSplitOptions.RemoveEmptyEntries);
                 if (tmpStrArr.Length == 3)
                 {
                     foreach (var tmpStr in tmpStrArr)
@@ -38,18 +41,20 @@ namespace LibSystemInfo
                         {
                             _NetWorkStat.Mac = tmpStr.Replace("MAC:", "").Trim();
                         }
+
                         if (tmpStr.Contains("发送"))
                         {
-                            var per = tmpStr.Replace("发送:", ""); 
-                            if(!long.TryParse(per.Trim(),out tmpSendBytes))
+                            var per = tmpStr.Replace("发送:", "");
+                            if (!long.TryParse(per.Trim(), out tmpSendBytes))
                             {
                                 break;
                             }
                         }
+
                         if (tmpStr.Contains("接收"))
                         {
-                            var per = tmpStr.Replace("接收:", ""); 
-                            if(!long.TryParse(per.Trim(),out tmpRecvBytes))
+                            var per = tmpStr.Replace("接收:", "");
+                            if (!long.TryParse(per.Trim(), out tmpRecvBytes))
                             {
                                 break;
                             }
@@ -71,14 +76,14 @@ namespace LibSystemInfo
                                 _NetWorkStat.UpdateTime = DateTime.Now;
                             }
                         }
-                        else//有数据以后，每次计算差值
+                        else //有数据以后，每次计算差值
                         {
                             lock (lockObj)
                             {
                                 long subSendBytes = tmpSendBytes - perSendBytes;
                                 long subRecvBytes = tmpRecvBytes - perRecvBytes;
-                                perSendBytes =tmpSendBytes;
-                                perRecvBytes =tmpRecvBytes;
+                                perSendBytes = tmpSendBytes;
+                                perRecvBytes = tmpRecvBytes;
                                 _NetWorkStat.CurrentRecvBytes = subRecvBytes;
                                 _NetWorkStat.CurrentSendBytes = subSendBytes;
                                 _NetWorkStat.TotalRecvBytes += subRecvBytes;
@@ -88,11 +93,10 @@ namespace LibSystemInfo
                         }
                     }
                 }
-                
             }
         }
 
-        
+
         static NetWorkWinValue()
         {
             if (File.Exists(binPath))
@@ -109,11 +113,12 @@ namespace LibSystemInfo
                         }
                     }
                 }
+
                 SystemInfoProcessHelper.RunProcess(binPath, "");
             }
             else
             {
-                throw  new FileNotFoundException(binPath+" not found.");
+                throw new FileNotFoundException(binPath + " not found.");
             }
         }
 
@@ -124,6 +129,5 @@ namespace LibSystemInfo
                 return _NetWorkStat;
             }
         }
-        
     }
 }

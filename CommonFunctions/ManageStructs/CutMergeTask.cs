@@ -21,6 +21,9 @@ namespace CommonFunctions.ManageStructs
         Closed,
     }
 
+    /// <summary>
+    /// 裁剪合并任务的结构
+    /// </summary>
     [Serializable]
     public class CutMergeTask
     {

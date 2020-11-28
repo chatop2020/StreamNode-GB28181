@@ -7,6 +7,7 @@
         <member name="T:StreamNodeWebApi.AuthVerifyAttribute">
             <summary>
             验证session和allowkey的类
+            暂时没有启用
             </summary>
         </member>
         <member name="M:StreamNodeWebApi.AuthVerifyAttribute.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
@@ -23,7 +24,7 @@
         </member>
         <member name="T:StreamNodeWebApi.LogAttribute">
             <summary>
-            日志记录
+            日志记录类，所有经过httpcontroller的进出日志都会被记录
             </summary>
         </member>
         <member name="M:StreamNodeWebApi.LogAttribute.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
@@ -180,9 +181,20 @@
             录制计划的自动化
             </summary>
         </member>
+        <member name="T:StreamNodeWebApi.AutoTasker.StreamNodeKeeperMonitor">
+            <summary>
+            流媒体服务器健康检查线程
+            每次循环都将所有流媒体服务器循环一次，尝试调取流媒体服务器/Health接口
+            /Health接口正确返回则将流媒体服务器的KeepAlive设置成当前时间
+            当发现流媒体服务器的KeepAlive与当前服务器时间时长3秒或以上时，考虑流媒体服务器掉线
+            把该流媒体服务器从流媒体服务器列表中移除，等其恢复正常后通过Webhook接口重新注册自己
+            </summary>
+        </member>
         <member name="T:StreamNodeWebApi.Controllers.DvrPlanController">
             <summary>
-            授权访问接口类
+            录制计划相关的接口类
+            可以针对某个音视频设备实例设置对该音视频设备的开始录制与结束录制计划
+            可以设置录制限制（空间和时间配额），在录制受限后通过什么样的方式进行处理
             </summary>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.DvrPlanController.DeleteDvrPlanById(System.Int64)">
@@ -222,6 +234,7 @@
         <member name="T:StreamNodeWebApi.Controllers.MediaServerController">
             <summary>
             流媒体相关接口类
+            所有关于ZLMediaKit的控制以及视频文件裁剪合并（切片），文件录制的开关、GB28181推拉流、音视频设备的注册与激活等功能接口都在这个类里
             </summary>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.MediaServerController.CutOrMergeVideoFile(CommonFunctions.WebApiStructs.Request.ReqCutOrMergeVideoFile)">
@@ -494,6 +507,7 @@
         <member name="T:StreamNodeWebApi.Controllers.SipGateController">
             <summary>
             Sip网关类接口
+            GB28181 SIP信令网关的接口
             </summary>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.SipGateController.ActiveDeviceCatalogQuery(System.String)">
@@ -562,6 +576,7 @@
         <member name="T:StreamNodeWebApi.Controllers.SystemController">
             <summary>
             系统接口类
+            整个系统层面的接口，获取系统运行性能参数，获取流媒体实例和列表等
             </summary>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.SystemController.GetGlobleSystemInfo">
@@ -588,7 +603,8 @@
         </member>
         <member name="T:StreamNodeWebApi.Controllers.TestController">
             <summary>
-            系统接口类
+            测试接口类
+            此接口类是测试用的，与实际业务无关，可以忽略
             </summary>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.TestController.AddStreamProxy(System.String,System.String)">
@@ -615,7 +631,14 @@
         </member>
         <member name="T:StreamNodeWebApi.Controllers.WebHookController">
             <summary>
-            Sip网关类接口
+            Webhook类接口
+            ZLMediaKit的config.ini上配置接口的相关地址，在ZLMeidakit发生一些重要事件时将通过这些地址回调StreamNode-GB28181
+            在收到ZLMediaKit的Webhook回调后，在此做相关的处理，比如有流发布，有播放者开始播放，流停止发布等事件，都在此处理
+            除了给ZLMediaKit提供Webhook回调方法以外，同时还提供给StreamNodeKeeper流媒体治理服务自注册接口，StreamNodeKeeper启动后
+            自动向Webhook接口上报其自己的信息，接口根据Commonn.MediaServerList中是否存在此流媒体信息为依据将此请求做为添加流媒体服务器
+            或做为心跳处理
+            在Sip设备上线时，此接口类提供接收未知Sip设备的自动数据库写入功能，以完成Sip设备、通道自动发现的功能，此类自动发现设备需要通过激活接口
+            对其进行激活以获取此类设备的合法身份，以便后续流程正常使用。
             </summary>
         </member>
         <member name="M:StreamNodeWebApi.Controllers.WebHookController.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
@@ -715,14 +738,29 @@
             <param name="value"></param>
             <param name="options"></param>
         </member>
+        <member name="T:StreamNodeWebApi.ExceptionMiddleware">
+            <summary>
+            异常情况处理的中间件
+            </summary>
+        </member>
         <member name="F:StreamNodeWebApi.Program.CameraAutoKeeper">
             <summary>
-            
+            摄像头自动监控类实例
             </summary>
         </member>
         <member name="F:StreamNodeWebApi.Program.RecordAutoKeeper">
             <summary>
-            
+            录制计划自动监控类实例
+            </summary>
+        </member>
+        <member name="F:StreamNodeWebApi.Program.StreamNodeKeeperMonitor">
+            <summary>
+            流媒体服务器自动监控类实例
+            </summary>
+        </member>
+        <member name="T:StreamNodeWebApi.Startup">
+            <summary>
+            .net core MVC配置
             </summary>
         </member>
     </members>

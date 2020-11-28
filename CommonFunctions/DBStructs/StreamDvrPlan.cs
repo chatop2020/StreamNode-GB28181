@@ -17,6 +17,9 @@ namespace CommonFunctions.DBStructs
         DeleteFile,
     }
 
+    /// <summary>
+    /// 录制计划，是数据库StreamDvrPlan表的字段映射
+    /// </summary>
     [Table(Name = "StreamDvrPlan")]
     [Index("uk_dvrPlan_MId", "MediaServerId", false)]
     [Index("uk_dvrPlan_CId", "CameraId", false)]

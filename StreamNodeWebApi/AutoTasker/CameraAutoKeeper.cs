@@ -481,8 +481,9 @@ namespace StreamNodeWebApi.AutoTasker
                             liveCamera(cit);
                         }
 
-                        if (cit != null &&  cit.Activated == true && cit.EnableLive == false) //为了自己可控的进行推流与断流控制，这边只处理cit.Activated为true的情况
-                                                                                              //手动推流的情况下，可以将数据库Activated设置了False来解决推上去后又断下来的问题
+                        if (cit != null && cit.Activated == true && cit.EnableLive == false
+                            ) //为了自己可控的进行推流与断流控制，这边只处理cit.Activated为true的情况
+                            //手动推流的情况下，可以将数据库Activated设置了False来解决推上去后又断下来的问题
                         {
                             stopCamera(cit);
                         }

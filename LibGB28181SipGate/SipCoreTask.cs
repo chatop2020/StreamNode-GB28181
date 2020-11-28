@@ -104,9 +104,6 @@ namespace LibGB28181SipGate
         }
 
 
-        
-        
-        
         /// <summary>
         /// 启动远端视频推流,动态创建端口
         /// </summary>
@@ -172,7 +169,7 @@ namespace LibGB28181SipGate
             {
                 var obj = monitor.Value;
                 /*< ! -- 录像产生类型(可选)time 或alarm 或 manual 或all--> <element name="Type" type="string"/>*/
-                var ret = obj.RecordFileQuery(startTime,endTime,type, out _callId,true);
+                var ret = obj.RecordFileQuery(startTime, endTime, type, out _callId, true);
                 var timeout = _autoResetEvent.WaitOne(5000);
                 if (!timeout)
                 {
@@ -211,9 +208,8 @@ namespace LibGB28181SipGate
         /// <param name="dir"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
-        public bool PtzContorl(string dir, int speed,string channelId="")
+        public bool PtzContorl(string dir, int speed, string channelId = "")
         {
-
             var monitor = _sipCoreHelper.SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(_deviceId));
             if (monitor.Value != null)
             {
@@ -268,7 +264,7 @@ namespace LibGB28181SipGate
                         break;
                 }
 
-                obj.PtzContrl(out _callId, cmd, speed, true,channelId);
+                obj.PtzContrl(out _callId, cmd, speed, true, channelId);
                 var timeout = _autoResetEvent.WaitOne(5000);
                 if (!timeout)
                 {

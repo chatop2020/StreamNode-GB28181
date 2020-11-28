@@ -44,7 +44,7 @@ namespace GB28181.Servers
         /// <param name="ptzCommand"></param>
         /// <param name="speed"></param>
         /// <param name="deviceid"></param>
-        void PtzControl(PTZCommand ptzCommand, int speed, string deviceid,string channelId="");
+        void PtzControl(PTZCommand ptzCommand, int speed, string deviceid, string channelId = "");
 
         void DeviceStateQuery(string deviceid);
         int RecordFileQuery(string deviceId, DateTime startTime, DateTime endTime, string type);

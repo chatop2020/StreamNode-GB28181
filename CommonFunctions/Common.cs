@@ -35,6 +35,7 @@ namespace CommonFunctions
 
         //在线播放用户列表
         public static List<PlayerSession> PlayerSessions = new List<PlayerSession>();
+        public static object MediaServerLock = new object();
         public static object CameraSessionLock = new object();
         public static object SipDeviceListLock = new object();
         public static object CameraInstanceListLock = new object();
@@ -49,9 +50,9 @@ namespace CommonFunctions
             {
                 KillSelf();
             }
-            
+
             //清理ffmpeg进程
-           Process[] processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(FFmpegBinPath));
+            Process[] processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(FFmpegBinPath));
             if (processes != null && processes.Length > 0)
             {
                 foreach (var process in processes)

@@ -23,8 +23,6 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
-using Microsoft.Extensions.Logging;
-using SIPSorcery.Sys;
 
 namespace SIPSorcery.Net
 {

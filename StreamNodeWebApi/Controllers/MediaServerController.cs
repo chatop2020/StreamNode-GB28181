@@ -15,6 +15,7 @@ namespace StreamNodeWebApi.Controllers
 {
     /// <summary>
     /// 流媒体相关接口类
+    /// 所有关于ZLMediaKit的控制以及视频文件裁剪合并（切片），文件录制的开关、GB28181推拉流、音视频设备的注册与激活等功能接口都在这个类里
     /// </summary>
     [ApiController]
     [Route("/MediaServer")]
@@ -376,8 +377,7 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
-        
-      
+
         /// <summary>
         /// 通过流媒体ID与摄像头实例ID获取SipDeviceId
         /// </summary>
@@ -389,10 +389,10 @@ namespace StreamNodeWebApi.Controllers
         [HttpGet]
         [Log]
         [AuthVerify]
-        public string GetSipDeviceIdFromCameraId(string mediaServerId,string cameraId)
+        public string GetSipDeviceIdFromCameraId(string mediaServerId, string cameraId)
         {
             ResponseStruct rs;
-            var ret = MediaServerApis.GetSipDeviceIdFromCameraId(mediaServerId,cameraId, out rs);
+            var ret = MediaServerApis.GetSipDeviceIdFromCameraId(mediaServerId, cameraId, out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
@@ -400,7 +400,7 @@ namespace StreamNodeWebApi.Controllers
 
             return ret;
         }
-        
+
 
         /// <summary>
         /// 获取在线摄像头列表
@@ -785,7 +785,7 @@ namespace StreamNodeWebApi.Controllers
         public List<CameraInstance> GetWaitForActiveCameraInstances()
         {
             ResponseStruct rs;
-            var ret = MediaServerApis.GetWaitForActiveCameraInstances( out rs);
+            var ret = MediaServerApis.GetWaitForActiveCameraInstances(out rs);
             if (rs.Code != ErrorNumber.None)
             {
                 throw new HttpResponseException(JsonHelper.ToJson(rs));
@@ -794,7 +794,6 @@ namespace StreamNodeWebApi.Controllers
             return ret;
         }
 
-        
 
         /// <summary>
         /// 启动流媒体服务

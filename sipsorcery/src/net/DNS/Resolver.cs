@@ -27,7 +27,6 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
-using Microsoft.Extensions.Logging;
 using SIPSorcery.Sys;
 
 /*

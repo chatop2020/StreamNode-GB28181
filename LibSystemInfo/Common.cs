@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using SystemInfoLibrary.OperatingSystem;
 
 namespace LibSystemInfo
 {
-
-    
     [Serializable]
     public class GlobalSystemInfo
     {
@@ -21,7 +17,7 @@ namespace LibSystemInfo
         private List<DriveInfo> _driveInfo;
         private DateTime _updateTime;
 
-        
+
         public string SystemType
         {
             get => _systemType;
@@ -122,11 +118,10 @@ namespace LibSystemInfo
             set => _updateTime = value;
         }
     }
-    
+
     [Serializable]
     public class DriveInfo
     {
-
         private string? _name;
         private bool? _isReady;
         private double? _total;

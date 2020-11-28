@@ -126,6 +126,11 @@
             <param name="processName"></param>
             <returns></returns>
         </member>
+        <member name="T:CommonFunctions.DBStructs.CameraInstance">
+            <summary>
+            音视频设备的注册实例结构，与数据库中Camera表一致是Camera表的字段映射
+            </summary>
+        </member>
         <member name="P:CommonFunctions.DBStructs.CameraInstance.Id">
             <summary>
             数据库中的主键id
@@ -232,6 +237,11 @@
             同时将Activated设备为false,需要通过接口激活这类设备
             </summary>
         </member>
+        <member name="T:CommonFunctions.DBStructs.ClientOnOffLog">
+            <summary>
+            设备上线下线的记录，实际作用有点鸡肋，打算将来移除掉
+            </summary>
+        </member>
         <member name="P:CommonFunctions.DBStructs.ClientOnOffLog.Id">
             <summary>
             数据库主键
@@ -299,6 +309,11 @@
             上线或下线事件
             </summary>
         </member>
+        <member name="T:CommonFunctions.DBStructs.DvrDayTimeRange">
+            <summary>
+            录制计划详细计划的结构，是数据库DvrDayTimeRange表的字段映射
+            </summary>
+        </member>
         <member name="P:CommonFunctions.DBStructs.DvrDayTimeRange.Id">
             <summary>
             数据库主键
@@ -322,6 +337,11 @@
         <member name="P:CommonFunctions.DBStructs.DvrDayTimeRange.EndTime">
             <summary>
             录制结束时间（只取时间部分）
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.DBStructs.RecordFile">
+            <summary>
+            录制文件的记录结构，是数据库RecordFile表的字段映射
             </summary>
         </member>
         <member name="P:CommonFunctions.DBStructs.RecordFile.Id">
@@ -434,6 +454,11 @@
             流媒体服务器ID
             </summary>
         </member>
+        <member name="T:CommonFunctions.DBStructs.StreamDvrPlan">
+            <summary>
+            录制计划，是数据库StreamDvrPlan表的字段映射
+            </summary>
+        </member>
         <member name="P:CommonFunctions.DBStructs.StreamDvrPlan.Id">
             <summary>
             数据库主键
@@ -481,7 +506,7 @@
         </member>
         <member name="T:CommonFunctions.ManageStructs.AllowKey">
             <summary>
-            allowkey管理类
+            allowkey管理类，暂时没有启用
             </summary>
         </member>
         <member name="P:CommonFunctions.ManageStructs.AllowKey.Key">
@@ -547,6 +572,11 @@
             Cutting=对前后进行裁剪
             Mergeing=文件合并
             Closed=任务结束
+            </summary>
+        </member>
+        <member name="T:CommonFunctions.ManageStructs.CutMergeTask">
+            <summary>
+            裁剪合并任务的结构
             </summary>
         </member>
         <member name="F:CommonFunctions.ManageStructs.CutMergeTask._processPercentage">
@@ -2507,6 +2537,11 @@
         <member name="T:CommonFunctions.WebApiStructs.Response.ResLiveVideoResponse">
             <summary>
             用于返回实时视频预览请求的结果
+            </summary>
+        </member>
+        <member name="T:CommonFunction.ManageStructs.CameraSession">
+            <summary>
+            在线音视频设备的结构
             </summary>
         </member>
         <member name="P:CommonFunction.ManageStructs.CameraSession.CameraId">

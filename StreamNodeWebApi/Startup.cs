@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 
 namespace StreamNodeWebApi
 {
+    /// <summary>
+    /// .net core MVC配置
+    /// </summary>
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -22,7 +22,6 @@ namespace StreamNodeWebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //配置跨域处理，允许所有来源
@@ -45,39 +44,16 @@ namespace StreamNodeWebApi
                 c.IncludeXmlComments(Path.Combine(Common.WorkPath, "Swagger.xml"));
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            /*services.AddControllers()
-                .AddNewtonsoftJson(
-                    options =>
-                    {
-                        options.SerializerSettings.Converters.Add(new IsoDateTimeConverter()
-                        {
-                            DateTimeFormat = "yyyy-MM-dd HH:mm:ss",
-                        });
-                    }
-                );
-                */
-
             services.AddControllers().AddJsonOptions(
                 options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
             ).AddJsonOptions(configure =>
             {
                 configure.JsonSerializerOptions.Converters.Add(new DatetimeJsonConverter());
             });
-            
-           
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            /*
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            */
-
             app.UseHttpsRedirection();
             // 启用Swagger中间件
             app.UseSwagger();

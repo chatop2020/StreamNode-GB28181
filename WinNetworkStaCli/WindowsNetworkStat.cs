@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
+﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -14,15 +12,21 @@ namespace WinNetworkStaCli
             public long InterfaceLuid;
             public int InterfaceIndex;
             public byte[] GUID;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0)] // 514
             public string Alias;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0)]
             public string Description;
+
             public int PhysicalAddressLength;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
             public byte[] PhysicalAddress;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
             public byte[] PermanentPhysicalAddress;
+
             public int Mtu;
             public int Type;
             public int TunnelType;
@@ -30,8 +34,10 @@ namespace WinNetworkStaCli
             public int PhysicalMediumType;
             public int AccessType;
             public int DirectionType;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
             public byte[] InterfaceAndOperStatusFlags;
+
             public int OperStatus;
             public int AdminStatus;
             public int MediaConnectState;
@@ -94,6 +100,7 @@ namespace WinNetworkStaCli
             {
                 return MIB_IF_TABLE2;
             }
+
             int leng = 1352;
             RtlMoveMemory(ref MIB_IF_TABLE2.NumEntries, pTable, 4);
             MIB_IF_TABLE2.Table = new MIB_IF_ROW2[MIB_IF_TABLE2.NumEntries];
@@ -114,7 +121,8 @@ namespace WinNetworkStaCli
                 MIB_IF_TABLE2.Table[i].PhysicalAddress = new byte[32];
                 RtlMoveMemory(SetHandleCount(MIB_IF_TABLE2.Table[i].PhysicalAddress), Address + (i) * leng + 1060, 32);
                 MIB_IF_TABLE2.Table[i].PermanentPhysicalAddress = new byte[32];
-                RtlMoveMemory(SetHandleCount(MIB_IF_TABLE2.Table[i].PermanentPhysicalAddress), Address + (i) * leng + 1092, 32);
+                RtlMoveMemory(SetHandleCount(MIB_IF_TABLE2.Table[i].PermanentPhysicalAddress),
+                    Address + (i) * leng + 1092, 32);
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].Mtu, Address + (i) * leng + 1124, 4);
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].Type, Address + (i) * leng + 1128, 4);
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].TunnelType, Address + (i) * leng + 1132, 4);
@@ -123,7 +131,8 @@ namespace WinNetworkStaCli
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].AccessType, Address + (i) * leng + 1144, 4);
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].DirectionType, Address + (i) * leng + 1148, 4);
                 MIB_IF_TABLE2.Table[i].InterfaceAndOperStatusFlags = new byte[8];
-                RtlMoveMemory(SetHandleCount(MIB_IF_TABLE2.Table[i].InterfaceAndOperStatusFlags), Address + (i) * leng + 1152, 8);
+                RtlMoveMemory(SetHandleCount(MIB_IF_TABLE2.Table[i].InterfaceAndOperStatusFlags),
+                    Address + (i) * leng + 1152, 8);
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].OperStatus, Address + (i) * leng + 1160, 4);
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].AdminStatus, Address + (i) * leng + 1164, 4);
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].MediaConnectState, Address + (i) * leng + 1168, 4);
@@ -151,6 +160,7 @@ namespace WinNetworkStaCli
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].OutBroadcastOctets, Address + (i) * leng + 1336, 8);
                 RtlMoveMemory(ref MIB_IF_TABLE2.Table[i].OutQLen, Address + (i) * leng + 1344, 8);
             }
+
             FreeMibTable(pTable);
             return MIB_IF_TABLE2;
         }
@@ -165,11 +175,14 @@ namespace WinNetworkStaCli
                 {
                     continue;
                 }
-                var ret = resList.FindLast(x => x.Recv.Equals(MIB_IF_TABLE2.Table[i].InOctets) && x.Send.Equals(MIB_IF_TABLE2.Table[i].OutOctets));
+
+                var ret = resList.FindLast(x =>
+                    x.Recv.Equals(MIB_IF_TABLE2.Table[i].InOctets) && x.Send.Equals(MIB_IF_TABLE2.Table[i].OutOctets));
                 if (ret != null)
                 {
                     continue;
                 }
+
                 NetworkAdapter n = new NetworkAdapter();
                 n.Send = MIB_IF_TABLE2.Table[i].OutOctets;
                 n.Recv = MIB_IF_TABLE2.Table[i].InOctets;
@@ -180,15 +193,12 @@ namespace WinNetworkStaCli
                 }
 
                 n.MAC = builder.ToString().Substring(1);
-               
-         
-                resList.Add(n);
 
+
+                resList.Add(n);
             }
 
             return resList;
         }
-
-
     }
 }

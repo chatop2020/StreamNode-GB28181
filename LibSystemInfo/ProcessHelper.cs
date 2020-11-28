@@ -35,7 +35,7 @@ namespace LibSystemInfo
             if (process.StartInfo != null)
             {
                 Process[] processes =
-                    Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
+                    Process.GetProcessesByName(Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
                 return !(processes.Length > 0);
             }
 
@@ -56,7 +56,7 @@ namespace LibSystemInfo
             }
 
             Process[] processes =
-                Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
+                Process.GetProcessesByName(Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
             bool hasValue = processes.Length > 0;
             if (hasValue)
             {

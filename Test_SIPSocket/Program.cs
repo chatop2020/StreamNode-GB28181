@@ -6,8 +6,9 @@ namespace Test_SIPSocket
 {
     class Program
     {
-        static UdpServer udpServer; 
+        static UdpServer udpServer;
         static TcpPullServer tcpPullServer;
+
         static void Main(string[] args)
         {
             tcpPullServer = new TcpPullServer(1000, 10240, 5);
@@ -22,10 +23,10 @@ namespace Test_SIPSocket
             udpServer.OnSend += UdpServer_OnSend;
             //Console.WriteLine("Hello World!");
             Console.Read();
-            
+
             Console.WriteLine("Hello World!");
         }
-        
+
         private static void UdpServer_OnSend(EndPoint arg1, int arg2)
         {
             //Console.WriteLine("服务端发送长度：" + arg2);
@@ -36,7 +37,7 @@ namespace Test_SIPSocket
             //Console.WriteLine("服务端接收长度：" + arg4);
             udpServer.Send(arg1, arg2, arg3, arg4);
         }
-        
+
         private static void Server_OnAccept(int obj)
         {
             //server.SetAttached(obj, 555);

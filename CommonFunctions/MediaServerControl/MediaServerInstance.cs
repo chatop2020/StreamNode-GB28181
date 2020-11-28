@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using CommonFunctions.DBStructs;
 using CommonFunctions.ManageStructs;
-using CommonFunctions.WebApiStructs.Request;
 using CommonFunctions.WebApiStructs.Response;
 using LibSystemInfo;
 using JsonHelper = LibGB28181SipGate.JsonHelper;
@@ -58,6 +57,8 @@ namespace CommonFunctions.MediaServerControl
         /// 是否正在运行
         /// </summary>
         public bool IsRunning => GetIsRunning(out _);
+
+        public bool Health => GetHealth();
 
         /// <summary>
         /// 获取运行时长（秒）
@@ -209,6 +210,26 @@ namespace CommonFunctions.MediaServerControl
                     //
                 }
             })).Start();
+        }
+
+
+        private bool GetHealth()
+        {
+            try
+            {
+                string innerUrl = "http://" + _ipaddress + ":" + _webApiPort + "/Health";
+                var httpRet = NetHelper.HttpGetRequest(innerUrl, null, "utf-8", 1000);
+                if (!string.IsNullOrEmpty(httpRet) && httpRet.Equals("ok"))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool GetIsRunning(out ResponseStruct rs)

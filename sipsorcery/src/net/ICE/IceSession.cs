@@ -51,7 +51,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DnsClient;
-using Microsoft.Extensions.Logging;
 using SIPSorcery.Sys;
 
 [assembly: InternalsVisibleToAttribute("SIPSorcery.UnitTests")]

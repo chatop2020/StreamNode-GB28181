@@ -24,7 +24,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using GB28181.App;
 
-
 namespace GB28181.Persistence
 {
     public delegate T SIPAssetGetFromDirectQueryDelegate<T>(string sqlQuery, params IDbDataParameter[] sqlParameters);

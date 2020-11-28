@@ -12,6 +12,9 @@ namespace CommonFunctions.DBStructs
         Off,
     }
 
+    /// <summary>
+    /// 设备上线下线的记录，实际作用有点鸡肋，打算将来移除掉
+    /// </summary>
     [Serializable]
     [Table(Name = "ClientLogOnOff")]
     [Index("clof_ipaddress", "IpAddress", false)]

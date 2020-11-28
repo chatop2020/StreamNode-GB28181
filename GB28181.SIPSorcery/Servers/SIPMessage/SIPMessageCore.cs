@@ -379,7 +379,7 @@ namespace GB28181.Servers.SIPMessage
         }
 
 
-        public void PtzControl(PTZCommand ptzcmd, int dwSpeed, string deviceId,string channelId="")
+        public void PtzControl(PTZCommand ptzcmd, int dwSpeed, string deviceId, string channelId = "")
         {
             try
             {
@@ -388,7 +388,7 @@ namespace GB28181.Servers.SIPMessage
                 {
                     if (item.Key.Equals(deviceId))
                     {
-                        item.Value.PtzContrl(out string _, ptzcmd, dwSpeed,true,channelId);
+                        item.Value.PtzContrl(out string _, ptzcmd, dwSpeed, true, channelId);
                     }
                 }
             }

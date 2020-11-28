@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using GB28181.Sys;
 using SIPSorcery.Sys;
 
 namespace GB28181.Net

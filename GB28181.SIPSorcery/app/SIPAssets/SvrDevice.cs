@@ -5,7 +5,6 @@ using System.Data;
 using System.Runtime.Serialization;
 using System.Xml;
 
-
 namespace GB28181.App
 {
     /// <summary>

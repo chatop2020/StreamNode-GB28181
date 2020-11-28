@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Renci.SshNet;
 
 namespace Test_SSH

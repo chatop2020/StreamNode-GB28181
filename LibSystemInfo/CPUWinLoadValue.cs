@@ -53,7 +53,7 @@ namespace LibSystemInfo
                 f = 100;
             }
 
-            CPULOAD = Math.Round(f,2);
+            CPULOAD = Math.Round(f, 2);
             return CPULOAD;
         }
 

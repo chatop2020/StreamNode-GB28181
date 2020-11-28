@@ -12,6 +12,7 @@ namespace StreamNodeWebApi.Controllers
 {
     /// <summary>
     /// 系统接口类
+    /// 整个系统层面的接口，获取系统运行性能参数，获取流媒体实例和列表等
     /// </summary>
     [ApiController]
     [Route("/System")]

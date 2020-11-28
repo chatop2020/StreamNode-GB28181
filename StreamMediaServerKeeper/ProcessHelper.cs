@@ -6,20 +6,20 @@ namespace StreamMediaServerKeeper
 {
     public class ProcessHelper
     {
-
         private DataReceivedEventHandler _std = null;
         private DataReceivedEventHandler _err = null;
         private EventHandler _exitEventHandle = null;
 
 
-        public ProcessHelper(DataReceivedEventHandler std=null, DataReceivedEventHandler err=null,EventHandler exitEvent=null)
+        public ProcessHelper(DataReceivedEventHandler std = null, DataReceivedEventHandler err = null,
+            EventHandler exitEvent = null)
         {
             _std = std;
             _err = err;
             _exitEventHandle = exitEvent;
         }
 
-        
+
         /// <summary>
         /// 杀死进程
         /// </summary>
@@ -32,16 +32,17 @@ namespace StreamMediaServerKeeper
                 process.Kill();
             }
 
-            if (process.StartInfo != null )
+            if (process.StartInfo != null)
             {
-                Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
+                Process[] processes =
+                    Process.GetProcessesByName(Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
                 return !(processes.Length > 0);
             }
 
             return true;
         }
-        
-        
+
+
         /// <summary>
         /// 检查进程是否正在运行
         /// </summary>
@@ -53,16 +54,19 @@ namespace StreamMediaServerKeeper
             {
                 return -1;
             }
-            Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
+
+            Process[] processes =
+                Process.GetProcessesByName(Path.GetFileNameWithoutExtension(process.StartInfo.FileName));
             bool hasValue = processes.Length > 0;
             if (hasValue)
             {
                 return processes[0].Id;
             }
+
             return -1;
         }
-        
-          
+
+
         /// <summary>
         /// 执行外部程序，含超时
         /// </summary>
@@ -74,7 +78,8 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="Exception"></exception>
-        public  bool RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError)
+        public bool RunProcess(string filePath, string args, int milliseconds, out string stdOutput,
+            out string stdError)
         {
             stdOutput = null!;
             stdError = null!;
@@ -84,8 +89,9 @@ namespace StreamMediaServerKeeper
 
                 if (!File.Exists(filePath))
                 {
-                    throw  new FileNotFoundException(filePath+"不存在");
+                    throw new FileNotFoundException(filePath + "不存在");
                 }
+
                 using (Process process = new Process())
                 {
                     process.StartInfo.FileName = filePath;
@@ -94,7 +100,7 @@ namespace StreamMediaServerKeeper
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
                     process.StartInfo.Arguments = escapedArgs;
-                   
+
                     bool result = process.Start();
                     if (result)
                     {
@@ -110,14 +116,14 @@ namespace StreamMediaServerKeeper
                     return result;
                 }
             }
-            catch(Exception ex) //异常直接返回错误
+            catch (Exception ex) //异常直接返回错误
             {
                 //异常处理
                 throw ex;
             }
         }
-        
-        
+
+
         /// <summary>
         /// 执行程序，直到结束
         /// </summary>
@@ -137,18 +143,18 @@ namespace StreamMediaServerKeeper
             CmdProcess.StartInfo.RedirectStandardError = true; // 重定向错误输出
             if (_std != null)
             {
-                CmdProcess.OutputDataReceived +=_std;
+                CmdProcess.OutputDataReceived += _std;
             }
 
             if (_err != null)
             {
-                CmdProcess.ErrorDataReceived +=_err;
+                CmdProcess.ErrorDataReceived += _err;
             }
 
             CmdProcess.EnableRaisingEvents = true; // 启用Exited事件
             if (_exitEventHandle != null)
             {
-                CmdProcess.Exited +=_exitEventHandle; // 注册进程结束事件
+                CmdProcess.Exited += _exitEventHandle; // 注册进程结束事件
             }
 
             CmdProcess.Start();
@@ -156,9 +162,5 @@ namespace StreamMediaServerKeeper
             CmdProcess.BeginErrorReadLine();
             return CmdProcess;
         }
-
-      
-
-       
     }
 }

@@ -35,7 +35,7 @@ namespace LibSystemInfo
 
                                 if (double.TryParse(tmps2, out double a))
                                 {
-                                    CPULOAD = Math.Round(100f - a,2);
+                                    CPULOAD = Math.Round(100f - a, 2);
                                     break;
                                 }
                             }

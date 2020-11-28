@@ -27,7 +27,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using SIPSorcery.SIP.App;
 using SIPSorcery.Sys;
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CommonFunctions.ManageStructs
 {
     /// <summary>
-    /// allowkey管理类
+    /// allowkey管理类，暂时没有启用
     /// </summary>
     [Serializable]
     public class AllowKey

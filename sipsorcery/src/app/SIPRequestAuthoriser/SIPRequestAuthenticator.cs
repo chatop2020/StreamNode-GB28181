@@ -12,7 +12,6 @@
 
 using System;
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.Logging;
 using SIPSorcery.Sys;
 
 namespace SIPSorcery.SIP.App

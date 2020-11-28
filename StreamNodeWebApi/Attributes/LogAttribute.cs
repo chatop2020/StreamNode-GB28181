@@ -1,15 +1,13 @@
 using System;
 using System.Net;
-using CommonFunctions;
 using LibGB28181SipGate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
 
 namespace StreamNodeWebApi
 {
     /// <summary>
-    /// 日志记录
+    /// 日志记录类，所有经过httpcontroller的进出日志都会被记录
     /// </summary>
     public class LogAttribute : Attribute, IActionFilter
     {

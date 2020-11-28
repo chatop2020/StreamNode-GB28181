@@ -121,7 +121,7 @@ namespace CommonFunctions.ManageStructs
         private bool? _rtmp_demand;
         private bool? _ts_demand;
         private bool? _fmp4_demand;
-      
+
 
         /// <summary>
         /// 自动静音
@@ -405,6 +405,7 @@ namespace CommonFunctions.ManageStructs
         /// 录制 hls ts 切片完成事件
         /// </summary>
         public string? On_Record_TS => _on_record_ts;
+
         /// <summary>
         /// rtsp鉴权事件，此事件中比对rtsp的用户名密码
         /// </summary>
@@ -731,9 +732,11 @@ namespace CommonFunctions.ManageStructs
     public class ZLMediaKitConfig_Rtp
     {
         private int? _audioMtuSize;
-     //   private int? _clearCount;
+
+        //   private int? _clearCount;
         private ulong? _cycleMS;
-       // private int? _maxRtpCount;
+
+        // private int? _maxRtpCount;
         private int? _videoMtuSize;
 
         /// <summary>

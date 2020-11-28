@@ -16,8 +16,6 @@
 
 using System;
 using System.Runtime.Serialization;
-using Microsoft.Extensions.Logging;
-using SIPSorcery.Sys;
 
 namespace SIPSorcery.SIP
 {

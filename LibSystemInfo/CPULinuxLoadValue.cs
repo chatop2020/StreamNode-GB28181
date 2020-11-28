@@ -34,7 +34,7 @@ namespace LibSystemInfo
                                 s = s.Trim();
                                 if (double.TryParse(s, out double f))
                                 {
-                                    CPULOAD = Math.Round(100f - f,2);
+                                    CPULOAD = Math.Round(100f - f, 2);
                                     break;
                                 }
                             }

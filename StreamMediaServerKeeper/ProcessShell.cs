@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.IO;
 
 namespace StreamMediaServerKeeper
 {
@@ -50,9 +49,7 @@ namespace StreamMediaServerKeeper
             }
         }
 
-        
-     
-        
+
         /// <summary>
         /// 执行CMD命令
         /// </summary>
@@ -95,9 +92,8 @@ namespace StreamMediaServerKeeper
                 return false;
             }
         }
-        
-        
-       
+
+
         /// <summary>
         /// 执行CMD命令
         /// </summary>
@@ -163,6 +159,7 @@ namespace StreamMediaServerKeeper
                     {
                         return process.WaitForExit(milliseconds);
                     }
+
                     return false;
                 }
             }

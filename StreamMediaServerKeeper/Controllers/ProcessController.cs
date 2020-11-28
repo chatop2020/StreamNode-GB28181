@@ -8,6 +8,17 @@ namespace StreamMediaServerKeeper.Controllers
     public class ProcessController : ControllerBase
     {
         /// <summary>
+        /// 健康检测
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Health")]
+        public string Health()
+        {
+            return "OK";
+        }
+
+        /// <summary>
         /// 获取合并裁剪任务积压列表
         /// </summary>
         /// <returns></returns>

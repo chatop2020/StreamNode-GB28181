@@ -1,10 +1,8 @@
-using System;
 using System.Diagnostics;
-using System.IO;
 
 namespace CommonFunctions
 {
-   /// <summary>
+    /// <summary>
     /// 
     /// </summary>
     public static class ProcessShell
@@ -92,8 +90,7 @@ namespace CommonFunctions
                 return false;
             }
         }
-        
-      
+
 
         /// <summary>
         /// 执行CMD命令
@@ -140,7 +137,5 @@ namespace CommonFunctions
                 return false;
             }
         }
-        
-       
     }
 }

@@ -4,7 +4,6 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using IniParser;
@@ -15,7 +14,6 @@ namespace StreamMediaServerKeeper
 {
     public static class Common
     {
-   
         public static string WorkPath = AppDomain.CurrentDomain.BaseDirectory + "/";
         public static string ConfigPath = WorkPath + "/Config/config.conf";
         public static string FFmpegBinPath = WorkPath + "ffmpeg";
@@ -34,7 +32,7 @@ namespace StreamMediaServerKeeper
         public static string MyIPAddress = "";
 
         public static SystemInfo MySystemInfo = new SystemInfo();
-        
+
         public static Process ProcessOfZLMediaKit = null; //用于启动与停止流媒体服务器
         public static ProcessHelper ProcessHelper = null;
 
@@ -44,29 +42,28 @@ namespace StreamMediaServerKeeper
         public static string CustomizedRecordFilePath = "";
 
 
-        
         private static void ProcessOfZLMediaKit_Exited(object sender, EventArgs e)
         {
             // 执行结束后触发
-           Logger.Logger.Warn("ZLMediaKit已经退出");
-           ProcessOfZLMediaKit = null;
+            Logger.Logger.Warn("ZLMediaKit已经退出");
+            ProcessOfZLMediaKit = null;
         }
+
         private static void ProcessOfZLMediaKit_StdOutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data != null)
             {
-                Logger.Logger.Info("【ZLMediaKit】->"+e.Data);
+                Logger.Logger.Info("【ZLMediaKit】->" + e.Data);
             }
         }
-        
+
         private static void ProcessOfZLMediaKit_ErrOutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data != null)
             {
-                Logger.Logger.Error("[ZLMediaKit]->"+e.Data);
+                Logger.Logger.Error("[ZLMediaKit]->" + e.Data);
             }
         }
-        
 
 
         /// <summary>
@@ -366,7 +363,7 @@ namespace StreamMediaServerKeeper
         {
             Logger.Logger.Fatal("异常情况，结束自己进程..." + "-> " + message);
             string fileName = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
-            Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(fileName));
+            Process[] processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(fileName));
             if (processes.Length > 0)
             {
                 processes[0].Kill();
@@ -381,14 +378,15 @@ namespace StreamMediaServerKeeper
         /// <returns></returns>
         public static int GetProcessPid(string fileName)
         {
-            Process[] processes = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(fileName));
+            Process[] processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(fileName));
             if (processes.Length > 0)
             {
                 if (!processes[0].HasExited)
                 {
                     return processes[0].Id;
                 }
-            } 
+            }
+
             return -1;
         }
 
@@ -402,15 +400,13 @@ namespace StreamMediaServerKeeper
                 if (i > 999999999)
                 {
                     i = 1;
-                 
                 }
 
                 try
                 {
                     ReqMediaServerReg req = null;
-                    if (i == 1 || i % 5 == 0 )
+                    if (i == 1 || i % 5 == 0)
                     {
-                     
                         req = new ReqMediaServerReg()
                         {
                             Ipaddress = MyIPAddress,
@@ -421,7 +417,6 @@ namespace StreamMediaServerKeeper
                             RecordFilePath = RecordPath,
                             MediaServerSystemInfo = MySystemInfo.GetSystemInfoObject(),
                         };
-                     
                     }
                     else
                     {
@@ -434,18 +429,16 @@ namespace StreamMediaServerKeeper
                             WebApiServerhttpPort = HttpPort,
                             RecordFilePath = RecordPath,
                             MediaServerSystemInfo = null,
-                            
                         };
                     }
 
                     string reqData = JsonHelper.ToJson(req);
-                  
+
                     try
                     {
                         var httpRet = NetHelper.HttpPostRequest(StreamNodeServerUrl, null!, reqData, "utf-8", 5000);
                         if (string.IsNullOrEmpty(httpRet))
                         {
-                          
                             MySystemInfo = null;
                             if (ProcessApis.CheckIsRunning(out _) > 0)
                             {
@@ -454,7 +447,6 @@ namespace StreamMediaServerKeeper
                         }
                         else
                         {
-                        
                             if (ProcessApis.CheckIsRunning(out _) == 0)
                             {
                                 ProcessApis.RunServer(out _); //如果正常返回，但是流媒体没启动，则启动流媒体
@@ -474,7 +466,6 @@ namespace StreamMediaServerKeeper
                 }
                 catch (Exception ex)
                 {
-                
                     Logger.Logger.Error("报错了-> " + ex.Message + " -> " + ex.StackTrace);
                     continue;
                 }
@@ -483,11 +474,11 @@ namespace StreamMediaServerKeeper
 
         static Common()
         {
-            
             try
             {
                 //创建进程执行者
-                ProcessHelper = new ProcessHelper(ProcessOfZLMediaKit_StdOutputDataReceived,ProcessOfZLMediaKit_ErrOutputDataReceived,ProcessOfZLMediaKit_Exited);
+                ProcessHelper = new ProcessHelper(ProcessOfZLMediaKit_StdOutputDataReceived,
+                    ProcessOfZLMediaKit_ErrOutputDataReceived, ProcessOfZLMediaKit_Exited);
                 CutMergeService.start = true;
                 if (checkConfigFile())
                 {
@@ -504,7 +495,8 @@ namespace StreamMediaServerKeeper
                         }
 
                         //启动时先把所有mediaserver杀掉
-                        Process[] processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(MediaServerBinPath));
+                        Process[] processes =
+                            Process.GetProcessesByName(Path.GetFileNameWithoutExtension(MediaServerBinPath));
                         if (processes != null && processes.Length > 0)
                         {
                             foreach (var process in processes)
@@ -515,7 +507,7 @@ namespace StreamMediaServerKeeper
                                 }
                             }
                         }
-                        
+
                         processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(FFmpegBinPath));
                         if (processes != null && processes.Length > 0)
                         {
@@ -527,7 +519,7 @@ namespace StreamMediaServerKeeper
                                 }
                             }
                         }
-                        
+
                         getMediaServerConfig();
                     }
                     else

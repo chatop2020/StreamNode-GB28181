@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace WinNetworkStaCli
@@ -12,17 +10,15 @@ namespace WinNetworkStaCli
         {
             while (true)
             {
-                List < NetworkAdapter > aList = WindowsNetworkStat.GetNetworkAdapters();
+                List<NetworkAdapter> aList = WindowsNetworkStat.GetNetworkAdapters();
                 if (aList.Count > 0)
                 {
                     Console.WriteLine("]-[发送:" + aList[0].Send + "]-[" +
-                     "接收:" + aList[0].Recv + "]-[" +
-
-                     "MAC:" + aList[0].MAC + "]-[");
+                                      "接收:" + aList[0].Recv + "]-[" +
+                                      "MAC:" + aList[0].MAC + "]-[");
                 }
 
-                Thread.Sleep(1000);  
-               
+                Thread.Sleep(1000);
             }
         }
     }

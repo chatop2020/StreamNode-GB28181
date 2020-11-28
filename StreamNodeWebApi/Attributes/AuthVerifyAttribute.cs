@@ -8,6 +8,7 @@ namespace StreamNodeWebApi
 {
     /// <summary>
     /// 验证session和allowkey的类
+    /// 暂时没有启用
     /// </summary>
     public class AuthVerifyAttribute : Attribute, IActionFilter
     {

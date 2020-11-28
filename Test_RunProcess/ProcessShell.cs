@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Test_RunProcess
 {
-   /// <summary>
+    /// <summary>
     /// 
     /// </summary>
     public static class ProcessShell
@@ -50,8 +50,9 @@ namespace Test_RunProcess
             }
         }
 
-        
-        public static Process RunProcess(string filePath, string args,int milliseconds,bool lookup=false,EventHandler exitEvent=null)
+
+        public static Process RunProcess(string filePath, string args, int milliseconds, bool lookup = false,
+            EventHandler exitEvent = null)
         {
             try
             {
@@ -59,8 +60,9 @@ namespace Test_RunProcess
 
                 if (!File.Exists(filePath))
                 {
-                    throw  new FileNotFoundException(filePath+"不存在");
+                    throw new FileNotFoundException(filePath + "不存在");
                 }
+
                 using (Process process = new Process())
                 {
                     process.StartInfo.FileName = processName;
@@ -76,14 +78,14 @@ namespace Test_RunProcess
                     return result == false ? null : process;
                 }
             }
-            catch (Exception ex)//异常直接返回错误
+            catch (Exception ex) //异常直接返回错误
             {
                 //异常处理
                 throw ex;
             }
         }
-        
-        
+
+
         /// <summary>
         /// 启动外部程序不等程序结束
         /// </summary>
@@ -94,7 +96,8 @@ namespace Test_RunProcess
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="Exception"></exception>
-        public static Process RunProcess(string filePath, string args,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args, bool lookup = false,
+            EventHandler exitEvent = null)
         {
             try
             {
@@ -102,8 +105,9 @@ namespace Test_RunProcess
 
                 if (!File.Exists(filePath))
                 {
-                    throw  new FileNotFoundException(filePath+"不存在");
+                    throw new FileNotFoundException(filePath + "不存在");
                 }
+
                 using (Process process = new Process())
                 {
                     process.StartInfo.FileName = processName;
@@ -114,20 +118,21 @@ namespace Test_RunProcess
                     if (lookup)
                     {
                         process.EnableRaisingEvents = true; // 启用Exited事件
-                        process.Exited += exitEvent;  
+                        process.Exited += exitEvent;
                     }
+
                     bool result = process.Start();
                     return result == false ? null : process;
                 }
             }
-            catch (Exception ex)//异常直接返回错误
+            catch (Exception ex) //异常直接返回错误
             {
                 //异常处理
                 throw ex;
             }
         }
-        
-        
+
+
         /// <summary>
         /// 执行CMD命令
         /// </summary>
@@ -170,8 +175,8 @@ namespace Test_RunProcess
                 return false;
             }
         }
-        
-        
+
+
         /// <summary>
         /// 执行外部程序
         /// </summary>
@@ -181,7 +186,8 @@ namespace Test_RunProcess
         /// <param name="stdOutput">标准输出</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        public static Process RunProcess(string filePath, string args,int milliseconds, out string stdOutput,bool lookup=false,EventHandler exitEvent=null)
+        public static Process RunProcess(string filePath, string args, int milliseconds, out string stdOutput,
+            bool lookup = false, EventHandler exitEvent = null)
         {
             stdOutput = null!;
             try
@@ -190,8 +196,9 @@ namespace Test_RunProcess
 
                 if (!File.Exists(filePath))
                 {
-                    throw  new FileNotFoundException(filePath+"不存在");
+                    throw new FileNotFoundException(filePath + "不存在");
                 }
+
                 using (Process process = new Process())
                 {
                     process.StartInfo.FileName = processName;
@@ -203,8 +210,9 @@ namespace Test_RunProcess
                     if (lookup)
                     {
                         process.EnableRaisingEvents = true; // 启用Exited事件
-                        process.Exited += exitEvent;  
+                        process.Exited += exitEvent;
                     }
+
                     bool result = process.Start();
                     if (result)
                     {
@@ -216,10 +224,10 @@ namespace Test_RunProcess
                         stdOutput = process.StandardOutput.ReadToEnd();
                     }
 
-                    return result==false?null:process;
+                    return result == false ? null : process;
                 }
             }
-            catch(Exception ex) //异常直接返回错误
+            catch (Exception ex) //异常直接返回错误
             {
                 //异常处理
                 throw ex;
@@ -271,7 +279,7 @@ namespace Test_RunProcess
                 return false;
             }
         }
-        
+
         /// <summary>
         ///执行外部程序
         /// </summary>
@@ -282,7 +290,8 @@ namespace Test_RunProcess
         /// <param name="stdError">错误输出</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        public static Process RunProcess(string filePath, string args,int milliseconds, out string stdOutput, out string stdError)
+        public static Process RunProcess(string filePath, string args, int milliseconds, out string stdOutput,
+            out string stdError)
         {
             stdOutput = null!;
             stdError = null!;
@@ -292,8 +301,9 @@ namespace Test_RunProcess
 
                 if (!File.Exists(filePath))
                 {
-                    throw  new FileNotFoundException(filePath+"不存在");
+                    throw new FileNotFoundException(filePath + "不存在");
                 }
+
                 using (Process process = new Process())
                 {
                     process.StartInfo.FileName = filePath;
@@ -302,7 +312,7 @@ namespace Test_RunProcess
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
                     process.StartInfo.Arguments = escapedArgs;
-                   
+
                     bool result = process.Start();
                     if (result)
                     {
@@ -315,10 +325,10 @@ namespace Test_RunProcess
                         stdError = process.StandardError.ReadToEnd()!;
                     }
 
-                    return result==false?null:process;
+                    return result == false ? null : process;
                 }
             }
-            catch(Exception ex) //异常直接返回错误
+            catch (Exception ex) //异常直接返回错误
             {
                 //异常处理
                 throw ex;

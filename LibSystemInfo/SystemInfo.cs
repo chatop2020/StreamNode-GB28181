@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using System.Xml.Schema;
 using SystemInfoLibrary.Hardware;
 using SystemInfoLibrary.OperatingSystem;
 
@@ -41,12 +40,12 @@ namespace LibSystemInfo
         {
             MemoryInfo tmp = new MemoryInfo();
 
-            tmp.Total = _hardwareInfo.RAM.Total*1024;
-            tmp.Used = _hardwareInfo.RAM.Total*1024 - _hardwareInfo.RAM.Free*1024;
-            tmp.Free = _hardwareInfo.RAM.Free*1024;
+            tmp.Total = _hardwareInfo.RAM.Total * 1024;
+            tmp.Used = _hardwareInfo.RAM.Total * 1024 - _hardwareInfo.RAM.Free * 1024;
+            tmp.Free = _hardwareInfo.RAM.Free * 1024;
             tmp.FreePercent =
                 Math.Round(100f - (double.Parse(tmp.Used.ToString()) * 100.00 / double.Parse(tmp.Total.ToString())), 3);
-            tmp.UpdateTime=DateTime.Now;
+            tmp.UpdateTime = DateTime.Now;
             return tmp;
         }
 
@@ -70,7 +69,7 @@ namespace LibSystemInfo
 
                 lock (lockObj)
                 {
-                    if ((j % 10 == 0 || j == 1) && _operatingSystemType!=OperatingSystemType.Windows) //10秒更新一次内存情况
+                    if ((j % 10 == 0 || j == 1) && _operatingSystemType != OperatingSystemType.Windows) //10秒更新一次内存情况
                     {
                         _operatingSystemInfo = null;
                         _hardwareInfo = null;
