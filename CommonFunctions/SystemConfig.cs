@@ -16,7 +16,7 @@ namespace CommonFunctions
         private List<AllowKey> _allowKeys = new List<AllowKey>();
         private ushort _httpPort = 5800;
         private string _password = "password123!@#";
-        private string? _db = "data source=" + Common.WorkPath + "SRSWebApi.db";
+        private string? _db = "data source=" + Common.WorkPath + "streamnode.db";
         private DataType _dbType = DataType.Sqlite;
         private int _dvrPlanExecServiceinterval = 1000 * 60;
         private string? _ffmpegPath = "./ffmpeg";
@@ -286,20 +286,7 @@ namespace CommonFunctions
             writeFile.Add("dbtype::" + Enum.GetName(typeof(DataType), this.DbType)!.ToLower() + ";");
             writeFile.Add("auto_dvrplaninterval::" + DvrPlanExecServiceinterval + ";");
 
-            /*if (Common.MediaServerList != null && Common.MediaServerList.Count > 0)
-            {
-                foreach (var media in Common.MediaServerList)
-                {
-                    string tmpStr = "";
-                    if (media != null)
-                    {
-                        tmpStr += media.Ipaddress + "\t" + media.Port.ToString() + "\t" + media.Secret + "\t" +
-                                  media.DeviceId + "\t" + media.BinPath + ";";
-                        tmpStr = "mediaserver::" + tmpStr;
-                        writeFile.Add(tmpStr); 
-                    }
-                }
-            }*/
+          
             foreach (var ak in _allowKeys)
             {
                 if (ak != null)

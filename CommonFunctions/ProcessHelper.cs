@@ -123,8 +123,9 @@ namespace CommonFunctions
             }
         }
 
+
         /// <summary>
-        /// 执行外部程序，直到执行结束
+        /// 执行程序，直到结束
         /// </summary>
         /// <param name="StartFileName"></param>
         /// <param name="StartFileArg"></param>

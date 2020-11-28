@@ -537,53 +537,6 @@
             <param name="StartFileArg"></param>
             <returns></returns>
         </member>
-        <member name="T:StreamMediaServerKeeper.ProcessShell">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:StreamMediaServerKeeper.ProcessShell.Run(System.String)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.ProcessShell.Run(System.String,System.Int32)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.ProcessShell.Run(System.String,System.Int32,System.String@)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <param name="stdOutput">结果输出</param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.ProcessShell.Run(System.String,System.Int32,System.String@,System.String@)">
-            <summary>
-            执行CMD命令
-            </summary>
-            <param name="command">命令内容</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <param name="stdOutput">结果输出</param>
-            <param name="stdError">错误输出</param>
-            <returns></returns>
-        </member>
-        <member name="M:StreamMediaServerKeeper.ProcessShell.RunProgram(System.String,System.Int32)">
-            <summary>
-            启动程序
-            </summary>
-            <param name="fileName">程序完整路径</param>
-            <param name="milliseconds">超时时间（负数表示无限等待）</param>
-            <returns></returns>
-        </member>
         <member name="T:StreamMediaServerKeeper.Program">
             <summary>
             

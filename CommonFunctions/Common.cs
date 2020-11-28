@@ -14,6 +14,9 @@ using LibSystemInfo;
 
 namespace CommonFunctions
 {
+    /// <summary>
+    /// 通用类
+    /// </summary>
     public static class Common
     {
         public static bool IsDebug = true;
@@ -24,7 +27,6 @@ namespace CommonFunctions
         public static string FFmpegBinPath = "./ffmpeg";
         public static SystemConfig MySystemConfig = new SystemConfig();
         public static SipCoreHelper SipProcess;
-        public static SessionManager SessionManager = new SessionManager();
         public static List<MediaServerInstance> MediaServerList = new List<MediaServerInstance>();
         public static List<CameraInstance> CameraInstanceList = new List<CameraInstance>();
 
@@ -41,14 +43,12 @@ namespace CommonFunctions
         public static object CameraInstanceListLock = new object();
         public static object PlayerSessionListLock = new object();
 
-        public static ResGetSystemInfo SystemInfo = new ResGetSystemInfo();
-
 
         static Common()
         {
             if (!MySystemConfig.LoadConfig(SystemConfigPath))
             {
-                KillSelf();
+                Environment.Exit(0); //退出程序
             }
 
             //清理ffmpeg进程
@@ -70,7 +70,6 @@ namespace CommonFunctions
             }
 
             ErrorMessage.Init();
-
             SipProcess = new SipCoreHelper(false); //启动sip服务
             SipProcess.Start();
         }
@@ -257,7 +256,9 @@ namespace CommonFunctions
                 ffpath = "ffmpeg";
             }
 
-            ProcessShell.Run(ffpath, 1000, out string std, out string err);
+            ProcessHelper tmpProcessHelper = new ProcessHelper(null, null, null);
+            tmpProcessHelper.RunProcess(ffpath, "", 1000, out string std, out string err);
+
             if (!string.IsNullOrEmpty(std))
             {
                 if (std.ToLower().Contains("ffmpeg version"))
@@ -343,20 +344,6 @@ namespace CommonFunctions
 
 
         /// <summary>
-        /// 检测session和allow
-        /// </summary>
-        /// <param name="ipAddr"></param>
-        /// <param name="allowKey"></param>
-        /// <param name="sessionCode"></param>
-        /// <returns></returns>
-        public static bool CheckAuth(string ipAddr, string allowKey, string sessionCode)
-        {
-            if (!CheckSession(sessionCode)) return false;
-            if (!CheckAllow(ipAddr, allowKey)) return false;
-            return true;
-        }
-
-        /// <summary>
         /// 检查密码
         /// </summary>
         /// <param name="password"></param>
@@ -366,24 +353,6 @@ namespace CommonFunctions
             return MySystemConfig.Password.Trim().Equals(password.Trim());
         }
 
-        /// <summary>
-        /// 检查Session是否正常
-        /// </summary>
-        /// <param name="sessionCode"></param>
-        /// <returns></returns>
-        public static bool CheckSession(string sessionCode)
-        {
-            Session s = SessionManager.SessionList.FindLast(x =>
-                x.SessionCode.Trim().ToLower().Equals(sessionCode.Trim().ToLower()))!;
-            long a = GetTimeStampMilliseconds();
-
-            if (s != null && s.Expires > a)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
         /// <summary>
         /// 检查appkey
@@ -440,65 +409,6 @@ namespace CommonFunctions
             }
 
             return false;
-        }
-
-
-        /// <summary>
-        /// 结束自己
-        /// </summary>
-        public static void KillSelf()
-        {
-            //  LogWriter.WriteLog("因异常结束进程...");
-            Logger.Logger.Fatal("因异常结束进程...");
-            string fileName = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
-            var ret = GetProcessPid(fileName);
-            if (ret > 0)
-            {
-                KillProcess(ret);
-            }
-        }
-
-        public static void KillProcess(int pid)
-        {
-            string cmd = "kill -9 " + pid.ToString();
-            ProcessShell.Run(cmd, 1000);
-        }
-
-        /// <summary>
-        /// 获取pid
-        /// </summary>
-        /// <param name="processName"></param>
-        /// <returns></returns>
-        public static int GetProcessPid(string processName)
-        {
-            string cmd = "";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                cmd = "ps -aux |grep " + processName + "|grep -v grep|awk \'{print $2}\'";
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                cmd = "ps -A |grep " + processName + "|grep -v grep|awk \'{print $1}\'";
-            }
-
-            ProcessShell.Run(cmd, 1000, out string std, out string err);
-            if (string.IsNullOrEmpty(std) && string.IsNullOrEmpty(err))
-            {
-                return -1;
-            }
-
-            int pid = -1;
-            if (!string.IsNullOrEmpty(std))
-            {
-                int.TryParse(std, out pid);
-            }
-
-            if (!string.IsNullOrEmpty(err))
-            {
-                int.TryParse(err, out pid);
-            }
-
-            return pid;
         }
     }
 }

@@ -20,9 +20,6 @@ namespace StreamMediaServerKeeper
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            //Logger.Logger.Debug("SystemInfomation ->" + JsonHelper.ToJson(new ResGetSystemInfo()));
-
-
             ///启动一下，Common对象
             if (string.IsNullOrEmpty(Common.CustomizedRecordFilePath))
             {

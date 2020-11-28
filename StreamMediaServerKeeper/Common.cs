@@ -53,7 +53,7 @@ namespace StreamMediaServerKeeper
         {
             if (e.Data != null)
             {
-                Logger.Logger.Info("【ZLMediaKit】->" + e.Data);
+                Logger.Logger.Debug("[ZLMediaKit]->" + e.Data);
             }
         }
 
@@ -455,14 +455,13 @@ namespace StreamMediaServerKeeper
                     }
                     catch
                     {
-                        MySystemInfo = null;
                         if (ProcessApis.CheckIsRunning(out _) > 0)
                         {
                             ProcessApis.StopServer(out _); //发现streamctrl异常回复，就关掉流媒体服务器
                         }
                     }
 
-                    Thread.Sleep(1000 * 2);
+                    Thread.Sleep(2000);
                 }
                 catch (Exception ex)
                 {
