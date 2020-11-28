@@ -362,12 +362,14 @@ namespace StreamMediaServerKeeper
         public static void KillSelf(string message = "")
         {
             Logger.Logger.Fatal("异常情况，结束自己进程..." + "-> " + message);
-            string fileName = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
+            Environment.Exit(0);
+            /*string fileName = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
             Process[] processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(fileName));
             if (processes.Length > 0)
             {
                 processes[0].Kill();
-            }
+            }*/
+            
         }
 
 

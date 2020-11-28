@@ -19,7 +19,7 @@ namespace StreamNodeWebApi.AutoTasker
             {
                 try
                 {
-                    for (int i = Common.MediaServerList.Count - 1; i <= 0; i--)
+                    for (int i = Common.MediaServerList.Count - 1; i >= 0; i--)
                     {
                         if (Common.MediaServerList[i] != null && Common.MediaServerList[i].Health)
                         {

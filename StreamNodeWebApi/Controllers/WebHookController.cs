@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using CommonFunction.ManageStructs;
 using CommonFunctions;
 using CommonFunctions.ManageStructs;
 using CommonFunctions.WebApiStructs.Request;
@@ -140,6 +141,25 @@ namespace StreamNodeWebApi.Controllers
         [AuthVerify]
         public ResToWebHookOnStreamNoneReader OnStreamNoneReader(ReqForWebHookOnStreamNoneReader req)
         {
+            lock (Common.PlayerSessionListLock)
+            {
+                for (int i = Common.PlayerSessions.Count - 1; i >= 0; i--)
+                {
+                    if (Common.PlayerSessions[i] != null &&
+                        Common.PlayerSessions[i].App!.Equals(req.App) &&
+                        Common.PlayerSessions[i].Vhost!.Equals(req.Vhost)
+                        && Common.PlayerSessions[i].StreamId!
+                            .Equals(req.Stream) && Common.PlayerSessions[i]
+                            .MediaServerId!.Equals(req.MediaServerId))
+                    {
+                        Common.PlayerSessions[i] = null!;
+                        break;
+                    }
+                }
+
+                Common.RemoveNull(Common.PlayerSessions);
+            }
+
             return new ResToWebHookOnStreamNoneReader()
             {
                 Code = 0,
