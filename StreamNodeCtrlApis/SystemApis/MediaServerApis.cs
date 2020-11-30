@@ -1157,6 +1157,12 @@ namespace StreamNodeCtrlApis.SystemApis
                             Common.CameraSessions.Remove(
                                 Common.CameraSessions.FindLast(x => x.CameraId.Equals(cameraId)));
                         }
+
+                        lock (Common.CameraInstanceList)//删除摄像头时，把CmaeraInstanceList中的摄像头实例也删除掉
+                        {
+                            Common.CameraInstanceList.Remove(
+                                Common.CameraInstanceList.FindLast(x => x.CameraId.Equals(cameraId)));
+                        }
                     }
                     catch
                     {
