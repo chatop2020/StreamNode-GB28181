@@ -99,27 +99,7 @@ namespace StreamNodeCtrlApis.SipGateApis
                 App = "",
                 PushStreamSocketType = null,
             };
-
-            /*
-            CameraInstance cameraInst = null;
-            lock (Common.CameraInstanceListLock)
-            {
-                cameraInst = Common.CameraInstanceList.FindLast(x =>
-                    x.CameraDeviceLable.Equals(dev.DeviceId) && x.CameraChannelLable.Equals(cameraid) &&
-                    x.PushMediaServerId.Equals(mediaServerDeviceId));
-            }
-            */
-
             string streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID;
-            /*if (cameraInst != null && cameraInst.MobileCamera == true)
-            {
-                streamid = cameraInst.MobileCamera + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
-            }
-            else
-            {
-                streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
-            }*/
-
             uint stid = CRC32Cls.GetCRC32(streamid);
             string mediaStreamId = string.Format("{0:X8}", stid);
             ReqZLMediaKitCloseRtpPort req = new ReqZLMediaKitCloseRtpPort()
@@ -260,31 +240,13 @@ namespace StreamNodeCtrlApis.SipGateApis
                 MediaId = string.Format("{0:X8}", camera.StreamId),
                 Vhost = camera.Vhost,
                 App = camera.App,
-                PushStreamSocketType = tcp == true ? PushStreamSocketType.TCP : PushStreamSocketType.UDP,
+                PushStreamSocketType = tcp ? PushStreamSocketType.TCP : PushStreamSocketType.UDP,
             };
             if (camera.SipCameraStatus == SipCameraStatus.Idle)
             {
                 CameraInstance cameraInst = null;
-                /*lock (Common.CameraInstanceListLock)
-                {
-                    cameraInst = Common.CameraInstanceList.FindLast(x =>
-                        x.CameraDeviceLable.Equals(dev.DeviceId) && x.CameraChannelLable.Equals(cameraid) &&
-                        x.PushMediaServerId.Equals(mediaServerDeviceId));
-                }*/
-
                 string streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID;
-                /*if (cameraInst != null && cameraInst.MobileCamera == true)
-                {
-                    streamid = cameraInst.MobileCamera + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
-                }
-                else
-                {
-                    streamid = dev.IpAddress + dev.DeviceId + camera.Camera.DeviceID + mediaServerDeviceId;
-                }*/
-
                 uint stid = CRC32Cls.GetCRC32(streamid);
-
-
                 string mediaStreamId = string.Format("{0:X8}", stid);
                 ReqZLMediaKitOpenRtpPort req = new ReqZLMediaKitOpenRtpPort()
                 {
@@ -312,13 +274,13 @@ namespace StreamNodeCtrlApis.SipGateApis
                             App = camera.App,
                             Play_Url = "http://" + mediaServer.Ipaddress + ":" + mediaServer.MediaServerHttpPort + "/" +
                                        camera.App + "/" + mediaStreamId + ".flv",
-                            PushStreamSocketType = tcp == true ? PushStreamSocketType.TCP : PushStreamSocketType.UDP,
+                            PushStreamSocketType = tcp ? PushStreamSocketType.TCP : PushStreamSocketType.UDP,
                         };
                         return obj;
                     }
 
                     //以下是：如果摄像头返回推流失败，再判断一次流媒体的onpublish返回中是否存在，如果存在则一样返回成功
-                    CameraSession session = null;
+                    CameraSession session;
                     lock (Common.CameraSessionLock)
                     {
                         session = Common.CameraSessions.FindLast(x =>
@@ -342,7 +304,7 @@ namespace StreamNodeCtrlApis.SipGateApis
                             Vhost = camera.Vhost,
                             App = camera.App,
                             PushStreamSocketType =
-                                tcp == true ? PushStreamSocketType.TCP : PushStreamSocketType.UDP,
+                                tcp ? PushStreamSocketType.TCP : PushStreamSocketType.UDP,
                         };
                         session.IsOnline = true;
                         session.ForceOffline = false;
@@ -354,7 +316,7 @@ namespace StreamNodeCtrlApis.SipGateApis
                         Code = ErrorNumber.SipRealVideoExcept,
                         Message = ErrorMessage.ErrorDic![ErrorNumber.SipRealVideoExcept],
                     };
-                    return null;
+                    return null!;
                 }
             }
 

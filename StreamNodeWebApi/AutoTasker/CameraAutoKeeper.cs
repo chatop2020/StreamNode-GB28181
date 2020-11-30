@@ -398,12 +398,12 @@ namespace StreamNodeWebApi.AutoTasker
                                         if (camera != null)
                                         {
                                             found = true;
-                                            //break;
                                         }
                                     }
                                 }
 
-                                if (found == true)
+                                if (found)
+                                    
                                 {
                                     LiveGb28181(cil);
                                 }
@@ -471,6 +471,7 @@ namespace StreamNodeWebApi.AutoTasker
 
                     foreach (var cit in Common.CameraInstanceList)
                     {
+                    
                         if (cit.PushMediaServerId.Contains("unknow"))
                         {
                             continue;
@@ -479,6 +480,7 @@ namespace StreamNodeWebApi.AutoTasker
                         if (cit != null && cit.EnableLive && cit.Activated == true) //启动摄像头,必须是activated为true时才能启动
                         {
                             liveCamera(cit);
+                            Thread.Sleep(2000);//动作太快容易把流媒体搞死，这里做点延迟
                         }
 
                         if (cit != null && cit.Activated == true && cit.EnableLive == false
@@ -486,6 +488,7 @@ namespace StreamNodeWebApi.AutoTasker
                             //手动推流的情况下，可以将数据库Activated设置了False来解决推上去后又断下来的问题
                         {
                             stopCamera(cit);
+                            Thread.Sleep(2000);//动作太快容易把流媒体搞死，这里做点延迟
                         }
                     }
                 }

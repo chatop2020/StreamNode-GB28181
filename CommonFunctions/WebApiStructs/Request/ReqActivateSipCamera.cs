@@ -21,6 +21,7 @@ namespace CommonFunctions.WebApiStructs.Request
         private bool? _ifGB28181Tcp = false; //如果是gb28181是否采用tcp方式进行推流
         private bool? _enableLive;
         private bool? _enablePtz;
+        private bool _activated=true; //默认为激活状态
 
         /// <summary>
         /// 摄像头音视频流的GB28181 ID
@@ -137,6 +138,12 @@ namespace CommonFunctions.WebApiStructs.Request
         {
             get => _enablePtz;
             set => _enablePtz = value;
+        }
+
+        public bool Activated
+        {
+            get => _activated;
+            set => _activated = value;
         }
     }
 }

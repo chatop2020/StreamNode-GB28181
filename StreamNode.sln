@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_GetSystemRunningTime",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{033881F7-CDA4-4F67-905C-11D907C22A0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SIPSocket", "Test_SIPSocket\Test_SIPSocket.csproj", "{230AFBF9-001D-4B82-953F-939176E6F86B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SIPSocketServer", "Test_SIPSocketServer\Test_SIPSocketServer.csproj", "{230AFBF9-001D-4B82-953F-939176E6F86B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_RunProcess", "Test_RunProcess\Test_RunProcess.csproj", "{1297BA0F-CF40-4D64-B92B-2EC906173251}"
 EndProject
@@ -29,6 +29,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinNetworkStaCli", "WinNetworkStaCli\WinNetworkStaCli.csproj", "{C025A61F-6ED3-4595-8287-2EB7DDBB7408}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_GetSystemInfo", "Test_GetSystemInfo\Test_GetSystemInfo.csproj", "{18ABEB8F-72BB-4B2D-80FD-8C8E8408F0DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_SipSocketClient", "Test_SipSocketClient\Test_SipSocketClient.csproj", "{D4D2E275-3226-48D1-AC36-40907D28B9F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,5 +98,9 @@ Global
 		{18ABEB8F-72BB-4B2D-80FD-8C8E8408F0DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18ABEB8F-72BB-4B2D-80FD-8C8E8408F0DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18ABEB8F-72BB-4B2D-80FD-8C8E8408F0DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4D2E275-3226-48D1-AC36-40907D28B9F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4D2E275-3226-48D1-AC36-40907D28B9F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4D2E275-3226-48D1-AC36-40907D28B9F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4D2E275-3226-48D1-AC36-40907D28B9F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

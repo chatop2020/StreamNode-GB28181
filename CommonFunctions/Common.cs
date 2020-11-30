@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using CommonFunction.ManageStructs;
 using CommonFunctions.DBStructs;
 using CommonFunctions.MediaServerControl;
-using CommonFunctions.WebApiStructs.Response;
 using LibGB28181SipGate;
 using LibSystemInfo;
 

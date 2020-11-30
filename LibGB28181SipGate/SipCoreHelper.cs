@@ -651,7 +651,7 @@ namespace LibGB28181SipGate
                             camera.StreamServerIp = rptServerIp;
                             camera.StreamServerPort = rptPort;
                             camera.PushStreamSocketType =
-                                tcp == true ? PushStreamSocketType.TCP : PushStreamSocketType.UDP;
+                                tcp ? PushStreamSocketType.TCP : PushStreamSocketType.UDP;
                         }
                     }
 
@@ -932,12 +932,9 @@ namespace LibGB28181SipGate
         public bool Start()
         {
             _sipDeviceList.Clear();
-            SIPTransport m_sipTransport = null;
+            SIPTransport m_sipTransport;
             m_sipTransport = new SIPTransport(SIPDNSManager.ResolveSIPService, new SIPTransactionEngine(), false);
             m_sipTransport.PerformanceMonitorPrefix = SIPSorceryPerformanceMonitor.REGISTRAR_PREFIX;
-            SIPAccount account = SipStorage.Instance.Accounts.FirstOrDefault();
-            /*var sipChannels = SIPTransportConfig.ParseSIPChannelsNode(account);
-            m_sipTransport.AddSIPChannel(sipChannels);*/
             SipStorage sipAccountStorage = new SipStorage();
             IMemoCache<Camera> memoCache = new DeviceObjectCache();
             _sipMessageCore = new SIPMessageCore(m_sipTransport, sipAccountStorage, memoCache);

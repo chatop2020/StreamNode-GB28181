@@ -2757,7 +2757,7 @@ namespace StreamNodeCtrlApis.SystemApis
             var ret = OrmService.Db.Select<CameraInstance>()
                 .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
                 .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))
-                .Where(x => x.Activated.Equals(false)).First();
+              .First();
 
 
             if (ret != null)
@@ -2784,16 +2784,16 @@ namespace StreamNodeCtrlApis.SystemApis
                     .Set(x => x.Activated, true)
                     .Set(x => x.CameraId, cid)
                     .Set(x => x.UpdateTime, DateTime.Now)
+                    .Set(x=>x.Activated,req.Activated)
                     .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
                     .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))
-                    .Where(x => x.Activated.Equals(false))
                     .ExecuteAffrows();
                 if (ret2 == 1)
                 {
                     return OrmService.Db.Select<CameraInstance>()
                         .Where(x => x.CameraDeviceLable.Equals(req.CameraDeviceLable))
                         .Where(x => x.CameraChannelLable.Equals(req.CameraChannelLable))
-                        .Where(x => x.Activated.Equals(true)).First();
+                        .First();
                 }
             }
 
