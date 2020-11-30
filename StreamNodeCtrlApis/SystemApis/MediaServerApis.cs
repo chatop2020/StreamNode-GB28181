@@ -309,7 +309,10 @@ namespace StreamNodeCtrlApis.SystemApis
             };
             try
             {
-                return OrmService.Db.Select<CameraInstance>().Where(x => x.Activated == false).ToList();
+                return OrmService.Db.Select<CameraInstance>().Where(x => x.Activated == false)
+                    .Where(x=>x.CameraId.Contains("unknow_"))
+                    .Where(x=>x.PushMediaServerId.Contains("unknow_"))
+                    .ToList();
             }
             catch (Exception ex)
             {
