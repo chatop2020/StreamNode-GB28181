@@ -767,6 +767,10 @@ namespace StreamNodeCtrlApis.WebHookApis
                     if (retObj != null)
                     {
                         retObj.KeepAlive = DateTime.Now;
+                        retObj.RecordFilePath = req.RecordFilePath;
+                        retObj.Ipaddress = req.Ipaddress;
+                        retObj.Secret = req.Secret;
+                        retObj.WebApiPort = req.WebApiServerhttpPort;
                         if (req.MediaServerSystemInfo != null)
                         {
                             retObj.MediaServerSystemInfo = req.MediaServerSystemInfo;
