@@ -1619,7 +1619,7 @@ namespace GB28181.Servers.SIPMonitor
         /// <param name="ucommand">控制命令</param>
         /// <param name="dwStop">开始或结束</param>
         /// <param name="dwSpeed">速度</param>
-        public void PtzContrl(out string _callid, PTZCommand ucommand, int dwSpeed, bool needResult = false,
+        public void PtzContrl(out string _callid, PTZCommand ucommand, int dwStop, int dwSpeed, bool needResult = false,
             string channelId = "")
         {
             string fromTag = CallProperties.CreateNewTag();
@@ -1629,7 +1629,7 @@ namespace GB28181.Servers.SIPMonitor
             _callid = callId;
 
             SIPRequest ptzReq = PTZRequest(fromTag, toTag, cSeq, callId);
-            string cmdStr = GetPtzCmd(ucommand, dwSpeed);
+            string cmdStr = GetPtzCmd(ucommand, dwStop, dwSpeed);
 
             PTZControl ptz = new PTZControl()
             {
@@ -1678,9 +1678,10 @@ namespace GB28181.Servers.SIPMonitor
         /// 拼接ptz控制指令
         /// </summary>
         /// <param name="ucommand">控制命令</param>
+        /// <param name="dwStop">开始（1）或停止（0）</param>
         /// <param name="dwSpeed">速度</param>
         /// <returns></returns>
-        private string GetPtzCmd(PTZCommand ucommand, int dwSpeed)
+        private string GetPtzCmd(PTZCommand ucommand, int dwStop, int dwSpeed)
         {
             //10进制
             List<int> cmdList = new List<int>(8)
@@ -1689,120 +1690,130 @@ namespace GB28181.Servers.SIPMonitor
                 0x0F,
                 0x01
             };
-            switch (ucommand)
+            if (dwStop == 0)//停止云台控制
             {
-                case PTZCommand.Stop:
-                    cmdList.Add(00);
-                    cmdList.Add(00);
-                    cmdList.Add(00);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.Up:
-                    cmdList.Add(0x08);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.Down:
-                    cmdList.Add(0x04);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.Left:
-                    cmdList.Add(0x02);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.Right:
-                    cmdList.Add(0x01);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.UpRight:
-                    cmdList.Add(0x09);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.DownRight:
-                    cmdList.Add(0x05);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.UpLeft:
-                    cmdList.Add(0x0A);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.DownLeft:
-                    cmdList.Add(0x06);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.Zoom1: //镜头放大
-                    cmdList.Add(0x10);
-                    cmdList.Add(00);
-                    cmdList.Add(00);
-                    cmdList.Add(dwSpeed << 4);
-                    break;
-                case PTZCommand.Zoom2: //镜头缩小
-                    cmdList.Add(0x20);
-                    cmdList.Add(00);
-                    cmdList.Add(00);
-                    cmdList.Add(dwSpeed << 4);
-                    break;
-                case PTZCommand.Focus1: //聚焦+
-                    cmdList.Add(0x42);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.Focus2: //聚焦—
-                    cmdList.Add(0x41);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.Iris1: //光圈open
-                    cmdList.Add(0x44);
-                    cmdList.Add(00);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.Iris2: //光圈close
-                    cmdList.Add(0x48);
-                    cmdList.Add(00);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.SetPreset: //设置预置位
-                    cmdList.Add(0x81);
-                    cmdList.Add(00);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.GetPreset: //调用预置位
-                    cmdList.Add(0x82);
-                    cmdList.Add(00);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                case PTZCommand.RemovePreset: //删除预置位
-                    cmdList.Add(0x83);
-                    cmdList.Add(00);
-                    cmdList.Add(dwSpeed);
-                    cmdList.Add(00);
-                    break;
-                default:
-                    break;
+                cmdList.Add(00);
+                cmdList.Add(00);
+                cmdList.Add(00);
+                cmdList.Add(00);
+                cmdList.Add(0xB5);
             }
-
+            else
+            {
+                switch (ucommand)
+                {
+                    case PTZCommand.Stop:
+                        cmdList.Add(00);
+                        cmdList.Add(00);
+                        cmdList.Add(00);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.Up:
+                        cmdList.Add(0x08);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.Down:
+                        cmdList.Add(0x04);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.Left:
+                        cmdList.Add(0x02);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.Right:
+                        cmdList.Add(0x01);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.UpRight:
+                        cmdList.Add(0x09);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.DownRight:
+                        cmdList.Add(0x05);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.UpLeft:
+                        cmdList.Add(0x0A);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.DownLeft:
+                        cmdList.Add(0x06);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.Zoom1: //镜头放大
+                        cmdList.Add(0x10);
+                        cmdList.Add(00);
+                        cmdList.Add(00);
+                        cmdList.Add(dwSpeed << 4);
+                        break;
+                    case PTZCommand.Zoom2: //镜头缩小
+                        cmdList.Add(0x20);
+                        cmdList.Add(00);
+                        cmdList.Add(00);
+                        cmdList.Add(dwSpeed << 4);
+                        break;
+                    case PTZCommand.Focus1: //聚焦+
+                        cmdList.Add(0x42);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.Focus2: //聚焦—
+                        cmdList.Add(0x41);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.Iris1: //光圈open
+                        cmdList.Add(0x44);
+                        cmdList.Add(00);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.Iris2: //光圈close
+                        cmdList.Add(0x48);
+                        cmdList.Add(00);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.SetPreset: //设置预置位
+                        cmdList.Add(0x81);
+                        cmdList.Add(00);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.GetPreset: //调用预置位
+                        cmdList.Add(0x82);
+                        cmdList.Add(00);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    case PTZCommand.RemovePreset: //删除预置位
+                        cmdList.Add(0x83);
+                        cmdList.Add(00);
+                        cmdList.Add(dwSpeed);
+                        cmdList.Add(00);
+                        break;
+                    default:
+                        break;
+                }
+            }
             int checkBit = 0;
             foreach (int cmdItem in cmdList)
             {

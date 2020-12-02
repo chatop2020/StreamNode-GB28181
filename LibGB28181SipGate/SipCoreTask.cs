@@ -206,9 +206,10 @@ namespace LibGB28181SipGate
         /// 对sip设备进和ptz控制
         /// </summary>
         /// <param name="dir"></param>
+        /// <param name="dwStop"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
-        public bool PtzContorl(string dir, int speed, string channelId = "")
+        public bool PtzContorl(string dir, int dwStop, int speed, string channelId = "")
         {
             var monitor = _sipCoreHelper.SipMessageCore.NodeMonitorService.FirstOrDefault(x => x.Key.Equals(_deviceId));
             if (monitor.Value != null)
@@ -264,7 +265,7 @@ namespace LibGB28181SipGate
                         break;
                 }
 
-                obj.PtzContrl(out _callId, cmd, speed, true, channelId);
+                obj.PtzContrl(out _callId, cmd, dwStop, speed, true, channelId);
                 var timeout = _autoResetEvent.WaitOne(5000);
                 if (!timeout)
                 {

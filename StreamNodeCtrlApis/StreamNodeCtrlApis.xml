@@ -51,12 +51,13 @@
             <param name="rs"></param>
             <returns></returns>
         </member>
-        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.PtzControl(System.String,System.String,System.Int32,CommonFunctions.ManageStructs.ResponseStruct@,System.String)">
+        <member name="M:StreamNodeCtrlApis.SipGateApis.CommonApi.PtzControl(System.String,System.String,System.Int32,System.Int32,CommonFunctions.ManageStructs.ResponseStruct@,System.String)">
             <summary>
             ptz控制
             </summary>
             <param name="deviceid"></param>
             <param name="dir"></param>
+            <param name="dwStop">开始（1）或者停止（0）</param>
             <param name="speed"></param>
             <param name="rs"></param>
             <param name="channelId">当需要对多通道设备进行ptz控制时，在此传通道id(NVR对接时要用到)</param>

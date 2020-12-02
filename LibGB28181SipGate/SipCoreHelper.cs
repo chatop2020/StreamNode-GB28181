@@ -812,14 +812,14 @@ namespace LibGB28181SipGate
             return false;
         }
 
-        public bool ReqPtzControl(string devId, string dir, int speed, string channelId = "")
+        public bool ReqPtzControl(string devId, string dir, int dwStop, int speed, string channelId = "")
         {
             var dev = _sipDeviceList.FindLast(x => x.DeviceId.Equals(devId));
             if (dev != null)
             {
                 SipCoreTask gdlt = new SipCoreTask("", devId, this);
                 TaskList.Add(gdlt);
-                var ret = gdlt.PtzContorl(dir, speed, channelId);
+                var ret = gdlt.PtzContorl(dir, dwStop, speed, channelId);
                 if (ret)
                 {
                     Logger.Logger.Info("请求PTZ控制成功->" + gdlt.DeviceId + "->" + gdlt.CallId + "->" + dir + "->" + speed);
