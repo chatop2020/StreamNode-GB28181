@@ -208,7 +208,8 @@ namespace GB28181.Servers.SIPMessage
         /// <summary>
         /// 设备注册时
         /// </summary>
-        public event RegisterDelegate OnRegisterReceived;
+        public event RegisterDelegate OnRegisterReceived
+        ;
 
         /// <summary>
         /// 设备注销时
@@ -802,7 +803,7 @@ namespace GB28181.Servers.SIPMessage
         /// <param name="localEP">本地终结点</param>
         /// <param name="remoteEP">远程终结点</param>
         /// <param name="request">sip请求</param>
-        private void RegisterHandle(SIPEndPoint localEP, SIPEndPoint remoteEP, SIPRequest request)
+        private void  RegisterHandle(SIPEndPoint localEP, SIPEndPoint remoteEP, SIPRequest request)
         {
             OnSIPServiceChange(remoteEP.ToHost(), ServiceStatus.Complete); //为什么要先做一次服务状态修改？
             lock (_remoteTransEPs)

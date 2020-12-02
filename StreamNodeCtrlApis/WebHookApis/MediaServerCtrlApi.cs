@@ -790,7 +790,6 @@ namespace StreamNodeCtrlApis.WebHookApis
                     //为了防止MediaServer在其他地方被null掉，线程不同步情况下报错
                     return null;
                 }
-
                 MediaServerInstance msi = new MediaServerInstance(req.Ipaddress, req.WebApiServerhttpPort,
                     req.MediaServerHttpPort, req.Secret, req.MediaServerId, req.RecordFilePath,
                     req.MediaServerSystemInfo);
@@ -800,9 +799,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                 {
                     Common.MediaServerList.Add(msi);
                 }
-
                 MediaServerApis.RestartMediaServer(req.MediaServerId, out _); //首次注册时重启服务
-                //  MediaServerApis.GetConfig(req.MediaServerId, out _); //首次注册获取配置信息
                 return req;
             }
 

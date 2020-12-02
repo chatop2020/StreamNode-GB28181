@@ -336,7 +336,7 @@ namespace LibGB28181SipGate
         /// <returns></returns>
         private bool getHttpPortFromSystemConfig(out string httpPort)
         {
-            var dir = Environment.CurrentDirectory;
+            var dir = AppDomain.CurrentDomain.BaseDirectory + "/Config";
             if (File.Exists(dir + "/" + "system.conf"))
             {
                 List<string> tmp_sl = File.ReadAllLines(dir + "/" + "system.conf").ToList();
