@@ -798,7 +798,7 @@ namespace LibGB28181SipGate
                         }
                     }
 
-                    Logger.Logger.Info("请求实时视频成功->" + gdlt.DeviceId + "->" + gdlt.CallId);
+                    Logger.Logger.Info("请求终止实时视频成功->" + gdlt.DeviceId + "->" + gdlt.CallId);
                 }
                 else
                 {

@@ -113,13 +113,13 @@ namespace StreamNodeCtrlApis.SipGateApis
                 if (ret)
                 {
                     camera.MediaServerId = "";
-                    return result;
+                    return result ;
                 }
 
                 rs = new ResponseStruct()
                 {
-                    Code = ErrorNumber.SipRealVideoExcept,
-                    Message = ErrorMessage.ErrorDic![ErrorNumber.SipRealVideoExcept],
+                    Code = ErrorNumber.SipStopVideoExcept,
+                    Message = ErrorMessage.ErrorDic![ErrorNumber.SipStopVideoExcept],
                 };
                 return null;
             }
@@ -311,6 +311,14 @@ namespace StreamNodeCtrlApis.SipGateApis
                         return obj;
                     }
 
+                    try
+                    {
+                        ByeLiveVideo(mediaServerDeviceId, deviceId, cameraid, out rs); //确定推流失败时，再做一次停止推流的动作
+                    }
+                    catch
+                    {
+                        //
+                    }
                     rs = new ResponseStruct()
                     {
                         Code = ErrorNumber.SipRealVideoExcept,

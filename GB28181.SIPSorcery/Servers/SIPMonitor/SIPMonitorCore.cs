@@ -140,6 +140,8 @@ namespace GB28181.Servers.SIPMonitor
             sipRequest.Body = SetMediaReq(rtpServerIp, rtpServerPort, streamid.ToString(), tcp);
             _sipMsgCoreService.SendReliableRequest(RemoteEndPoint, sipRequest);
             _reqSession = sipRequest;
+            
+          
 
             if (needResult)
             {

@@ -11,6 +11,7 @@ namespace CommonFunctions
     {
         None = 0, //成功
         SipRealVideoExcept = -4000,
+        SipStopVideoExcept = -4011,
         SipDeviceOrCameraNotFound = -4001,
         SipPtzControlCmdUnsupported = -4002,
         SipPtzContorlExcept = -4003,
@@ -115,6 +116,8 @@ namespace CommonFunctions
             ErrorDic = new Dictionary<ErrorNumber, string>();
             ErrorDic[ErrorNumber.None] = "无错误";
             ErrorDic[ErrorNumber.SipRealVideoExcept] = "请求实时视频失败";
+            ErrorDic[ErrorNumber.SipStopVideoExcept] = "请求终止实时视频失败";
+            
             ErrorDic[ErrorNumber.SipDeviceOrCameraNotFound] = "Sip客户端设备或Sip摄像头不存在";
             ErrorDic[ErrorNumber.SipPtzControlCmdUnsupported] = "SipPtz控制命令不支持";
             ErrorDic[ErrorNumber.SipPtzContorlExcept] = "SipPtz控制失败";
