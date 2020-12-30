@@ -21,7 +21,6 @@ namespace StreamMediaServerKeeper
             {
                 foreach (var value in CutMergeTaskList.GetConsumingEnumerable())
                 {
-                    //  CutMergeTaskStatusList.Add(value);
                     var taskReturn = CutMerge(value);
                     if (taskReturn != null)
                     {

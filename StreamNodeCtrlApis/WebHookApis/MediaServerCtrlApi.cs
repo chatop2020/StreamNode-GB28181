@@ -76,6 +76,7 @@ namespace StreamNodeCtrlApis.WebHookApis
         private static bool getCameraSessionInfoEx(ref CameraSession session)
         {
             uint tmpStreamid = Convert.ToUInt32("0x" + session.StreamId, 16); //16进制返转成uint型
+            Logger.Logger.Debug("getCameraSessionInfoEx->tmpStreamid："+tmpStreamid+"  session.StreamId:"+session.StreamId );
             //先查一下在不在28181列表中
             var cameraEx = getCameraFromSipDevice(tmpStreamid, session.MediaServerId, session.App, session.Vhost);
             if (cameraEx != null)
@@ -98,6 +99,7 @@ namespace StreamNodeCtrlApis.WebHookApis
             }
             else //应该是直播流,鉴权还要完善
             {
+                Logger.Logger.Debug("没有找到Sip设备，此推流设备可能是直播设备->\r\n"+JsonHelper.ToJson(session));
                 session.CameraType = CameraType.LiveCast;
                 session.ClientType = ClientType.Livecast;
                 session.CameraEx = null;

@@ -537,7 +537,7 @@ namespace StreamMediaServerKeeper
             }
             catch (Exception ex)
             {
-                KillSelf(ex.Message);
+                KillSelf(ex.Message+"\r\n"+ex.StackTrace);
             }
 
             new Thread(new ThreadStart(delegate

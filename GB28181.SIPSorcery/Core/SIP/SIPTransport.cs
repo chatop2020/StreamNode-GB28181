@@ -1366,6 +1366,7 @@ namespace GB28181
                                         {
                                             SIPTransportResponseReceived?.Invoke(sipChannel.SIPChannelEndPoint,
                                                 remoteEndPoint, sipResponse);
+                                            Logger.Logger.Debug("===========>收到消息\r\n"+sipResponse.ToString());
                                         }
                                     }
                                     catch (SIPValidationException sipValidationException)

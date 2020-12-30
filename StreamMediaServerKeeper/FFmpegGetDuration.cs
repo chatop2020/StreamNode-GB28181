@@ -15,7 +15,6 @@ namespace StreamMediaServerKeeper
             {
                 ProcessHelper tmpProcessHelper = new ProcessHelper(null, null, null);
                 if (tmpProcessHelper.RunProcess(ffmpegBinPath, args, 60 * 1000 * 5, out string std, out string err))
-                    //     if (ProcessShell.Run(ffmpegCmd, 60 * 1000 * 5, out string std, out string err))
                 {
                     if (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err))
                     {
@@ -65,7 +64,6 @@ namespace StreamMediaServerKeeper
                 string args = " -i " + videoFilePath;
                 ProcessHelper tmpProcessHelper = new ProcessHelper(null, null, null);
                 if (tmpProcessHelper.RunProcess(ffmpegBinPath, args, 1000, out string std, out string err))
-                    //if (ProcessShell.Run(cmd, 1000, out string std, out string err))
                 {
                     if (!string.IsNullOrEmpty(std) || !string.IsNullOrEmpty(err))
                     {
@@ -99,14 +97,10 @@ namespace StreamMediaServerKeeper
                                 {
                                     sec = int.Parse(tmpArr[2]);
                                 }
-
                                 hour = hour * 3600; //换成秒数
                                 min = min * 60;
                                 sec = sec + hour + min; //合计秒数
                                 duartion = sec * 1000 + (msec * 10); //算成毫秒
-                                /*
-                                LogWriter.WriteLog("获取视频时长：" + duartion.ToString() + "毫秒", videoFilePath);
-                                */
                                 return true;
                             }
                         }

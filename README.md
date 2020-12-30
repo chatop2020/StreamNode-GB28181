@@ -7,6 +7,10 @@
 # Wiki已开通，具体使用说明请详细参考Wiki中的内容
 - https://github.com/chatop2020/StreamNode-GB28181/wiki/StreamNode-GB28181%E4%BB%8B%E7%BB%8D
 
+# 感谢热心网友（linshangqiang）维护的StreamNode-GB28181的接口使用手册
+- https://github.com/linshangqiang/AKStream-Readme
+
+
 # 采用StreamNode-GB28181接口管理平台实现的WEB管理平台展示（此平台不是StreamNode-GB28181的组件之一）
 - 视频广场
 ![QQ20201116-150115@2x.png](https://i.loli.net/2020/11/16/dho7kcjfrwp6Vmq.png)

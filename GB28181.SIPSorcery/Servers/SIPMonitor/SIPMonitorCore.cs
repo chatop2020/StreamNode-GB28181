@@ -118,14 +118,26 @@ namespace GB28181.Servers.SIPMonitor
             callid = callId;
             Logger.Logger.Debug("RealVideoReq: DeviceId=" + DeviceId);
             SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), "");
+            Logger.Logger.Debug(" SIPURI remoteUri = new SIPURI(DeviceId, RemoteEndPoint.ToHost(), \"\")\r\n"+
+                                "DeviceId:"+DeviceId+" RemoteEndPoint.ToHost():"+ RemoteEndPoint.ToHost());
 
 
             SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), "");
+            Logger.Logger.Debug("SIPURI localUri = new SIPURI(_sipMsgCoreService.LocalSIPId, _sipMsgCoreService.LocalEP.ToHost(), \"\")\r\n"+
+                                "_sipMsgCoreService.LocalSIPId:"+_sipMsgCoreService.LocalSIPId+" sipMsgCoreService.LocalEP.ToHost():"+ _sipMsgCoreService.LocalEP.ToHost());
             SIPFromHeader from = new SIPFromHeader(null, localUri, fromTag);
+            Logger.Logger.Debug("SIPFromHeader from = new SIPFromHeader(null, localUri, fromTag)\r\n"+
+                                "localUri:"+localUri+" fromTag:"+fromTag);
             SIPToHeader to = new SIPToHeader(null, remoteUri, null);
+            Logger.Logger.Debug("SIPToHeader to = new SIPToHeader(null, remoteUri, null)\r\n"+
+                                "remoteUri:"+remoteUri);
             SIPRequest sipRequest = _sipTransport.GetRequest(SIPMethodsEnum.INVITE, remoteUri);
-
+            Logger.Logger.Debug("SIPRequest sipRequest = _sipTransport.GetRequest(SIPMethodsEnum.INVITE, remoteUri)\r\n"+
+                                "SIPMethodsEnum.INVITE:"+SIPMethodsEnum.INVITE.ToString()+" remoteUri:"+remoteUri);
             var contactHeader = new SIPContactHeader(null, localUri);
+            Logger.Logger.Debug("var contactHeader = new SIPContactHeader(null, localUri)\r\n"+
+                                "localUri:"+localUri);
+
             sipRequest.Header.Contact.Clear();
             sipRequest.Header.Contact.Add(contactHeader);
 
@@ -136,9 +148,15 @@ namespace GB28181.Servers.SIPMonitor
             sipRequest.Header.CSeq = cSeq;
             sipRequest.Header.CallId = callId;
             sipRequest.Header.Subject = SetSubject();
+            Logger.Logger.Debug("sipRequest.Header.Subject = SetSubject()\r\n"+
+                                sipRequest.Header.Subject);
             sipRequest.Header.ContentType = SIPHeader.ContentTypes.Application_SDP;
             sipRequest.Body = SetMediaReq(rtpServerIp, rtpServerPort, streamid.ToString(), tcp);
+            Logger.Logger.Debug("SipRequest.body\r\n"+
+                                sipRequest.Body);
             _sipMsgCoreService.SendReliableRequest(RemoteEndPoint, sipRequest);
+            Logger.Logger.Debug("LastSipRequest\r\n"+
+                               sipRequest.ToString());
             _reqSession = sipRequest;
             
           
@@ -301,6 +319,8 @@ namespace GB28181.Servers.SIPMonitor
             {
                 _syncRequestContext.TryAdd(_reqSession.Header.CallId, byeReq);
             }
+            
+            Logger.Logger.Debug("请求停止invite->\r\n"+byeReq.ToString());
 
             _sipMsgCoreService.SendReliableRequest(RemoteEndPoint, byeReq);
         }
@@ -1649,6 +1669,7 @@ namespace GB28181.Servers.SIPMonitor
             }
 
 
+             Logger.Logger.Debug("---------->发送ptz控制\r\n"+ptzReq.ToString());
             _sipMsgCoreService.SendRequest(RemoteEndPoint, ptzReq);
         }
 

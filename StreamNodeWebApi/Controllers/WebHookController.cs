@@ -153,7 +153,7 @@ namespace StreamNodeWebApi.Controllers
                             .MediaServerId!.Equals(req.MediaServerId))
                     {
                         Common.PlayerSessions[i] = null!;
-                        break;
+                
                     }
                 }
 

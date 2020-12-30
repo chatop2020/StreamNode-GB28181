@@ -853,7 +853,7 @@ namespace GB28181.Servers.SIPMessage
             }
             catch (Exception ex)
             {
-                Logger.Logger.Error("CatalogHandle Exception. ->" + ex.Message);
+                Logger.Logger.Error("CatalogHandle Exception. ->" + ex.Message+"\r\n"+ex.StackTrace);
             }
         }
 
