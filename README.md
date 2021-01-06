@@ -9,7 +9,7 @@
 
 
 
-#  项目后续作品，重大升级 AKStream ------->     https://github.com/chatop2020/AKStream
+#  项目后续作品，重大升级，请支持新项目 AKStream (star一下哈) ------->     https://github.com/chatop2020/AKStream
 
 
 # Wiki已开通，具体使用说明请详细参考Wiki中的内容
