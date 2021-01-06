@@ -4,6 +4,14 @@
 - 支持跨平台特性，已测试操作系统有CentOS,Ubunut,Raspbain(ARM嵌入式树莓派操作系统)，Windows10,MacOS Big Sur等操作系统，均可正常使用。
 - 提供对ZLMediaKit的集群实现，提供不同服务器、不同操作系统下的ZLMediaKit能保持同一种操作方式与输出规范。
 
+
+
+
+
+
+#  项目后续作品，重大升级 AKStream ------->     https://github.com/chatop2020/AKStream
+
+
 # Wiki已开通，具体使用说明请详细参考Wiki中的内容
 - https://github.com/chatop2020/StreamNode-GB28181/wiki/StreamNode-GB28181%E4%BB%8B%E7%BB%8D
 

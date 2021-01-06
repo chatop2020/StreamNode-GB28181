@@ -137,7 +137,7 @@ namespace StreamNodeCtrlApis.WebHookApis
                     Code = -1,
                     EnableHls = false,
                     EnableMp4 = false,
-                    EnableRtxp = false,
+                   
                     Msg = "failed",
                 };
             }
@@ -203,7 +203,6 @@ namespace StreamNodeCtrlApis.WebHookApis
                         Code = -1,
                         EnableHls = false,
                         EnableMp4 = false,
-                        EnableRtxp = false,
                         Msg = "failed",
                     };
                 }
@@ -243,7 +242,6 @@ namespace StreamNodeCtrlApis.WebHookApis
                 Code = 0,
                 EnableHls = false,
                 EnableMp4 = false,
-                EnableRtxp = true,
                 Msg = "success",
             };
         }

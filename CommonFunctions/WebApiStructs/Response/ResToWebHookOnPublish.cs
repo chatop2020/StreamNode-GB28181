@@ -7,7 +7,7 @@ namespace CommonFunctions.WebApiStructs.Response
     {
         private bool? _enableHls;
         private bool? _enableMP4;
-        private bool? _enableRtxp;
+       // private bool? _enableRtxp;
         private string? _msg;
 
         public bool? EnableHls
@@ -22,11 +22,11 @@ namespace CommonFunctions.WebApiStructs.Response
             set => _enableMP4 = value;
         }
 
-        public bool? EnableRtxp
+        /*public bool? EnableRtxp
         {
             get => _enableRtxp;
             set => _enableRtxp = value;
-        }
+        }*/
 
         public string? Msg
         {
