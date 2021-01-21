@@ -1,4 +1,4 @@
-# StreamNode-GB28181(原StreamNode)说明
+# jack's StreamNode-GB28181(原StreamNode)说明
 ## 简介
 - 本项目是基于ZLMediaKit的流媒体控制管理接口平台，支持RTSP,GB28181的设备拉流与推流控制，GB28181部分支持PTZ控制。
 - 支持跨平台特性，已测试操作系统有CentOS,Ubunut,Raspbain(ARM嵌入式树莓派操作系统)，Windows10,MacOS Big Sur等操作系统，均可正常使用。
